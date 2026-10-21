@@ -2,6 +2,8 @@
 
 ## Confirmed by the user
 
+- 2026-10-21: mobile-first Expo / React Native selected. Full browser version remains optional for later.
+
 - The current 30 exercise animations are approved; revisions may follow later.
 - Preserve a versioned approved release before starting the app.
 - Create fitness-app and plan architecture now; implementation comes later.
@@ -12,7 +14,6 @@
 
 | Decision | Recommendation | When to revisit |
 |---|---|---|
-| Primary platform | Expo/React Native for iOS and Android | If browser access is a launch requirement |
 | Exercise visuals | Existing loops in a native video player | If interactive 3D becomes required |
 | Content delivery | Bundled initial library, versioned remote releases later | After on-device playback/offline prototype |
 | Data persistence | Local-first with a migration-friendly storage layer | Once accounts/sync requirements are known |
@@ -21,13 +22,11 @@
 
 ## Discussion order
 
-1. Is the launch primarily a mobile workout app, or must people use the full product
-   in a browser? Recommended starting point: mobile first.
-2. After screenshots arrive, identify the central job: exercise reference, guided
+1. After screenshots arrive, identify the central job: exercise reference, guided
    workouts, workout logging, or a combination. Rank launch requirements versus later ideas.
-3. Decide whether accounts/cross-device sync, offline workouts, paid access and user-
+2. Decide whether accounts/cross-device sync, offline workouts, paid access and user-
    created routines are needed at launch. These drive data and backend architecture.
-4. Agree navigation, core journeys and a small first release. Then choose libraries,
+3. Agree navigation, core journeys and a small first release. Then choose libraries,
    storage/backend and hosting based on those concrete requirements.
 
 ## Implementation sequence after approval

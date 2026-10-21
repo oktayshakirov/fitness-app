@@ -1,8 +1,10 @@
 # Architecture proposal
 
-Prepared 2026-10-21. This is a recommendation for discussion, not an approved build specification.
+Prepared 2026-10-21. Oktay selected mobile-first Expo / React Native on this date.
+This platform decision is confirmed; detailed implementation and feature scope
+remain proposals pending screenshots and requirements.
 
-## Recommendation
+## Chosen platform and proposed implementation
 
 Use Expo, React Native and TypeScript for an iOS/Android app. Use Expo Router for
 navigation and expo-video for the approved exercise loops. Pin compatible stable
