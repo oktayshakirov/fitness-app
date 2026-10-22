@@ -9,6 +9,10 @@
 - Create fitness-app and plan architecture now; implementation comes later.
 - User will supply screenshots and specific features before UI/product scope is fixed.
 - Prefer provider subdomains initially; a custom domain and full web version are undecided.
+- 2026-10-22: MVP scope and architecture agreed — see [MVP.md](MVP.md) (body-map home,
+  muscle lists + All, looping exercise screen with explanations, TikTok-style feed,
+  remote content updates without app releases, web export from the same Expo code,
+  Cloudflare Pages hosting). MVP.md wins where this file conflicts.
 
 ## Proposed, awaiting discussion
 
