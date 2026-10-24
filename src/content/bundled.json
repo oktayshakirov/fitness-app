@@ -1,0 +1,2219 @@
+{
+  "schemaVersion": 1,
+  "minAppSchema": 1,
+  "contentVersion": "v0.1.0",
+  "exercises": [
+    {
+      "id": "barbell_back_squat",
+      "name": "Barbell Back Squat",
+      "steps": [
+        "Set the rack hooks below shoulder height and safeties just below your intended depth.",
+        "Place the bar across the upper back, grip it securely and step clear.",
+        "Bend hips and knees to squat while keeping the bar balanced over the feet.",
+        "Stand tall, then return the bar to both hooks after the set."
+      ],
+      "cues": [
+        "Brace before each rep.",
+        "Keep knees tracking with toes and heels grounded."
+      ],
+      "mistakes": [
+        "Resting the bar on the neck.",
+        "Losing trunk position at the bottom."
+      ],
+      "breathing": "Inhale and brace before descending; exhale through the upward effort and reset at the top.",
+      "source": "free-exercise-db:Barbell_Squat",
+      "primary": ["quadriceps"],
+      "secondary": ["calves", "glutes", "hamstrings", "lower_back"],
+      "equipment": ["barbell", "power_rack"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "barbell_back_squat/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 77726,
+              "sha256": "db3c46e4bf99aef49f10494991794203d56f0dc27b8f0ea275b75429833b4918"
+            },
+            "poster": {
+              "path": "barbell_back_squat/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11394,
+              "sha256": "9820a4836cbc5c842c9c68a4dc81b81aaedef2b9f093cb29bce5302314151fc2"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "barbell_back_squat/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 65497,
+              "sha256": "28cf2d6609423d39baffd452e6d4ed1ffe9722c89076abeb764a3ab55ecc5da5"
+            },
+            "poster": {
+              "path": "barbell_back_squat/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10516,
+              "sha256": "88903caef676c5b9fe230d19353f1168a37040ff21f6b3b10a72446d8d501268"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "barbell_back_squat/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 45647,
+              "sha256": "fd362baf232c219a0e3b1e44b7042d6bab46ec84c4355613941cf573d730136f"
+            },
+            "poster": {
+              "path": "barbell_back_squat/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7968,
+              "sha256": "79596ab43085d1a621149484d2c3e1ad2cc1e0d748f3ef32616ba9045971cbff"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "barbell_bench_press",
+      "name": "Barbell Bench Press",
+      "steps": [
+        "Lie on a flat bench with feet planted and head, upper back and pelvis supported.",
+        "Grip the bar evenly, set the shoulder blades and unrack over the shoulders.",
+        "Lower to the lower chest with forearms near vertical.",
+        "Press up and slightly back to the starting position; rack securely after the set."
+      ],
+      "cues": [
+        "Keep wrists stacked over forearms.",
+        "Use rack safeties or an attentive spotter."
+      ],
+      "mistakes": [
+        "Bouncing the bar off the chest.",
+        "Lifting the pelvis off the pad."
+      ],
+      "breathing": "Inhale and brace as the bar lowers; exhale during the press.",
+      "source": "free-exercise-db:Barbell_Bench_Press_-_Medium_Grip",
+      "primary": ["chest"],
+      "secondary": ["shoulders", "triceps"],
+      "equipment": ["barbell", "bench", "power_rack"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "barbell_bench_press/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 40206,
+              "sha256": "b0d12ca658ccb487df03f5361ab0710a7eb43248837d3324ad6737bf4b6993e4"
+            },
+            "poster": {
+              "path": "barbell_bench_press/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9234,
+              "sha256": "7ab738c78adcfc21f3c839e5ae3e1be03a2f83825e0ca28e8a33c2d15b885f6f"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "barbell_bench_press/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 43849,
+              "sha256": "5d3f1db50262e6d3cd130d83a4588f5b284517ffc889273895490a79a3a8017a"
+            },
+            "poster": {
+              "path": "barbell_bench_press/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10468,
+              "sha256": "1d6421cb4343216d2f2745d89cdb3165f603519adb71001e7db21171198073af"
+            }
+          },
+          "foot": {
+            "video": {
+              "path": "barbell_bench_press/loop_foot.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 24938,
+              "sha256": "27ab5da5713e719df52a830c8a69ec49f7f01c583109edcf7071632702cb5b8f"
+            },
+            "poster": {
+              "path": "barbell_bench_press/poster_foot.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6236,
+              "sha256": "8d8de3b1b1e007869c2a8b0343a4de9eb8cbd921d8ef8e795542b15936ea8f40"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "barbell_bent_over_row",
+      "name": "Barbell Bent-over Row",
+      "steps": [
+        "Hold the bar overhand and hinge at the hips with knees softly bent.",
+        "Maintain a steady trunk angle and let the bar hang below the shoulders.",
+        "Pull the bar toward the lower ribs.",
+        "Lower to straight arms without changing the trunk position."
+      ],
+      "cues": ["Drive elbows back.", "Keep the neck aligned with the back."],
+      "mistakes": [
+        "Standing up to lift each rep.",
+        "Rounding the lower back under load."
+      ],
+      "breathing": "Exhale while rowing; inhale on the return while maintaining the brace.",
+      "source": "free-exercise-db:Bent_Over_Barbell_Row",
+      "primary": ["middle_back"],
+      "secondary": ["biceps", "lats", "shoulders"],
+      "equipment": ["barbell"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "barbell_bent_over_row/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 78237,
+              "sha256": "b2185b002235e125af43e656c283982f65bc6283dfcf2d53c07017a9eef035cc"
+            },
+            "poster": {
+              "path": "barbell_bent_over_row/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 13216,
+              "sha256": "c4a883bf4489782d9a56ad772f0582acb9068d749bea71d22c8b6164bdf93b3b"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "barbell_bent_over_row/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 48461,
+              "sha256": "7141d06360df02ae4d4c6e67fb24b97d2f5d5bd9e79495aabcee2d47e1726c08"
+            },
+            "poster": {
+              "path": "barbell_bent_over_row/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9218,
+              "sha256": "d9c5881d2b07f4027155ed83450eb361a40439fbe6a39a73b323a8f589a5106b"
+            }
+          },
+          "back": {
+            "video": {
+              "path": "barbell_bent_over_row/loop_back.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 46010,
+              "sha256": "35231a2de561813e236223dff97caccf65b27fe4c985f08520504ae93b9b940c"
+            },
+            "poster": {
+              "path": "barbell_bent_over_row/poster_back.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9192,
+              "sha256": "28de236fa79f2074822bf06a1069e2e9303160c9c80450622f8791cf5c7df99e"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "barbell_deadlift",
+      "name": "Barbell Deadlift",
+      "steps": [
+        "Stand with the bar over midfoot and feet about hip width.",
+        "Hinge and bend the knees to grip just outside the legs; brace with the bar close to the shins.",
+        "Push the floor away and extend hips and knees together.",
+        "Stand tall, then hinge and bend the knees to lower the bar to the floor."
+      ],
+      "cues": [
+        "Keep the bar close to the legs.",
+        "Take tension through the arms before lifting."
+      ],
+      "mistakes": [
+        "Jerking the bar from the floor.",
+        "Leaning backward at lockout."
+      ],
+      "breathing": "Inhale and brace before lifting; exhale near the top and reset before the next rep.",
+      "source": "free-exercise-db:Barbell_Deadlift",
+      "primary": ["lower_back"],
+      "secondary": [
+        "calves",
+        "forearms",
+        "glutes",
+        "hamstrings",
+        "lats",
+        "middle_back",
+        "quadriceps",
+        "traps"
+      ],
+      "equipment": ["barbell"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "barbell_deadlift/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 98248,
+              "sha256": "0eb4dbca665fd02c412111884cb44089fc7cb44102a2ce2d50acfe1fe24ec906"
+            },
+            "poster": {
+              "path": "barbell_deadlift/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 12222,
+              "sha256": "c5eed4dc82cc27341c7cefd24ba3fb30bf03e5d006dac5405e483d88a9f8853b"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "barbell_deadlift/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 70570,
+              "sha256": "c9163590c295edacf35afc67044cf7566688285019f8d32ec2f13a9e876eab3c"
+            },
+            "poster": {
+              "path": "barbell_deadlift/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10242,
+              "sha256": "0f5e21ebc6e1d2f6c17a8daeb053c80d111ea26e5724eae81c85915b44819772"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "barbell_deadlift/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 47814,
+              "sha256": "7294c8cb3468a01cad104c9e0b5c197c0bb68b9e3f2df974dab07e22c9400f5c"
+            },
+            "poster": {
+              "path": "barbell_deadlift/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7740,
+              "sha256": "cf3e9a9a2a48493c290187b9ec9eef276d26cc34679e97c146cd546245def9b2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "barbell_overhead_press",
+      "name": "Barbell Overhead Press",
+      "steps": [
+        "Stand with the bar at the upper chest, hands just outside shoulder width.",
+        "Brace the abdomen and move the head back slightly to clear the bar.",
+        "Press overhead, then bring the head naturally between the arms.",
+        "Lower the bar under control to the upper chest."
+      ],
+      "cues": [
+        "Keep the bar close to the face as it passes.",
+        "Finish with ribs over pelvis."
+      ],
+      "mistakes": [
+        "Excessively arching the lower back.",
+        "Using knee drive in a strict press."
+      ],
+      "breathing": "Inhale and brace before the press; exhale as you finish overhead.",
+      "source": "free-exercise-db:Standing_Military_Press",
+      "primary": ["shoulders"],
+      "secondary": ["triceps"],
+      "equipment": ["barbell", "power_rack"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "barbell_overhead_press/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 44389,
+              "sha256": "6f7269d6509505ece5aabda3eaadb660c35fbdd70fdff8e3f3ff2144d819a863"
+            },
+            "poster": {
+              "path": "barbell_overhead_press/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6612,
+              "sha256": "e40e5eb9192fe6de85c8935f41191233ef218a7613532a788a55359ae253b07c"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "barbell_overhead_press/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 61387,
+              "sha256": "117190db9df72d9db4be66e7e096563d3e0e9bc95ecd43cedf24fd10bee04215"
+            },
+            "poster": {
+              "path": "barbell_overhead_press/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9096,
+              "sha256": "204d3064c5d083debfe52231679c66462e1a28dfef36f77a56c1da6808a4240a"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "barbell_overhead_press/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 41511,
+              "sha256": "c4a65fb6429f0c7fb1325ac089d64bd91a1a3aeed23465625a4c7e18a46e97b7"
+            },
+            "poster": {
+              "path": "barbell_overhead_press/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6906,
+              "sha256": "1b6f74464c68ca861a2738e8f7134a015bac3634118326b987993a27a325b17f"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "bodyweight_squat",
+      "name": "Bodyweight Squat",
+      "steps": [
+        "Stand with feet about shoulder width and toes turned out slightly.",
+        "Bend hips and knees together, keeping the whole foot grounded.",
+        "Lower as far as you can control without rounding the lower back.",
+        "Push the floor away and stand tall."
+      ],
+      "cues": [
+        "Keep knees tracking in the direction of the toes.",
+        "Keep pressure through heel, big toe and little toe."
+      ],
+      "mistakes": [
+        "Letting knees collapse inward.",
+        "Lifting the heels or dropping into the bottom."
+      ],
+      "breathing": "Inhale as you lower; exhale as you stand.",
+      "source": "free-exercise-db:Bodyweight_Squat",
+      "primary": ["quadriceps"],
+      "secondary": ["glutes", "hamstrings"],
+      "equipment": [],
+      "media": {
+        "male": {
+          "front": {
+            "video": {
+              "path": "bodyweight_squat/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 65788,
+              "sha256": "b3e3cfaa0f7051c649e3fd0609229761f7a9a0d8971e6f204f12dce25bfaaa04"
+            },
+            "poster": {
+              "path": "bodyweight_squat/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10256,
+              "sha256": "7123e29c17b8865d2228ff2b84506baa1b5abb3475978ddccbf10f265822c676"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "bodyweight_squat/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 55949,
+              "sha256": "7010d18cddc6d9d1da995af7d2ce439746f3045432097631bd4425ba53f0dd29"
+            },
+            "poster": {
+              "path": "bodyweight_squat/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6836,
+              "sha256": "f90140d503843304bd89195d17155518d5f7e1884e0865d3654aeb2992643000"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "bodyweight_squat/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 79875,
+              "sha256": "ce081a135e1e9cefa0902cb7504cdc5c04b3590dc60e0ddeea70bfccb39d5dc9"
+            },
+            "poster": {
+              "path": "bodyweight_squat/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10226,
+              "sha256": "b01432a22d08478919956a5b5b7a207db22325f147ece808affb5a383acf4fdf"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "cable_crossover",
+      "name": "Cable Crossover",
+      "steps": [
+        "Hold a handle from each high pulley and stand between the towers in a stable split stance.",
+        "Lean slightly forward with elbows softly bent.",
+        "Bring hands down and together in front of the chest.",
+        "Open the arms under control without forcing the shoulders far behind the torso."
+      ],
+      "cues": [
+        "Maintain the elbow bend.",
+        "Keep the torso still as the arms sweep."
+      ],
+      "mistakes": [
+        "Turning the fly into a press.",
+        "Reaching too far backward under tension."
+      ],
+      "breathing": "Exhale as the hands come together; inhale as the arms open.",
+      "source": "free-exercise-db:Cable_Crossover",
+      "primary": ["chest"],
+      "secondary": ["shoulders"],
+      "equipment": ["dual_cable", "d_handle"],
+      "media": {
+        "male": {
+          "front": {
+            "video": {
+              "path": "cable_crossover/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 50895,
+              "sha256": "90d62599b99e7caf31799af5e122f5697fca2f7076138613dd09003d8abb778b"
+            },
+            "poster": {
+              "path": "cable_crossover/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11328,
+              "sha256": "e90dea66de680369a51ac56406da74bf093c843d26ba784251726adc16a6fbc8"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "cable_crossover/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 37817,
+              "sha256": "5bfae86e855284ab3b0e9dee4a93fae16dab131d2450b92aefad277eea6cb2c9"
+            },
+            "poster": {
+              "path": "cable_crossover/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7794,
+              "sha256": "f9ded3223fb309ab874a2f27162b166e279d200369636e2c66a87255877c4e33"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "cable_crossover/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 54655,
+              "sha256": "40e5e5aca11641aca562bb1ef0c8706084af3e49ee979f361554a3bd82f44b6a"
+            },
+            "poster": {
+              "path": "cable_crossover/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 12304,
+              "sha256": "bec8593ad5c3d7e6c73ea06376b837e1fdc94f435c3e799083b9f488f96c3a8d"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "crunch",
+      "name": "Crunch",
+      "steps": [
+        "Lie on your back with knees bent and feet on the floor.",
+        "Rest hands lightly beside the head or across the chest.",
+        "Curl the ribs toward the pelvis until the shoulder blades lift.",
+        "Lower slowly without pulling on the neck."
+      ],
+      "cues": [
+        "Keep a small space between chin and chest.",
+        "Use a short, controlled curl."
+      ],
+      "mistakes": [
+        "Pulling the head forward with the hands.",
+        "Using momentum to sit all the way up."
+      ],
+      "breathing": "Exhale while curling up; inhale while lowering.",
+      "source": "free-exercise-db:Crunches",
+      "primary": ["abs"],
+      "secondary": [],
+      "equipment": ["mat"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "crunch/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 25010,
+              "sha256": "766efb28a5ad965ad0dcaf0d67406da10168a0181456c05ce204b5434bb8d896"
+            },
+            "poster": {
+              "path": "crunch/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6062,
+              "sha256": "7ed900579bfc70701e2b62c6b7a7e49a69d0d94ff78774d82839e40e7d19bcb8"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "crunch/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 32232,
+              "sha256": "fc91fd3c21585f458906b95147d6513a1ac595a61ac687b6254588cb6a6f59df"
+            },
+            "poster": {
+              "path": "crunch/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7700,
+              "sha256": "04d1840d339d4ccb482e7af89996eece444c2617f5590b0aec1f558d55b833cf"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "crunch/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 50480,
+              "sha256": "45d877c473eec0037094ad23e4c376dbcbad1dad2bf05618700fe47ec51db07b"
+            },
+            "poster": {
+              "path": "crunch/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8922,
+              "sha256": "806590205760a644e2a052a7fec445f3b89b791cc041bfa12d48017155aa073e"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "dips",
+      "name": "Parallel-bar Dip",
+      "steps": [
+        "Support yourself on parallel bars with straight arms.",
+        "Bend elbows and lower slowly with a mostly upright torso.",
+        "Stop at a depth you can control comfortably, around upper arms parallel to the floor.",
+        "Press through the bars to return to support."
+      ],
+      "cues": ["Keep the shoulders controlled.", "Keep elbows tracking back."],
+      "mistakes": [
+        "Dropping abruptly into the bottom.",
+        "Shrugging or forcing excessive shoulder depth."
+      ],
+      "breathing": "Inhale while lowering; exhale while pressing up.",
+      "source": "free-exercise-db:Dips_-_Triceps_Version",
+      "primary": ["triceps"],
+      "secondary": ["chest", "shoulders"],
+      "equipment": ["dip_station"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "dips/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 30561,
+              "sha256": "f504cdbdd2e04d9f483f5f1fabe7f1e3de8c1929754962ad11ff44415b19b740"
+            },
+            "poster": {
+              "path": "dips/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 5796,
+              "sha256": "da95a97d0a347fbfad5736f7f1694adb6987da7612e0a568c21ffd0267bc5a91"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "dips/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 37116,
+              "sha256": "2f659ef1dda46b8880e1403ca8d44449dcda9454557811a95005b796af32a8cc"
+            },
+            "poster": {
+              "path": "dips/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7850,
+              "sha256": "5bb0178b4fee31e680d8ee51eb38c68ee45743d7a0c71380a97a7edee80c9fcc"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "dips/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 32073,
+              "sha256": "f2be41ee739a58049f7a557bb174bcaec02c76c6852ab2a5122a831fdc6f8768"
+            },
+            "poster": {
+              "path": "dips/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7552,
+              "sha256": "8f44685b77a35e966e4922176cf4a497308cf48cb182a9dfd00c26f098291c76"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "dumbbell_curl",
+      "name": "Dumbbell Curl",
+      "steps": [
+        "Stand tall holding dumbbells beside the thighs, palms forward.",
+        "Keep upper arms near the ribs and curl the weights toward the shoulders.",
+        "Pause without moving elbows forward.",
+        "Lower until the elbows are nearly straight."
+      ],
+      "cues": ["Keep wrists in line with forearms.", "Keep the torso still."],
+      "mistakes": [
+        "Swinging the weights with the hips.",
+        "Bending wrists back at the top."
+      ],
+      "breathing": "Exhale as you curl; inhale as you lower.",
+      "source": "free-exercise-db:Dumbbell_Bicep_Curl",
+      "primary": ["biceps"],
+      "secondary": ["forearms"],
+      "equipment": ["dumbbell"],
+      "media": {
+        "male": {
+          "front": {
+            "video": {
+              "path": "dumbbell_curl/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 63833,
+              "sha256": "8fbe7d67d1f2e608e79c0cab2807496ad7f91fa748639081c082746a9bc657fd"
+            },
+            "poster": {
+              "path": "dumbbell_curl/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10258,
+              "sha256": "8e065aeebe05f27899f1309414a9184e22ad03b4d417184aa4f5092706ad4b21"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "dumbbell_curl/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 38421,
+              "sha256": "9d53593313f8137694e52e488ae792f8b6f337e539850156768da73516033ada"
+            },
+            "poster": {
+              "path": "dumbbell_curl/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6384,
+              "sha256": "f678f80f7256f8ccc580164fee7d169e61cbb01528004d4830bf43cc813388df"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "dumbbell_romanian_deadlift",
+      "name": "Dumbbell Romanian Deadlift",
+      "steps": [
+        "Stand with dumbbells in front of the thighs and knees slightly bent.",
+        "Push hips back, allowing the weights to travel close to the legs.",
+        "Stop when the hamstrings limit further hinging without rounding the back.",
+        "Drive the hips forward to return to standing."
+      ],
+      "cues": [
+        "Keep the knee bend small and fairly constant.",
+        "Keep neck and back aligned."
+      ],
+      "mistakes": [
+        "Turning the hinge into a squat.",
+        "Lowering farther by rounding the lower back."
+      ],
+      "breathing": "Inhale and brace before lowering; exhale as you stand.",
+      "source": "free-exercise-db:Romanian_Deadlift",
+      "primary": ["hamstrings"],
+      "secondary": ["calves", "glutes", "lower_back"],
+      "equipment": ["dumbbell"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "dumbbell_romanian_deadlift/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 46963,
+              "sha256": "a10315d1bedb0618b67f3aafb1a251aced079c11b6988878a813900381989f93"
+            },
+            "poster": {
+              "path": "dumbbell_romanian_deadlift/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6928,
+              "sha256": "1d0771cb0465513d1206c891b22c973a81061b521f0a5f8d3c886ec2e8d7d263"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "dumbbell_romanian_deadlift/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 68858,
+              "sha256": "7035d953c418ad3a54a7ca35b7d7719e9d0b526b3243d5113492a65c40d5f258"
+            },
+            "poster": {
+              "path": "dumbbell_romanian_deadlift/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9844,
+              "sha256": "384b3fe584317e54a1553757f3845eb932616c0af080e4251a9acce1f2f32520"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "dumbbell_romanian_deadlift/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 53494,
+              "sha256": "ffac2b60274a9fb2405dbf1118ad3788e2e9554ffd17a04c89b44ccb0573aa3d"
+            },
+            "poster": {
+              "path": "dumbbell_romanian_deadlift/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9256,
+              "sha256": "cb2c06072cb1e48202e53f3e0300197f9658148356c928595bbfd8228e836d6d"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "dumbbell_shoulder_press",
+      "name": "Standing Dumbbell Shoulder Press",
+      "steps": [
+        "Stand with feet stable and dumbbells at shoulder height.",
+        "Brace the abdomen and press the weights overhead.",
+        "Finish with arms extended and ribs stacked above the pelvis.",
+        "Lower under control to shoulder height."
+      ],
+      "cues": [
+        "Keep wrists above elbows.",
+        "Let the shoulder blades rotate upward."
+      ],
+      "mistakes": [
+        "Leaning back to turn the movement into an incline press.",
+        "Banging the dumbbells together."
+      ],
+      "breathing": "Exhale as you press; inhale as you lower.",
+      "source": "free-exercise-db:Dumbbell_Shoulder_Press",
+      "primary": ["shoulders"],
+      "secondary": ["triceps"],
+      "equipment": ["dumbbell"],
+      "media": {
+        "male": {
+          "threeq": {
+            "video": {
+              "path": "dumbbell_shoulder_press/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 40715,
+              "sha256": "53e0c65b3257f80b8e485dd43d65fe693fa21cfda08a43514224a3aa272215b3"
+            },
+            "poster": {
+              "path": "dumbbell_shoulder_press/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7750,
+              "sha256": "93bd5080e05fdcc40da96c0bd38ae74b4057523f2e65ab249528baec747a932f"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "dumbbell_shoulder_press/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 20678,
+              "sha256": "b9e34945f009b9525ab06dd7b469a05182bf278e749d1510870d93386cfb938c"
+            },
+            "poster": {
+              "path": "dumbbell_shoulder_press/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 5078,
+              "sha256": "ba751199ec0d10d5907ea187cf6afe236009fac393d68d43d42ebcc20d5a626b"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "dumbbell_shoulder_press/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 37797,
+              "sha256": "da84839130fa56c713a52b55a388633c3634757f584c0355eac1f912801fbf53"
+            },
+            "poster": {
+              "path": "dumbbell_shoulder_press/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7422,
+              "sha256": "fd0724b6946097332197c2f103200f8055e1a6b400250bbec1671e65749715d4"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "face_pull",
+      "name": "Rope Face Pull",
+      "steps": [
+        "Set a rope attachment around face height and step back until the cable is taut.",
+        "Pull toward the forehead while separating the hands beside the face.",
+        "Keep elbows high enough to guide the pull without shrugging.",
+        "Return to extended arms with control."
+      ],
+      "cues": [
+        "Keep ribs down and neck relaxed.",
+        "Let the shoulder blades move."
+      ],
+      "mistakes": [
+        "Leaning back to finish the pull.",
+        "Pulling down toward the chest."
+      ],
+      "breathing": "Exhale on the pull; inhale on the return.",
+      "source": "free-exercise-db:Face_Pull",
+      "primary": ["shoulders"],
+      "secondary": ["middle_back"],
+      "equipment": ["cable_tower", "rope"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "face_pull/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 34694,
+              "sha256": "f854048a2d90b1587a0795a83dafdaf75c47bc01ccf63e564a548d04081f3be5"
+            },
+            "poster": {
+              "path": "face_pull/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7878,
+              "sha256": "d29f6c44d05d1327ec062c860032d0bf1d341cc761392e5b79eb34663af2cdbb"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "face_pull/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 44537,
+              "sha256": "7ff3854aa5e643ca9cdfc7fc49809307257d003d143489b1dada4501baedfcf1"
+            },
+            "poster": {
+              "path": "face_pull/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10494,
+              "sha256": "ab9ea44f64997742c1bd90b53e0db9329820aa9c494efe85fc0443043e6c3505"
+            }
+          },
+          "back": {
+            "video": {
+              "path": "face_pull/loop_back.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 41803,
+              "sha256": "f5cef22cf9ce7064ef30e528a8df1413e78af05ac4e1df58a02e9d2755cc4a98"
+            },
+            "poster": {
+              "path": "face_pull/poster_back.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9546,
+              "sha256": "a7eb1293ce89b02d538888ffc6875197efc3ebd43674c798980427fa0a78daa3"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "glute_bridge",
+      "name": "Glute Bridge",
+      "steps": [
+        "Lie on your back with knees bent and feet about hip width.",
+        "Keep the ribs down and press through both feet.",
+        "Lift the pelvis until hips line up with shoulders and knees.",
+        "Pause, then lower the pelvis with control."
+      ],
+      "cues": [
+        "Squeeze the glutes at the top.",
+        "Keep both sides of the pelvis level."
+      ],
+      "mistakes": [
+        "Arching the lower back to gain height.",
+        "Pushing mainly through the toes."
+      ],
+      "breathing": "Exhale as you lift; inhale as you lower.",
+      "source": "free-exercise-db:Butt_Lift_Bridge",
+      "primary": ["glutes"],
+      "secondary": ["hamstrings"],
+      "equipment": ["mat"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "glute_bridge/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 32418,
+              "sha256": "b53a37d5579b2a258cc4515502239798fa71c0fceb56b176ec0c5b070cf8472e"
+            },
+            "poster": {
+              "path": "glute_bridge/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6638,
+              "sha256": "89314269c0b9639943eef936ff58629cb4e4d55205040f64be9b13b8682b399d"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "glute_bridge/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 48033,
+              "sha256": "749915c79a357d2a0a66c5ec2d2e06c5637ee04aa6f1d01f0c5e77c681766292"
+            },
+            "poster": {
+              "path": "glute_bridge/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9408,
+              "sha256": "7538f35df78ffd8719caa6114824e822349f315828bbb881e37f5df924f0d8c1"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "glute_bridge/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 67585,
+              "sha256": "a3f109252444177ce92db9ddac7585cfbde330e15e3303ee731731d1b299c7c7"
+            },
+            "poster": {
+              "path": "glute_bridge/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 12342,
+              "sha256": "01acddab29a7f7ef2f7147a42fd3ed91e14ea9009069aae7e0b803a1ec1c10aa"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "goblet_squat",
+      "name": "Dumbbell Goblet Squat",
+      "steps": [
+        "Hold one dumbbell vertically against the upper chest with both hands under its upper head.",
+        "Stand with feet about shoulder width and toes slightly out.",
+        "Sit down between the hips while keeping the weight close.",
+        "Push through the whole foot to stand."
+      ],
+      "cues": [
+        "Keep knees tracking over toes.",
+        "Keep the dumbbell close to the chest."
+      ],
+      "mistakes": [
+        "Holding the weight away from the body.",
+        "Letting heels lift at the bottom."
+      ],
+      "breathing": "Inhale while lowering; exhale while standing.",
+      "source": "free-exercise-db:Goblet_Squat",
+      "primary": ["quadriceps"],
+      "secondary": ["calves", "glutes", "hamstrings", "shoulders"],
+      "equipment": ["dumbbell"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "goblet_squat/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 53303,
+              "sha256": "8419aa9701811dc74a42949c397b91c196e07553b2b3cfe3e54bd607ee863da9"
+            },
+            "poster": {
+              "path": "goblet_squat/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7474,
+              "sha256": "49d5a0935085a64b484ccfd6753c4b1bdb531f908317e4a01f946af058a117be"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "goblet_squat/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 73690,
+              "sha256": "87377e8f63fc92a993a67ef7030ecb0a1a67d49e043c86b55cd4433cf0f3a973"
+            },
+            "poster": {
+              "path": "goblet_squat/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10610,
+              "sha256": "aa69d032c8fdee547c3b3e47a9591def1d9b321e2fbe3f76f5ec5a5d0f1cd6b2"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "goblet_squat/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 72606,
+              "sha256": "c77dd14fc82ee32bb5e88c0cc0048bb96334e680776c60bed7be08adb4a9ead4"
+            },
+            "poster": {
+              "path": "goblet_squat/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10628,
+              "sha256": "621a8e29e84d165c04caf14ba10c71acfceade2987fe5e12322336b271d21948"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "hammer_curl",
+      "name": "Hammer Curl",
+      "steps": [
+        "Stand holding dumbbells with palms facing each other.",
+        "Keep elbows close to the sides and curl the weights.",
+        "Maintain the neutral grip at the top.",
+        "Lower slowly to the starting position."
+      ],
+      "cues": ["Keep thumbs pointing up.", "Keep shoulders quiet."],
+      "mistakes": [
+        "Twisting the palms upward mid-rep.",
+        "Rocking backward to lift the weights."
+      ],
+      "breathing": "Exhale on the curl; inhale on the lowering phase.",
+      "source": "free-exercise-db:Hammer_Curls",
+      "primary": ["biceps"],
+      "secondary": [],
+      "equipment": ["dumbbell"],
+      "media": {
+        "male": {
+          "front": {
+            "video": {
+              "path": "hammer_curl/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 63083,
+              "sha256": "b654f536f7f9f9c5679925dc854bea5fd980f5d65d2449b685cb8810e62b5730"
+            },
+            "poster": {
+              "path": "hammer_curl/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9482,
+              "sha256": "0be849f576343c101937d2362042203711e550ade8e2286fba397a55d420853c"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "hammer_curl/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 38013,
+              "sha256": "e6abc535758e256890742a326ee79ce957c3c0ff93750c6a0bf24ee4465bd94c"
+            },
+            "poster": {
+              "path": "hammer_curl/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6106,
+              "sha256": "b9cbc9bcaf05f6acff72b6027f7be31a075b8203ca4e3101093954b7521c9f2f"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "kettlebell_swing",
+      "name": "Two-hand Kettlebell Swing",
+      "steps": [
+        "Stand behind the kettlebell with feet wider than hip width, hinge and grip with both hands.",
+        "Hike the bell back high between the thighs.",
+        "Drive the hips forward to let the bell float to about chest height with relaxed arms.",
+        "Wait for the bell to return, then hinge again; park it under control to finish."
+      ],
+      "cues": [
+        "Use a hip hinge with soft knees.",
+        "Finish tall without leaning backward."
+      ],
+      "mistakes": [
+        "Lifting the bell with the shoulders.",
+        "Squatting deeply or hinging too early on the return."
+      ],
+      "breathing": "Exhale sharply as the hips extend; inhale as the bell swings back.",
+      "source": "free-exercise-db:One-Arm_Kettlebell_Swings",
+      "primary": ["hamstrings"],
+      "secondary": ["calves", "glutes", "lower_back", "shoulders"],
+      "equipment": ["kettlebell"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "kettlebell_swing/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 43570,
+              "sha256": "7be940a78d284ff613025d91e124a79160248a04d080aead7d7e3448a192392d"
+            },
+            "poster": {
+              "path": "kettlebell_swing/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8150,
+              "sha256": "d45b4c3bd5d5820f4ac891e6092e896956d8ff3bfd47028cfbc333a42db4b499"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "kettlebell_swing/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 55281,
+              "sha256": "5bf87c2ea0d08290a62f67393347fedd2d8ba410c2832bdaf6b4009d289da7af"
+            },
+            "poster": {
+              "path": "kettlebell_swing/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9748,
+              "sha256": "72e6ba436398a1bdeac6ff417eb7ec97d25d21733549ed473c39ae62b5c9a7a5"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "kettlebell_swing/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 45343,
+              "sha256": "4d04988784ba3fa9ab477fa6b659b16e3fa244d7bd3caa0bff58fbc8a59345ed"
+            },
+            "poster": {
+              "path": "kettlebell_swing/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9242,
+              "sha256": "b7d2ae41748c7620b85fbf99dd7cfe58f9c88b6560e6c2a39c5e0484fdd2b2da"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "lat_pulldown",
+      "name": "Lat Pulldown",
+      "steps": [
+        "Sit with thighs held under the pad and grip the overhead bar wider than shoulder width.",
+        "Keep the chest tall with a small backward lean.",
+        "Pull the bar toward the upper chest by driving elbows down.",
+        "Let the arms extend overhead under control."
+      ],
+      "cues": ["Pull in front of the head.", "Keep the torso angle steady."],
+      "mistakes": [
+        "Pulling behind the neck.",
+        "Rocking backward or yanking the stack."
+      ],
+      "breathing": "Exhale while pulling down; inhale on the return.",
+      "source": "free-exercise-db:Wide-Grip_Lat_Pulldown",
+      "primary": ["lats"],
+      "secondary": ["biceps", "middle_back", "shoulders"],
+      "equipment": ["lat_pulldown", "lat_bar"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "lat_pulldown/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 31540,
+              "sha256": "50f87ce806757176bc3b9ea447363ca3c19ed052e046fc31c6eae350e56d647e"
+            },
+            "poster": {
+              "path": "lat_pulldown/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8286,
+              "sha256": "215589ca3566f65849e17dbedddcd7595d821dd83358a6ff3481decdd108da23"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "lat_pulldown/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 49080,
+              "sha256": "14551155a2d317ed78d9416c386cdbc2bc9e47c849f0f19dff9ea43100e92fea"
+            },
+            "poster": {
+              "path": "lat_pulldown/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11268,
+              "sha256": "99d81aed96209d8d2844f4b4d09f652c21c11d998a3b7b002fb0181a944d5677"
+            }
+          },
+          "back": {
+            "video": {
+              "path": "lat_pulldown/loop_back.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 45342,
+              "sha256": "a854b75d134cbb46c711302a79f499a5574dd3e3b8f6ad507551b1a181776d32"
+            },
+            "poster": {
+              "path": "lat_pulldown/poster_back.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9952,
+              "sha256": "56e029bac134fb6b1fadcaff4028e850c93d86d5166e2f91516ea9f5426df1c4"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "lateral_raise",
+      "name": "Dumbbell Lateral Raise",
+      "steps": [
+        "Stand holding dumbbells beside the thighs with elbows slightly bent.",
+        "Raise the arms out and a little forward to about shoulder height.",
+        "Pause without shrugging.",
+        "Lower slowly along the same path."
+      ],
+      "cues": [
+        "Lead with the upper arms.",
+        "Keep hands and elbows at a similar height."
+      ],
+      "mistakes": [
+        "Throwing the weights upward.",
+        "Shrugging or turning thumbs sharply downward."
+      ],
+      "breathing": "Exhale as you raise; inhale as you lower.",
+      "source": "free-exercise-db:Side_Lateral_Raise",
+      "primary": ["shoulders"],
+      "secondary": [],
+      "equipment": ["dumbbell"],
+      "media": {
+        "male": {
+          "front": {
+            "video": {
+              "path": "lateral_raise/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 55151,
+              "sha256": "b577d3c1a4bba357d2c1c4970aeb4c0b9cce549f6978b7bf6c68b9547b005234"
+            },
+            "poster": {
+              "path": "lateral_raise/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8254,
+              "sha256": "64d0b4933ec8317c26fce6c1c4cd33778d33bcfe58467a292ef517382a694def"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "lateral_raise/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 37894,
+              "sha256": "0d3f5b3ff09d9ab36cc243a67ba579c1359ed8ba699d3acb238ef97a3f9fcd23"
+            },
+            "poster": {
+              "path": "lateral_raise/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6260,
+              "sha256": "059eaee050f613f8109ff457ae74ad1e45f223f017d66fb1477829a3bd97167c"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "lateral_raise/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 65963,
+              "sha256": "036c93b9de5aa1877371ce3c228ce9dd9cba73efef46ddd09035e285169e1419"
+            },
+            "poster": {
+              "path": "lateral_raise/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9612,
+              "sha256": "89ade23962fd6cf2603b8631599561d4364e13caba901789ff666ba3460ceb74"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "leg_curl",
+      "name": "Seated Leg Curl",
+      "steps": [
+        "Adjust the seat so knees line up with the pivot and the lower roller rests above the heels.",
+        "Secure the thigh pad and keep the back against the support.",
+        "Bend the knees to draw the roller under the seat.",
+        "Return slowly without letting the stack slam."
+      ],
+      "cues": [
+        "Keep the pelvis still.",
+        "Curl through the knees with smooth tension."
+      ],
+      "mistakes": [
+        "Lifting the hips away from the pad.",
+        "Using a load that prevents a controlled return."
+      ],
+      "breathing": "Exhale as you curl; inhale as you extend.",
+      "source": "free-exercise-db:Seated_Leg_Curl",
+      "primary": ["hamstrings"],
+      "secondary": [],
+      "equipment": ["leg_curl"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "leg_curl/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 28861,
+              "sha256": "14a9eac9b2d4503e8d883eb4c01bbb21f6caa29fa6db187972980768ec459f65"
+            },
+            "poster": {
+              "path": "leg_curl/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7756,
+              "sha256": "10b08333e828e53c74e61ec23055fce4f4cb3d1e948468324fca782b257dc857"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "leg_curl/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 49260,
+              "sha256": "39a3baac0571156112104c5f4374cb344f4d6f7783d88167e88f4b35ffc8d162"
+            },
+            "poster": {
+              "path": "leg_curl/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9874,
+              "sha256": "010a3bdeebc14af1fdb782e4468fbf7e2e736f9e49d68b7df3daab2f214e5c4a"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "leg_curl/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 55391,
+              "sha256": "abe69a67ff429035d603ff3600fc612ec9df95a46be169b6e1d125b7f65a8be7"
+            },
+            "poster": {
+              "path": "leg_curl/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10330,
+              "sha256": "e7c9c87f25b702ad9a6a1366827d883ae794213b75995240fa983c8afe7d7155"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "leg_extension",
+      "name": "Leg Extension",
+      "steps": [
+        "Adjust the seat so knees line up with the machine pivot and the roller sits above the ankles.",
+        "Sit back against the pad and hold the handles.",
+        "Straighten the knees smoothly without snapping them.",
+        "Lower the roller slowly to the starting position."
+      ],
+      "cues": [
+        "Keep hips against the seat.",
+        "Use a controlled range and even effort from both legs."
+      ],
+      "mistakes": [
+        "Kicking the roller with momentum.",
+        "Lifting the hips to move the weight."
+      ],
+      "breathing": "Exhale as you extend; inhale as you lower.",
+      "source": "free-exercise-db:Leg_Extensions",
+      "primary": ["quadriceps"],
+      "secondary": [],
+      "equipment": ["leg_extension"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "leg_extension/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 30642,
+              "sha256": "b11d9129b10eeecc04647fe67a2661b341415e19c90f22050069cba2a3d31634"
+            },
+            "poster": {
+              "path": "leg_extension/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7744,
+              "sha256": "1c2c47e92bf844f44e14325295efc19a8374842068416058d91d186899a9b8e4"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "leg_extension/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 49689,
+              "sha256": "bc2ef29cd046c46d3c6e9f0e5f5c9521780e791adba6a70ad841d0be3858ab65"
+            },
+            "poster": {
+              "path": "leg_extension/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10568,
+              "sha256": "a4fb8a13a91885890968e67f9fdb365d4145ded5462750018bc646dd1fe2c320"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "leg_extension/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 59795,
+              "sha256": "eb0b48218ecf7b9853211492b4c2ee5621b760e5056e2efa27f2e97532f4d251"
+            },
+            "poster": {
+              "path": "leg_extension/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 12216,
+              "sha256": "8215e8874691ca769fe2f36c52295fd24268aca7f394486501d36f6351860f0e"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "leg_press",
+      "name": "Leg Press",
+      "steps": [
+        "Sit with pelvis and back supported and feet about shoulder width on the plate.",
+        "Release the safety stops while supporting the sled.",
+        "Bend hips and knees, stopping before the pelvis rolls off the pad.",
+        "Press the plate away without snapping the knees straight; re-engage safeties after the set."
+      ],
+      "cues": [
+        "Keep the whole foot against the plate.",
+        "Track knees in line with toes."
+      ],
+      "mistakes": [
+        "Lowering until the lower back lifts.",
+        "Locking the knees forcefully."
+      ],
+      "breathing": "Inhale as you lower; exhale as you press.",
+      "source": "free-exercise-db:Leg_Press",
+      "primary": ["quadriceps"],
+      "secondary": ["calves", "glutes", "hamstrings"],
+      "equipment": ["leg_press"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "leg_press/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 31024,
+              "sha256": "cc92233a8c393097d16a43b3c5c4639ee9967c5bd4917abf585585709321e9be"
+            },
+            "poster": {
+              "path": "leg_press/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9082,
+              "sha256": "8b289e6e5cb9e1bce036a5b9438f2b3ac7fd4755eb36a914f7bf155b9dabe747"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "leg_press/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 44718,
+              "sha256": "e6418117f11448bf4e52b4a9138191b694eafa8e702fd064a37e3a97c8483ad2"
+            },
+            "poster": {
+              "path": "leg_press/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 14000,
+              "sha256": "1890f8231ec685d8999023166e2166fa7ffe2934bf7ef9b06be6f0c7273725d4"
+            }
+          },
+          "top": {
+            "video": {
+              "path": "leg_press/loop_top.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 43268,
+              "sha256": "e2367f4181e34074bbf41aee166056cd022f9c1c58a07d7ea065c33ed2c32f8d"
+            },
+            "poster": {
+              "path": "leg_press/poster_top.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9244,
+              "sha256": "4353c3e2469287b62409428481260142c6765052648d6b1566541f3afc2320ec"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "lunge",
+      "name": "Forward Lunge",
+      "steps": [
+        "Stand upright with feet hip width.",
+        "Step one foot forward, keeping some side-to-side space between the feet.",
+        "Bend both knees to lower the rear knee toward the floor.",
+        "Push through the front foot to return to standing; repeat on the other side."
+      ],
+      "cues": [
+        "Keep the front knee tracking over the toes.",
+        "Lower with control and keep the pelvis level."
+      ],
+      "mistakes": [
+        "Stepping onto a tightrope line.",
+        "Bouncing the rear knee off the floor."
+      ],
+      "breathing": "Inhale as you lower; exhale as you push back.",
+      "source": "free-exercise-db:Bodyweight_Walking_Lunge",
+      "primary": ["quadriceps"],
+      "secondary": ["calves", "glutes", "hamstrings"],
+      "equipment": [],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "lunge/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 62596,
+              "sha256": "8ecc3eb58a37fef6e2bbdde12ac2234b971dd7f62e592b42db069a0cb3158402"
+            },
+            "poster": {
+              "path": "lunge/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6828,
+              "sha256": "5d7eba20b5f5da6b8019a1a0f8d152076720ed7eeff207bfbb4867912b165ffe"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "lunge/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 65115,
+              "sha256": "ce0bddc7cb75fe89430221bf25619a87f03c74d0b3a3f08a714c2db7b9abc571"
+            },
+            "poster": {
+              "path": "lunge/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9774,
+              "sha256": "2b5c52d577629792fc1dce7e0215f310c7ae640ca7a3be09c12eb89ed879b0b1"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "lunge/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 55754,
+              "sha256": "5730a9debe9fc416eebc6cd8dc34a9ad87ea62543376796e774e7ec7ebbcdffc"
+            },
+            "poster": {
+              "path": "lunge/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10030,
+              "sha256": "92df73158691c8980b1146fc651456f95c8fc23ffb654ae4a662d8859b04fc0c"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "one_arm_dumbbell_row",
+      "name": "One-arm Dumbbell Row",
+      "steps": [
+        "Support one hand and the same-side knee on a bench, with the opposite foot on the floor.",
+        "Keep the back steady and let the dumbbell hang below the shoulder.",
+        "Pull the elbow toward the hip without twisting the torso.",
+        "Lower the weight with control; repeat on the other side."
+      ],
+      "cues": [
+        "Keep the neck in line with the trunk.",
+        "Let the shoulder blade glide as the arm moves."
+      ],
+      "mistakes": [
+        "Rotating the whole torso to lift the weight.",
+        "Shrugging the shoulder toward the ear."
+      ],
+      "breathing": "Exhale while rowing; inhale while lowering.",
+      "source": "free-exercise-db:One-Arm_Dumbbell_Row",
+      "primary": ["middle_back"],
+      "secondary": ["biceps", "lats", "shoulders"],
+      "equipment": ["dumbbell", "bench"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "one_arm_dumbbell_row/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 43449,
+              "sha256": "b406ffc7ad59b1561bc49bc1e601443428078e1febcc576eb176b6ef5c3b4a4d"
+            },
+            "poster": {
+              "path": "one_arm_dumbbell_row/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9210,
+              "sha256": "598ea5a6fedece11ca3f5061f02289f473376a67f4c929f9d11eb7c2af50406c"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "one_arm_dumbbell_row/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 62244,
+              "sha256": "705af00e1a8cfbc7705a84f4153188820075f09b30100fee37dc53af777194eb"
+            },
+            "poster": {
+              "path": "one_arm_dumbbell_row/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11288,
+              "sha256": "6763115bad524ff5519d829e5a874ca9e51dd5a3af1dba75226b2cbb2c680c4f"
+            }
+          },
+          "back": {
+            "video": {
+              "path": "one_arm_dumbbell_row/loop_back.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 53086,
+              "sha256": "7622cef3ef3ad04605a5677576a06f60ccf9c536a8c5e45379bc9285f4b5a038"
+            },
+            "poster": {
+              "path": "one_arm_dumbbell_row/poster_back.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10098,
+              "sha256": "16ae9a51ee0c9153d2956c98f363ec2b72e10705adb0b8beb6c7a711545f4a8d"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "plank",
+      "name": "Forearm Plank",
+      "steps": [
+        "Place forearms on the floor with elbows below the shoulders.",
+        "Step feet back and lift the hips until the body forms a straight line.",
+        "Brace the abdomen and lightly squeeze the glutes.",
+        "Hold while breathing steadily, then lower the knees."
+      ],
+      "cues": [
+        "Push the forearms into the floor.",
+        "Keep the ribs over the pelvis."
+      ],
+      "mistakes": [
+        "Sagging through the lower back.",
+        "Holding the breath or lifting the hips too high."
+      ],
+      "breathing": "Take small, steady breaths throughout the hold.",
+      "source": "free-exercise-db:Plank",
+      "primary": ["abs"],
+      "secondary": [],
+      "equipment": ["mat"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "plank/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 18062,
+              "sha256": "592b6804ebac532b3ca53b4610bc36104c1454302c41e143f4070a50d5b83744"
+            },
+            "poster": {
+              "path": "plank/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 5510,
+              "sha256": "565cae2683a2611f6d8e0663e623040dfd1a898d346a9bb54f323ffd519a9b2b"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "plank/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 21122,
+              "sha256": "519e873e37fbb5f76e2213edcb06abfd4473780474e3d85b90af2da960afb4ae"
+            },
+            "poster": {
+              "path": "plank/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6416,
+              "sha256": "f245e425b5c20923c7d6751e31b2a79703078e42a713b40378f928f5be8e0667"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "plank/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 46822,
+              "sha256": "5f62d47c94180f566d591d67cd577e12e0dca635304a05f414a88eb9edae10b6"
+            },
+            "poster": {
+              "path": "plank/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10338,
+              "sha256": "8023842257cfdd23efe85a0dec99817b8e3a0793e2cda559c6d19a6a792f7673"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pull_up",
+      "name": "Pull-up",
+      "steps": [
+        "Grip the bar overhand slightly wider than shoulder width.",
+        "Hang with a braced trunk and controlled shoulders.",
+        "Drive elbows down to lift until the chin clears the bar without craning the neck.",
+        "Lower under control to straight arms."
+      ],
+      "cues": [
+        "Keep the legs quiet.",
+        "Let the shoulder blades rotate as the arms move."
+      ],
+      "mistakes": [
+        "Kicking or swinging to finish the rep.",
+        "Reaching with the chin while the body stays low."
+      ],
+      "breathing": "Exhale as you pull up; inhale as you lower.",
+      "source": "free-exercise-db:Pullups",
+      "primary": ["lats"],
+      "secondary": ["biceps", "middle_back"],
+      "equipment": ["pullup_bar"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "pull_up/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 31990,
+              "sha256": "0340885c8e40bfdeb628649e5f584f8463438c34e63d9b6df2b96b3d7cbe8d7f"
+            },
+            "poster": {
+              "path": "pull_up/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 5540,
+              "sha256": "5d4c9474417fcce9a81589c6e714a7404092c874bd0bebb3dc592f7960887425"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "pull_up/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 46436,
+              "sha256": "34f9170b8a0fb77b06ca109537ba92355d8d83c838b4fca597d6e2bc250f9ea6"
+            },
+            "poster": {
+              "path": "pull_up/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7718,
+              "sha256": "c36d1824265f80f5a507b7fbb0a4dc463d19e49f454ee7e095739bde412e98c0"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "pull_up/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 44068,
+              "sha256": "c99b441b0e1f7ce16e90749953de8da1e41392050359c17c03751aa385842e21"
+            },
+            "poster": {
+              "path": "pull_up/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7794,
+              "sha256": "ddb04ced28a2bd71039599af1b9e18c5805d76d5bd68394290b269e2312e740f"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "push_up",
+      "name": "Push-up",
+      "steps": [
+        "Place hands just outside shoulder width with legs extended and toes on the floor.",
+        "Brace the trunk so head, hips and heels form one line.",
+        "Bend elbows and lower the chest between the hands.",
+        "Press back to the starting position, letting the shoulder blades move around the ribs."
+      ],
+      "cues": [
+        "Keep elbows angled back from the torso.",
+        "Move chest and hips together."
+      ],
+      "mistakes": [
+        "Letting the hips sag.",
+        "Reaching the chin forward instead of lowering the chest."
+      ],
+      "breathing": "Inhale while lowering; exhale while pressing up.",
+      "source": "free-exercise-db:Pushups",
+      "primary": ["chest"],
+      "secondary": ["shoulders", "triceps"],
+      "equipment": ["mat"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "push_up/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 32569,
+              "sha256": "0064582290f6625a81ec88da9a75d1787b03ddb75ca1830be020c9604d86c9e8"
+            },
+            "poster": {
+              "path": "push_up/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 5702,
+              "sha256": "8ca51d4bc92f3194181113ca34d6e9d04b1e948eb1eaf8c87bf16d00d3e32cbe"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "push_up/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 46281,
+              "sha256": "7acb382077607de016a1e568916800cd44817237989d33347498f23dab2da225"
+            },
+            "poster": {
+              "path": "push_up/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7964,
+              "sha256": "249a39fed76d75aef5dc7943e6fa5597bb64dca90044003996a7e1667a63bbb1"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "push_up/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 82213,
+              "sha256": "f53f31bcc2f98b7b30fd1d6f634cb0a5d4d765550f504ef413e22da3f7ccf720"
+            },
+            "poster": {
+              "path": "push_up/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10534,
+              "sha256": "1f2ee1b24554d490e2f124175850cb18d0c335ba4941f812d4e8de4d3b50ed82"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "rope_pushdown",
+      "name": "Rope Triceps Pushdown",
+      "steps": [
+        "Attach a rope to a high pulley and hold one end in each hand.",
+        "Keep elbows close to the sides and brace the trunk.",
+        "Extend the elbows, separating the rope ends slightly beside the thighs.",
+        "Return slowly with upper arms steady."
+      ],
+      "cues": [
+        "Keep shoulders quiet.",
+        "Keep the wrists aligned with the forearms."
+      ],
+      "mistakes": [
+        "Using a torso dip to finish.",
+        "Pulling elbows backward instead of extending them."
+      ],
+      "breathing": "Exhale during extension; inhale on the controlled return.",
+      "source": "free-exercise-db:Triceps_Pushdown_-_Rope_Attachment",
+      "primary": ["triceps"],
+      "secondary": [],
+      "equipment": ["cable_tower", "rope"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "rope_pushdown/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 38463,
+              "sha256": "f3c9822d13fbd7b2d9c24395610f5a4d8d4c121e451ae2d8f765a7f09077074a"
+            },
+            "poster": {
+              "path": "rope_pushdown/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8796,
+              "sha256": "cd9b2194e32419dea49da8213d6b24b32e74ddac85511d4789a31c5e103badbc"
+            }
+          },
+          "rear": {
+            "video": {
+              "path": "rope_pushdown/loop_rear.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 36677,
+              "sha256": "370c87ebd96e13cd98afbae836d1e22b36946c0f614829cf9a64422bb0396e09"
+            },
+            "poster": {
+              "path": "rope_pushdown/poster_rear.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9356,
+              "sha256": "4b43f56af30998fef56dd9478a409c38252144c5cf7ade6420ac5cf4c7594c66"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "rope_pushdown/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 46416,
+              "sha256": "0766760b0b72cbaca98a405e41c307a271996277b694468b87c4c810ae7d9616"
+            },
+            "poster": {
+              "path": "rope_pushdown/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10962,
+              "sha256": "8a008e5bb23f3972867932d724022098a87ca6aa0e053d49ba41f11ba1ec67ea"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "seated_cable_row",
+      "name": "Seated Cable Row",
+      "steps": [
+        "Sit facing the low cable with feet on the footrests and knees slightly bent.",
+        "Hold the handle with arms extended and trunk tall.",
+        "Pull the handle toward the lower ribs as the shoulder blades glide back.",
+        "Reach forward through the shoulders without rounding the lower back."
+      ],
+      "cues": [
+        "Keep the torso nearly still.",
+        "Pull elbows close past the ribs."
+      ],
+      "mistakes": [
+        "Rocking backward to move the stack.",
+        "Shrugging the shoulders."
+      ],
+      "breathing": "Exhale as you pull; inhale as the arms extend.",
+      "source": "free-exercise-db:Seated_Cable_Rows",
+      "primary": ["middle_back"],
+      "secondary": ["biceps", "lats", "shoulders"],
+      "equipment": ["seated_row", "v_bar"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "seated_cable_row/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 32730,
+              "sha256": "6a0d89eff85052e1b43246fb9ad301ee2abc6c5ebb5f6bbd2dee58f89818d322"
+            },
+            "poster": {
+              "path": "seated_cable_row/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8424,
+              "sha256": "8b14dddf349d6c45e225cc8e97ce737afefb871ee055cdd8d5adc590685f8ad5"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "seated_cable_row/loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 42303,
+              "sha256": "41965ca274edd34e8863607643958f97ec5ccb582a05b5b68490b0bfa2dbb576"
+            },
+            "poster": {
+              "path": "seated_cable_row/poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10126,
+              "sha256": "2e597efa20fe5cfb719a988919700d1e802b85c8965da3e1a5240efe35364a1d"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "seated_cable_row/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 51517,
+              "sha256": "145709dc1c40b8caad2322a445345240a93369a98d64f1d3c854a27b3d6f37f2"
+            },
+            "poster": {
+              "path": "seated_cable_row/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10654,
+              "sha256": "cf704a289fbc4740c5bd839ffba3a3b83809db1a8c9027ac702ef0f67d8a526d"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "triceps_pushdown",
+      "name": "Straight-bar Triceps Pushdown",
+      "steps": [
+        "Attach a straight bar to a high pulley and grip overhand.",
+        "Stand close enough for the cable to pull mostly upward, with elbows near the ribs.",
+        "Extend the elbows to press the bar down.",
+        "Return slowly without letting the upper arms swing forward."
+      ],
+      "cues": ["Keep wrists neutral.", "Move mainly at the elbows."],
+      "mistakes": [
+        "Leaning body weight onto the bar.",
+        "Letting elbows flare or drift with every rep."
+      ],
+      "breathing": "Exhale as you push down; inhale as you return.",
+      "source": "free-exercise-db:Triceps_Pushdown",
+      "primary": ["triceps"],
+      "secondary": [],
+      "equipment": ["cable_tower", "straight_bar"],
+      "media": {
+        "male": {
+          "side": {
+            "video": {
+              "path": "triceps_pushdown/loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 37860,
+              "sha256": "82be13222cc5174682086c12fc32c35803ee2703f9e7d16e9e9534a1bddbb763"
+            },
+            "poster": {
+              "path": "triceps_pushdown/poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8692,
+              "sha256": "07197092b3998efb2c25ec4ac53ae6ecaf682f0b90774448d25e9d767640af3e"
+            }
+          },
+          "rear": {
+            "video": {
+              "path": "triceps_pushdown/loop_rear.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 41279,
+              "sha256": "e22a3296b5e2ee9891f7264cbb227527d0fc0f40ae57497289f53fc3d97b34a7"
+            },
+            "poster": {
+              "path": "triceps_pushdown/poster_rear.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9982,
+              "sha256": "f67d14445d775668298608def290932b00e6fd86a4504a9a4758ab1e4eca9161"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "triceps_pushdown/loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 48535,
+              "sha256": "eb43defa06cf9bd7ed4741be56cf877864d2a2c5ee259b6d60834281e38805bc"
+            },
+            "poster": {
+              "path": "triceps_pushdown/poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11188,
+              "sha256": "e6f8b69ea8916f3e81f1aa34b70a3137bfe868ef8b74d87f3b6a3bec1de38e34"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "bodymap": {},
+  "heroes": {},
+  "attribution": "# Anatomy derivatives \u2014 CC BY-SA 4.0\n\nBodyParts3D \u2014 The Database Center for Life Science \u2014 CC BY-SA 2.1 Japan.\nZ-Anatomy \u2014 The libre 3D atlas of anatomy \u2014 CC BY-SA 4.0.\nCreators: Kousaku Okubo (BodyParts3D), Gauthier Kervyn (anatomy/3D), Marcin Zielinski.\nSource: https://github.com/Z-Anatomy/Models-of-human-anatomy\nLicence: https://creativecommons.org/licenses/by-sa/4.0/\nOriginal database: https://dbarchive.biosciencedbc.jp/en/bodyparts3d/desc.html\n\nChanges: muscle meshes fitted to the CC0 MPFB body, baked to UV masks, softened,\nconverted to shallow height relief, rendered as visible muscle IDs and traced into\nsimplified SVG hit regions. These anatomy-derived images, maps and paths remain\nCC BY-SA 4.0. Retain attribution and share-alike when distributing derivatives.\nOnly muscular/skeletal collections are used; excluded organs/inner-ear assets are\nnot part of this pipeline. MPFB body assets are CC0. Equipment is procedural.\n\nSources and licence terms checked 2026-10-16. This notice must accompany app media;\nalso show the attribution in the future app's About/Credits screen.\n\n## Exercise data\n\nfree-exercise-db by yuhonas and contributors: https://github.com/yuhonas/free-exercise-db\nSource muscle/equipment classification: Unlicense. Original coaching text is provided as a draft for review.\n\n### Unlicense\n\nThis is free and unencumbered software released into the public domain.\n\nAnyone is free to copy, modify, publish, use, compile, sell, or\ndistribute this software, either in source code form or as a compiled\nbinary, for any purpose, commercial or non-commercial, and by any\nmeans.\n\nIn jurisdictions that recognize copyright laws, the author or authors\nof this software dedicate any and all copyright interest in the\nsoftware to the public domain. We make this dedication for the benefit\nof the public at large and to the detriment of our heirs and\nsuccessors. We intend this dedication to be an overt act of\nrelinquishment in perpetuity of all present and future rights to this\nsoftware under copyright law.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR\nOTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,\nARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\nOTHER DEALINGS IN THE SOFTWARE.\n\nFor more information, please refer to <https://unlicense.org>\n"
+}

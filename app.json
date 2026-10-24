@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "Fitness",
+    "slug": "fitness-app",
+    "version": "0.1.0",
+    "scheme": "fitness",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.oktayshakirov.fitness",
+      "infoPlist": { "ITSAppUsesNonExemptEncryption": false }
+    },
+    "android": { "package": "com.oktayshakirov.fitness" },
+    "plugins": [
+      "expo-router",
+      "expo-dev-client",
+      "expo-video",
+      "expo-sqlite",
+      ["expo-splash-screen", { "backgroundColor": "#000000" }]
+    ],
+    "experiments": { "typedRoutes": true }
+  }
+}

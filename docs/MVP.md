@@ -162,3 +162,22 @@ Contract = the content envelope + body view assets. Changes go into this file fi
 ## Requests
 
 (dated notes between the App and Content agents)
+
+### 2026-10-24 — App adapter and missing assets
+
+- M1 uses schemaVersion 1 / minAppSchema 1, with `contentVersion`, `exercises`,
+  `bodymap`, optional `heroes`, and attribution text. See `src/content/types.ts` for
+  the exact app-side contract. No change to the source release or rendering repo.
+- Exercise media is keyed by model then actual camera view (`front`, `side`,
+  `threeq`, **`back`**). Some approved v0.1.0 exercises have back instead of front;
+  please preserve these views rather than relabel them. Each view has `video` and
+  `poster` descriptors: path, width, height, bytes, sha256. H.264 only in bundle.
+- Normalize muscle IDs to underscores (`lower_back`, `middle_back`); map `abdominals` to `abs`; preserve
+  `quadriceps` (not `quads`) and all 17 groups in types.ts. Equipment IDs are stable
+  underscore-separated strings; unknown equipment remains displayable.
+- v0.1.0 has neutral body images / hit SVGs, but no alpha mask stack, female heroes,
+  or equipment icons. M4/M5 visual acceptance depends on the already-requested
+  approved dark base + masks + SVG and model heroes. Please include framing/size
+  metadata and attribution with those assets. No substitute competitor assets used.
+- Optional `heroes` is additive; current schema remains 1. A breaking wire-format
+  change requires a new schemaVersion and agreement here before screens consume it.

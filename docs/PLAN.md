@@ -55,3 +55,16 @@
 No milestones imply a fixed date or approved feature scope. No app code, accounts,
 subscriptions, hosting projects or blog repository should be created during this
 planning checkpoint beyond the explicitly requested planning repository.
+
+## 2026-10-24 — M1 foundation in progress
+
+- Implemented Expo SDK 58 / TypeScript / Router foundation with development-client
+  build profiles, dark design tokens, reusable controls, three tabs and Settings credits.
+- Imported 30 approved v0.1.0 exercises, 88 H.264 videos and 88 WebP posters; archive,
+  per-file checksums, reviewed catalog text and approval fingerprints checked.
+- Typed model/view interface supports future female/dark and hosted releases. Actual
+  back-camera views preserved; abdominals normalized to abs. Requests in MVP.md.
+- Bundle tests pass (2); TypeScript passes. Earlier Android and iOS native builds
+  succeeded, but simulator UI acceptance is still pending following usage interruption
+  and restart. Rebuilding both. Do not mark M1 complete or claim 60 fps yet.
+- M2–M8 remain pending. No rendering repo edits, accounts, services or publishing.
