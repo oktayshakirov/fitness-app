@@ -13,6 +13,9 @@
   muscle lists + All, looping exercise screen with explanations, TikTok-style feed,
   remote content updates without app releases, web export from the same Expo code,
   Cloudflare Pages hosting). MVP.md wins where this file conflicts.
+- 2026-10-24: scope extended — male/female models (onboarding choice), recovery body view
+  (front/back), one-tap logging, calendar + history, 2-column exercise grid, dark
+  Apple-Fitness-style UI, free with ads + Pro (no ads), no account/paywall. See MVP.md + DESIGN.md.
 
 ## Proposed, awaiting discussion
 

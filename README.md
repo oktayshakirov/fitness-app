@@ -3,11 +3,12 @@
 Planning repository for a fitness app powered by the approved exercise library in
 [fitness-automation](https://github.com/oktayshakirov/fitness-automation).
 
-**Status: MVP agreed 2026-10-22, implementation starting (see docs/MVP.md).** No application has been scaffolded, no dependencies
+**Status: MVP agreed 2026-10-22, implementation starting (see docs/MVP.md + docs/DESIGN.md).** No application has been scaffolded, no dependencies
 installed and no service deployed. Mobile-first Expo / React Native was selected by Oktay on 2026-10-21.
 Screenshots and feature requirements will follow; implementation remains pending.
 
 - [**MVP scope, architecture and milestones**](docs/MVP.md) (start here)
+- [**Design: dark, clean UI and screens**](docs/DESIGN.md)
 - [Architecture proposal](docs/ARCHITECTURE.md)
 - [Content updates and release contract](docs/CONTENT.md)
 - [Decisions and implementation sequence](docs/PLAN.md)
