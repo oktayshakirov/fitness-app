@@ -1,0 +1,73 @@
+appId: com.oktayshakirov.fitness
+name: M1 and M2 native smoke
+---
+- launchApp:
+    stopApp: false
+- runFlow:
+    when:
+      visible: "Toggle performance monitor"
+      platform: Android
+    commands:
+      - back
+- runFlow:
+    when:
+      visible: "Close"
+    commands:
+      - tapOn: "Close"
+- openLink: "fitness://exercises"
+- runFlow:
+    when:
+      visible: "Open"
+    commands:
+      - tapOn: "Open"
+- extendedWaitUntil:
+    visible: "Search exercises"
+    timeout: 30000
+- runFlow:
+    when:
+      visible: "Clear filters"
+    commands:
+      - tapOn: "Clear filters"
+- assertVisible: "30 exercises"
+- takeScreenshot: library
+- tapOn: "Search exercises"
+- inputText: "barbell bench press"
+- pressKey: Enter
+- assertVisible: "1 exercises"
+- tapOn:
+    id: exercise-barbell_bench_press
+- assertVisible: "1 of 1"
+- assertVisible: "Pause video"
+- tapOn: "Side"
+- takeScreenshot: detail-side
+- tapOn: "Pause video"
+- assertVisible: "Play video"
+- tapOn: "Play video"
+- assertVisible: "Pause video"
+- tapOn: "Close exercise"
+- tapOn: "Clear filters"
+- assertVisible: "30 exercises"
+- tapOn: "Barbell"
+- assertVisible: "5 exercises"
+- tapOn:
+    id: exercise-barbell_back_squat
+- tapOn: "Next exercise"
+- assertVisible: "2 of 5"
+- tapOn: "Previous exercise"
+- assertVisible: "1 of 5"
+- tapOn: "Close exercise"
+- openLink: "fitness://history"
+- runFlow:
+    when:
+      visible: "Open"
+    commands:
+      - tapOn: "Open"
+- assertVisible: "No exercises logged"
+- openLink: "fitness://settings"
+- runFlow:
+    when:
+      visible: "Open"
+    commands:
+      - tapOn: "Open"
+- assertVisible: "Credits & licences"
+- takeScreenshot: credits

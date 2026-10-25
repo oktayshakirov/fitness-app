@@ -1,15 +1,17 @@
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { useEntries } from "../../src/storage/store";
 import { Asset } from "expo-asset";
 import { useEffect, useMemo, useRef, useState, type ComponentRef } from "react";
 import { router, useLocalSearchParams } from "expo-router";
+import { ScrollView, Pressable, Text, View, useWindowDimensions } from "react-native";
 import {
-  PanResponder,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
-import { Screen, IconButton, Chip, Card, s } from "../../src/components/ui";
+  Screen,
+  IconButton,
+  Chip,
+  Card,
+  Button,
+  s,
+} from "../../src/components/ui";
 import { ExerciseVideo } from "../../src/components/ExerciseVideo";
 import {
   content,
@@ -70,6 +72,8 @@ export default function ExerciseDetail() {
   const initial = list.findIndex((e) => e.id === params.id);
   const [index, setIndex] = useState(Math.max(0, initial));
   const exercise = list[index];
+  const entries = useEntries();
+  const last = entries.find((entry) => entry.exerciseId === exercise?.id);
   useEffect(() => {
     setIndex(Math.max(0, initial));
   }, [initial, params.id]);
@@ -99,14 +103,16 @@ export default function ExerciseDetail() {
       scroll.current?.scrollTo({ y: 0, animated: false });
     }
   }
-  const gesture = PanResponder.create({
-    onMoveShouldSetPanResponder: (_, g) => Math.abs(g.dy) > 24 || g.dx > 35,
-    onPanResponderRelease: (_, g) => {
-      if (g.dx > 80 && Math.abs(g.dy) < 60) router.back();
-      else if (g.dy < -60) move(1);
-      else if (g.dy > 60) move(-1);
-    },
-  });
+  const nativeScroll = Gesture.Native();
+  const gesture = Gesture.Pan()
+    .minDistance(20)
+    .blocksExternalGesture(nativeScroll)
+    .runOnJS(true)
+    .onEnd(({ translationX: dx, translationY: dy }) => {
+      if (dx > 80 && Math.abs(dy) < 60) router.back();
+      else if (dy < -60) move(1);
+      else if (dy > 60) move(-1);
+    });
   if (!exercise)
     return (
       <Screen>
@@ -156,65 +162,98 @@ export default function ExerciseDetail() {
           />
         </View>
       </View>
-      <ScrollView
-        ref={scroll}
-        onScroll={(e) =>
-          setVisible(e.nativeEvent.contentOffset.y < (width - 40) * 1.25 - 40)
-        }
-        scrollEventThrottle={32}
-        contentContainerStyle={{
-          padding: 20,
-          paddingTop: 4,
-          gap: 20,
-          paddingBottom: 40,
-        }}
-      >
-        <View {...gesture.panHandlers}>
-          <ExerciseVideo media={current} visible={visible} />
-        </View>
-        <View style={[s.row, { justifyContent: "center", flexWrap: "wrap" }]}>
-          {(Object.keys(media) as CameraView[]).map((v) => (
-            <Chip
-              key={v}
-              title={viewLabels[v]}
-              selected={selected === v}
-              onPress={() => setView(v)}
-            />
-          ))}
-        </View>
-        <View key={exercise.id} style={{ gap: 20 }}>
-          <View style={{ gap: 8 }}>
-            <Text accessibilityRole="header" style={s.large}>
-              {exercise.name}
-            </Text>
-            <Text style={s.secondary}>
-              {exercise.equipment.map(label).join(" · ")}
-            </Text>
-          </View>
-          <View style={{ gap: 8 }}>
-            <Text style={s.footnote}>MUSCLES WORKED</Text>
-            <View style={[s.row, { flexWrap: "wrap" }]}>
-              {exercise.primary.map((m) => (
-                <Text key={m} style={{ color: colors.trained, fontSize: 15 }}>
-                  ● {label(m)}
-                </Text>
-              ))}
-              {exercise.secondary.map((m) => (
-                <Text
-                  key={m}
-                  style={{ color: colors.recovering, fontSize: 15 }}
-                >
-                  ● {label(m)}
-                </Text>
-              ))}
+      <GestureDetector gesture={nativeScroll}>
+        <ScrollView
+          ref={scroll}
+          onScroll={(e) =>
+            setVisible(e.nativeEvent.contentOffset.y < (width - 40) * 1.25 - 40)
+          }
+          scrollEventThrottle={32}
+          contentContainerStyle={{
+            padding: 20,
+            paddingTop: 4,
+            gap: 20,
+            paddingBottom: 40,
+          }}
+        >
+          <GestureDetector gesture={gesture}>
+            <View collapsable={false}>
+              <ExerciseVideo media={current} visible={visible} />
             </View>
+          </GestureDetector>
+          <View style={[s.row, { justifyContent: "center", flexWrap: "wrap" }]}>
+            {(Object.keys(media) as CameraView[]).map((v) => (
+              <Chip
+                key={v}
+                title={viewLabels[v]}
+                selected={selected === v}
+                onPress={() => setView(v)}
+              />
+            ))}
           </View>
-          <Section title="How to" lines={exercise.steps} numbered initial />
-          <Section title="Cues" lines={exercise.cues} />
-          <Section title="Common mistakes" lines={exercise.mistakes} />
-          <Section title="Breathing" lines={[exercise.breathing]} />
-        </View>
-      </ScrollView>
+          <View key={exercise.id} style={{ gap: 20 }}>
+            <View style={{ gap: 8 }}>
+              <Text accessibilityRole="header" style={s.large}>
+                {exercise.name}
+              </Text>
+              <Text style={s.secondary}>
+                {exercise.equipment.map(label).join(" · ")}
+              </Text>
+            </View>
+            <View style={{ gap: 8 }}>
+              <Text style={s.footnote}>MUSCLES WORKED</Text>
+              <View style={[s.row, { flexWrap: "wrap" }]}>
+                {exercise.primary.map((m) => (
+                  <Text key={m} style={{ color: colors.trained, fontSize: 15 }}>
+                    ● {label(m)}
+                  </Text>
+                ))}
+                {exercise.secondary.map((m) => (
+                  <Text
+                    key={m}
+                    style={{ color: colors.recovering, fontSize: 15 }}
+                  >
+                    ● {label(m)}
+                  </Text>
+                ))}
+              </View>
+            </View>
+            {last && (
+              <Text style={s.footnote}>
+                Last:{" "}
+                {last.sets.length
+                  ? last.sets
+                      .map((set) => `${set.reps} × ${set.weightKg} kg`)
+                      .join(" · ")
+                  : "Done"}{" "}
+                ·{" "}
+                {new Date(last.timestamp).toLocaleDateString(undefined, {
+                  weekday: "short",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </Text>
+            )}
+            <Section title="How to" lines={exercise.steps} numbered initial />
+            <Section title="Cues" lines={exercise.cues} />
+            <Section title="Common mistakes" lines={exercise.mistakes} />
+            <Section title="Breathing" lines={[exercise.breathing]} />
+          </View>
+        </ScrollView>
+      </GestureDetector>
+      <View
+        style={{ padding: 20, paddingBottom: 32, backgroundColor: colors.bg }}
+      >
+        <Button
+          title="Log"
+          onPress={() =>
+            router.push({
+              pathname: "/log",
+              params: { exerciseId: exercise.id },
+            })
+          }
+        />
+      </View>
     </Screen>
   );
 }

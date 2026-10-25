@@ -104,3 +104,21 @@ planning checkpoint beyond the explicitly requested planning repository.
 - Content handoff adds appearance/transparency decisions in MVP.md. Only immutable
   v0.1.0 is currently published locally; do not import unapproved in-progress renders.
 - No performance or packaged offline acceptance claim yet. M4–M8 remain pending.
+
+## 2026-10-25 — Saved tracking UI after another usage interruption
+
+- M1/M2 functional native checks now pass on both platforms, including video-surface
+  up/down/right gestures and background/foreground restoration. No 60 fps or packaged
+  offline cold-start claim; those remain release acceptance work.
+- M3 UI implemented: quick-log + Undo, log/edit sheet, reps/weight steppers, prefill,
+  notes, last-log summary, calendar, thumbnails, swipe-to-delete and reversible deletion.
+- Android passed typed edits (12 reps, 40 kg, note), process restart persistence,
+  delete/Undo/delete. iOS passed quick-log/Undo, done logging, opening/editing entries;
+  typed edit/persistence verification is still open after a stale XCTest runner stalled.
+  The stale runner was stopped and the simulator restarted; resume only the remaining flow.
+- Numeric fields select on focus. A Done editing control dismisses the keyboard;
+  native scroll keyboard insets avoid nested keyboard-resize behavior in the sheet.
+- Oktay confirmed there is no newer approved release yet. Male/female content exists
+  in development and continues changing. Keep v0.1.0 bundled and the typed model contract.
+- M4 recovery/body drafts are staged in the chat workspace under work/m3, not applied
+  to the app yet. Finish M3's iOS check first. M5–M8 remain pending.

@@ -1,0 +1,31 @@
+appId: com.oktayshakirov.fitness
+name: M2 gestures and lifecycle
+---
+- openLink: fitness://exercises
+- openLink: fitness://exercise/barbell_back_squat?equipment=barbell
+- runFlow:
+    when:
+      visible: Open
+    commands:
+      - tapOn: Open
+- assertVisible: 1 of 5
+- swipe:
+    start: 50%, 50%
+    end: 50%, 25%
+    duration: 500
+- assertVisible: 2 of 5
+- swipe:
+    start: 50%, 25%
+    end: 50%, 50%
+    duration: 500
+- assertVisible: 1 of 5
+- pressKey: Home
+- launchApp:
+    stopApp: false
+- assertVisible: 1 of 5
+- assertVisible: Pause video
+- swipe:
+    start: 25%, 35%
+    end: 85%, 35%
+    duration: 500
+- assertNotVisible: Close exercise

@@ -1,6 +1,10 @@
+import * as Haptics from "expo-haptics";
+import { logExercise, deleteEntry } from "../../src/storage/store";
+import { useToast } from "../../src/components/Toast";
 import { useMemo, useState, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import {
+  Alert,
   ScrollView,
   Text,
   TextInput,
@@ -24,6 +28,7 @@ import { content, exercises, label, mediaFor } from "../../src/content";
 import { muscleIds, type Exercise } from "../../src/content/types";
 import { filterExercises } from "../../src/content/query";
 export default function Library() {
+  const toast = useToast();
   const params = useLocalSearchParams<{ muscle?: string }>();
   const [muscle, setMuscle] = useState(params.muscle ?? "");
   const [equipment, setEquipment] = useState("");
@@ -67,6 +72,8 @@ export default function Library() {
           value={query}
           onChangeText={setQuery}
           autoCorrect={false}
+          autoCapitalize="none"
+          submitBehavior="blurAndSubmit"
           returnKeyType="search"
           style={[s.text, { flex: 1, minHeight: 44 }]}
         />
@@ -166,34 +173,62 @@ export default function Library() {
           const media = mediaFor(item, "male").views;
           const first = media.threeq ?? media.side ?? Object.values(media)[0]!;
           return (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={`${item.name}, ${item.equipment.map(label).join(", ")}`}
-              onPress={() => open(item)}
-              style={({ pressed }) => [
-                styles.card,
-                { opacity: pressed ? 0.7 : 1 },
-              ]}
-            >
-              <Image
-                source={content.resolve(first.poster)}
-                recyclingKey={first.poster.path}
-                contentFit="contain"
-                cachePolicy="memory-disk"
-                style={styles.poster}
-              />
-              <View style={{ padding: 12, gap: 6 }}>
-                <Text
-                  numberOfLines={2}
-                  style={[s.text, { fontWeight: "600", minHeight: 44 }]}
-                >
-                  {item.name}
-                </Text>
-                <Text numberOfLines={2} style={s.footnote}>
-                  {item.equipment.map(label).join(" · ")}
-                </Text>
+            <View style={styles.card}>
+              <Pressable
+                accessibilityRole="button"
+                testID={`exercise-${item.id}`}
+                accessibilityLabel={`${item.name}, ${item.equipment.map(label).join(", ")}`}
+                onPress={() => open(item)}
+                style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+              >
+                <Image
+                  source={content.resolve(first.poster)}
+                  recyclingKey={first.poster.path}
+                  contentFit="contain"
+                  cachePolicy="memory-disk"
+                  style={styles.poster}
+                />
+                <View style={{ padding: 12, gap: 6 }}>
+                  <Text
+                    numberOfLines={2}
+                    style={[s.text, { fontWeight: "600", minHeight: 44 }]}
+                  >
+                    {item.name}
+                  </Text>
+                  <Text numberOfLines={2} style={s.footnote}>
+                    {item.equipment.map(label).join(" · ")}
+                  </Text>
+                </View>
+              </Pressable>
+              <View
+                style={{
+                  position: "absolute",
+                  top: 8,
+                  right: 8,
+                  backgroundColor: colors.surface,
+                  borderRadius: 24,
+                }}
+              >
+                <IconButton
+                  name="add"
+                  label={`Log ${item.name}`}
+                  onPress={() => {
+                    try {
+                      const entry = logExercise(item);
+                      toast({
+                        text: "Logged",
+                        undo: () => deleteEntry(entry.id),
+                      });
+                      void Haptics.notificationAsync(
+                        Haptics.NotificationFeedbackType.Success,
+                      );
+                    } catch {
+                      Alert.alert("Could not log", "Please try again.");
+                    }
+                  }}
+                />
               </View>
-            </Pressable>
+            </View>
           );
         }}
       />

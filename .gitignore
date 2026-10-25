@@ -19,3 +19,5 @@ work/
 
 expo-env.d.ts
 # @end expo-cli
+.maestro/tests/
+.maestro/*.png
