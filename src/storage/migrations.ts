@@ -9,6 +9,7 @@ export const migrations = [
  primary_muscles TEXT NOT NULL, secondary_muscles TEXT NOT NULL
  ); CREATE INDEX entries_timestamp ON entries(timestamp DESC);
  CREATE INDEX entries_exercise ON entries(exercise_id, timestamp DESC);`,
+  `CREATE TABLE settings (key TEXT PRIMARY KEY NOT NULL, value TEXT NOT NULL);`,
 ] as const;
 /** Each schema step and version update commit together. Never discard an unknown future schema. */
 export function migrate(

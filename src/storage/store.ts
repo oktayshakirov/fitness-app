@@ -1,3 +1,5 @@
+import { defaults, parsePreferences, type Settings } from "./preferences";
+import { applyBackup, parseBackup, serializeBackup } from "./backup";
 import { useSyncExternalStore } from "react";
 import { openDatabaseSync } from "expo-sqlite";
 import { randomUUID } from "expo-crypto";
@@ -6,6 +8,7 @@ import { migrate } from "./migrations";
 import { validateSets, type LogEntry, type TrainingSet } from "./types";
 let db: ReturnType<typeof openDatabaseSync> | undefined;
 let entries: LogEntry[] = [];
+let settings: Settings = defaults;
 const listeners = new Set<() => void>();
 function database() {
   if (!db) {
@@ -41,6 +44,17 @@ function refresh() {
       primary: JSON.parse(row.primary_muscles),
       secondary: JSON.parse(row.secondary_muscles),
     }));
+  const values = Object.fromEntries(
+    db
+      .getAllSync<{ key: string; value: string }>(
+        "SELECT key,value FROM settings",
+      )
+      .map((row) => [row.key, JSON.parse(row.value)]),
+  );
+  settings = {
+    ...parsePreferences({ ...defaults, ...values }),
+    onboarded: values.onboarded === true,
+  };
   for (const listener of listeners) listener();
 }
 function subscribe(listener: () => void) {
@@ -101,4 +115,45 @@ export function logExercise(
 export function deleteEntry(id: string) {
   database().runSync("DELETE FROM entries WHERE id=?", id);
   refresh();
+}
+
+export function useSettings() {
+  database();
+  return useSyncExternalStore(
+    subscribe,
+    () => settings,
+    () => settings,
+  );
+}
+export function updateSettings(patch: Partial<Settings>) {
+  const db = database();
+  const next = { ...settings, ...patch };
+  const validated: Settings = {
+    ...parsePreferences(next),
+    onboarded: next.onboarded === true,
+  };
+  db.execSync("BEGIN IMMEDIATE");
+  try {
+    for (const [key, value] of Object.entries(validated))
+      db.runSync(
+        "INSERT OR REPLACE INTO settings (key,value) VALUES (?,?)",
+        key,
+        JSON.stringify(value),
+      );
+    db.execSync("COMMIT");
+  } catch (error) {
+    db.execSync("ROLLBACK");
+    throw error;
+  }
+  refresh();
+}
+export function exportData() {
+  database();
+  return serializeBackup(entries, settings);
+}
+export function importData(text: string) {
+  const validated = parseBackup(text);
+  const result = applyBackup(database(), validated);
+  refresh();
+  return result;
 }

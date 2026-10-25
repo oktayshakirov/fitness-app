@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { DatabaseSync } from "node:sqlite";
-import { migrate } from "../src/storage/migrations";
+import { migrate, migrations } from "../src/storage/migrations";
 function fixture() {
   const db = new DatabaseSync(":memory:");
   return {
@@ -26,7 +26,10 @@ test("fresh database migrates once and preserves existing entries on repeated la
     "[]",
   );
   migrate(adapter);
-  assert.equal(db.prepare("PRAGMA user_version").get()?.user_version, 1);
+  assert.equal(
+    db.prepare("PRAGMA user_version").get()?.user_version,
+    migrations.length,
+  );
   assert.equal(
     db.prepare("SELECT note FROM entries WHERE id=?").get("one")?.note,
     "keep me",
@@ -44,7 +47,10 @@ test("failed migration rolls back schema and version together", () => {
     undefined,
   );
   migrate(adapter);
-  assert.equal(db.prepare("PRAGMA user_version").get()?.user_version, 1);
+  assert.equal(
+    db.prepare("PRAGMA user_version").get()?.user_version,
+    migrations.length,
+  );
   db.close();
 });
 test("future database is rejected without changing user data", () => {
@@ -57,5 +63,26 @@ test("future database is rejected without changing user data", () => {
   );
   assert.throws(() => migrate(adapter), /newer version/);
   assert.equal(db.prepare("SELECT value FROM valuable").get()?.value, "saved");
+  db.close();
+});
+
+test("version one upgrades without changing training logs", () => {
+  const { db, adapter } = fixture();
+  migrate(adapter, migrations.slice(0, 1));
+  db.prepare("INSERT INTO entries VALUES (?,?,?,?,?,?,?,?)").run(
+    "existing",
+    "squat",
+    "Squat",
+    100,
+    "[]",
+    "saved",
+    '["quadriceps"]',
+    "[]",
+  );
+  migrate(adapter);
+  assert.equal(db.prepare("SELECT note FROM entries").get()?.note, "saved");
+  db.prepare("INSERT INTO settings VALUES (?,?)").run("units", '\"lb\"');
+  migrate(adapter);
+  assert.equal(db.prepare("SELECT value FROM settings").get()?.value, '\"lb\"');
   db.close();
 });
