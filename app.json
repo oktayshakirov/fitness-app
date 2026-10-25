@@ -9,16 +9,28 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.oktayshakirov.fitness",
-      "infoPlist": { "ITSAppUsesNonExemptEncryption": false }
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
-    "android": { "package": "com.oktayshakirov.fitness" },
+    "android": {
+      "package": "com.oktayshakirov.fitness"
+    },
     "plugins": [
       "expo-router",
       "expo-dev-client",
       "expo-video",
       "expo-sqlite",
-      ["expo-splash-screen", { "backgroundColor": "#000000" }]
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#000000"
+        }
+      ],
+      "expo-asset"
     ],
-    "experiments": { "typedRoutes": true }
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }

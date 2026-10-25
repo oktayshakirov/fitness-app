@@ -35,6 +35,8 @@ export const viewLabels: Record<CameraView, string> = {
   side: "Side",
   threeq: "¾",
   back: "Back",
+  foot: "Foot",
+  rear: "Rear",
 };
 export function label(value: string) {
   return value.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase());

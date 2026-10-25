@@ -19,7 +19,7 @@ export const muscleIds = [
 ] as const;
 export type Muscle = (typeof muscleIds)[number];
 export type Model = "male" | "female";
-export type CameraView = "front" | "side" | "threeq" | "back";
+export type CameraView = "front" | "side" | "threeq" | "back" | "foot" | "rear";
 /** Serialized media references are independent of Metro and hosting. */
 export interface MediaAsset {
   path: string;

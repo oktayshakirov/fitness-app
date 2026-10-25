@@ -68,3 +68,23 @@ planning checkpoint beyond the explicitly requested planning repository.
   succeeded, but simulator UI acceptance is still pending following usage interruption
   and restart. Rebuilding both. Do not mark M1 complete or claim 60 fps yet.
 - M2–M8 remain pending. No rendering repo edits, accounts, services or publishing.
+
+## 2026-10-25 — Resume with lower-overhead validation
+
+- Reused successful iOS/Android development binaries instead of recompiling. Metro
+  must use IPv4 locally (`NODE_OPTIONS=--dns-result-order=ipv4first npm start -- --localhost`)
+  because default localhost resolved to IPv6 and refused simulator IPv4 requests.
+- M2 implemented: FlashList two-column poster grid, combined muscle/equipment/search
+  filters, empty/reset states, detail with approved instructions, all actual camera
+  views, previous/next buttons and video-surface swipe navigation. One player with
+  serialized async source changes, first-frame poster cover, background/blur/offscreen
+  pause, retry, and next-exercise asset prefetch without a second decoder.
+- Four unit checks pass (bundle integrity + filter behavior); TypeScript checked.
+  iOS Body and Exercises rendered; Android Exercises rendered behind its first-run
+  development menu, with no ReactNativeJS/AndroidRuntime errors. This is smoke evidence,
+  not completed interaction/performance acceptance. Screenshots currently in chat work/qa.
+- Desktop UI inspection is unreliable: intermittent noWindowsAvailable and clicks that
+  do not reach controls. Asked Oktay about Maestro for repeatable native tests. M1/M2
+  acceptance remains open; no 60 fps, offline cold-start or lifecycle test claims yet.
+- Next: native interaction checks, then M3 tracking/storage with migration tests, M4
+  recovery tests/body assets, M5 settings, M6 remote content, gated M7, M8 release prep.

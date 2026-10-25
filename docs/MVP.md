@@ -169,7 +169,7 @@ Contract = the content envelope + body view assets. Changes go into this file fi
   `bodymap`, optional `heroes`, and attribution text. See `src/content/types.ts` for
   the exact app-side contract. No change to the source release or rendering repo.
 - Exercise media is keyed by model then actual camera view (`front`, `side`,
-  `threeq`, **`back`**). Some approved v0.1.0 exercises have back instead of front;
+  `threeq`, **`back`**, `rear`, `foot`). Some approved v0.1.0 exercises have back instead of front;
   please preserve these views rather than relabel them. Each view has `video` and
   `poster` descriptors: path, width, height, bytes, sha256. H.264 only in bundle.
 - Normalize muscle IDs to underscores (`lower_back`, `middle_back`); map `abdominals` to `abs`; preserve
