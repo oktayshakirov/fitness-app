@@ -8,7 +8,7 @@
     "ios": "expo run:ios",
     "android": "expo run:android",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts",
+    "test": "node --import tsx --test tests/*.test.ts",
     "content:import": "python3 scripts/import_release.py"
   },
   "dependencies": {

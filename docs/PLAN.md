@@ -88,3 +88,19 @@ planning checkpoint beyond the explicitly requested planning repository.
   acceptance remains open; no 60 fps, offline cold-start or lifecycle test claims yet.
 - Next: native interaction checks, then M3 tracking/storage with migration tests, M4
   recovery tests/body assets, M5 settings, M6 remote content, gated M7, M8 release prep.
+
+## 2026-10-25 — Tracking foundation and native test recovery
+
+- Added transactional SQLite migrations, immutable exercise/muscle snapshots in logs,
+  validated optional sets and local-date calendar/streak calculations. Ten unit checks
+  pass, including failed-migration rollback, repeat launch and newer-schema rejection.
+- Changed test runner to `node --import tsx --test` to avoid an unnecessary IPC server.
+- Maestro is approved and installed. M1/M2 library flow passed on iOS 26.5 iPhone 17 Pro
+  and Android API 36 Dev_Phone: search/reset/equipment filtering, detail navigation,
+  camera switch, pause/play controls, previous/next, empty History and credits.
+- Native swipe testing found ScrollView stealing video pans. Replaced PanResponder
+  with coordinated native gestures; Android up/down/right and foreground restoration
+  now pass. iOS gesture retest and M3 persistence flow are in progress.
+- Content handoff adds appearance/transparency decisions in MVP.md. Only immutable
+  v0.1.0 is currently published locally; do not import unapproved in-progress renders.
+- No performance or packaged offline acceptance claim yet. M4–M8 remain pending.
