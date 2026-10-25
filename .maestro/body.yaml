@@ -1,0 +1,16 @@
+appId: com.oktayshakirov.fitness
+name: M4 recovery list with bundled content
+---
+- openLink: fitness:///
+- assertVisible: About recovery
+- takeScreenshot: body
+- tapOn: "Chest, .*"
+- assertVisible: 4 exercises
+- tapOn: Log Barbell Bench Press
+- assertVisible: Logged
+- tapOn: "Body.*"
+- assertVisible: "Chest, (Recovering|Trained)"
+- tapOn: About recovery
+- assertVisible: Recovery estimates
+- tapOn: OK
+- takeScreenshot: body-recovery

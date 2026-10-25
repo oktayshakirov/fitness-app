@@ -36,3 +36,40 @@ npm run content:import -- /Users/oktayshakirov/Coding/fitness-releases/v0.1.0
 The importer checks the pinned archive digest, every archived file digest,
 reviewed text and approval fingerprints. Full media attribution is bundled and
 visible in Settings. Never edit the rendering repo from this app workspace.
+
+## Native checks without rebuilding
+
+Reuse the installed development builds unless native dependencies or configuration
+changed. On this host, start Metro with IPv4 resolution:
+
+```sh
+NODE_OPTIONS=--dns-result-order=ipv4first npm start -- --localhost
+```
+
+With the development app connected, run Maestro against an explicit device:
+
+```sh
+MAESTRO_CLI_NO_ANALYTICS=1 maestro --device DEVICE_ID test .maestro/library.yaml --test-output-dir work/qa
+MAESTRO_CLI_NO_ANALYTICS=1 maestro --device DEVICE_ID test .maestro/navigation.yaml --test-output-dir work/qa
+MAESTRO_CLI_NO_ANALYTICS=1 maestro --device DEVICE_ID test .maestro/tracking.yaml --test-output-dir work/qa
+```
+
+Run one Maestro process per device and wait for it to exit before starting another.
+Keep source code fixed during each flow: live reload can invalidate navigation and
+local form state. After a timed-out XCTest run, stop its remaining runner before
+retrying. Development-client restart checks wait for the JavaScript app to load
+before opening a route. Tracking tests create and remove their own new entry;
+failed runs may leave sample entries in the test device.
+
+The tests exercise functional behavior. They do not establish packaged offline
+startup, physical-device playback/lifecycle behavior or 60 fps performance.
+
+For iOS tracking, use `.maestro/tracking-ios.yaml`: it verifies reps/weight via
+steppers plus typed notes, persistence and Undo. Direct numeric typing on iOS is
+still an open verification item after XCTest stalled while changing numeric fields.
+Android's tracking flow covers typed reps and weight. The optional Body flow is
+`.maestro/body.yaml`; its current acceptance covers the recovery list, not unapproved
+body images or hit regions.
+
+Restart the development app after source changes before native acceptance runs;
+iOS may retain an older bundle when Fast Refresh is unavailable.

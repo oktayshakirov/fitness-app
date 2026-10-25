@@ -163,6 +163,7 @@ export default function LogSheet() {
                     <View style={{ flex: 1 }}>
                       <Text style={s.footnote}>Reps</Text>
                       <TextInput
+                        testID={`log-reps-${i}`}
                         accessibilityLabel={`Set ${i + 1} reps`}
                         keyboardType="number-pad"
                         selectTextOnFocus
@@ -202,6 +203,7 @@ export default function LogSheet() {
                     <View style={{ flex: 1 }}>
                       <Text style={s.footnote}>kg</Text>
                       <TextInput
+                        testID={`log-weight-${i}`}
                         accessibilityLabel={`Set ${i + 1} weight`}
                         keyboardType="decimal-pad"
                         selectTextOnFocus
@@ -262,6 +264,7 @@ export default function LogSheet() {
             </Card>
           )}
           <TextInput
+            testID="log-note"
             accessibilityLabel="Note"
             placeholder="Add a note (optional)"
             placeholderTextColor={colors.secondary}

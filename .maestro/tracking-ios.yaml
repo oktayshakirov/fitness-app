@@ -1,0 +1,93 @@
+appId: com.oktayshakirov.fitness
+name: M3 iOS tracking with steppers
+---
+- runFlow:
+    when:
+      visible: OK
+    commands:
+      - tapOn: OK
+- runFlow:
+    when:
+      visible: Close log
+    commands:
+      - tapOn: Close log
+- openLink: fitness://exercises
+- runFlow:
+    when:
+      visible: Open
+    commands:
+      - tapOn: Open
+- runFlow:
+    when:
+      visible: Clear filters
+    commands:
+      - tapOn: Clear filters
+- tapOn: Log Barbell Back Squat
+- assertVisible: Logged
+- tapOn: Undo
+- tapOn:
+    id: exercise-barbell_back_squat
+- tapOn: Log
+- assertVisible: Log exercise
+- tapOn: Done
+- assertVisible: Logged
+- tapOn: Close exercise
+- openLink: fitness://history
+- runFlow:
+    when:
+      visible: Open
+    commands:
+      - tapOn: Open
+- tapOn:
+    text: Edit Barbell Back Squat
+    index: 0
+- tapOn: Add sets
+- repeat:
+    times: 2
+    commands:
+      - tapOn: Increase set 1 reps
+      - tapOn: Increase set 1 weight
+- scrollUntilVisible:
+    element:
+      id: log-note
+    direction: DOWN
+- tapOn:
+    id: log-note
+- inputText: Native persistence check
+- tapOn: Done editing
+- scrollUntilVisible:
+    element: Save changes
+    direction: UP
+- tapOn: Save changes
+- assertVisible: Updated
+- takeScreenshot: history-saved
+- stopApp
+- launchApp
+- extendedWaitUntil:
+    visible: Settings
+    timeout: 30000
+- openLink: fitness://history
+- runFlow:
+    when:
+      visible: Open
+    commands:
+      - tapOn: Open
+- tapOn:
+    text: Edit Barbell Back Squat
+    index: 0
+- assertVisible: "12"
+- assertVisible: "5"
+- assertVisible: ".*Native persistence check.*"
+- scrollUntilVisible:
+    element: Delete entry
+    direction: DOWN
+- tapOn: Delete entry
+- assertVisible: Deleted
+- tapOn: Undo
+- tapOn:
+    text: Edit Barbell Back Squat
+    index: 0
+- scrollUntilVisible:
+    element: Delete entry
+    direction: DOWN
+- tapOn: Delete entry

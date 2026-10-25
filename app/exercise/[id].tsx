@@ -3,7 +3,13 @@ import { useEntries } from "../../src/storage/store";
 import { Asset } from "expo-asset";
 import { useEffect, useMemo, useRef, useState, type ComponentRef } from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import { ScrollView, Pressable, Text, View, useWindowDimensions } from "react-native";
+import {
+  ScrollView,
+  Pressable,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import {
   Screen,
   IconButton,

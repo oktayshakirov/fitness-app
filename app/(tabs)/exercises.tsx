@@ -135,7 +135,7 @@ export default function Library() {
       </ScrollView>
       <View style={[s.row, { marginHorizontal: 20, marginVertical: 12 }]}>
         <Text accessibilityLiveRegion="polite" style={s.footnote}>
-          {filtered.length} exercises
+          {filtered.length} {filtered.length === 1 ? "exercise" : "exercises"}
         </Text>
         {muscle || equipment || query ? (
           <Pressable

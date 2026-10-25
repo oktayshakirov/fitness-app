@@ -42,17 +42,21 @@ name: M3 tracking and persistence
     text: Edit Barbell Back Squat
     index: 0
 - tapOn: Add sets
-- tapOn: Set 1 reps
+- tapOn:
+    id: log-reps-0
 - eraseText
 - inputText: "12"
-- tapOn: Set 1 weight
+- tapOn:
+    id: log-weight-0
 - eraseText
 - inputText: "40"
 - tapOn: Done editing
 - scrollUntilVisible:
-    element: Note
+    element:
+      id: log-note
     direction: DOWN
-- tapOn: Note
+- tapOn:
+    id: log-note
 - inputText: Native persistence check
 - tapOn: Done editing
 - scrollUntilVisible:
@@ -77,7 +81,7 @@ name: M3 tracking and persistence
     index: 0
 - assertVisible: "12"
 - assertVisible: "40"
-- assertVisible: Native persistence check
+- assertVisible: ".*Native persistence check.*"
 - scrollUntilVisible:
     element: Delete entry
     direction: DOWN

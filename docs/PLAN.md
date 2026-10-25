@@ -122,3 +122,30 @@ planning checkpoint beyond the explicitly requested planning repository.
   in development and continues changing. Keep v0.1.0 bundled and the typed model contract.
 - M4 recovery/body drafts are staged in the chat workspace under work/m3, not applied
   to the app yet. Finish M3's iOS check first. M5–M8 remain pending.
+
+## 2026-10-25 — Native tracking checks and Body integration
+
+- M3 workflow checked on both devices. Android: typed reps/weight/note, save, process
+  restart, preserved values, delete/Undo/delete. iOS: quick-log/Undo, Done log, edit via
+  steppers (12 reps, 5 kg), typed note, process restart, preserved values, delete/Undo/delete.
+  Direct numeric typing on iOS remains a separate open verification item after XCTest
+  stalled when switching numeric fields; do not claim that path was verified.
+- Added stable IDs to log inputs: iOS combines the note label and placeholder into
+  accessibility text, so the previous exact-text selector missed a visible field.
+- Recovery engine committed with six additional tests (16 total pass). Done-only load
+  is 0.5; 30 total reps reaches the per-entry cap. Rules are in docs/RECOVERY.md.
+- Body now computes recovery from saved muscle snapshots, refreshes on focus/foreground,
+  lists all 17 muscles and links to filtered exercises. Optional base/mask layers use
+  the content contract with focused-row highlighting and Reduce Motion-aware fades.
+- M4 is not complete: approved body images/masks and the hit-test SVG sample are still
+  needed for alignment and direct-body taps. Added the acceptance request in MVP.md.
+- No new content release imported; male/female appearances are still evolving. No
+  rendering-repo edits, accounts, services, advertising or purchase setup.
+- Body recovery-list checks passed on Android and iOS: Chest opens four matching
+  exercises, quick-log updates Chest recovery, and the explainer opens correctly.
+  iOS initially retained an old JS bundle; restarting the development app loaded the
+  current Body screen. Restart after source changes rather than relying on Fast Refresh.
+- Checkpoint: M1/M2 functional checks passed; M3 workflow checks passed with the iOS
+  numeric-typing caveat above; M4 logic/list verified, body visual/tap acceptance pending
+  approved content. M5–M8 are not complete. Continue with approved body integration,
+  model/settings/export, remote releases, then gated monetization and release checks.

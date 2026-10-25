@@ -33,7 +33,7 @@ name: M1 and M2 native smoke
 - tapOn: "Search exercises"
 - inputText: "barbell bench press"
 - pressKey: Enter
-- assertVisible: "1 exercises"
+- assertVisible: "1 exercise"
 - tapOn:
     id: exercise-barbell_bench_press
 - assertVisible: "1 of 1"
@@ -62,7 +62,7 @@ name: M1 and M2 native smoke
       visible: "Open"
     commands:
       - tapOn: "Open"
-- assertVisible: "No exercises logged"
+- assertVisible: "Active days"
 - openLink: "fitness://settings"
 - runFlow:
     when:
