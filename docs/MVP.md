@@ -181,3 +181,28 @@ Contract = the content envelope + body view assets. Changes go into this file fi
   metadata and attribution with those assets. No substitute competitor assets used.
 - Optional `heroes` is additive; current schema remains 1. A breaking wire-format
   change requires a new schemaVersion and agreement here before screens consume it.
+
+### 2026-10-25 — Content appearance and transparency decision
+
+- User requested shorter training bottoms, a smaller female sports bra, hair on both
+  models, and softer distinct highlights only where active muscles are covered.
+  Revised previews remain unapproved pending the appearance review.
+- Transparent PNG/WebP stills can be generated for model/body/hero assets. Native
+  H.264 exercise loops remain on `bg.video = #0A0A0C`, the user's accepted fallback.
+  The current H.264 encoder has no alpha pixel format; Apple documents HEVC with
+  alpha, but that is not the existing shared iOS/Android playback contract.
+- No wire-format/schema change in this checkpoint. Do not assume alpha-video
+  support from the transparent still previews. A future alpha-video delivery needs
+  a codec/player decision, device tests, then an agreed envelope revision here.
+  Sources: https://ffmpeg.org/doxygen/trunk/libx264_8c.html and
+  https://developer.apple.com/documentation/avfoundation/using-hevc-video-with-alpha
+
+### 2026-10-25 — Body integration acceptance request
+
+- The app can consume the typed base/mask layers; please include an approved sample
+  `bodymap` with the next immutable release. Keep base and masks identically framed.
+- Please include a sample hit-test SVG with canonical muscle IDs and its viewBox so
+  path grouping/transforms can be agreed and native muscle taps verified. Until then,
+  muscle-list taps work; direct body-region taps and mask alignment remain unverified.
+- Male/female assets remain replaceable content. Do not freeze current appearance for
+  the app's sake; no unapproved development renders are bundled.
