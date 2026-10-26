@@ -27,7 +27,7 @@ export function Heading({
 }) {
   return (
     <View style={s.heading}>
-      <Text accessibilityRole="header" style={s.large}>
+      <Text accessibilityRole="header" style={[s.large, { flexShrink: 1 }]}>
         {title}
       </Text>
       {action}

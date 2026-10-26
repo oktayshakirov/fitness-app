@@ -1,0 +1,25 @@
+appId: com.oktayshakirov.fitness
+name: M5 onboarding and settings
+---
+- openLink: fitness:///
+- runFlow:
+    when:
+      visible: Choose your model
+    commands:
+      - tapOn: Female model
+      - tapOn: lb
+      - tapOn: Continue
+- assertVisible: About recovery
+- tapOn: Settings
+- assertVisible: Weight units
+- tapOn: Female model
+- tapOn: lb
+- tapOn: Slow
+- takeScreenshot: settings-preferences
+- scrollUntilVisible:
+    element: Privacy
+    direction: DOWN
+- tapOn: Privacy
+- assertVisible: Privacy
+- takeScreenshot: privacy
+- tapOn: Close privacy

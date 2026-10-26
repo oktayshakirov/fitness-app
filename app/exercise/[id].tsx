@@ -1,3 +1,5 @@
+import { weightText } from "../../src/storage/units";
+import { useSettings } from "../../src/storage/store";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { useEntries } from "../../src/storage/store";
 import { Asset } from "expo-asset";
@@ -63,6 +65,7 @@ function Section({
   );
 }
 export default function ExerciseDetail() {
+  const { model, units } = useSettings();
   const params = useLocalSearchParams<{
     id: string;
     muscle?: string;
@@ -90,7 +93,7 @@ export default function ExerciseDetail() {
   useEffect(() => {
     const next = list[index + 1];
     if (!next) return;
-    const views = mediaFor(next, "male").views;
+    const views = mediaFor(next, model).views;
     const clip = views.threeq ?? views.side ?? Object.values(views)[0];
     if (!clip) return;
     for (const asset of [clip.poster, clip.video]) {
@@ -100,7 +103,7 @@ export default function ExerciseDetail() {
           .downloadAsync()
           .catch(() => {});
     }
-  }, [index, list]);
+  }, [index, list, model]);
   function move(delta: number) {
     const next = index + delta;
     if (next >= 0 && next < list.length) {
@@ -126,7 +129,7 @@ export default function ExerciseDetail() {
         <IconButton name="close" label="Close" onPress={() => router.back()} />
       </Screen>
     );
-  const media = mediaFor(exercise, "male").views;
+  const media = mediaFor(exercise, model).views;
   const selected = media[view]
     ? view
     : media.threeq
@@ -229,7 +232,10 @@ export default function ExerciseDetail() {
                 Last:{" "}
                 {last.sets.length
                   ? last.sets
-                      .map((set) => `${set.reps} × ${set.weightKg} kg`)
+                      .map(
+                        (set) =>
+                          `${set.reps} × ${weightText(set.weightKg, units)} ${units}`,
+                      )
                       .join(" · ")
                   : "Done"}{" "}
                 ·{" "}

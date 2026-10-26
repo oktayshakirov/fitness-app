@@ -1,0 +1,17 @@
+appId: com.oktayshakirov.fitness
+name: M5 saved preferences after process restart
+---
+- openLink: fitness:///
+- assertVisible: About recovery
+- assertNotVisible: Choose your model
+- tapOn: Settings
+- assertVisible:
+    text: Female model
+    checked: true
+- assertVisible:
+    text: lb
+    selected: true
+- assertVisible:
+    text: Slow
+    selected: true
+- takeScreenshot: settings-persisted

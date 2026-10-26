@@ -1,3 +1,5 @@
+import { weightText } from "../../src/storage/units";
+import { useSettings } from "../../src/storage/store";
 import { Image } from "expo-image";
 import { content, exercises, mediaFor } from "../../src/content";
 import { Alert } from "react-native";
@@ -20,9 +22,10 @@ import { dayKey, monthDays, streaks } from "../../src/storage/calendar";
 import { colors } from "../../src/theme";
 import type { LogEntry } from "../../src/storage/types";
 function EntryRow({ entry }: { entry: LogEntry }) {
+  const { model, units } = useSettings();
   const toast = useToast();
   const exercise = exercises.find((e) => e.id === entry.exerciseId);
-  const views = exercise ? mediaFor(exercise, "male").views : undefined;
+  const views = exercise ? mediaFor(exercise, model).views : undefined;
   const clip = views && (views.threeq ?? views.side ?? Object.values(views)[0]);
   function remove() {
     try {
@@ -70,7 +73,10 @@ function EntryRow({ entry }: { entry: LogEntry }) {
             <Text style={[s.footnote, { marginTop: 6 }]}>
               {entry.sets.length
                 ? entry.sets
-                    .map((set) => `${set.reps} × ${set.weightKg} kg`)
+                    .map(
+                      (set) =>
+                        `${set.reps} × ${weightText(set.weightKg, units)} ${units}`,
+                    )
                     .join(" · ")
                 : "Done"}{" "}
               ·{" "}

@@ -1,3 +1,4 @@
+import { useSettings } from "../../src/storage/store";
 import * as Haptics from "expo-haptics";
 import { logExercise, deleteEntry } from "../../src/storage/store";
 import { useToast } from "../../src/components/Toast";
@@ -28,6 +29,7 @@ import { content, exercises, label, mediaFor } from "../../src/content";
 import { muscleIds, type Exercise } from "../../src/content/types";
 import { filterExercises } from "../../src/content/query";
 export default function Library() {
+  const { model } = useSettings();
   const toast = useToast();
   const params = useLocalSearchParams<{ muscle?: string }>();
   const [muscle, setMuscle] = useState(params.muscle ?? "");
@@ -170,7 +172,7 @@ export default function Library() {
           />
         }
         renderItem={({ item }) => {
-          const media = mediaFor(item, "male").views;
+          const media = mediaFor(item, model).views;
           const first = media.threeq ?? media.side ?? Object.values(media)[0]!;
           return (
             <View style={styles.card}>

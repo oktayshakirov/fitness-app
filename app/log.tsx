@@ -1,3 +1,5 @@
+import { useSettings } from "../src/storage/store";
+import { toDisplayWeight, toKilograms, weightText } from "../src/storage/units";
 import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import {
@@ -28,6 +30,8 @@ import {
 import type { TrainingSet } from "../src/storage/types";
 import { colors } from "../src/theme";
 export default function LogSheet() {
+  const settings = useSettings();
+  const [units] = useState(settings.units);
   const { exerciseId, entryId } = useLocalSearchParams<{
     exerciseId?: string;
     entryId?: string;
@@ -42,7 +46,9 @@ export default function LogSheet() {
   const [sets, setSets] = useState(
     (last?.sets.length ? last.sets : [{ reps: 10, weightKg: 0 }]).map((s) => ({
       reps: String(s.reps),
-      weight: String(s.weightKg),
+      weight: weightText(s.weightKg, units),
+      originalWeight: s.weightKg,
+      originalDisplay: weightText(s.weightKg, units),
     })),
   );
   const [note, setNote] = useState(original?.note ?? "");
@@ -69,7 +75,7 @@ export default function LogSheet() {
         const next = Math.max(
           field === "reps" ? 1 : 0,
           Math.min(
-            field === "reps" ? 1000 : 5000,
+            field === "reps" ? 1000 : toDisplayWeight(5000, units),
             (Number.isFinite(current) ? current : 0) + delta,
           ),
         );
@@ -84,7 +90,10 @@ export default function LogSheet() {
       const values: TrainingSet[] = expanded
         ? sets.map((s) => ({
             reps: Number(s.reps),
-            weightKg: Number(s.weight),
+            weightKg:
+              s.weight === s.originalDisplay
+                ? s.originalWeight
+                : toKilograms(Number(s.weight), units),
           }))
         : [];
       if (expanded && sets.some((s) => !s.reps.trim() || !s.weight.trim()))
@@ -201,7 +210,7 @@ export default function LogSheet() {
                       </View>
                     </View>
                     <View style={{ flex: 1 }}>
-                      <Text style={s.footnote}>kg</Text>
+                      <Text style={s.footnote}>{units}</Text>
                       <TextInput
                         testID={`log-weight-${i}`}
                         accessibilityLabel={`Set ${i + 1} weight`}
@@ -233,12 +242,16 @@ export default function LogSheet() {
                         <IconButton
                           name="remove"
                           label={`Decrease set ${i + 1} weight`}
-                          onPress={() => adjust(i, "weight", -2.5)}
+                          onPress={() =>
+                            adjust(i, "weight", units === "kg" ? -2.5 : -5)
+                          }
                         />
                         <IconButton
                           name="add"
                           label={`Increase set ${i + 1} weight`}
-                          onPress={() => adjust(i, "weight", 2.5)}
+                          onPress={() =>
+                            adjust(i, "weight", units === "kg" ? 2.5 : 5)
+                          }
                         />
                       </View>
                     </View>

@@ -1,3 +1,4 @@
+import { useSettings } from "../../src/storage/store";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   AppState,
@@ -87,6 +88,7 @@ function Mask({
   );
 }
 export default function Body() {
+  const { model, recoverySpeed } = useSettings();
   const entries = useEntries();
   const [now, setNow] = useState(Date.now());
   const [side, setSide] = useState<"front" | "back">("front");
@@ -106,8 +108,14 @@ export default function Body() {
       };
     }, []),
   );
-  const status = useMemo(() => recovery(entries, now), [entries, now]);
-  const body = content.release.bodymap.male;
+  const status = useMemo(
+    () => recovery(entries, now, recoverySpeed),
+    [entries, now, recoverySpeed],
+  );
+  const body =
+    content.release.bodymap[model] ??
+    content.release.bodymap.male ??
+    content.release.bodymap.female;
   const figure = body?.[side];
   const examples = useMemo(
     () =>
