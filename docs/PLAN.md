@@ -178,3 +178,6 @@ planning checkpoint beyond the explicitly requested planning repository.
   Next is M6 remote-content validation/cache/atomic activation with local fixtures.
   M7 remains gated on Oktay's accounts/model approval. M8 release, accessibility and
   physical-device performance acceptance remain pending.
+- Final iOS rerun passed both saved-preferences UI assertions and available-video
+  playback/pause with female selected; Android's matching video fallback flow also
+  passed. Working tree clean after checkpoint commits.
