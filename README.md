@@ -73,3 +73,19 @@ body images or hit regions.
 
 Restart the development app after source changes before native acceptance runs;
 iOS may retain an older bundle when Fast Refresh is unavailable.
+
+### Settings and backup checks (M5)
+
+Run `.maestro/settings.yaml` for first-run choice, preferences and Privacy. Restart
+that device's app process, reconnect the development URL if needed, then run
+`.maestro/settings-persistence.yaml`. Expected saved choices: female, lb, slow.
+The approved bundle falls back to available male media until female assets ship.
+
+For Android backup tests, push `.maestro/fixtures/backup.json` to
+`/sdcard/Download/fitness-test-backup.json`, then run `.maestro/backup-android.yaml`.
+It imports one synthetic log, repeats the import without duplication, and opens
+native sharing. Dismiss sharing before running `.maestro/backup-units.yaml`, which
+checks 40 kg → 88.18 lb → unchanged save → 40 kg. Tests leave synthetic local data.
+On iOS, put the same fixture in simulator Files, choose it with Import data, and
+check the confirmation/result; export should open the native JSON share sheet.
+No account or cloud file provider is required. Native picker layouts vary by OS.

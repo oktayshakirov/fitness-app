@@ -5,9 +5,14 @@ name: M5 saved preferences after process restart
 - assertVisible: About recovery
 - assertNotVisible: Choose your model
 - tapOn: Settings
-- assertVisible:
-    text: Female model
-    checked: true
+- assertVisible: Female model
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - assertVisible:
+          text: Female model
+          checked: true
 - assertVisible:
     text: lb
     selected: true

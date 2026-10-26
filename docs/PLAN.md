@@ -149,3 +149,32 @@ planning checkpoint beyond the explicitly requested planning repository.
   numeric-typing caveat above; M4 logic/list verified, body visual/tap acceptance pending
   approved content. M5–M8 are not complete. Continue with approved body integration,
   model/settings/export, remote releases, then gated monetization and release checks.
+
+## 2026-10-26 — M5 onboarding, preferences and backups
+
+- Added one-screen model/units onboarding, persisted model/units/recovery speed,
+  local Privacy copy and credits/version information. Screens select media/body from
+  preferences with approved-asset fallback; unapproved development content is not bundled.
+- Fixed first launch selecting Privacy instead of onboarding by using explicit
+  protected-route redirect destinations. Continue now opens Body on both platforms.
+- Added transactional settings migration and JSON backup validation/import/export.
+  Existing log IDs are preserved; logs and preferences import atomically. Invalid
+  backups and failed writes leave existing data intact. 22 unit tests and typecheck pass.
+- Both platforms passed onboarding, settings toggles, Privacy, importing a synthetic
+  backup, JSON export/share-sheet presentation, and 40 kg -> 88.18 lb -> unchanged
+  save -> 40 kg. Android repeat import passed (0 added, 1 existing entry preserved).
+- Android restart UI checks passed. iOS restart retained female/lb/slow and onboarding
+  in SQLite; Maestro exposes the checked radio as text instead of its checked flag,
+  so the shared test now limits that flag assertion to Android.
+- iOS Files needed a synthetic fixture placed in its local simulator provider and a
+  Browse refresh; tapping the thumbnail imported successfully. Save to Files from
+  the export sheet did not show a destination in this simulator: generated JSON and
+  share presentation are verified, saving to a chosen Files destination is not.
+- Native fixtures/flows and setup instructions are saved in .maestro and README to
+  reduce repeated investigation. Screenshots/report are in the chat workspace at
+  outputs/fitness-m5; full run artifacts are under work/qa/m5-* (ignored).
+- M5 functional implementation is in place. Hero/body/female visual acceptance still
+  depends on a new approved release; M4 body alignment/direct taps remain open.
+  Next is M6 remote-content validation/cache/atomic activation with local fixtures.
+  M7 remains gated on Oktay's accounts/model approval. M8 release, accessibility and
+  physical-device performance acceptance remain pending.

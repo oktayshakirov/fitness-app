@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "exportedAt": "2026-10-26T00:00:00.000Z",
+  "preferences": { "model": "female", "units": "lb", "recoverySpeed": "slow" },
+  "entries": [
+    {
+      "id": "m5-native-backup-test",
+      "exerciseId": "barbell_back_squat",
+      "exerciseName": "Barbell Back Squat",
+      "timestamp": 1792972800000,
+      "sets": [{ "reps": 12, "weightKg": 40 }],
+      "note": "M5 backup round trip",
+      "primary": ["quadriceps"],
+      "secondary": ["glutes"]
+    }
+  ]
+}

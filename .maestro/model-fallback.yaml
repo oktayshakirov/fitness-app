@@ -1,0 +1,11 @@
+appId: com.oktayshakirov.fitness
+name: M5 available video with female preference
+---
+- openLink: fitness://exercise/barbell_back_squat
+- assertVisible: Pause video
+- tapOn: Pause video
+- assertVisible: Play video
+- tapOn: Play video
+- assertVisible: Pause video
+- takeScreenshot: available-model-video
+- tapOn: Close exercise

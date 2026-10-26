@@ -1,0 +1,17 @@
+appId: com.oktayshakirov.fitness
+name: M5 imported weight and no-op unit conversion
+---
+- openLink: fitness://log?entryId=m5-native-backup-test
+- assertVisible: Edit log
+- assertVisible: "88.18"
+- tapOn: Save changes
+- openLink: fitness://settings
+- scrollUntilVisible:
+    element: kg
+    direction: UP
+- tapOn: kg
+- openLink: fitness://log?entryId=m5-native-backup-test
+- assertVisible: "40"
+- tapOn: Close log
+- openLink: fitness://settings
+- tapOn: lb

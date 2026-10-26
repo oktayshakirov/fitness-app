@@ -1,0 +1,26 @@
+appId: com.oktayshakirov.fitness
+name: M5 Android backup import and export
+---
+- openLink: fitness://settings
+- scrollUntilVisible:
+    element: Import data
+    direction: DOWN
+- tapOn: Import data
+- tapOn: Show roots
+- tapOn: Downloads
+- tapOn: fitness-test-backup.json
+- assertVisible: Import backup?
+- tapOn: Import
+- assertVisible: Import complete
+- tapOn: OK
+- tapOn: Import data
+- tapOn: fitness-test-backup.json
+- assertVisible: Import backup?
+- tapOn: Import
+- assertVisible: Added 0 logs. Kept 1 existing entries.
+- tapOn: OK
+- tapOn: Export data
+- extendedWaitUntil:
+    visible: .*fitness-backup.*
+    timeout: 15000
+- takeScreenshot: android-export
