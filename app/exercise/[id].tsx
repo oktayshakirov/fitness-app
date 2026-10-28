@@ -51,7 +51,7 @@ function Section({
         onPress={() => setOpen(!open)}
         style={[s.row, { minHeight: 44, justifyContent: "space-between" }]}
       >
-        <Text style={s.title}>{title}</Text>
+        <Text style={[s.title, { flex: 1 }]}>{title}</Text>
         <Text style={s.secondary}>{open ? "−" : "+"}</Text>
       </Pressable>
       {open &&

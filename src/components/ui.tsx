@@ -56,6 +56,7 @@ export function IconButton({
       accessibilityRole="button"
       accessibilityLabel={label}
       disabled={disabled}
+      accessibilityState={{ disabled }}
       onPress={onPress}
       style={({ pressed }) => [
         s.icon,
@@ -139,8 +140,13 @@ export function Empty({
 }) {
   return (
     <View style={s.empty}>
-      <Text style={s.title}>{title}</Text>
-      <Text style={s.secondary}>{description}</Text>
+      <Text
+        accessibilityRole="header"
+        style={[s.title, { textAlign: "center" }]}
+      >
+        {title}
+      </Text>
+      <Text style={[s.secondary, { textAlign: "center" }]}>{description}</Text>
     </View>
   );
 }
@@ -164,6 +170,7 @@ export const s = StyleSheet.create({
     padding: 16,
   },
   icon: {
+    flexShrink: 0,
     width: 44,
     height: 44,
     alignItems: "center",

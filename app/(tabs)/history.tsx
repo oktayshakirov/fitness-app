@@ -15,6 +15,7 @@ import {
   Card,
   IconButton,
   Empty,
+  Button,
   s,
 } from "../../src/components/ui";
 import { useEntries } from "../../src/storage/store";
@@ -56,6 +57,11 @@ function EntryRow({ entry }: { entry: LogEntry }) {
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={`Edit ${entry.exerciseName}`}
+        accessibilityHint="Opens this log. Use the Delete accessibility action to remove it."
+        accessibilityActions={[{ name: "delete", label: "Delete log" }]}
+        onAccessibilityAction={(event) => {
+          if (event.nativeEvent.actionName === "delete") remove();
+        }}
         onPress={() =>
           router.push({ pathname: "/log", params: { entryId: entry.id } })
         }
@@ -165,7 +171,7 @@ export default function History() {
                   {date && (
                     <Pressable
                       accessibilityRole="button"
-                      accessibilityLabel={`${date.toLocaleDateString()}${days.has(key) ? ", active" : ""}`}
+                      accessibilityLabel={`${date.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" })}${key === today ? ", today" : ""}${days.has(key) ? ", active" : ""}`}
                       accessibilityState={{ selected: key === selected }}
                       onPress={() => setSelected(key)}
                       style={{
@@ -222,7 +228,9 @@ export default function History() {
             ))}
           </View>
         </Card>
-        <Text style={s.title}>{selected === today ? "Today" : selected}</Text>
+        <Text accessibilityRole="header" style={s.title}>
+          {selected === today ? "Today" : selected}
+        </Text>
         {entries
           .filter((e) => dayKey(e.timestamp) === selected)
           .map((e) => (
@@ -234,7 +242,17 @@ export default function History() {
             description="Log an exercise to see it here."
           />
         )}
-        <Text style={s.title}>Recent</Text>
+        {!entries.length && (
+          <Button
+            title="Browse exercises"
+            onPress={() => router.push("/(tabs)/exercises")}
+          />
+        )}
+        {!!entries.length && (
+          <Text accessibilityRole="header" style={s.title}>
+            Recent
+          </Text>
+        )}
         {entries.slice(0, 20).map((e) => (
           <EntryRow key={e.id} entry={e} />
         ))}

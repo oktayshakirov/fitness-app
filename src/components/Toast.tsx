@@ -6,7 +6,7 @@ import {
   useState,
   type PropsWithChildren,
 } from "react";
-import { Alert, Pressable, Text, View } from "react-native";
+import { AccessibilityInfo, Alert, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../theme";
 import { s } from "./ui";
@@ -20,7 +20,10 @@ export function ToastProvider({ children }: PropsWithChildren) {
   function show(next: Message) {
     clearTimeout(timer.current);
     setMessage(next);
-    timer.current = setTimeout(() => setMessage(null), 6000);
+    AccessibilityInfo.announceForAccessibility(
+      `${next.text}. Undo is available.`,
+    );
+    timer.current = setTimeout(() => setMessage(null), 10000);
   }
   return (
     <Context.Provider value={show}>
@@ -41,7 +44,7 @@ export function ToastProvider({ children }: PropsWithChildren) {
             justifyContent: "space-between",
           }}
         >
-          <Text style={s.text}>{message.text}</Text>
+          <Text style={[s.text, { flex: 1 }]}>{message.text}</Text>
           <Pressable
             accessibilityRole="button"
             onPress={() => {
@@ -55,7 +58,7 @@ export function ToastProvider({ children }: PropsWithChildren) {
                 );
               }
             }}
-            style={{ minHeight: 48, padding: 16 }}
+            style={{ minHeight: 48, padding: 16, flexShrink: 0 }}
           >
             <Text style={{ color: colors.accent, fontSize: 17 }}>Undo</Text>
           </Pressable>

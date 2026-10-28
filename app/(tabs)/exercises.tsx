@@ -6,6 +6,7 @@ import { useMemo, useState, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import {
   Alert,
+  useWindowDimensions,
   ScrollView,
   Text,
   TextInput,
@@ -25,11 +26,19 @@ import {
   s,
 } from "../../src/components/ui";
 import { colors } from "../../src/theme";
-import { content, exercises, label, mediaFor } from "../../src/content";
+import {
+  content,
+  exercises,
+  label,
+  mediaFor,
+  mediaBackground,
+} from "../../src/content";
 import { muscleIds, type Exercise } from "../../src/content/types";
 import { filterExercises } from "../../src/content/query";
 export default function Library() {
   const { model } = useSettings();
+  const { fontScale } = useWindowDimensions();
+  const columns = fontScale > 1.15 ? 1 : 2;
   const toast = useToast();
   const params = useLocalSearchParams<{ muscle?: string }>();
   const [muscle, setMuscle] = useState(params.muscle ?? "");
@@ -135,7 +144,12 @@ export default function Library() {
           />
         ))}
       </ScrollView>
-      <View style={[s.row, { marginHorizontal: 20, marginVertical: 12 }]}>
+      <View
+        style={[
+          s.row,
+          { flexWrap: "wrap", marginHorizontal: 20, marginVertical: 12 },
+        ]}
+      >
         <Text accessibilityLiveRegion="polite" style={s.footnote}>
           {filtered.length} {filtered.length === 1 ? "exercise" : "exercises"}
         </Text>
@@ -160,7 +174,8 @@ export default function Library() {
       </View>
       <FlashList
         data={filtered}
-        numColumns={2}
+        key={columns}
+        numColumns={columns}
         keyExtractor={(e) => e.id}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
@@ -192,12 +207,12 @@ export default function Library() {
                 />
                 <View style={{ padding: 12, gap: 6 }}>
                   <Text
-                    numberOfLines={2}
+                    numberOfLines={columns === 1 ? undefined : 2}
                     style={[s.text, { fontWeight: "600", minHeight: 44 }]}
                   >
                     {item.name}
                   </Text>
-                  <Text numberOfLines={2} style={s.footnote}>
+                  <Text style={s.footnote}>
                     {item.equipment.map(label).join(" · ")}
                   </Text>
                 </View>
@@ -257,5 +272,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: "hidden",
   },
-  poster: { width: "100%", aspectRatio: 4 / 5, backgroundColor: colors.video },
+  poster: {
+    width: "100%",
+    aspectRatio: 4 / 5,
+    backgroundColor: mediaBackground,
+  },
 });

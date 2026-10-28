@@ -3,7 +3,7 @@ import { AppState, StyleSheet, Text, View } from "react-native";
 import { useVideoPlayer, VideoView } from "expo-video";
 import { Image } from "expo-image";
 import { useIsFocused } from "expo-router";
-import { content } from "../content";
+import { content, mediaBackground } from "../content";
 import type { ExerciseView } from "../content/types";
 import { colors } from "../theme";
 import { IconButton, s } from "./ui";
@@ -102,7 +102,7 @@ export function ExerciseVideo({
         />
       </View>
       {error && (
-        <View style={styles.error}>
+        <View accessibilityLiveRegion="polite" style={styles.error}>
           <Text style={s.footnote}>Video unavailable. Tap retry.</Text>
         </View>
       )}
@@ -113,10 +113,18 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     aspectRatio: 4 / 5,
-    backgroundColor: colors.video,
+    backgroundColor: mediaBackground,
     borderRadius: 16,
     overflow: "hidden",
   },
   controls: { position: "absolute", right: 12, bottom: 12 },
-  error: { position: "absolute", left: 12, bottom: 16, right: 64 },
+  error: {
+    position: "absolute",
+    left: 12,
+    bottom: 16,
+    right: 64,
+    padding: 10,
+    borderRadius: 8,
+    backgroundColor: colors.surface,
+  },
 });

@@ -7,10 +7,16 @@ import type {
   Exercise,
   Model,
 } from "./types";
+export const isContentPreview =
+  __DEV__ && process.env.EXPO_PUBLIC_CONTENT_PREVIEW === "1";
+const preview: typeof import("./preview") | undefined = isContentPreview
+  ? require("./preview")
+  : undefined;
+export const mediaBackground = isContentPreview ? "#FFFFFF" : "#0A0A0C";
 export const content: ContentRepository = {
-  release: raw as ContentRelease,
+  release: preview?.release ?? (raw as ContentRelease),
   resolve: (asset) => {
-    const source = bundledAssets[asset.path];
+    const source = preview?.assets[asset.path] ?? bundledAssets[asset.path];
     if (source === undefined)
       throw new Error(`Missing bundled asset: ${asset.path}`);
     return source;

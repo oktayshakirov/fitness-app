@@ -15,7 +15,7 @@ import {
   s,
 } from "../src/components/ui";
 import { ModelChoice } from "../src/components/ModelChoice";
-import { content } from "../src/content";
+import { content, isContentPreview } from "../src/content";
 import {
   exportData,
   getEntries,
@@ -182,8 +182,12 @@ export default function Settings() {
         <Card>
           <Text style={s.text}>Content {content.release.contentVersion}</Text>
           <Text style={s.secondary}>
-            {content.release.exercises.length} approved exercises · available
-            offline
+            {content.release.exercises.length} exercises · available offline
+          </Text>
+          <Text style={s.footnote}>
+            {isContentPreview
+              ? "Development preview · appearance and form review pending"
+              : "Approved content"}
           </Text>
           <Text style={s.footnote}>
             App {Constants.expoConfig?.version ?? "0.1.0"}

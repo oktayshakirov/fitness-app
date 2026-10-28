@@ -181,3 +181,35 @@ planning checkpoint beyond the explicitly requested planning repository.
 - Final iOS rerun passed both saved-preferences UI assertions and available-video
   playback/pause with female selected; Android's matching video fallback flow also
   passed. Working tree clean after checkpoint commits.
+
+## 2026-10-28 — App polish and development content preview handoff
+
+- Added development-only snapshot tooling for the current technically validated
+  male/female renders from `fitness-automation/dist`. The local snapshot is selected
+  only with `EXPO_PUBLIC_CONTENT_PREVIEW=1` in `__DEV__`; otherwise the bundled
+  v0.1.0 release is used. Preview metadata is visibly marked as awaiting appearance
+  and form review. This is a placeholder, not approved or publishable content.
+- Preview uses white as its video/poster canvas to match the user's 2026-10-26
+  request in `docs/MVP.md`. That MVP edit was already in the working tree before
+  this checkpoint and is intentionally left unstaged/uncommitted; keep it intact.
+- Polish changes address larger text in the exercise grid, wrapping filter counts,
+  accessible history calendar/delete actions, a browse action for empty history,
+  clearer video retry errors, more readable undo feedback, and shared component
+  accessibility/layout details.
+- `git diff --check` passed. Prior checkpoint validation is 22 unit tests and
+  TypeScript typecheck passing. iOS/Android M5 settings and playback Maestro checks
+  passed before this polish. A new Android polish Maestro run was started but its
+  completion was not captured; do not claim this polish itself passed native QA.
+- The Codex session ended on a model availability warning (`gpt-6-astra` not
+  supported for the signed-in ChatGPT account), not an app build failure. Resume
+  with a supported configured model, inspect `git status` first, run typecheck and
+  tests, then smoke the current preview and approved bundle on iOS and Android.
+  Confirm both model selections have poster-first playback, scrolling, settings
+  label, large-text layout, history accessibility and video error retry.
+- Before committing, stage only app-owned polish/preview files and README. Do not
+  stage the pre-existing `docs/MVP.md` white-background note. Commit in a small
+  plain-message checkpoint. Current source renders still have no human content
+  approval and there is no published updated release. Next product milestone is M6
+  local-fixture testing for remote content validation/cache/atomic activation, after
+  completing this polish QA; do not create paid services/accounts. Keep M4 body-map
+  alignment and direct region taps, M7, and M8 open as above.

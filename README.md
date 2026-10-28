@@ -89,3 +89,12 @@ checks 40 kg → 88.18 lb → unchanged save → 40 kg. Tests leave synthetic lo
 On iOS, put the same fixture in simulator Files, choose it with Import data, and
 check the confirmation/result; export should open the native JSON share sheet.
 No account or cloud file provider is required. Native picker layouts vary by OS.
+
+### Development media preview
+
+`scripts/import_preview.py /Users/oktayshakirov/Coding/fitness-automation` creates a
+separate, checksum-checked snapshot of the current technically validated renders. It
+never changes the approved v0.1.0 bundle. Set `EXPO_PUBLIC_CONTENT_PREVIEW=1` in a
+local development environment to use it; remove that value for the approved bundle.
+The preview is visibly labeled in Settings and must never be used for a release until
+the content review and published envelope are complete.
