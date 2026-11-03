@@ -1,42 +1,62 @@
-"""Import only hash-verified approved v0.1.0 media. Usage: python3 scripts/import_release.py RELEASE_DIR"""
-import hashlib, json, shutil, subprocess, sys, tempfile, zipfile
+"""Bundle the current published content release, hash-verified.
+
+Usage: python3 scripts/import_release.py [RELEASES_DIR]
+RELEASES_DIR holds current.json and <contentVersion>/ (default: fitness-automation/releases).
+"""
+import hashlib, json, re, shutil, sys
 from pathlib import Path
+
 ROOT = Path(__file__).resolve().parents[1]
-release_dir = Path(sys.argv[1] if len(sys.argv)>1 else '/Users/oktayshakirov/Coding/fitness-releases/v0.1.0')
-EXPECTED_ARCHIVE = 'a56990584ea753ebd34b2ed5a9dcb74c67b51a7d02af57e1b13d7679a53c15d0'
-archive = release_dir / 'fitness-media-v0.1.0.zip'
-assert hashlib.sha256(archive.read_bytes()).hexdigest() == EXPECTED_ARCHIVE, 'Release archive hash mismatch'
-assets = {}
-with tempfile.TemporaryDirectory() as temp:
-    with zipfile.ZipFile(archive) as z: z.extractall(temp)
-    source = Path(temp) / 'fitness-media-v0.1.0'
-    hashes = json.loads((source/'SHA256SUMS.json').read_text())
-    for path, digest in hashes.items():
-        assert hashlib.sha256((source/path).read_bytes()).hexdigest() == digest, f'Hash mismatch: {path}'
-    def media(path):
-        file = source/'dist'/path
-        target = ROOT/'assets'/'content'/path
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(file, target)
-        size = json.loads(subprocess.check_output(['ffprobe','-v','quiet','-select_streams','v:0','-show_entries','stream=width,height','-of','json',str(file)]))['streams'][0]
+releases = Path(sys.argv[1] if len(sys.argv) > 1 else '/Users/oktayshakirov/Coding/fitness-automation/releases')
+sha = lambda data: hashlib.sha256(data).hexdigest()
+
+pointer = json.loads((releases/'current.json').read_text())
+assert pointer['schemaVersion'] == 1 and pointer['minAppSchema'] <= 1, 'Unsupported schema'
+raw = (releases/pointer['content']['path']).read_bytes()
+assert len(raw) == pointer['content']['bytes'] and sha(raw) == pointer['content']['sha256'], 'content.json does not match current.json'
+release = json.loads(raw)
+assert release['contentVersion'] == pointer['contentVersion']
+source = (releases/pointer['content']['path']).parent
+
+def walk(node):
+    """Every MediaAsset in the envelope."""
+    if isinstance(node, dict):
+        if {'path', 'sha256', 'bytes'} <= node.keys():
+            yield node
+        else:
+            for value in node.values(): yield from walk(value)
+    elif isinstance(node, list):
+        for value in node: yield from walk(value)
+
+target = ROOT/'assets'/'content'
+shutil.rmtree(target, ignore_errors=True)
+shutil.rmtree(ROOT/'assets'/'development', ignore_errors=True)
+assets, regions = {}, {}
+for asset in walk(release):
+    path = asset['path']
+    data = (source/path).read_bytes()
+    assert len(data) == asset['bytes'] and sha(data) == asset['sha256'], f'Hash mismatch: {path}'
+    assert not path.endswith('.mov') and 'hevc' not in path, f'H.264 only: {path}'
+    (target/path).parent.mkdir(parents=True, exist_ok=True)
+    (target/path).write_bytes(data)
+    if path.endswith('.svg'):
+        # Hit regions use only M/L/Z; store them as polygons so taps need no SVG parser.
+        svg = data.decode()
+        assert 'viewBox="0 0 800 1000"' in svg, path
+        regions[path] = {
+            muscle: [[float(n) for n in re.findall(r'-?\d+(?:\.\d+)?', ring)] for ring in re.split(r'[Zz]', d) if ring.strip()]
+            for muscle, d in re.findall(r'<path[^>]*\bid="([a-z_]+)"[^>]*\bd="([^"]+)"', svg)
+        }
+        assert regions[path] and not re.search(r'[^MLZz\d\s,.-]', ' '.join(re.findall(r'\bd="([^"]+)"', svg))), path
+    else:
         assets[path] = f"require('../../assets/content/{path}')"
-        return dict(path=path, width=size['width'], height=size['height'], bytes=file.stat().st_size, sha256=hashes['dist/'+path])
-    exercises=[]
-    for item in json.loads((source/'dist/manifest.json').read_text()):
-        approval=json.loads((source/f"approvals/{item['id']}.json").read_text())
-        assert item['approved'] and approval['approved'], item['id']
-        for key in ['spec_sha256','pipeline_sha256']:
-            assert item[key] == approval['fingerprint'][key], f'Stale approval: {item["id"]}'
-        catalog=json.loads((source/f"catalog/{item['id']}.json").read_text())
-        assert catalog['reviewed'], item['id']
-        exercise={k:catalog[k] for k in ['id','name','steps','cues','mistakes','breathing','source']}
-        for key in ['primary','secondary','equipment']:
-            exercise[key]=[{'abdominals': 'abs'}.get(s, s).replace(' ','_') for s in item[key]]
-        exercise['media']={'male':{v:{'video':media(paths['h264']), 'poster':media(paths['poster'])} for v, paths in item['files'].items()}}
-        exercises.append(exercise)
-    attribution=(source/'dist/ATTRIBUTION.md').read_text()
-    envelope=dict(schemaVersion=1,minAppSchema=1,contentVersion='v0.1.0',exercises=exercises,bodymap={},heroes={},attribution=attribution)
-    (ROOT/'src/content/bundled.json').write_text(json.dumps(envelope,indent=2)+'\n')
-    (ROOT/'src/content/bundled-assets.ts').write_text('// Generated by scripts/import_release.py. Do not edit.\nexport const bundledAssets: Record<string, number> = {\n'+''.join(f'  {json.dumps(k)}: {v},\n' for k,v in sorted(assets.items()))+'};\n')
-    (ROOT/'assets/content/ATTRIBUTION.md').write_text(attribution)
-    print(f'Imported {len(exercises)} approved exercises, {len(assets)} assets; archive and all file hashes verified.')
+
+shutil.copyfile(source/'ATTRIBUTION.md', target/'ATTRIBUTION.md')
+content = ROOT/'src'/'content'
+(content/'bundled.json').write_text(json.dumps(release, indent=2)+'\n')
+(content/'hit-regions.json').write_text(json.dumps(regions, separators=(',', ':'))+'\n')
+(content/'bundled-assets.ts').write_text(
+    '// Generated by scripts/import_release.py. Do not edit.\nexport const bundledAssets: Record<string, number> = {\n'
+    + ''.join(f'  {json.dumps(k)}: {v},\n' for k, v in sorted(assets.items())) + '};\n')
+print(f"Imported {release['contentVersion']}: {len(release['exercises'])} exercises, "
+      f"{len(assets)} media files, {len(regions)} hit maps; every hash verified.")

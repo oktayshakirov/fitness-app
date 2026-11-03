@@ -5,11 +5,32 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { ThemeProvider, DarkTheme } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useEffect } from "react";
+import * as SplashScreen from "expo-splash-screen";
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 import { colors } from "../src/theme";
-export const unstable_settings = { initialRouteName: "(tabs)" };
+void SplashScreen.preventAutoHideAsync();
+export const unstable_settings = { anchor: "(tabs)" };
 
 export default function RootLayout() {
   const settings = useSettings();
+  const [fontsLoaded, fontError] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
+  const ready = fontsLoaded || !!fontError;
+  useEffect(() => {
+    if (ready) void SplashScreen.hideAsync();
+  }, [ready]);
+  if (!ready) return null;
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider
@@ -41,7 +62,6 @@ export default function RootLayout() {
               >
                 <Stack.Screen name="(tabs)" />
                 <Stack.Screen name="exercise/[id]" />
-                <Stack.Screen name="settings" />
                 <Stack.Screen
                   name="log"
                   options={{

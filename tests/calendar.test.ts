@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { dayKey, monthDays, streaks } from "../src/storage/calendar";
+import { dayKey, monthDays, streaks, weekDays } from "../src/storage/calendar";
 import type { LogEntry } from "../src/storage/types";
 const entry = (date: string): LogEntry => ({
   id: date,
@@ -38,4 +38,9 @@ test("future logs never increase streaks", () => {
     current: 0,
     weekly: 0,
   });
+});
+test("week days run Monday to Sunday around the given day", () => {
+  const days = weekDays(new Date(2026, 10, 4, 9)).map((d) => dayKey(d));
+  assert.deepEqual(days[0], "2026-11-02");
+  assert.deepEqual(days[6], "2026-11-08");
 });

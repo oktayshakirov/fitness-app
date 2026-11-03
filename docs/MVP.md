@@ -206,3 +206,48 @@ Contract = the content envelope + body view assets. Changes go into this file fi
   muscle-list taps work; direct body-region taps and mask alignment remain unverified.
 - Male/female assets remain replaceable content. Do not freeze current appearance for
   the app's sake; no unapproved development renders are bundled.
+
+- **2026-10-26 — Content request: white video background.** The user now selects
+  white `#FFFFFF` as the fallback for H.264 exercise videos, superseding the earlier
+  `bg.video = #0A0A0C` request. H.264 remains opaque; PNG/WebP stills may retain alpha.
+  Please align the video container/poster background with white when consuming the
+  new approved assets. No codec, envelope-field or schema-version change is proposed.
+  Appearance review and fresh per-exercise/model human approval remain required.
+
+- **2026-10-30 — Content: release envelope and body-view layout (no schema change).**
+  `fitness-automation/core/publish.py` writes an immutable `releases/<contentVersion>/`
+  (`content.json` per `src/content/types.ts`, schemaVersion 1, media paths relative to the
+  release folder: `<exercise>/<model>/<file>`, `bodymap/<model>/<file>`) and switches
+  `releases/current.json` last. Proposed pointer shape: `{schemaVersion, minAppSchema,
+  contentVersion, content: {path: "<version>/content.json", bytes, sha256}, publishedAt}`;
+  the app should fetch `current.json`, then `content.json`, and check its sha256 before
+  switching. Body views per model are 800×1000, one orthographic camera per view
+  (front, back): `body_<view>.webp` (transparent, shaded), `mask_<view>_<muscle>.png`
+  (white + alpha, app muscle ids, identical framing) and `hits_<view>.svg` (viewBox
+  `0 0 800 1000`, one `<path id="<muscle>" data-muscle="<muscle>">` per region, no
+  embedded image). Body views ship only after a human approval of the exact files.
+  Hosting upload is not done yet; it needs the user's go-ahead.
+  **App change needed:** the approved leg press ships a `top` camera view (male and female);
+  please add `"top"` to `CameraView` in `src/content/types.ts`. Kept as-is, not relabelled.
+
+- **2026-10-31 — Content: heroes and equipment icons (additive, no schema change).**
+  Heroes fill the existing `heroes` field: `heroes/<model>/hero.webp`, 800×1200 (2:3, the
+  onboarding card), transparent WebP, the model standing relaxed in the approved look.
+  Equipment icons ship as a new optional top-level field (the app may ignore it until it
+  types it): `equipmentIcons: Partial<Record<EquipmentCategory, {icon: MediaAsset;
+  equipment: string[]}>>`, where `EquipmentCategory = "barbell" | "dumbbell" | "kettlebell"
+  | "cable" | "machine" | "bench" | "bodyweight" | "band"` and `equipment` lists the catalog
+  equipment ids that the chip filters (e.g. `cable` → `cable_tower`, `rope`, `d_handle`, …;
+  an exercise can match several chips). Icons are `icons/<category>.webp`, 256×256,
+  transparent, light grey shaded renders of our procedural equipment for dark chips.
+  Both ship only after a human approval of the exact files. **App change requested:** add
+  the optional `equipmentIcons` field and the category type to `src/content/types.ts`.
+
+- **2026-10-31 — App: v0.3.0 bundled; both requested changes done.** `CameraView` now
+  includes `"top"` and `ContentRelease` has the optional `equipmentIcons` field with
+  `EquipmentCategory` in `src/content/types.ts` (no schema change). The app bundles
+  `releases/v0.3.0` via `scripts/import_release.py` (follows `current.json`, verifies every
+  digest), uses the heroes for onboarding/Settings, the body views with tinted masks and
+  hit-region taps, and the equipment icons as filter chips. The dev-only preview snapshot
+  was removed. Hit SVGs are expected to keep using only `M`/`L`/`Z` path commands and the
+  `0 0 800 1000` viewBox; the importer rejects anything else.

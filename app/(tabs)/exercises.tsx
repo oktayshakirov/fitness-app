@@ -1,40 +1,32 @@
-import { useSettings } from "../../src/storage/store";
-import * as Haptics from "expo-haptics";
-import { logExercise, deleteEntry } from "../../src/storage/store";
-import { useToast } from "../../src/components/Toast";
-import { useMemo, useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import {
   Alert,
-  useWindowDimensions,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
   Pressable,
+  ScrollView,
   StyleSheet,
+  View,
+  useWindowDimensions,
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
-import {
-  Screen,
-  Heading,
-  Chip,
-  Empty,
-  IconButton,
-  s,
-} from "../../src/components/ui";
-import { colors } from "../../src/theme";
+import * as Haptics from "expo-haptics";
+import { Screen, Heading, Chip, Empty, IconButton, s } from "../../src/components/ui";
+import { Text, TextInput } from "../../src/components/Text";
+import { useToast } from "../../src/components/Toast";
 import {
   content,
-  exercises,
+  coverFor,
+  equipmentFilters,
+  equipmentSummary,
+  filterCatalog,
   label,
-  mediaFor,
   mediaBackground,
 } from "../../src/content";
 import { muscleIds, type Exercise } from "../../src/content/types";
-import { filterExercises } from "../../src/content/query";
+import { deleteEntry, logExercise, useSettings } from "../../src/storage/store";
+import { colors, tabBarSpace } from "../../src/theme";
 export default function Library() {
   const { model } = useSettings();
   const { fontScale } = useWindowDimensions();
@@ -49,26 +41,37 @@ export default function Library() {
     setMuscle(params.muscle ?? "");
   }, [params.muscle]);
   const filtered = useMemo(
-    () => filterExercises(exercises, { muscle, equipment, query }),
+    () => filterCatalog({ muscle, equipment, query }),
     [muscle, equipment, query],
   );
-  const equipmentTypes = useMemo(
-    () => [...new Set(exercises.flatMap((e) => e.equipment))].sort(),
-    [],
-  );
+  function chooseMuscle(m: string) {
+    setMuscle(m);
+    router.setParams({ muscle: m });
+  }
   function open(exercise: Exercise) {
     router.push({
       pathname: "/exercise/[id]",
       params: { id: exercise.id, muscle, equipment, query },
     });
   }
+  function quickLog(exercise: Exercise) {
+    try {
+      const entry = logExercise(exercise);
+      toast({ text: `Logged ${exercise.name}`, undo: () => deleteEntry(entry.id) });
+      void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    } catch {
+      Alert.alert("Could not log", "Please try again.");
+    }
+  }
   return (
     <Screen>
       <Heading
-        title={muscle ? label(muscle) : "All exercises"}
+        eyebrow="Library"
+        title={muscle ? label(muscle) : "Exercises"}
+        subtitle={`${filtered.length} ${filtered.length === 1 ? "exercise" : "exercises"}`}
         action={
           <IconButton
-            name="options-outline"
+            name={muscle || showMuscles ? "body" : "body-outline"}
             label="Filter by muscle"
             onPress={() => setShowMuscles(!showMuscles)}
           />
@@ -78,7 +81,7 @@ export default function Library() {
         <Ionicons name="search" size={20} color={colors.secondary} />
         <TextInput
           accessibilityLabel="Search exercises"
-          placeholder="Search exercises"
+          placeholder="Search"
           placeholderTextColor={colors.secondary}
           value={query}
           onChangeText={setQuery}
@@ -86,42 +89,41 @@ export default function Library() {
           autoCapitalize="none"
           submitBehavior="blurAndSubmit"
           returnKeyType="search"
-          style={[s.text, { flex: 1, minHeight: 44 }]}
+          style={[s.text, { flex: 1, minHeight: 52 }]}
         />
-        {query ? (
-          <IconButton
-            name="close"
-            label="Clear search"
+        {!!query && (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Clear search"
+            hitSlop={12}
             onPress={() => setQuery("")}
-          />
-        ) : null}
+          >
+            <Ionicons name="close-circle" size={18} color={colors.secondary} />
+          </Pressable>
+        )}
       </View>
-      {showMuscles && (
+      {(showMuscles || !!muscle) && (
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.filters}
           contentContainerStyle={styles.chips}
         >
-          <Chip
-            title="All muscles"
-            selected={!muscle}
-            onPress={() => {
-              setMuscle("");
-              router.setParams({ muscle: "" });
-            }}
-          />
-          {muscleIds.map((m) => (
-            <Chip
-              key={m}
-              title={label(m)}
-              selected={muscle === m}
-              onPress={() => {
-                setMuscle(m);
-                router.setParams({ muscle: m });
-              }}
-            />
-          ))}
+          {showMuscles ? (
+            <>
+              <Chip title="All muscles" selected={!muscle} onPress={() => chooseMuscle("")} />
+              {muscleIds.map((m) => (
+                <Chip
+                  key={m}
+                  title={label(m)}
+                  selected={muscle === m}
+                  onPress={() => chooseMuscle(m)}
+                />
+              ))}
+            </>
+          ) : (
+            <Chip title={`${label(muscle)}  ✕`} selected onPress={() => chooseMuscle("")} />
+          )}
         </ScrollView>
       )}
       <ScrollView
@@ -130,48 +132,17 @@ export default function Library() {
         style={styles.filters}
         contentContainerStyle={styles.chips}
       >
-        <Chip
-          title="All equipment"
-          selected={!equipment}
-          onPress={() => setEquipment("")}
-        />
-        {equipmentTypes.map((e) => (
+        <Chip title="All" selected={!equipment} onPress={() => setEquipment("")} />
+        {equipmentFilters.map((f) => (
           <Chip
-            key={e}
-            title={label(e)}
-            selected={e === equipment}
-            onPress={() => setEquipment(e === equipment ? "" : e)}
+            key={f.id}
+            title={f.title}
+            icon={f.icon && content.resolve(f.icon)}
+            selected={f.id === equipment}
+            onPress={() => setEquipment(f.id === equipment ? "" : f.id)}
           />
         ))}
       </ScrollView>
-      <View
-        style={[
-          s.row,
-          { flexWrap: "wrap", marginHorizontal: 20, marginVertical: 12 },
-        ]}
-      >
-        <Text accessibilityLiveRegion="polite" style={s.footnote}>
-          {filtered.length} {filtered.length === 1 ? "exercise" : "exercises"}
-        </Text>
-        {muscle || equipment || query ? (
-          <Pressable
-            accessibilityRole="button"
-            onPress={() => {
-              setMuscle("");
-              setEquipment("");
-              setQuery("");
-              router.setParams({ muscle: "" });
-            }}
-            style={{
-              marginLeft: "auto",
-              minHeight: 44,
-              justifyContent: "center",
-            }}
-          >
-            <Text style={{ color: colors.accent }}>Clear filters</Text>
-          </Pressable>
-        ) : null}
-      </View>
       <FlashList
         data={filtered}
         key={columns}
@@ -179,72 +150,53 @@ export default function Library() {
         keyExtractor={(e) => e.id}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
-        contentContainerStyle={{ paddingHorizontal: 14, paddingBottom: 20 }}
+        contentContainerStyle={{ paddingHorizontal: 14, paddingTop: 12, paddingBottom: tabBarSpace }}
         ListEmptyComponent={
           <Empty
+            icon="search"
             title="No exercises found"
             description="Try a different muscle, equipment or search."
           />
         }
         renderItem={({ item }) => {
-          const media = mediaFor(item, model).views;
-          const first = media.threeq ?? media.side ?? Object.values(media)[0]!;
+          const cover = coverFor(item, model);
           return (
             <View style={styles.card}>
               <Pressable
                 accessibilityRole="button"
                 testID={`exercise-${item.id}`}
-                accessibilityLabel={`${item.name}, ${item.equipment.map(label).join(", ")}`}
+                accessibilityLabel={`${item.name}, ${equipmentSummary(item)}`}
                 onPress={() => open(item)}
-                style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+                style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
               >
                 <Image
-                  source={content.resolve(first.poster)}
-                  recyclingKey={first.poster.path}
+                  source={content.resolve(cover.poster)}
+                  recyclingKey={cover.poster.path}
                   contentFit="contain"
                   cachePolicy="memory-disk"
                   style={styles.poster}
                 />
-                <View style={{ padding: 12, gap: 6 }}>
+                <View style={{ paddingHorizontal: 8, paddingTop: 10, paddingBottom: 6, gap: 2 }}>
                   <Text
                     numberOfLines={columns === 1 ? undefined : 2}
-                    style={[s.text, { fontWeight: "600", minHeight: 44 }]}
+                    style={s.headline}
                   >
                     {item.name}
                   </Text>
-                  <Text style={s.footnote}>
-                    {item.equipment.map(label).join(" · ")}
+                  <Text numberOfLines={1} style={s.footnote}>
+                    {equipmentSummary(item)}
                   </Text>
                 </View>
               </Pressable>
-              <View
-                style={{
-                  position: "absolute",
-                  top: 8,
-                  right: 8,
-                  backgroundColor: colors.surface,
-                  borderRadius: 24,
-                }}
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={`Log ${item.name}`}
+                hitSlop={6}
+                onPress={() => quickLog(item)}
+                style={({ pressed }) => [styles.add, { opacity: pressed ? 0.6 : 1 }]}
               >
-                <IconButton
-                  name="add"
-                  label={`Log ${item.name}`}
-                  onPress={() => {
-                    try {
-                      const entry = logExercise(item);
-                      toast({
-                        text: "Logged",
-                        undo: () => deleteEntry(entry.id),
-                      });
-                      void Haptics.notificationAsync(
-                        Haptics.NotificationFeedbackType.Success,
-                      );
-                    } catch {
-                      Alert.alert("Could not log", "Please try again.");
-                    }
-                  }}
-                />
-              </View>
+                <Ionicons name="add" size={22} color={colors.onAccent} />
+              </Pressable>
             </View>
           );
         }}
@@ -258,23 +210,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
     marginHorizontal: 20,
-    paddingLeft: 14,
-    paddingRight: 4,
+    paddingHorizontal: 18,
     backgroundColor: colors.surface,
-    borderRadius: 12,
+    borderRadius: 26,
+    borderWidth: 1,
+    borderColor: colors.separator,
   },
   filters: { flexGrow: 0, marginTop: 12 },
   chips: { paddingHorizontal: 20, gap: 8 },
   card: {
     flex: 1,
     margin: 6,
+    padding: 6,
+    borderRadius: 24,
     backgroundColor: colors.surface,
-    borderRadius: 16,
-    overflow: "hidden",
   },
   poster: {
     width: "100%",
     aspectRatio: 4 / 5,
+    borderRadius: 18,
     backgroundColor: mediaBackground,
+  },
+  add: {
+    position: "absolute",
+    top: 14,
+    right: 14,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.accent,
   },
 });

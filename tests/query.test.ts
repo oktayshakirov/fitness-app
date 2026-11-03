@@ -21,3 +21,13 @@ test("clear filters restores order and unsupported filters are empty", () => {
   assert.deepEqual(filterExercises(exercises, { query: "nonexistent" }), []);
   assert.ok(filterExercises(exercises, { query: "lower back" }).length > 0);
 });
+test("equipment chips match any catalog id in their group", () => {
+  const cable = filterExercises(
+    exercises,
+    { equipment: "cable" },
+    { cable: ["cable_tower", "dual_cable"] },
+  );
+  assert.ok(cable.length > 0);
+  for (const e of cable)
+    assert.ok(e.equipment.some((q) => ["cable_tower", "dual_cable"].includes(q)));
+});

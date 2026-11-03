@@ -2,24 +2,13 @@ import { useSettings } from "../src/storage/store";
 import { toDisplayWeight, toKilograms, weightText } from "../src/storage/units";
 import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import {
-  Alert,
-  Keyboard,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, Keyboard, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Text, TextInput } from "../src/components/Text";
+import { Image } from "expo-image";
+import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
-import { exercises } from "../src/content";
-import {
-  Screen,
-  Heading,
-  IconButton,
-  Button,
-  Card,
-  s,
-} from "../src/components/ui";
+import { content, coverFor, exercises, mediaBackground } from "../src/content";
+import { Screen, Heading, IconButton, Button, s } from "../src/components/ui";
 import { useToast } from "../src/components/Toast";
 import {
   deleteEntry,
@@ -122,159 +111,127 @@ export default function LogSheet() {
         <Button title="Close" onPress={() => router.back()} />
       </Screen>
     );
+  const cover = exercise && coverFor(exercise, settings.model);
+  function field(i: number, kind: "reps" | "weight") {
+    const step = kind === "reps" ? 1 : units === "kg" ? 2.5 : 5;
+    const name = kind === "reps" ? "reps" : "weight";
+    return (
+      <View style={{ flex: 1, gap: 4 }}>
+        <Text style={[s.footnote, { textAlign: "center" }]}>
+          {kind === "reps" ? "Reps" : units}
+        </Text>
+        <View style={styles.stepper}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`Decrease set ${i + 1} ${name}`}
+            onPress={() => adjust(i, kind, -step)}
+            style={styles.step}
+          >
+            <Ionicons name="remove" size={20} color={colors.text} />
+          </Pressable>
+          <TextInput
+            testID={`log-${kind}-${i}`}
+            accessibilityLabel={`Set ${i + 1} ${name}`}
+            keyboardType={kind === "reps" ? "number-pad" : "decimal-pad"}
+            selectTextOnFocus
+            value={sets[i]![kind]}
+            onChangeText={(value) =>
+              setSets((rows) =>
+                rows.map((row, j) =>
+                  j === i
+                    ? { ...row, [kind]: kind === "weight" ? value.replace(",", ".") : value }
+                    : row,
+                ),
+              )
+            }
+            style={[s.headline, styles.input]}
+          />
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`Increase set ${i + 1} ${name}`}
+            onPress={() => adjust(i, kind, step)}
+            style={styles.step}
+          >
+            <Ionicons name="add" size={20} color={colors.text} />
+          </Pressable>
+        </View>
+      </View>
+    );
+  }
   return (
     <Screen>
-      <Heading
-        title={original ? "Edit log" : "Log exercise"}
-        action={
-          <View style={s.row}>
-            {keyboardOpen && (
-              <IconButton
-                name="checkmark"
-                label="Done editing"
-                onPress={Keyboard.dismiss}
-              />
-            )}
-            <IconButton
-              name="close"
-              label="Close log"
-              onPress={() => router.back()}
-            />
-          </View>
-        }
-      />
+      <View style={[s.row, { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 8 }]}>
+        {cover && (
+          <Image
+            source={content.resolve(cover.poster)}
+            contentFit="contain"
+            style={{ width: 52, height: 65, borderRadius: 16, backgroundColor: mediaBackground }}
+          />
+        )}
+        <View style={{ flex: 1, gap: 2 }}>
+          <Text style={s.footnote}>{original ? "Edit log" : "Log exercise"}</Text>
+          <Text accessibilityRole="header" numberOfLines={2} style={s.title}>
+            {exercise?.name ?? original?.exerciseName}
+          </Text>
+        </View>
+        {keyboardOpen && (
+          <IconButton name="checkmark" label="Done editing" onPress={Keyboard.dismiss} />
+        )}
+        <IconButton name="close" label="Close log" onPress={() => router.back()} />
+      </View>
       <View style={{ flex: 1 }}>
         <ScrollView
           automaticallyAdjustKeyboardInsets
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
-          contentContainerStyle={{ padding: 20, gap: 20, paddingBottom: 40 }}
+          contentContainerStyle={{ padding: 20, gap: 12, paddingBottom: 40 }}
         >
-          <Text style={s.title}>
-            {exercise?.name ?? original?.exerciseName}
-          </Text>
           <Button
-            title={original ? "Save changes" : "Done"}
+            title={original ? "Save changes" : expanded ? `Save ${sets.length} ${sets.length === 1 ? "set" : "sets"}` : "Done"}
+            icon="checkmark-circle"
             onPress={save}
             disabled={busy}
           />
-          <Button
-            secondary
-            title={expanded ? "Log without sets" : "Add sets"}
+          <Pressable
+            accessibilityRole="button"
+            accessibilityState={{ expanded }}
             onPress={() => setExpanded(!expanded)}
-          />
+            style={[s.row, { minHeight: 48, justifyContent: "center", gap: 6 }]}
+          >
+            <Ionicons name={expanded ? "remove-circle-outline" : "add-circle-outline"} size={20} color={colors.accent} />
+            <Text style={{ color: colors.accent, fontSize: 16, fontWeight: "500" }}>
+              {expanded ? "Log without sets" : "Add sets"}
+            </Text>
+          </Pressable>
           {expanded && (
-            <Card>
-              <View style={{ gap: 16 }}>
-                {sets.map((set, i) => (
-                  <View key={i} style={s.row}>
-                    <Text style={s.footnote}>{i + 1}</Text>
-                    <View style={{ flex: 1 }}>
-                      <Text style={s.footnote}>Reps</Text>
-                      <TextInput
-                        testID={`log-reps-${i}`}
-                        accessibilityLabel={`Set ${i + 1} reps`}
-                        keyboardType="number-pad"
-                        selectTextOnFocus
-                        value={set.reps}
-                        onChangeText={(value) =>
-                          setSets((rows) =>
-                            rows.map((row, j) =>
-                              j === i ? { ...row, reps: value } : row,
-                            ),
-                          )
-                        }
-                        style={[
-                          s.text,
-                          {
-                            backgroundColor: colors.surface2,
-                            borderRadius: 8,
-                            padding: 12,
-                            minHeight: 48,
-                          },
-                        ]}
-                      />
-                      <View
-                        style={[s.row, { justifyContent: "space-between" }]}
-                      >
-                        <IconButton
-                          name="remove"
-                          label={`Decrease set ${i + 1} reps`}
-                          onPress={() => adjust(i, "reps", -1)}
-                        />
-                        <IconButton
-                          name="add"
-                          label={`Increase set ${i + 1} reps`}
-                          onPress={() => adjust(i, "reps", 1)}
-                        />
-                      </View>
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <Text style={s.footnote}>{units}</Text>
-                      <TextInput
-                        testID={`log-weight-${i}`}
-                        accessibilityLabel={`Set ${i + 1} weight`}
-                        keyboardType="decimal-pad"
-                        selectTextOnFocus
-                        value={set.weight}
-                        onChangeText={(value) =>
-                          setSets((rows) =>
-                            rows.map((row, j) =>
-                              j === i
-                                ? { ...row, weight: value.replace(",", ".") }
-                                : row,
-                            ),
-                          )
-                        }
-                        style={[
-                          s.text,
-                          {
-                            backgroundColor: colors.surface2,
-                            borderRadius: 8,
-                            padding: 12,
-                            minHeight: 48,
-                          },
-                        ]}
-                      />
-                      <View
-                        style={[s.row, { justifyContent: "space-between" }]}
-                      >
-                        <IconButton
-                          name="remove"
-                          label={`Decrease set ${i + 1} weight`}
-                          onPress={() =>
-                            adjust(i, "weight", units === "kg" ? -2.5 : -5)
-                          }
-                        />
-                        <IconButton
-                          name="add"
-                          label={`Increase set ${i + 1} weight`}
-                          onPress={() =>
-                            adjust(i, "weight", units === "kg" ? 2.5 : 5)
-                          }
-                        />
-                      </View>
-                    </View>
-                    <IconButton
-                      name="remove"
-                      label={`Remove set ${i + 1}`}
-                      disabled={sets.length === 1}
-                      onPress={() =>
-                        setSets((rows) => rows.filter((_, j) => j !== i))
-                      }
-                    />
+            <View style={{ gap: 8 }}>
+              {sets.map((_, i) => (
+                <View key={i} style={[s.card, s.row, { padding: 12, gap: 10 }]}>
+                  <View style={styles.badge}>
+                    <Text style={{ color: colors.onAccent, fontWeight: "700" }}>{i + 1}</Text>
                   </View>
-                ))}
-                <Button
-                  secondary
-                  title="Add set"
-                  disabled={sets.length >= 100}
-                  onPress={() =>
-                    setSets((rows) => [...rows, { ...rows[rows.length - 1]! }])
-                  }
-                />
-              </View>
-            </Card>
+                  {field(i, "reps")}
+                  {field(i, "weight")}
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={`Remove set ${i + 1}`}
+                    disabled={sets.length === 1}
+                    onPress={() => setSets((rows) => rows.filter((_, j) => j !== i))}
+                    hitSlop={8}
+                    style={{ opacity: sets.length === 1 ? 0.25 : 1, paddingTop: 18 }}
+                  >
+                    <Ionicons name="trash-outline" size={20} color={colors.secondary} />
+                  </Pressable>
+                </View>
+              ))}
+              <Button
+                secondary
+                icon="add"
+                title="Add set"
+                disabled={sets.length >= 100}
+                onPress={() => setSets((rows) => [...rows, { ...rows[rows.length - 1]! }])}
+              />
+            </View>
           )}
           <TextInput
             testID="log-note"
@@ -285,19 +242,12 @@ export default function LogSheet() {
             onChangeText={setNote}
             multiline
             maxLength={2000}
-            style={[
-              s.text,
-              {
-                backgroundColor: colors.surface,
-                borderRadius: 16,
-                padding: 16,
-                minHeight: 88,
-              },
-            ]}
+            style={[s.text, { backgroundColor: colors.surface, borderRadius: 24, padding: 18, minHeight: 96, marginTop: 8, textAlignVertical: "top" }]}
           />
           {original && (
             <Button
-              secondary
+              destructive
+              icon="trash-outline"
               title="Delete entry"
               onPress={() => {
                 try {
@@ -315,3 +265,23 @@ export default function LogSheet() {
     </Screen>
   );
 }
+const styles = StyleSheet.create({
+  stepper: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.surface2,
+    borderRadius: 24,
+    minHeight: 48,
+  },
+  step: { width: 40, minHeight: 48, alignItems: "center", justifyContent: "center" },
+  input: { flex: 1, textAlign: "center", paddingVertical: 10, minWidth: 36 },
+  badge: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: colors.accent,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 18,
+  },
+});

@@ -6,7 +6,8 @@ import {
   useState,
   type PropsWithChildren,
 } from "react";
-import { AccessibilityInfo, Alert, Pressable, Text, View } from "react-native";
+import { AccessibilityInfo, Alert, Pressable, View } from "react-native";
+import { Text } from "./Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../theme";
 import { s } from "./ui";
@@ -35,9 +36,11 @@ export function ToastProvider({ children }: PropsWithChildren) {
             position: "absolute",
             left: 20,
             right: 20,
-            bottom: insets.bottom + 70,
-            backgroundColor: colors.surface2,
-            borderRadius: 16,
+            bottom: Math.max(insets.bottom, 12) + 82,
+            backgroundColor: colors.surface3,
+            borderRadius: 28,
+            borderWidth: 1,
+            borderColor: colors.separator,
             paddingLeft: 16,
             flexDirection: "row",
             alignItems: "center",
@@ -60,7 +63,7 @@ export function ToastProvider({ children }: PropsWithChildren) {
             }}
             style={{ minHeight: 48, padding: 16, flexShrink: 0 }}
           >
-            <Text style={{ color: colors.accent, fontSize: 17 }}>Undo</Text>
+            <Text style={{ color: colors.accent, fontSize: 16, fontWeight: "600" }}>Undo</Text>
           </Pressable>
         </View>
       )}

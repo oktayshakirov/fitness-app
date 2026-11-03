@@ -1,11 +1,24 @@
 {
   "schemaVersion": 1,
   "minAppSchema": 1,
-  "contentVersion": "v0.1.0",
+  "contentVersion": "v0.3.0",
   "exercises": [
     {
       "id": "barbell_back_squat",
       "name": "Barbell Back Squat",
+      "primary": [
+        "quadriceps"
+      ],
+      "secondary": [
+        "calves",
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ],
+      "equipment": [
+        "barbell",
+        "power_rack"
+      ],
       "steps": [
         "Set the rack hooks below shoulder height and safeties just below your intended depth.",
         "Place the bar across the upper back, grip it securely and step clear.",
@@ -22,57 +35,104 @@
       ],
       "breathing": "Inhale and brace before descending; exhale through the upward effort and reset at the top.",
       "source": "free-exercise-db:Barbell_Squat",
-      "primary": ["quadriceps"],
-      "secondary": ["calves", "glutes", "hamstrings", "lower_back"],
-      "equipment": ["barbell", "power_rack"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "barbell_back_squat/loop_side.mp4",
+              "path": "barbell_back_squat/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 77726,
-              "sha256": "db3c46e4bf99aef49f10494991794203d56f0dc27b8f0ea275b75429833b4918"
+              "bytes": 92864,
+              "sha256": "e1b5660f6ff14c17bd76a4aed473c52ad1dedea0bcbcc59825fdc570ac3a257e"
             },
             "poster": {
-              "path": "barbell_back_squat/poster_side.webp",
+              "path": "barbell_back_squat/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 11394,
-              "sha256": "9820a4836cbc5c842c9c68a4dc81b81aaedef2b9f093cb29bce5302314151fc2"
+              "bytes": 11622,
+              "sha256": "1a65ca7cc02e47321108dbc8a9a77b41635ce9e87c5b17868cfd3eacba4073a2"
             }
           },
           "threeq": {
             "video": {
-              "path": "barbell_back_squat/loop_threeq.mp4",
+              "path": "barbell_back_squat/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 65497,
-              "sha256": "28cf2d6609423d39baffd452e6d4ed1ffe9722c89076abeb764a3ab55ecc5da5"
+              "bytes": 85781,
+              "sha256": "1232b217210d39a951fe04dff6fc590c8df7e2bc1cb9b2bc026303297a9de4b1"
             },
             "poster": {
-              "path": "barbell_back_squat/poster_threeq.webp",
+              "path": "barbell_back_squat/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10516,
-              "sha256": "88903caef676c5b9fe230d19353f1168a37040ff21f6b3b10a72446d8d501268"
+              "bytes": 11744,
+              "sha256": "d248b38ddb59ffe6e118097d247c6958fab252b9c0ab41aa12594a2ad91a9800"
             }
           },
           "front": {
             "video": {
-              "path": "barbell_back_squat/loop_front.mp4",
+              "path": "barbell_back_squat/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 45647,
-              "sha256": "fd362baf232c219a0e3b1e44b7042d6bab46ec84c4355613941cf573d730136f"
+              "bytes": 62028,
+              "sha256": "819f69b37cba39cfd0a191d8bd1c640e5eca6f9bba72587854beb922816d38b7"
             },
             "poster": {
-              "path": "barbell_back_squat/poster_front.webp",
+              "path": "barbell_back_squat/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7968,
-              "sha256": "79596ab43085d1a621149484d2c3e1ad2cc1e0d748f3ef32616ba9045971cbff"
+              "bytes": 8948,
+              "sha256": "9c22a8ddc59a44b86538af4701a32c22fdf9d7e6ffbe0c7fa72f5df16ef52780"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "barbell_back_squat/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 93522,
+              "sha256": "f9205c79933424dd9cc60500c0674f17896b0fb52738cb464708dca3fe438080"
+            },
+            "poster": {
+              "path": "barbell_back_squat/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11828,
+              "sha256": "f730427a49f989e6223a692b417a82e7f156122c49d53ea89304bb9bff1d30fe"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "barbell_back_squat/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 80750,
+              "sha256": "a4cf778431bff1edaf4451d36da1e1a5b5f12340dfde1c1d6071f31c8eeac434"
+            },
+            "poster": {
+              "path": "barbell_back_squat/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11536,
+              "sha256": "1eb2024e48605c867def677e0c5170e8996b766de5c67a6ebe06e1a4bd561a98"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "barbell_back_squat/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 57010,
+              "sha256": "a0dbaf65f9ff1a3fd974234abd6665200716d46d0fd62800a5b20f19c5dc83be"
+            },
+            "poster": {
+              "path": "barbell_back_squat/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8822,
+              "sha256": "bcd22468f918bd2caffc048bcef7fad84a235d71da711fc746b759910d89c39b"
             }
           }
         }
@@ -81,6 +141,18 @@
     {
       "id": "barbell_bench_press",
       "name": "Barbell Bench Press",
+      "primary": [
+        "chest"
+      ],
+      "secondary": [
+        "shoulders",
+        "triceps"
+      ],
+      "equipment": [
+        "barbell",
+        "bench",
+        "power_rack"
+      ],
       "steps": [
         "Lie on a flat bench with feet planted and head, upper back and pelvis supported.",
         "Grip the bar evenly, set the shoulder blades and unrack over the shoulders.",
@@ -97,57 +169,104 @@
       ],
       "breathing": "Inhale and brace as the bar lowers; exhale during the press.",
       "source": "free-exercise-db:Barbell_Bench_Press_-_Medium_Grip",
-      "primary": ["chest"],
-      "secondary": ["shoulders", "triceps"],
-      "equipment": ["barbell", "bench", "power_rack"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "barbell_bench_press/loop_side.mp4",
+              "path": "barbell_bench_press/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 40206,
-              "sha256": "b0d12ca658ccb487df03f5361ab0710a7eb43248837d3324ad6737bf4b6993e4"
+              "bytes": 48795,
+              "sha256": "54b4423a21f5526a50ca05446d14294eaea5defef37e28bf9d155a18b09e115f"
             },
             "poster": {
-              "path": "barbell_bench_press/poster_side.webp",
+              "path": "barbell_bench_press/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9234,
-              "sha256": "7ab738c78adcfc21f3c839e5ae3e1be03a2f83825e0ca28e8a33c2d15b885f6f"
+              "bytes": 9900,
+              "sha256": "4d599933c95c1ac122d9df7d2e02d7f064b5e362d6829c7640ea5a8060eb3f72"
             }
           },
           "threeq": {
             "video": {
-              "path": "barbell_bench_press/loop_threeq.mp4",
+              "path": "barbell_bench_press/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 43849,
-              "sha256": "5d3f1db50262e6d3cd130d83a4588f5b284517ffc889273895490a79a3a8017a"
+              "bytes": 57334,
+              "sha256": "2426779ec873568bb6f3f5dfb8cc846f263be71ca1782a20f22ba19458817ca8"
             },
             "poster": {
-              "path": "barbell_bench_press/poster_threeq.webp",
+              "path": "barbell_bench_press/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10468,
-              "sha256": "1d6421cb4343216d2f2745d89cdb3165f603519adb71001e7db21171198073af"
+              "bytes": 11656,
+              "sha256": "2fda771c1a042fba02733e2502ca9c8ef2530c5fefb27cacb6890cc287e1ced6"
             }
           },
           "foot": {
             "video": {
-              "path": "barbell_bench_press/loop_foot.mp4",
+              "path": "barbell_bench_press/male/male_loop_foot.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 24938,
-              "sha256": "27ab5da5713e719df52a830c8a69ec49f7f01c583109edcf7071632702cb5b8f"
+              "bytes": 33363,
+              "sha256": "1f6af80892ca650c97324a7724b4cb19e0cf87fafccc0bda4dacbbc04bfb85d4"
             },
             "poster": {
-              "path": "barbell_bench_press/poster_foot.webp",
+              "path": "barbell_bench_press/male/male_poster_foot.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6236,
-              "sha256": "8d8de3b1b1e007869c2a8b0343a4de9eb8cbd921d8ef8e795542b15936ea8f40"
+              "bytes": 7444,
+              "sha256": "a9c9d8d1b5561a6fcdb7918718bc814ee87c34fbec08f39ae8912de24b7e6f59"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "barbell_bench_press/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 46866,
+              "sha256": "703d689648d9e59f0805da5590f4f4428903a224999a3bbdf5350831c32b0b43"
+            },
+            "poster": {
+              "path": "barbell_bench_press/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9952,
+              "sha256": "1a3f057b40d32c906c1b1a54c50672be85c1ae63249d3aa2822ed949df9dc33f"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "barbell_bench_press/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 51398,
+              "sha256": "3f312f25be319a151dff43d7ba72642249d157ada78ef3f8000570f7dc4e65d6"
+            },
+            "poster": {
+              "path": "barbell_bench_press/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11456,
+              "sha256": "bb7e525d60e018c0b39ef0dcdca1c348d3630512a3b4c9ded65e10f78906d7d5"
+            }
+          },
+          "foot": {
+            "video": {
+              "path": "barbell_bench_press/female/female_loop_foot.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 28665,
+              "sha256": "4731712b4e4b9bead877dd2a6f1bdbfb99ef6475afb56b8fd9786e5d1969b2b2"
+            },
+            "poster": {
+              "path": "barbell_bench_press/female/female_poster_foot.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6824,
+              "sha256": "bc6d1135e2f67be9dce89ce82571925350728fc526ca98f17a7a8e7a3065a2a7"
             }
           }
         }
@@ -156,70 +275,131 @@
     {
       "id": "barbell_bent_over_row",
       "name": "Barbell Bent-over Row",
+      "primary": [
+        "middle_back"
+      ],
+      "secondary": [
+        "biceps",
+        "lats",
+        "shoulders"
+      ],
+      "equipment": [
+        "barbell"
+      ],
       "steps": [
         "Hold the bar overhand and hinge at the hips with knees softly bent.",
         "Maintain a steady trunk angle and let the bar hang below the shoulders.",
         "Pull the bar toward the lower ribs.",
         "Lower to straight arms without changing the trunk position."
       ],
-      "cues": ["Drive elbows back.", "Keep the neck aligned with the back."],
+      "cues": [
+        "Drive elbows back.",
+        "Keep the neck aligned with the back."
+      ],
       "mistakes": [
         "Standing up to lift each rep.",
         "Rounding the lower back under load."
       ],
       "breathing": "Exhale while rowing; inhale on the return while maintaining the brace.",
       "source": "free-exercise-db:Bent_Over_Barbell_Row",
-      "primary": ["middle_back"],
-      "secondary": ["biceps", "lats", "shoulders"],
-      "equipment": ["barbell"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "barbell_bent_over_row/loop_side.mp4",
+              "path": "barbell_bent_over_row/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 78237,
-              "sha256": "b2185b002235e125af43e656c283982f65bc6283dfcf2d53c07017a9eef035cc"
+              "bytes": 83332,
+              "sha256": "f6f3a90835e0b4427ef3523a778753b298c818a5150570c2fd2f19af60126c86"
             },
             "poster": {
-              "path": "barbell_bent_over_row/poster_side.webp",
+              "path": "barbell_bent_over_row/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 13216,
-              "sha256": "c4a883bf4489782d9a56ad772f0582acb9068d749bea71d22c8b6164bdf93b3b"
+              "bytes": 14146,
+              "sha256": "c7d7aadec0cdc4897cb4fa8be774b4ac3a35cc0429a07bb5b63b8c7a63c73b22"
             }
           },
           "threeq": {
             "video": {
-              "path": "barbell_bent_over_row/loop_threeq.mp4",
+              "path": "barbell_bent_over_row/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 48461,
-              "sha256": "7141d06360df02ae4d4c6e67fb24b97d2f5d5bd9e79495aabcee2d47e1726c08"
+              "bytes": 63924,
+              "sha256": "c94c36f6859ef9551d14f022a392285bb995b828cc5f1a4b2cae2077f51a620b"
             },
             "poster": {
-              "path": "barbell_bent_over_row/poster_threeq.webp",
+              "path": "barbell_bent_over_row/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9218,
-              "sha256": "d9c5881d2b07f4027155ed83450eb361a40439fbe6a39a73b323a8f589a5106b"
+              "bytes": 10782,
+              "sha256": "0eb04d88749395252d419eb8519d24b4ab31c965faed2f7d7d1a46ea156cde6d"
             }
           },
           "back": {
             "video": {
-              "path": "barbell_bent_over_row/loop_back.mp4",
+              "path": "barbell_bent_over_row/male/male_loop_back.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 46010,
-              "sha256": "35231a2de561813e236223dff97caccf65b27fe4c985f08520504ae93b9b940c"
+              "bytes": 52933,
+              "sha256": "6f6eba29872c84c9d3709f1b7f37150f80047c87db1a5948dd2c4504e0af50d8"
             },
             "poster": {
-              "path": "barbell_bent_over_row/poster_back.webp",
+              "path": "barbell_bent_over_row/male/male_poster_back.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9192,
-              "sha256": "28de236fa79f2074822bf06a1069e2e9303160c9c80450622f8791cf5c7df99e"
+              "bytes": 9692,
+              "sha256": "85def44ffb08251cb7d104ab980a29d610758d5ca3517227fa6ce51ab0f73b02"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "barbell_bent_over_row/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 89745,
+              "sha256": "94121b26b46bf27bab2bea98d33be3f030024925dc07f807a505d1a4704c0609"
+            },
+            "poster": {
+              "path": "barbell_bent_over_row/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 14714,
+              "sha256": "ad8d95598c25fd5b3c06bf8af57ee97a2a17b30f5ea541cbc104930c0591c55e"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "barbell_bent_over_row/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 57393,
+              "sha256": "1434cb30c4ba291d474e7327d717916a4f8bf04e0178c6e4db03e1af1bd6f22b"
+            },
+            "poster": {
+              "path": "barbell_bent_over_row/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10384,
+              "sha256": "f9b602e12f6650e846b11406f8be3830dec35518637f82f44d31a68ea7176f3e"
+            }
+          },
+          "back": {
+            "video": {
+              "path": "barbell_bent_over_row/female/female_loop_back.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 49218,
+              "sha256": "8ef8e70496cd9b6f5abb6dfd5ce72111441af1c47304c3df07bc78128742cccb"
+            },
+            "poster": {
+              "path": "barbell_bent_over_row/female/female_poster_back.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9252,
+              "sha256": "3ba266235262898c698f5ce3d7eec18b8cb32969e7b7455c4af9f22d727a4282"
             }
           }
         }
@@ -228,6 +408,22 @@
     {
       "id": "barbell_deadlift",
       "name": "Barbell Deadlift",
+      "primary": [
+        "lower_back"
+      ],
+      "secondary": [
+        "calves",
+        "forearms",
+        "glutes",
+        "hamstrings",
+        "lats",
+        "middle_back",
+        "quadriceps",
+        "traps"
+      ],
+      "equipment": [
+        "barbell"
+      ],
       "steps": [
         "Stand with the bar over midfoot and feet about hip width.",
         "Hinge and bend the knees to grip just outside the legs; brace with the bar close to the shins.",
@@ -244,66 +440,104 @@
       ],
       "breathing": "Inhale and brace before lifting; exhale near the top and reset before the next rep.",
       "source": "free-exercise-db:Barbell_Deadlift",
-      "primary": ["lower_back"],
-      "secondary": [
-        "calves",
-        "forearms",
-        "glutes",
-        "hamstrings",
-        "lats",
-        "middle_back",
-        "quadriceps",
-        "traps"
-      ],
-      "equipment": ["barbell"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "barbell_deadlift/loop_side.mp4",
+              "path": "barbell_deadlift/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 98248,
-              "sha256": "0eb4dbca665fd02c412111884cb44089fc7cb44102a2ce2d50acfe1fe24ec906"
+              "bytes": 108655,
+              "sha256": "fd0e9e85a6a73149bd7c9c2bac41bac87fab2ef0ae5abf28bb415a8b1bbc0c0b"
             },
             "poster": {
-              "path": "barbell_deadlift/poster_side.webp",
+              "path": "barbell_deadlift/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 12222,
-              "sha256": "c5eed4dc82cc27341c7cefd24ba3fb30bf03e5d006dac5405e483d88a9f8853b"
+              "bytes": 12680,
+              "sha256": "b8958f1da6710520202efeb3e1c2f18b4b43b620a2c4fab6417464d6198d1431"
             }
           },
           "threeq": {
             "video": {
-              "path": "barbell_deadlift/loop_threeq.mp4",
+              "path": "barbell_deadlift/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 70570,
-              "sha256": "c9163590c295edacf35afc67044cf7566688285019f8d32ec2f13a9e876eab3c"
+              "bytes": 91373,
+              "sha256": "81ada563af7c231cc9777e2f0e402b759dd9b8e104e9231dca5b8c9cd545d532"
             },
             "poster": {
-              "path": "barbell_deadlift/poster_threeq.webp",
+              "path": "barbell_deadlift/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10242,
-              "sha256": "0f5e21ebc6e1d2f6c17a8daeb053c80d111ea26e5724eae81c85915b44819772"
+              "bytes": 10620,
+              "sha256": "0e29e0175264ee00e7b3935c09a4fea56ba7eb7e709bfad57cfaffc6793b2373"
             }
           },
           "front": {
             "video": {
-              "path": "barbell_deadlift/loop_front.mp4",
+              "path": "barbell_deadlift/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 47814,
-              "sha256": "7294c8cb3468a01cad104c9e0b5c197c0bb68b9e3f2df974dab07e22c9400f5c"
+              "bytes": 61667,
+              "sha256": "da3bdcbc53cafe2be4a2f714168daab72d9652a491058b5377428f0d1d2947f6"
             },
             "poster": {
-              "path": "barbell_deadlift/poster_front.webp",
+              "path": "barbell_deadlift/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7740,
-              "sha256": "cf3e9a9a2a48493c290187b9ec9eef276d26cc34679e97c146cd546245def9b2"
+              "bytes": 8280,
+              "sha256": "6683e97c73f2f3cc3d78afd1860500b0078f5a4353c1a9a1670cdd14d3ae9599"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "barbell_deadlift/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 118155,
+              "sha256": "4894aa00eeb4fbfe7d8d41f2820cd000eb9e39edab826975fab914d754f7efd9"
+            },
+            "poster": {
+              "path": "barbell_deadlift/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 13222,
+              "sha256": "6f11036d2aa670418d2e2db6d7f9fc0940a078c5d51a9abc0f5851c907d4b84a"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "barbell_deadlift/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 84031,
+              "sha256": "6b68cb656103c161d953665be2c39c30e734ab0ae43529a81f1bd1f64ff3ae4d"
+            },
+            "poster": {
+              "path": "barbell_deadlift/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10406,
+              "sha256": "60dc028bcf926e6dcf54911e9ac191a548ce58cbaa206e2c39e65ea4ebc6c70e"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "barbell_deadlift/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 58059,
+              "sha256": "221fc694f1c150d9d930102f0bd2cdc1f35e36b0e557059901f356e56485e039"
+            },
+            "poster": {
+              "path": "barbell_deadlift/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7948,
+              "sha256": "792d6ebc6fa083217631355b8b4138f3d98efbdac8a6ae30b8c676d139e67647"
             }
           }
         }
@@ -312,6 +546,16 @@
     {
       "id": "barbell_overhead_press",
       "name": "Barbell Overhead Press",
+      "primary": [
+        "shoulders"
+      ],
+      "secondary": [
+        "triceps"
+      ],
+      "equipment": [
+        "barbell",
+        "power_rack"
+      ],
       "steps": [
         "Stand with the bar at the upper chest, hands just outside shoulder width.",
         "Brace the abdomen and move the head back slightly to clear the bar.",
@@ -328,57 +572,104 @@
       ],
       "breathing": "Inhale and brace before the press; exhale as you finish overhead.",
       "source": "free-exercise-db:Standing_Military_Press",
-      "primary": ["shoulders"],
-      "secondary": ["triceps"],
-      "equipment": ["barbell", "power_rack"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "barbell_overhead_press/loop_side.mp4",
+              "path": "barbell_overhead_press/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 44389,
-              "sha256": "6f7269d6509505ece5aabda3eaadb660c35fbdd70fdff8e3f3ff2144d819a863"
+              "bytes": 51322,
+              "sha256": "df0fb3c1780d5175a14d1853afdcfdbc7060918e4d0a39cae3ebbd3199fc9a46"
             },
             "poster": {
-              "path": "barbell_overhead_press/poster_side.webp",
+              "path": "barbell_overhead_press/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6612,
-              "sha256": "e40e5eb9192fe6de85c8935f41191233ef218a7613532a788a55359ae253b07c"
+              "bytes": 6660,
+              "sha256": "3f86a85dd4dd8242cc4cded9cf5fe8922a0f027054c3bf566a89aa0bdfcd39d3"
             }
           },
           "threeq": {
             "video": {
-              "path": "barbell_overhead_press/loop_threeq.mp4",
+              "path": "barbell_overhead_press/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 61387,
-              "sha256": "117190db9df72d9db4be66e7e096563d3e0e9bc95ecd43cedf24fd10bee04215"
+              "bytes": 73199,
+              "sha256": "7f1d9129cb44dbe9db7bfac22718883a47c4c090116730d0a7012ab075289a70"
             },
             "poster": {
-              "path": "barbell_overhead_press/poster_threeq.webp",
+              "path": "barbell_overhead_press/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9096,
-              "sha256": "204d3064c5d083debfe52231679c66462e1a28dfef36f77a56c1da6808a4240a"
+              "bytes": 10878,
+              "sha256": "d3bc522c808bea5ddbac125df9332432582ffe052ecca3a559f4bd9846a452c3"
             }
           },
           "front": {
             "video": {
-              "path": "barbell_overhead_press/loop_front.mp4",
+              "path": "barbell_overhead_press/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 41511,
-              "sha256": "c4a65fb6429f0c7fb1325ac089d64bd91a1a3aeed23465625a4c7e18a46e97b7"
+              "bytes": 50625,
+              "sha256": "75ef2a6d42894e8a1835e4fac863446bc43c23f20fa2cd4e815c99cf976f1a19"
             },
             "poster": {
-              "path": "barbell_overhead_press/poster_front.webp",
+              "path": "barbell_overhead_press/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6906,
-              "sha256": "1b6f74464c68ca861a2738e8f7134a015bac3634118326b987993a27a325b17f"
+              "bytes": 8524,
+              "sha256": "70e276c5e868d47e9cc60b2fc7ae76da778828601cca9105f28d498834e17ef0"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "barbell_overhead_press/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 53203,
+              "sha256": "e1d877666ca72b2d2576cdda1ef01ea0c37a04d54755ab7b9bbe04ad78047305"
+            },
+            "poster": {
+              "path": "barbell_overhead_press/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7942,
+              "sha256": "6e37ef13e9cd3aa789dcb6fba0bad74e726a5c823cdd57caf229145b5bd14495"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "barbell_overhead_press/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 60704,
+              "sha256": "e63c7345635c6880e6e43aaec701ff9e2ac729d7ec08cee192ed2d97e8fc1404"
+            },
+            "poster": {
+              "path": "barbell_overhead_press/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10596,
+              "sha256": "36cafcde5f3b35ac1e289a6af56b208bf1c242de63339ddb3072402bda9e45d0"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "barbell_overhead_press/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 39821,
+              "sha256": "113a432714209f5bf0a668a37987a81c37e8f224b4a3467648931c10cdd51862"
+            },
+            "poster": {
+              "path": "barbell_overhead_press/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8142,
+              "sha256": "b588e07f19f942d9a41a68e5f8ac60b099ded2998ebde4ec4aa210686f11325e"
             }
           }
         }
@@ -387,6 +678,14 @@
     {
       "id": "bodyweight_squat",
       "name": "Bodyweight Squat",
+      "primary": [
+        "quadriceps"
+      ],
+      "secondary": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": [],
       "steps": [
         "Stand with feet about shoulder width and toes turned out slightly.",
         "Bend hips and knees together, keeping the whole foot grounded.",
@@ -403,57 +702,104 @@
       ],
       "breathing": "Inhale as you lower; exhale as you stand.",
       "source": "free-exercise-db:Bodyweight_Squat",
-      "primary": ["quadriceps"],
-      "secondary": ["glutes", "hamstrings"],
-      "equipment": [],
       "media": {
         "male": {
           "front": {
             "video": {
-              "path": "bodyweight_squat/loop_front.mp4",
+              "path": "bodyweight_squat/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 65788,
-              "sha256": "b3e3cfaa0f7051c649e3fd0609229761f7a9a0d8971e6f204f12dce25bfaaa04"
+              "bytes": 94598,
+              "sha256": "3e1aabbe765e588f089967d951b7ff1843828cae337144c1317879b6477c27e2"
             },
             "poster": {
-              "path": "bodyweight_squat/poster_front.webp",
+              "path": "bodyweight_squat/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10256,
-              "sha256": "7123e29c17b8865d2228ff2b84506baa1b5abb3475978ddccbf10f265822c676"
+              "bytes": 12820,
+              "sha256": "796dd9bd60f53475683dea5f8cf88bc28e5689ab7b3fc9ae88e795d29a78ee5c"
             }
           },
           "side": {
             "video": {
-              "path": "bodyweight_squat/loop_side.mp4",
+              "path": "bodyweight_squat/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 55949,
-              "sha256": "7010d18cddc6d9d1da995af7d2ce439746f3045432097631bd4425ba53f0dd29"
+              "bytes": 73315,
+              "sha256": "1cf5e206643795e5a9df76fde9b50a13cf6f18a19e7c0c5d39668ba76fae7798"
             },
             "poster": {
-              "path": "bodyweight_squat/poster_side.webp",
+              "path": "bodyweight_squat/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6836,
-              "sha256": "f90140d503843304bd89195d17155518d5f7e1884e0865d3654aeb2992643000"
+              "bytes": 7306,
+              "sha256": "9b6b478befd664b9fc1a20787283cf17cb166bba0ab5315a0397cd3673d9f142"
             }
           },
           "threeq": {
             "video": {
-              "path": "bodyweight_squat/loop_threeq.mp4",
+              "path": "bodyweight_squat/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 79875,
-              "sha256": "ce081a135e1e9cefa0902cb7504cdc5c04b3590dc60e0ddeea70bfccb39d5dc9"
+              "bytes": 109566,
+              "sha256": "8fbfd2df0ee4fd47a0952d82cdc37a63eec245165d7d25b853722bcefa709c40"
             },
             "poster": {
-              "path": "bodyweight_squat/poster_threeq.webp",
+              "path": "bodyweight_squat/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10226,
-              "sha256": "b01432a22d08478919956a5b5b7a207db22325f147ece808affb5a383acf4fdf"
+              "bytes": 12270,
+              "sha256": "16e93c3e197f7b46dc506bed58263ffb2ab6a9e31025f6046ddf1c6af00bcba4"
+            }
+          }
+        },
+        "female": {
+          "front": {
+            "video": {
+              "path": "bodyweight_squat/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 96009,
+              "sha256": "b82f7844b5e5eb4953b98e3596e378b5b504603851e82ccc97b63753869d90b4"
+            },
+            "poster": {
+              "path": "bodyweight_squat/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 13192,
+              "sha256": "14b8d05e65c84c1ef17aea39a3f3da7dde198ca0f9f05436e55c6c24f4941002"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "bodyweight_squat/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 83789,
+              "sha256": "8b1d04ed667e4e635827073cff43cbff2a9f5a2118bcbf7d2f8449757279d583"
+            },
+            "poster": {
+              "path": "bodyweight_squat/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8766,
+              "sha256": "946b94a4e4ee0ba3b1c6d95b1c3fb1480d55f32896d088e62dd5c998543de0fd"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "bodyweight_squat/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 110573,
+              "sha256": "abb4e1a8747cf51a3feabd5b47c47dac60a5a954750146486950fb97be1aec73"
+            },
+            "poster": {
+              "path": "bodyweight_squat/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 12244,
+              "sha256": "5c6458becc0c3d4643478487bf15d34aa4d7f075af0d226fe72237362600a0fa"
             }
           }
         }
@@ -462,6 +808,16 @@
     {
       "id": "cable_crossover",
       "name": "Cable Crossover",
+      "primary": [
+        "chest"
+      ],
+      "secondary": [
+        "shoulders"
+      ],
+      "equipment": [
+        "dual_cable",
+        "d_handle"
+      ],
       "steps": [
         "Hold a handle from each high pulley and stand between the towers in a stable split stance.",
         "Lean slightly forward with elbows softly bent.",
@@ -478,57 +834,104 @@
       ],
       "breathing": "Exhale as the hands come together; inhale as the arms open.",
       "source": "free-exercise-db:Cable_Crossover",
-      "primary": ["chest"],
-      "secondary": ["shoulders"],
-      "equipment": ["dual_cable", "d_handle"],
       "media": {
         "male": {
           "front": {
             "video": {
-              "path": "cable_crossover/loop_front.mp4",
+              "path": "cable_crossover/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 50895,
-              "sha256": "90d62599b99e7caf31799af5e122f5697fca2f7076138613dd09003d8abb778b"
+              "bytes": 68803,
+              "sha256": "f62e62134eeffbc8db10d9c8d41a28892fbfe16c4d7297d036b2e2ae0eeb0e4f"
             },
             "poster": {
-              "path": "cable_crossover/poster_front.webp",
+              "path": "cable_crossover/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 11328,
-              "sha256": "e90dea66de680369a51ac56406da74bf093c843d26ba784251726adc16a6fbc8"
+              "bytes": 14768,
+              "sha256": "c83b06b28475c273d5d2fe6b6525b3175d447e76068e965568d9c9c803c94d7a"
             }
           },
           "side": {
             "video": {
-              "path": "cable_crossover/loop_side.mp4",
+              "path": "cable_crossover/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 37817,
-              "sha256": "5bfae86e855284ab3b0e9dee4a93fae16dab131d2450b92aefad277eea6cb2c9"
+              "bytes": 44901,
+              "sha256": "630d17753ab425e9571394fb8876b6b8bce4bb8ebd41890e4979f4dc9011472d"
             },
             "poster": {
-              "path": "cable_crossover/poster_side.webp",
+              "path": "cable_crossover/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7794,
-              "sha256": "f9ded3223fb309ab874a2f27162b166e279d200369636e2c66a87255877c4e33"
+              "bytes": 8808,
+              "sha256": "8ad944c56bd75dbdd526c0f60c4f96dc94d6636a3efd7aa5d86cd90335a9f7f6"
             }
           },
           "threeq": {
             "video": {
-              "path": "cable_crossover/loop_threeq.mp4",
+              "path": "cable_crossover/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 54655,
-              "sha256": "40e5e5aca11641aca562bb1ef0c8706084af3e49ee979f361554a3bd82f44b6a"
+              "bytes": 75789,
+              "sha256": "cd4b1a75096bbf5b0c36b217a8afe43603e96c0565cbd144dfc40d5a3b2a1ab6"
             },
             "poster": {
-              "path": "cable_crossover/poster_threeq.webp",
+              "path": "cable_crossover/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 12304,
-              "sha256": "bec8593ad5c3d7e6c73ea06376b837e1fdc94f435c3e799083b9f488f96c3a8d"
+              "bytes": 17366,
+              "sha256": "aaa70e5fbffbf107f8e15f89f728e6e6c518e49983ac03cde6c9c01761a75bf7"
+            }
+          }
+        },
+        "female": {
+          "front": {
+            "video": {
+              "path": "cable_crossover/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 64501,
+              "sha256": "bd1210f304c5b568bf23d3ff677de0ea25d1d35d6ca6ab3ac3915af65b003bad"
+            },
+            "poster": {
+              "path": "cable_crossover/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 15066,
+              "sha256": "1363e31130aa3d76a53bba0003b0fc464988dcb15afcb301239537dcfccd432a"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "cable_crossover/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 41723,
+              "sha256": "087e37ac9005f81622bf5cb2d6dd7a635b7aa44472b8a6b6e040a207136c4d14"
+            },
+            "poster": {
+              "path": "cable_crossover/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8668,
+              "sha256": "f13f90f7a7a9f538353190698746435af7a2071b54b3b87154dfd49aaa6afb30"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "cable_crossover/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 71137,
+              "sha256": "fba496c0e49663614983d29ed58de79bc846ffa16dea2a29efc0ff55333936cf"
+            },
+            "poster": {
+              "path": "cable_crossover/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 16436,
+              "sha256": "a290201fd8f96cc7abe77e27cae40419697f228d8fce544659192a94a4366c59"
             }
           }
         }
@@ -537,6 +940,13 @@
     {
       "id": "crunch",
       "name": "Crunch",
+      "primary": [
+        "abs"
+      ],
+      "secondary": [],
+      "equipment": [
+        "mat"
+      ],
       "steps": [
         "Lie on your back with knees bent and feet on the floor.",
         "Rest hands lightly beside the head or across the chest.",
@@ -553,57 +963,72 @@
       ],
       "breathing": "Exhale while curling up; inhale while lowering.",
       "source": "free-exercise-db:Crunches",
-      "primary": ["abs"],
-      "secondary": [],
-      "equipment": ["mat"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "crunch/loop_side.mp4",
+              "path": "crunch/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 25010,
-              "sha256": "766efb28a5ad965ad0dcaf0d67406da10168a0181456c05ce204b5434bb8d896"
+              "bytes": 36216,
+              "sha256": "fe7db5b328d636c5cc36f600f0a4b30aa6c553c6a0a7b163376dc7f47013bbd5"
             },
             "poster": {
-              "path": "crunch/poster_side.webp",
+              "path": "crunch/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6062,
-              "sha256": "7ed900579bfc70701e2b62c6b7a7e49a69d0d94ff78774d82839e40e7d19bcb8"
+              "bytes": 7114,
+              "sha256": "8063c7047afa5e1a5f94437d3f6eb580f539adb3d945279ce2833e0a10724899"
             }
           },
           "threeq": {
             "video": {
-              "path": "crunch/loop_threeq.mp4",
+              "path": "crunch/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 32232,
-              "sha256": "fc91fd3c21585f458906b95147d6513a1ac595a61ac687b6254588cb6a6f59df"
+              "bytes": 47476,
+              "sha256": "97817be7e322d79fde9a111373844621317344aea8c292414b3290733b09ac8f"
             },
             "poster": {
-              "path": "crunch/poster_threeq.webp",
+              "path": "crunch/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7700,
-              "sha256": "04d1840d339d4ccb482e7af89996eece444c2617f5590b0aec1f558d55b833cf"
+              "bytes": 9632,
+              "sha256": "d707d1e7cc9beba79852f81b47856d9b44e075804fdf9a016e36a8a436b85a63"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "crunch/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 43414,
+              "sha256": "3d61cb316005d51d7ed42a0a06348a278e409edee76319b3fc0339552e3f0294"
+            },
+            "poster": {
+              "path": "crunch/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8138,
+              "sha256": "b7c4ad1ce3c02dd8b390e7ab0146b764d78ef474873c57172360fb76fb533f56"
             }
           },
-          "front": {
+          "threeq": {
             "video": {
-              "path": "crunch/loop_front.mp4",
+              "path": "crunch/female/female_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 50480,
-              "sha256": "45d877c473eec0037094ad23e4c376dbcbad1dad2bf05618700fe47ec51db07b"
+              "bytes": 57206,
+              "sha256": "f62672c95866210c94aa840d6d96a25b1cc5463e3dac4f520f3b37dc7ca5fbac"
             },
             "poster": {
-              "path": "crunch/poster_front.webp",
+              "path": "crunch/female/female_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 8922,
-              "sha256": "806590205760a644e2a052a7fec445f3b89b791cc041bfa12d48017155aa073e"
+              "bytes": 11700,
+              "sha256": "42d8c890be8580231dab2663ddd0e4d2f1e0098ab820d98449465fb91f8168ee"
             }
           }
         }
@@ -612,70 +1037,130 @@
     {
       "id": "dips",
       "name": "Parallel-bar Dip",
+      "primary": [
+        "triceps"
+      ],
+      "secondary": [
+        "chest",
+        "shoulders"
+      ],
+      "equipment": [
+        "dip_station"
+      ],
       "steps": [
         "Support yourself on parallel bars with straight arms.",
         "Bend elbows and lower slowly with a mostly upright torso.",
         "Stop at a depth you can control comfortably, around upper arms parallel to the floor.",
         "Press through the bars to return to support."
       ],
-      "cues": ["Keep the shoulders controlled.", "Keep elbows tracking back."],
+      "cues": [
+        "Keep the shoulders controlled.",
+        "Keep elbows tracking back."
+      ],
       "mistakes": [
         "Dropping abruptly into the bottom.",
         "Shrugging or forcing excessive shoulder depth."
       ],
       "breathing": "Inhale while lowering; exhale while pressing up.",
       "source": "free-exercise-db:Dips_-_Triceps_Version",
-      "primary": ["triceps"],
-      "secondary": ["chest", "shoulders"],
-      "equipment": ["dip_station"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "dips/loop_side.mp4",
+              "path": "dips/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 30561,
-              "sha256": "f504cdbdd2e04d9f483f5f1fabe7f1e3de8c1929754962ad11ff44415b19b740"
+              "bytes": 42104,
+              "sha256": "0c1387a64a2512af0ed070edad090cba9b50fd5569f6c3ef3ecc9e6ff416d486"
             },
             "poster": {
-              "path": "dips/poster_side.webp",
+              "path": "dips/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 5796,
-              "sha256": "da95a97d0a347fbfad5736f7f1694adb6987da7612e0a568c21ffd0267bc5a91"
+              "bytes": 6596,
+              "sha256": "4d62d587c7ba4f23771ace1d10eb999776c954aea6356f0224429147cc46ec89"
             }
           },
           "threeq": {
             "video": {
-              "path": "dips/loop_threeq.mp4",
+              "path": "dips/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 37116,
-              "sha256": "2f659ef1dda46b8880e1403ca8d44449dcda9454557811a95005b796af32a8cc"
+              "bytes": 53207,
+              "sha256": "6f8feebd896dc0361d7d5bdc041ed02c9a44444605013bd4f540acba3b8050e5"
             },
             "poster": {
-              "path": "dips/poster_threeq.webp",
+              "path": "dips/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7850,
-              "sha256": "5bb0178b4fee31e680d8ee51eb38c68ee45743d7a0c71380a97a7edee80c9fcc"
+              "bytes": 9864,
+              "sha256": "d3206af584cae8759ff8bca48a88371f6a8b7857ef2f700cbe5a9023f9affc70"
             }
           },
           "front": {
             "video": {
-              "path": "dips/loop_front.mp4",
+              "path": "dips/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 32073,
-              "sha256": "f2be41ee739a58049f7a557bb174bcaec02c76c6852ab2a5122a831fdc6f8768"
+              "bytes": 40561,
+              "sha256": "71ba784c1cd18a23dc0096d1e5362750ce8b2fce83ca344a155fab273efc4771"
             },
             "poster": {
-              "path": "dips/poster_front.webp",
+              "path": "dips/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7552,
-              "sha256": "8f44685b77a35e966e4922176cf4a497308cf48cb182a9dfd00c26f098291c76"
+              "bytes": 8906,
+              "sha256": "8c7160ff2b00753f9670add5893cff7eddf7696a4e0520e0c56ae46080c39ecc"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "dips/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 44879,
+              "sha256": "75e472bbdac938e2ee34dc20893ab0b1529dae7ecb9e8312b6a9dbb0b2ff18eb"
+            },
+            "poster": {
+              "path": "dips/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7662,
+              "sha256": "6bf04829e3db50b50531cdeb86a4874778ab8dddf94ea0ad8a67ab7d470b6576"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "dips/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 50743,
+              "sha256": "8eb95ede0ea6d415e85542fc1147685547821e9eaf6c5dd6a29eaa357604ee50"
+            },
+            "poster": {
+              "path": "dips/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9876,
+              "sha256": "bb80c27393b1828fa7accb6a8c1afded6c2c70614d47c98e90a6a4b8bdd5d52b"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "dips/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 39422,
+              "sha256": "807361a2481ae2ef2e587540f1392c6ac440affe9ffe2861736fca0a0ad1a1ef"
+            },
+            "poster": {
+              "path": "dips/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9166,
+              "sha256": "04a7c12e122ec272029b9b9327f146c32447050103706b2af0a0492cf1ba3320"
             }
           }
         }
@@ -684,54 +1169,97 @@
     {
       "id": "dumbbell_curl",
       "name": "Dumbbell Curl",
+      "primary": [
+        "biceps"
+      ],
+      "secondary": [
+        "forearms"
+      ],
+      "equipment": [
+        "dumbbell"
+      ],
       "steps": [
         "Stand tall holding dumbbells beside the thighs, palms forward.",
         "Keep upper arms near the ribs and curl the weights toward the shoulders.",
         "Pause without moving elbows forward.",
         "Lower until the elbows are nearly straight."
       ],
-      "cues": ["Keep wrists in line with forearms.", "Keep the torso still."],
+      "cues": [
+        "Keep wrists in line with forearms.",
+        "Keep the torso still."
+      ],
       "mistakes": [
         "Swinging the weights with the hips.",
         "Bending wrists back at the top."
       ],
       "breathing": "Exhale as you curl; inhale as you lower.",
       "source": "free-exercise-db:Dumbbell_Bicep_Curl",
-      "primary": ["biceps"],
-      "secondary": ["forearms"],
-      "equipment": ["dumbbell"],
       "media": {
         "male": {
           "front": {
             "video": {
-              "path": "dumbbell_curl/loop_front.mp4",
+              "path": "dumbbell_curl/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 63833,
-              "sha256": "8fbe7d67d1f2e608e79c0cab2807496ad7f91fa748639081c082746a9bc657fd"
+              "bytes": 77461,
+              "sha256": "7cbb3a156de02563ee60c0a318c9379a1197717e0c8096ae0d0d8ae50c571f5e"
             },
             "poster": {
-              "path": "dumbbell_curl/poster_front.webp",
+              "path": "dumbbell_curl/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10258,
-              "sha256": "8e065aeebe05f27899f1309414a9184e22ad03b4d417184aa4f5092706ad4b21"
+              "bytes": 12952,
+              "sha256": "ceddd1e00f1e5ba05d1421dc3883023a68fea4d4b4b896004691ddd237302953"
             }
           },
           "side": {
             "video": {
-              "path": "dumbbell_curl/loop_side.mp4",
+              "path": "dumbbell_curl/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 38421,
-              "sha256": "9d53593313f8137694e52e488ae792f8b6f337e539850156768da73516033ada"
+              "bytes": 44810,
+              "sha256": "08c17050e428fbccf7b38c9bb6f8b1d53c3eea0e8fb8892f4552031c24915379"
             },
             "poster": {
-              "path": "dumbbell_curl/poster_side.webp",
+              "path": "dumbbell_curl/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6384,
-              "sha256": "f678f80f7256f8ccc580164fee7d169e61cbb01528004d4830bf43cc813388df"
+              "bytes": 7140,
+              "sha256": "d405086d63aa0b23a9cca87beae064a6fd60ba82696129d565328da63816a669"
+            }
+          }
+        },
+        "female": {
+          "front": {
+            "video": {
+              "path": "dumbbell_curl/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 78281,
+              "sha256": "de998065c04a2e026d19e58ac9650b6b53016f38b79800ad734813baf1a1a440"
+            },
+            "poster": {
+              "path": "dumbbell_curl/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 13324,
+              "sha256": "c0abd8b2bd226a8cc39f046a0477a340bc0f2d5f37be757eec65acfaf9ad53f3"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "dumbbell_curl/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 50553,
+              "sha256": "93d16f7fbf2edf74feacf179d1a2516ba780dab28762c49a3934d95e799bdd90"
+            },
+            "poster": {
+              "path": "dumbbell_curl/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8514,
+              "sha256": "113138755963e6382bbc1caf34013f9aa8d71a70d704f551573b93ced7682b5e"
             }
           }
         }
@@ -740,6 +1268,17 @@
     {
       "id": "dumbbell_romanian_deadlift",
       "name": "Dumbbell Romanian Deadlift",
+      "primary": [
+        "hamstrings"
+      ],
+      "secondary": [
+        "calves",
+        "glutes",
+        "lower_back"
+      ],
+      "equipment": [
+        "dumbbell"
+      ],
       "steps": [
         "Stand with dumbbells in front of the thighs and knees slightly bent.",
         "Push hips back, allowing the weights to travel close to the legs.",
@@ -756,57 +1295,104 @@
       ],
       "breathing": "Inhale and brace before lowering; exhale as you stand.",
       "source": "free-exercise-db:Romanian_Deadlift",
-      "primary": ["hamstrings"],
-      "secondary": ["calves", "glutes", "lower_back"],
-      "equipment": ["dumbbell"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "dumbbell_romanian_deadlift/loop_side.mp4",
+              "path": "dumbbell_romanian_deadlift/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 46963,
-              "sha256": "a10315d1bedb0618b67f3aafb1a251aced079c11b6988878a813900381989f93"
+              "bytes": 64689,
+              "sha256": "8b7eaa8f229fff98864c4c297e6a7c4ee4adb843baf4bc2af1faaa9a8adea0bb"
             },
             "poster": {
-              "path": "dumbbell_romanian_deadlift/poster_side.webp",
+              "path": "dumbbell_romanian_deadlift/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6928,
-              "sha256": "1d0771cb0465513d1206c891b22c973a81061b521f0a5f8d3c886ec2e8d7d263"
+              "bytes": 7452,
+              "sha256": "0b743fa55f444975fcb816184329de65a070c0fbe19107c5e5e2b1cd7be3dde6"
             }
           },
           "threeq": {
             "video": {
-              "path": "dumbbell_romanian_deadlift/loop_threeq.mp4",
+              "path": "dumbbell_romanian_deadlift/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 68858,
-              "sha256": "7035d953c418ad3a54a7ca35b7d7719e9d0b526b3243d5113492a65c40d5f258"
+              "bytes": 89034,
+              "sha256": "6b57ceb39419119636ea50420f44a6b87ce80eedb07af84cda709b8482b8b8aa"
             },
             "poster": {
-              "path": "dumbbell_romanian_deadlift/poster_threeq.webp",
+              "path": "dumbbell_romanian_deadlift/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9844,
-              "sha256": "384b3fe584317e54a1553757f3845eb932616c0af080e4251a9acce1f2f32520"
+              "bytes": 11140,
+              "sha256": "de3f174994bc4d91c88cf4f4a1405199c7515ef92da058e7637004da17ff038a"
             }
           },
           "front": {
             "video": {
-              "path": "dumbbell_romanian_deadlift/loop_front.mp4",
+              "path": "dumbbell_romanian_deadlift/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 53494,
-              "sha256": "ffac2b60274a9fb2405dbf1118ad3788e2e9554ffd17a04c89b44ccb0573aa3d"
+              "bytes": 80600,
+              "sha256": "956497bc17781c33911e984294db247ccd88d68912965e5289a7f6b8d2f4f45f"
             },
             "poster": {
-              "path": "dumbbell_romanian_deadlift/poster_front.webp",
+              "path": "dumbbell_romanian_deadlift/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9256,
-              "sha256": "cb2c06072cb1e48202e53f3e0300197f9658148356c928595bbfd8228e836d6d"
+              "bytes": 11410,
+              "sha256": "fd4523bbfe95b9aa3ea1d101587bc6f5c1c62c31896f82580e54d2cdb41a11dd"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "dumbbell_romanian_deadlift/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 74791,
+              "sha256": "ec997e6952edd0d3b96d6ba28dc69e66b121efa5da777dcf6508fccdf5a1b6d4"
+            },
+            "poster": {
+              "path": "dumbbell_romanian_deadlift/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8882,
+              "sha256": "c9fa2352e053a951d930d96bc3cd34d7502d0c59aa0028540f31ad249f31398f"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "dumbbell_romanian_deadlift/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 95477,
+              "sha256": "19f79a5e858003736e98183c0619a8061b361ba00c05d257ffcea59e1b9323eb"
+            },
+            "poster": {
+              "path": "dumbbell_romanian_deadlift/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11702,
+              "sha256": "0256beab114f7fc72c17e072a676f3ad9dbac8c02aae91e955770437777a4de5"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "dumbbell_romanian_deadlift/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 86794,
+              "sha256": "a13125d1d1a4590245471116988089b8b76d05a39aece0abbc4b1a956977d734"
+            },
+            "poster": {
+              "path": "dumbbell_romanian_deadlift/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11956,
+              "sha256": "4131ad92aca111dab79973af0ad04fb81e94f7e930cc33c923d40e3273cb981a"
             }
           }
         }
@@ -815,6 +1401,15 @@
     {
       "id": "dumbbell_shoulder_press",
       "name": "Standing Dumbbell Shoulder Press",
+      "primary": [
+        "shoulders"
+      ],
+      "secondary": [
+        "triceps"
+      ],
+      "equipment": [
+        "dumbbell"
+      ],
       "steps": [
         "Stand with feet stable and dumbbells at shoulder height.",
         "Brace the abdomen and press the weights overhead.",
@@ -831,57 +1426,104 @@
       ],
       "breathing": "Exhale as you press; inhale as you lower.",
       "source": "free-exercise-db:Dumbbell_Shoulder_Press",
-      "primary": ["shoulders"],
-      "secondary": ["triceps"],
-      "equipment": ["dumbbell"],
       "media": {
         "male": {
           "threeq": {
             "video": {
-              "path": "dumbbell_shoulder_press/loop_threeq.mp4",
+              "path": "dumbbell_shoulder_press/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 40715,
-              "sha256": "53e0c65b3257f80b8e485dd43d65fe693fa21cfda08a43514224a3aa272215b3"
+              "bytes": 50717,
+              "sha256": "f9dcca1fdb124693872ac5cc56f4475cec748d1e64fca50e0821e05cfa209422"
             },
             "poster": {
-              "path": "dumbbell_shoulder_press/poster_threeq.webp",
+              "path": "dumbbell_shoulder_press/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7750,
-              "sha256": "93bd5080e05fdcc40da96c0bd38ae74b4057523f2e65ab249528baec747a932f"
+              "bytes": 9408,
+              "sha256": "21318cc1e9fc6efb1ad8c1aaa2088401ff36d0a28000b2cf7dc7fd998893a226"
             }
           },
           "side": {
             "video": {
-              "path": "dumbbell_shoulder_press/loop_side.mp4",
+              "path": "dumbbell_shoulder_press/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 20678,
-              "sha256": "b9e34945f009b9525ab06dd7b469a05182bf278e749d1510870d93386cfb938c"
+              "bytes": 26695,
+              "sha256": "721ee66d38eaf23c4dc02ea8c04f415158f8c8388eefe362ac74c424edb04fd7"
             },
             "poster": {
-              "path": "dumbbell_shoulder_press/poster_side.webp",
+              "path": "dumbbell_shoulder_press/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 5078,
-              "sha256": "ba751199ec0d10d5907ea187cf6afe236009fac393d68d43d42ebcc20d5a626b"
+              "bytes": 5368,
+              "sha256": "4b82ca4896833d209d851628e848bfaca6ef023ff5456a77ddc0cebab0f92006"
             }
           },
           "front": {
             "video": {
-              "path": "dumbbell_shoulder_press/loop_front.mp4",
+              "path": "dumbbell_shoulder_press/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 37797,
-              "sha256": "da84839130fa56c713a52b55a388633c3634757f584c0355eac1f912801fbf53"
+              "bytes": 53274,
+              "sha256": "95d1f740c4b63a4ad63422a55d3f2ccf8c0cc0492ab69929236411c39dc0db0a"
             },
             "poster": {
-              "path": "dumbbell_shoulder_press/poster_front.webp",
+              "path": "dumbbell_shoulder_press/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7422,
-              "sha256": "fd0724b6946097332197c2f103200f8055e1a6b400250bbec1671e65749715d4"
+              "bytes": 9820,
+              "sha256": "adccf591731fab46c80ca07efdaca40a73680e39e0f5963b038b222d1f15865f"
+            }
+          }
+        },
+        "female": {
+          "threeq": {
+            "video": {
+              "path": "dumbbell_shoulder_press/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 52688,
+              "sha256": "c9a67b4cd7ff409d6fd6daae569c59322f1bb184e629fa680e426caa167e5609"
+            },
+            "poster": {
+              "path": "dumbbell_shoulder_press/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10132,
+              "sha256": "323aa7a98814a6dac9e8d673743b1e543c5c6ff4854716b65cdf15b5ee86f045"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "dumbbell_shoulder_press/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 30941,
+              "sha256": "879a24ee829d03f9560516d521f8b78c4a0c38bb83beeaad2f9f1ade0f44865e"
+            },
+            "poster": {
+              "path": "dumbbell_shoulder_press/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6056,
+              "sha256": "772a8b4098c3473edf2ffecbc474dc1f279627e39b26db9dbaedf1a7cf64aecc"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "dumbbell_shoulder_press/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 53543,
+              "sha256": "1689f4b2e36f58a7b454a7869d40bd6e804321814f60d189471ead56bf5866ed"
+            },
+            "poster": {
+              "path": "dumbbell_shoulder_press/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10216,
+              "sha256": "b47734151883b07f0f73e664c33eda1e632bf50af8c868c7d8ec74997bb8f70a"
             }
           }
         }
@@ -890,6 +1532,16 @@
     {
       "id": "face_pull",
       "name": "Rope Face Pull",
+      "primary": [
+        "shoulders"
+      ],
+      "secondary": [
+        "middle_back"
+      ],
+      "equipment": [
+        "cable_tower",
+        "rope"
+      ],
       "steps": [
         "Set a rope attachment around face height and step back until the cable is taut.",
         "Pull toward the forehead while separating the hands beside the face.",
@@ -906,57 +1558,104 @@
       ],
       "breathing": "Exhale on the pull; inhale on the return.",
       "source": "free-exercise-db:Face_Pull",
-      "primary": ["shoulders"],
-      "secondary": ["middle_back"],
-      "equipment": ["cable_tower", "rope"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "face_pull/loop_side.mp4",
+              "path": "face_pull/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 34694,
-              "sha256": "f854048a2d90b1587a0795a83dafdaf75c47bc01ccf63e564a548d04081f3be5"
+              "bytes": 42588,
+              "sha256": "96ffebf222717f6d7242fa2f7b0ee31cea0976643e7274377492ca9e4ad4c278"
             },
             "poster": {
-              "path": "face_pull/poster_side.webp",
+              "path": "face_pull/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7878,
-              "sha256": "d29f6c44d05d1327ec062c860032d0bf1d341cc761392e5b79eb34663af2cdbb"
+              "bytes": 9300,
+              "sha256": "b41468f5a6b4e632149f0e8a1999ac65394b31175e8e575c282b02c4478d3393"
             }
           },
           "threeq": {
             "video": {
-              "path": "face_pull/loop_threeq.mp4",
+              "path": "face_pull/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 44537,
-              "sha256": "7ff3854aa5e643ca9cdfc7fc49809307257d003d143489b1dada4501baedfcf1"
+              "bytes": 60688,
+              "sha256": "6db64b61114e097db857f783d9f5236d29182fbf8c66a728a63ea391ac6b0230"
             },
             "poster": {
-              "path": "face_pull/poster_threeq.webp",
+              "path": "face_pull/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10494,
-              "sha256": "ab9ea44f64997742c1bd90b53e0db9329820aa9c494efe85fc0443043e6c3505"
+              "bytes": 14392,
+              "sha256": "f3756ef5d25d5ed384c33aada2238f2e03eb90eff439547efeb94720c55fe095"
             }
           },
           "back": {
             "video": {
-              "path": "face_pull/loop_back.mp4",
+              "path": "face_pull/male/male_loop_back.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 41803,
-              "sha256": "f5cef22cf9ce7064ef30e528a8df1413e78af05ac4e1df58a02e9d2755cc4a98"
+              "bytes": 52129,
+              "sha256": "0546977d070488e7882f987382e985ce9529e57a20cdb190a61c8f631b8cd468"
             },
             "poster": {
-              "path": "face_pull/poster_back.webp",
+              "path": "face_pull/male/male_poster_back.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9546,
-              "sha256": "a7eb1293ce89b02d538888ffc6875197efc3ebd43674c798980427fa0a78daa3"
+              "bytes": 11584,
+              "sha256": "514d3f11c45c64488977c9c24a89eff4994ba1bb0ff2f30046b26465eb6e982e"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "face_pull/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 44063,
+              "sha256": "923a88b1c22409ace16adaf9f661c0408d81c1c38b96afc13887ce2729c180f8"
+            },
+            "poster": {
+              "path": "face_pull/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10448,
+              "sha256": "d356fd9a69fc41bad38b4da6a608cc6fc2144d86bf5c7373f0bd5da0cb31bb86"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "face_pull/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 55182,
+              "sha256": "8632aef68ba072eba0cb8bf948a2f93e034388021280b2adcc4a57710ab507c5"
+            },
+            "poster": {
+              "path": "face_pull/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 14072,
+              "sha256": "968c1cb15a480e7cbd66e09ade69f66164cedceaa796ad6490ddf96d013369c1"
+            }
+          },
+          "back": {
+            "video": {
+              "path": "face_pull/female/female_loop_back.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 47492,
+              "sha256": "c3cb3b867f7c143640884a34de1d54b6a9c8170460214d41c7bd66253f3e714e"
+            },
+            "poster": {
+              "path": "face_pull/female/female_poster_back.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11778,
+              "sha256": "149d21cc2936113d81c19ec4c90fab340fd46b46ec0fa3a4d38b17238ccd51e2"
             }
           }
         }
@@ -965,6 +1664,15 @@
     {
       "id": "glute_bridge",
       "name": "Glute Bridge",
+      "primary": [
+        "glutes"
+      ],
+      "secondary": [
+        "hamstrings"
+      ],
+      "equipment": [
+        "mat"
+      ],
       "steps": [
         "Lie on your back with knees bent and feet about hip width.",
         "Keep the ribs down and press through both feet.",
@@ -981,57 +1689,72 @@
       ],
       "breathing": "Exhale as you lift; inhale as you lower.",
       "source": "free-exercise-db:Butt_Lift_Bridge",
-      "primary": ["glutes"],
-      "secondary": ["hamstrings"],
-      "equipment": ["mat"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "glute_bridge/loop_side.mp4",
+              "path": "glute_bridge/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 32418,
-              "sha256": "b53a37d5579b2a258cc4515502239798fa71c0fceb56b176ec0c5b070cf8472e"
+              "bytes": 41245,
+              "sha256": "6e8484b3af2add4cfcd57dcd4ee73c17b5549ddae1cd43127e9d0ab863da2174"
             },
             "poster": {
-              "path": "glute_bridge/poster_side.webp",
+              "path": "glute_bridge/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6638,
-              "sha256": "89314269c0b9639943eef936ff58629cb4e4d55205040f64be9b13b8682b399d"
+              "bytes": 6822,
+              "sha256": "e0ac7bc2857df130e35a531ef9207768f851486728310281d7f50c28ef655ba0"
             }
           },
           "threeq": {
             "video": {
-              "path": "glute_bridge/loop_threeq.mp4",
+              "path": "glute_bridge/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 48033,
-              "sha256": "749915c79a357d2a0a66c5ec2d2e06c5637ee04aa6f1d01f0c5e77c681766292"
+              "bytes": 58865,
+              "sha256": "3116ff88f5f1e3f906e61b592cdcd559d8b677586514a7764dfec22569103b28"
             },
             "poster": {
-              "path": "glute_bridge/poster_threeq.webp",
+              "path": "glute_bridge/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9408,
-              "sha256": "7538f35df78ffd8719caa6114824e822349f315828bbb881e37f5df924f0d8c1"
+              "bytes": 9750,
+              "sha256": "97803268eb4fd49b408d0a99c2df523aee5fccfbdf8a40c36c34f4ba44a54383"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "glute_bridge/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 47930,
+              "sha256": "e757f8453ffdb594202b96d2ef3673118713e5955674518bb9590f542327079c"
+            },
+            "poster": {
+              "path": "glute_bridge/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 7534,
+              "sha256": "bb07709a5296c7260aa48e1d2a5aad02bdf16b985c1df25b9973ed5184eff801"
             }
           },
-          "front": {
+          "threeq": {
             "video": {
-              "path": "glute_bridge/loop_front.mp4",
+              "path": "glute_bridge/female/female_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 67585,
-              "sha256": "a3f109252444177ce92db9ddac7585cfbde330e15e3303ee731731d1b299c7c7"
+              "bytes": 65063,
+              "sha256": "14f047886c9e099bcf303a664589b51b8e24bf60323327cb61e1bc5b82cbb7d7"
             },
             "poster": {
-              "path": "glute_bridge/poster_front.webp",
+              "path": "glute_bridge/female/female_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 12342,
-              "sha256": "01acddab29a7f7ef2f7147a42fd3ed91e14ea9009069aae7e0b803a1ec1c10aa"
+              "bytes": 10208,
+              "sha256": "8dadd7ba510d2a9797f99c7f78f3a3d33e19af7742c769282948951bafa80950"
             }
           }
         }
@@ -1040,6 +1763,18 @@
     {
       "id": "goblet_squat",
       "name": "Dumbbell Goblet Squat",
+      "primary": [
+        "quadriceps"
+      ],
+      "secondary": [
+        "calves",
+        "glutes",
+        "hamstrings",
+        "shoulders"
+      ],
+      "equipment": [
+        "dumbbell"
+      ],
       "steps": [
         "Hold one dumbbell vertically against the upper chest with both hands under its upper head.",
         "Stand with feet about shoulder width and toes slightly out.",
@@ -1056,57 +1791,104 @@
       ],
       "breathing": "Inhale while lowering; exhale while standing.",
       "source": "free-exercise-db:Goblet_Squat",
-      "primary": ["quadriceps"],
-      "secondary": ["calves", "glutes", "hamstrings", "shoulders"],
-      "equipment": ["dumbbell"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "goblet_squat/loop_side.mp4",
+              "path": "goblet_squat/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 53303,
-              "sha256": "8419aa9701811dc74a42949c397b91c196e07553b2b3cfe3e54bd607ee863da9"
+              "bytes": 69449,
+              "sha256": "30a2b193ac0d6015aa222f432b252efc19f0219169e4c8bd8ca50793111e4e3f"
             },
             "poster": {
-              "path": "goblet_squat/poster_side.webp",
+              "path": "goblet_squat/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7474,
-              "sha256": "49d5a0935085a64b484ccfd6753c4b1bdb531f908317e4a01f946af058a117be"
+              "bytes": 7906,
+              "sha256": "3cf5a85e4d65142840fcc6bea9cc09a53398a736b41b300eab397ca61c6a950a"
             }
           },
           "threeq": {
             "video": {
-              "path": "goblet_squat/loop_threeq.mp4",
+              "path": "goblet_squat/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 73690,
-              "sha256": "87377e8f63fc92a993a67ef7030ecb0a1a67d49e043c86b55cd4433cf0f3a973"
+              "bytes": 96224,
+              "sha256": "c1dd7fce186eebd9bc4bbca12cd874f6cbb3ea13b661fe22cbaeced5a2caa084"
             },
             "poster": {
-              "path": "goblet_squat/poster_threeq.webp",
+              "path": "goblet_squat/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10610,
-              "sha256": "aa69d032c8fdee547c3b3e47a9591def1d9b321e2fbe3f76f5ec5a5d0f1cd6b2"
+              "bytes": 11856,
+              "sha256": "3b6dffbb647bcdb6a7dd215ba9e179f91b96a5a9a16b99f571a7d2c2dfd8b685"
             }
           },
           "front": {
             "video": {
-              "path": "goblet_squat/loop_front.mp4",
+              "path": "goblet_squat/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 72606,
-              "sha256": "c77dd14fc82ee32bb5e88c0cc0048bb96334e680776c60bed7be08adb4a9ead4"
+              "bytes": 93138,
+              "sha256": "fd71374e6ad995a941c4ea18c55ddc4d58c870ca422576964aee2c95177b69e3"
             },
             "poster": {
-              "path": "goblet_squat/poster_front.webp",
+              "path": "goblet_squat/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10628,
-              "sha256": "621a8e29e84d165c04caf14ba10c71acfceade2987fe5e12322336b271d21948"
+              "bytes": 12360,
+              "sha256": "c6763a76e1c97fdb0bedcde2c10ab30136e9a1998c4b015417be8426760559f4"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "goblet_squat/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 80118,
+              "sha256": "4d6ca889fe4742b815c08f02f4e9ea37988d81a301a00ea5eee5ee08233e384b"
+            },
+            "poster": {
+              "path": "goblet_squat/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9434,
+              "sha256": "20a89df7e454700a225ee8f813b72bde643a4a96f12df7b1b6a16a9da83d6653"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "goblet_squat/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 98710,
+              "sha256": "3b71f7a5f19b1c3dddd03dbe563fa304a1c3693924a86d1b1990e23b598dcdb8"
+            },
+            "poster": {
+              "path": "goblet_squat/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11796,
+              "sha256": "d62f9d0b835f22ac4d0c35126956858c07cf013ef68ebfb9bb43e79d514936e5"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "goblet_squat/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 96560,
+              "sha256": "3a10a73cd46f669147ac39ca6524db23fbaf94b08adf92c7b031dfc3ae5c5e0f"
+            },
+            "poster": {
+              "path": "goblet_squat/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 12178,
+              "sha256": "3b7ad4036362b6533268c70aa2b65ecd27456cd9293f12c4e66e1d42ec6a68a4"
             }
           }
         }
@@ -1115,54 +1897,95 @@
     {
       "id": "hammer_curl",
       "name": "Hammer Curl",
+      "primary": [
+        "biceps"
+      ],
+      "secondary": [],
+      "equipment": [
+        "dumbbell"
+      ],
       "steps": [
         "Stand holding dumbbells with palms facing each other.",
         "Keep elbows close to the sides and curl the weights.",
         "Maintain the neutral grip at the top.",
         "Lower slowly to the starting position."
       ],
-      "cues": ["Keep thumbs pointing up.", "Keep shoulders quiet."],
+      "cues": [
+        "Keep thumbs pointing up.",
+        "Keep shoulders quiet."
+      ],
       "mistakes": [
         "Twisting the palms upward mid-rep.",
         "Rocking backward to lift the weights."
       ],
       "breathing": "Exhale on the curl; inhale on the lowering phase.",
       "source": "free-exercise-db:Hammer_Curls",
-      "primary": ["biceps"],
-      "secondary": [],
-      "equipment": ["dumbbell"],
       "media": {
         "male": {
           "front": {
             "video": {
-              "path": "hammer_curl/loop_front.mp4",
+              "path": "hammer_curl/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 63083,
-              "sha256": "b654f536f7f9f9c5679925dc854bea5fd980f5d65d2449b685cb8810e62b5730"
+              "bytes": 76404,
+              "sha256": "48cc006d7f6b0db2cb36755d38eaa38e01681cb0bc86ed35919ce10b5773ee9d"
             },
             "poster": {
-              "path": "hammer_curl/poster_front.webp",
+              "path": "hammer_curl/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9482,
-              "sha256": "0be849f576343c101937d2362042203711e550ade8e2286fba397a55d420853c"
+              "bytes": 11722,
+              "sha256": "652326dee60c51522b1fea236edf363d720e3bdf2890c596b297e365c4dbd6d5"
             }
           },
           "side": {
             "video": {
-              "path": "hammer_curl/loop_side.mp4",
+              "path": "hammer_curl/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 38013,
-              "sha256": "e6abc535758e256890742a326ee79ce957c3c0ff93750c6a0bf24ee4465bd94c"
+              "bytes": 52009,
+              "sha256": "2e7b2e7b01f3e2e5b032a543d7444b2ec8dedc6f4a97f3066606560e733b0ae4"
             },
             "poster": {
-              "path": "hammer_curl/poster_side.webp",
+              "path": "hammer_curl/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6106,
-              "sha256": "b9cbc9bcaf05f6acff72b6027f7be31a075b8203ca4e3101093954b7521c9f2f"
+              "bytes": 7192,
+              "sha256": "8fe03edb7f5388b60a78eb734acbf838dc5bd4b870c933ceee2d1036c6396a75"
+            }
+          }
+        },
+        "female": {
+          "front": {
+            "video": {
+              "path": "hammer_curl/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 77374,
+              "sha256": "0a5d244fe8f11466c84edf97dbd6940b318876f9dbfeef082f1b298582e4a04c"
+            },
+            "poster": {
+              "path": "hammer_curl/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11948,
+              "sha256": "aa7b291418ffb1247e7121cfaa39b5c7daa77a0f08efcae2b2198e8e023bbadf"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "hammer_curl/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 58039,
+              "sha256": "16f4c1c9f30092e6b4cacfe300361858cc7b3ea623f494505906f497ffa161b2"
+            },
+            "poster": {
+              "path": "hammer_curl/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8610,
+              "sha256": "63bb93be3ba8c06ba3d2b28098832f95725836a852b1379a6cf18a152d1e4ae6"
             }
           }
         }
@@ -1171,6 +1994,18 @@
     {
       "id": "kettlebell_swing",
       "name": "Two-hand Kettlebell Swing",
+      "primary": [
+        "hamstrings"
+      ],
+      "secondary": [
+        "calves",
+        "glutes",
+        "lower_back",
+        "shoulders"
+      ],
+      "equipment": [
+        "kettlebell"
+      ],
       "steps": [
         "Stand behind the kettlebell with feet wider than hip width, hinge and grip with both hands.",
         "Hike the bell back high between the thighs.",
@@ -1187,57 +2022,104 @@
       ],
       "breathing": "Exhale sharply as the hips extend; inhale as the bell swings back.",
       "source": "free-exercise-db:One-Arm_Kettlebell_Swings",
-      "primary": ["hamstrings"],
-      "secondary": ["calves", "glutes", "lower_back", "shoulders"],
-      "equipment": ["kettlebell"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "kettlebell_swing/loop_side.mp4",
+              "path": "kettlebell_swing/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 43570,
-              "sha256": "7be940a78d284ff613025d91e124a79160248a04d080aead7d7e3448a192392d"
+              "bytes": 59321,
+              "sha256": "85b817bd79d83888d337bb338ed2e370f8a112964ba01982611dec144f2f0fce"
             },
             "poster": {
-              "path": "kettlebell_swing/poster_side.webp",
+              "path": "kettlebell_swing/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 8150,
-              "sha256": "d45b4c3bd5d5820f4ac891e6092e896956d8ff3bfd47028cfbc333a42db4b499"
+              "bytes": 8842,
+              "sha256": "4533a835d8538d662b0816ae24ead2458e1c34ec6fea09b80c7b661e8b6b8393"
             }
           },
           "threeq": {
             "video": {
-              "path": "kettlebell_swing/loop_threeq.mp4",
+              "path": "kettlebell_swing/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 55281,
-              "sha256": "5bf87c2ea0d08290a62f67393347fedd2d8ba410c2832bdaf6b4009d289da7af"
+              "bytes": 74331,
+              "sha256": "8e9c25e6da5d6e5338396858095bd8d7da96f937f9fbca617180d9419a86dcb3"
             },
             "poster": {
-              "path": "kettlebell_swing/poster_threeq.webp",
+              "path": "kettlebell_swing/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9748,
-              "sha256": "72e6ba436398a1bdeac6ff417eb7ec97d25d21733549ed473c39ae62b5c9a7a5"
+              "bytes": 11440,
+              "sha256": "357fd6562e36b2174719ea86abdc230a6ee992ac3c09d8673f9320d90f6d84de"
             }
           },
           "front": {
             "video": {
-              "path": "kettlebell_swing/loop_front.mp4",
+              "path": "kettlebell_swing/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 45343,
-              "sha256": "4d04988784ba3fa9ab477fa6b659b16e3fa244d7bd3caa0bff58fbc8a59345ed"
+              "bytes": 63706,
+              "sha256": "057b4b45fd5880726cbe2fa10d78ec69e33c52527db4acff01ffc1feb6cfaa85"
             },
             "poster": {
-              "path": "kettlebell_swing/poster_front.webp",
+              "path": "kettlebell_swing/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9242,
-              "sha256": "b7d2ae41748c7620b85fbf99dd7cfe58f9c88b6560e6c2a39c5e0484fdd2b2da"
+              "bytes": 10364,
+              "sha256": "2de7f2e6baa927fe0e4b7d8d4551b30541042dc10d935744fd119ab60bfd8988"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "kettlebell_swing/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 64523,
+              "sha256": "29db9b5a72347b6d859a50f1bfb04cd732694335d5f25b954f7b60f8df6bd6b8"
+            },
+            "poster": {
+              "path": "kettlebell_swing/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10552,
+              "sha256": "44486f9f7619b8c4f8614ab1a81f6e366ffbd27e55430c3c53e58ba40992d69b"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "kettlebell_swing/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 76473,
+              "sha256": "2d7c80273a1d63793f236db0357ea4f2e6f09465e5f5eb40a9f86f3befad45ea"
+            },
+            "poster": {
+              "path": "kettlebell_swing/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11860,
+              "sha256": "8156bfc501dcd03bd49c8fbdacc0b8612fe4dcad32ea541b4508a843a1238d93"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "kettlebell_swing/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 64922,
+              "sha256": "72e1c0cd5c5ba89fc4e955557fbad4f5b1b49071b51167e961a6689046541dfc"
+            },
+            "poster": {
+              "path": "kettlebell_swing/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10492,
+              "sha256": "a5125ca5dd89134cf47fa5bd5af04ba1aa1b183cc353aba6abc829b22674208f"
             }
           }
         }
@@ -1246,70 +2128,132 @@
     {
       "id": "lat_pulldown",
       "name": "Lat Pulldown",
+      "primary": [
+        "lats"
+      ],
+      "secondary": [
+        "biceps",
+        "middle_back",
+        "shoulders"
+      ],
+      "equipment": [
+        "lat_pulldown",
+        "lat_bar"
+      ],
       "steps": [
         "Sit with thighs held under the pad and grip the overhead bar wider than shoulder width.",
         "Keep the chest tall with a small backward lean.",
         "Pull the bar toward the upper chest by driving elbows down.",
         "Let the arms extend overhead under control."
       ],
-      "cues": ["Pull in front of the head.", "Keep the torso angle steady."],
+      "cues": [
+        "Pull in front of the head.",
+        "Keep the torso angle steady."
+      ],
       "mistakes": [
         "Pulling behind the neck.",
         "Rocking backward or yanking the stack."
       ],
       "breathing": "Exhale while pulling down; inhale on the return.",
       "source": "free-exercise-db:Wide-Grip_Lat_Pulldown",
-      "primary": ["lats"],
-      "secondary": ["biceps", "middle_back", "shoulders"],
-      "equipment": ["lat_pulldown", "lat_bar"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "lat_pulldown/loop_side.mp4",
+              "path": "lat_pulldown/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 31540,
-              "sha256": "50f87ce806757176bc3b9ea447363ca3c19ed052e046fc31c6eae350e56d647e"
+              "bytes": 40259,
+              "sha256": "ba2985d980b78e5fbd3ecf1fba37c01f4c8c5fa2df4cf744f83ac21f7dd1f2ee"
             },
             "poster": {
-              "path": "lat_pulldown/poster_side.webp",
+              "path": "lat_pulldown/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 8286,
-              "sha256": "215589ca3566f65849e17dbedddcd7595d821dd83358a6ff3481decdd108da23"
+              "bytes": 8476,
+              "sha256": "a1db6752be1a49fe652a528de56d68693fb550b8e536f1363e9b219ab97f3cec"
             }
           },
           "threeq": {
             "video": {
-              "path": "lat_pulldown/loop_threeq.mp4",
+              "path": "lat_pulldown/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 49080,
-              "sha256": "14551155a2d317ed78d9416c386cdbc2bc9e47c849f0f19dff9ea43100e92fea"
+              "bytes": 63967,
+              "sha256": "c9fbfd897e7c0cb3b366a8f66f01fd3c6997940b5d4c775dbe0079c8140b1615"
             },
             "poster": {
-              "path": "lat_pulldown/poster_threeq.webp",
+              "path": "lat_pulldown/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 11268,
-              "sha256": "99d81aed96209d8d2844f4b4d09f652c21c11d998a3b7b002fb0181a944d5677"
+              "bytes": 12962,
+              "sha256": "8ec7fcd9300e84400e9c3cb8fb2c9eece1e599598b3ab6de61e039e87edb00f7"
             }
           },
           "back": {
             "video": {
-              "path": "lat_pulldown/loop_back.mp4",
+              "path": "lat_pulldown/male/male_loop_back.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 45342,
-              "sha256": "a854b75d134cbb46c711302a79f499a5574dd3e3b8f6ad507551b1a181776d32"
+              "bytes": 58030,
+              "sha256": "d69c289c5b2de34769af188d907b329c0c44a3339ba1101d12c2459449d53bf5"
             },
             "poster": {
-              "path": "lat_pulldown/poster_back.webp",
+              "path": "lat_pulldown/male/male_poster_back.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9952,
-              "sha256": "56e029bac134fb6b1fadcaff4028e850c93d86d5166e2f91516ea9f5426df1c4"
+              "bytes": 10534,
+              "sha256": "3c81ec43a8ef7e2fc57e303f5ec453e45087f05d9730eba1623ca6ac7c6e8f92"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "lat_pulldown/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 41329,
+              "sha256": "c257ab39d2348002be3b54e7be3b312a084a0928652814ca8d802024f00c73db"
+            },
+            "poster": {
+              "path": "lat_pulldown/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9136,
+              "sha256": "e1caedf12d6d6aceeaf4a819396fc0b407f99e3f61a1ac98b42a2a60c9c434b6"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "lat_pulldown/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 58582,
+              "sha256": "770bdebb3133b1ee5851757b4e366ceb4ab850b4c48e304d27f34413f59363f6"
+            },
+            "poster": {
+              "path": "lat_pulldown/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 12468,
+              "sha256": "37a4c839f60e98e2b9c32ba32c16c4c18ef7fbf66300fa5d855edf9ef0d8d92c"
+            }
+          },
+          "back": {
+            "video": {
+              "path": "lat_pulldown/female/female_loop_back.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 52975,
+              "sha256": "a9ead6d7118f060db3e8c81740d826f9cb823d7134f1d2c9005318912fae2115"
+            },
+            "poster": {
+              "path": "lat_pulldown/female/female_poster_back.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9672,
+              "sha256": "a69230e5d0bddef7d061032a1dd2f5d65d59707a2e484a33e991aa2a74c03e9b"
             }
           }
         }
@@ -1318,6 +2262,13 @@
     {
       "id": "lateral_raise",
       "name": "Dumbbell Lateral Raise",
+      "primary": [
+        "shoulders"
+      ],
+      "secondary": [],
+      "equipment": [
+        "dumbbell"
+      ],
       "steps": [
         "Stand holding dumbbells beside the thighs with elbows slightly bent.",
         "Raise the arms out and a little forward to about shoulder height.",
@@ -1334,57 +2285,104 @@
       ],
       "breathing": "Exhale as you raise; inhale as you lower.",
       "source": "free-exercise-db:Side_Lateral_Raise",
-      "primary": ["shoulders"],
-      "secondary": [],
-      "equipment": ["dumbbell"],
       "media": {
         "male": {
           "front": {
             "video": {
-              "path": "lateral_raise/loop_front.mp4",
+              "path": "lateral_raise/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 55151,
-              "sha256": "b577d3c1a4bba357d2c1c4970aeb4c0b9cce549f6978b7bf6c68b9547b005234"
+              "bytes": 66714,
+              "sha256": "b71a8239f12cb4e97c603ff42a10735ce4ae0f678b26c1d03e7db3badce1a557"
             },
             "poster": {
-              "path": "lateral_raise/poster_front.webp",
+              "path": "lateral_raise/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 8254,
-              "sha256": "64d0b4933ec8317c26fce6c1c4cd33778d33bcfe58467a292ef517382a694def"
+              "bytes": 10452,
+              "sha256": "e7c7eb52334758a63ff5b91daa523331111d71d4e2c8b1f07da3227338f2818e"
             }
           },
           "side": {
             "video": {
-              "path": "lateral_raise/loop_side.mp4",
+              "path": "lateral_raise/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 37894,
-              "sha256": "0d3f5b3ff09d9ab36cc243a67ba579c1359ed8ba699d3acb238ef97a3f9fcd23"
+              "bytes": 49196,
+              "sha256": "b941aa0ffc5db3c56295356cb9184bb03f3646979ec822d972a50730b8d4b31a"
             },
             "poster": {
-              "path": "lateral_raise/poster_side.webp",
+              "path": "lateral_raise/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6260,
-              "sha256": "059eaee050f613f8109ff457ae74ad1e45f223f017d66fb1477829a3bd97167c"
+              "bytes": 7270,
+              "sha256": "6d79d01b4e32c209cedb5ef0c3466aa69d28415d9ccb70416935cf661b632f0f"
             }
           },
           "threeq": {
             "video": {
-              "path": "lateral_raise/loop_threeq.mp4",
+              "path": "lateral_raise/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 65963,
-              "sha256": "036c93b9de5aa1877371ce3c228ce9dd9cba73efef46ddd09035e285169e1419"
+              "bytes": 78851,
+              "sha256": "53185cf4124affecc15a48aa5690602f5038f7fd882b7ec4a2a9e2c28b0aa910"
             },
             "poster": {
-              "path": "lateral_raise/poster_threeq.webp",
+              "path": "lateral_raise/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9612,
-              "sha256": "89ade23962fd6cf2603b8631599561d4364e13caba901789ff666ba3460ceb74"
+              "bytes": 11912,
+              "sha256": "cdefd78fba3c9f06d017ad69d7259886e8027f89ce1c5ea51e510679452fd24b"
+            }
+          }
+        },
+        "female": {
+          "front": {
+            "video": {
+              "path": "lateral_raise/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 72295,
+              "sha256": "60bbd006dbbd89990746cef091b0718ac7cca40627943e58b45fffbaa03aef7e"
+            },
+            "poster": {
+              "path": "lateral_raise/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11396,
+              "sha256": "60784099fdcf3e70b7cfd173426e92ad1b06071ad081d2076afad0f755352e78"
+            }
+          },
+          "side": {
+            "video": {
+              "path": "lateral_raise/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 55682,
+              "sha256": "f601d14363e707d07433fa24af1ca3f875da7b19b09028d64db017a4d5fbd3c8"
+            },
+            "poster": {
+              "path": "lateral_raise/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8860,
+              "sha256": "ecbf431f0f695f8c438e530e0283cf082a5eeee6f4ae69810b4bb914e459143f"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "lateral_raise/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 81632,
+              "sha256": "d7a41accc7d8d58dcb9e047c2f7e25aabf6579d9f1993f97e0b3ceaaa75d48c1"
+            },
+            "poster": {
+              "path": "lateral_raise/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 12054,
+              "sha256": "8a199e0549e4dd11479236fcf897ce0671593f8c1da246e34c7a7c51affaeb55"
             }
           }
         }
@@ -1393,6 +2391,13 @@
     {
       "id": "leg_curl",
       "name": "Seated Leg Curl",
+      "primary": [
+        "hamstrings"
+      ],
+      "secondary": [],
+      "equipment": [
+        "leg_curl"
+      ],
       "steps": [
         "Adjust the seat so knees line up with the pivot and the lower roller rests above the heels.",
         "Secure the thigh pad and keep the back against the support.",
@@ -1409,57 +2414,104 @@
       ],
       "breathing": "Exhale as you curl; inhale as you extend.",
       "source": "free-exercise-db:Seated_Leg_Curl",
-      "primary": ["hamstrings"],
-      "secondary": [],
-      "equipment": ["leg_curl"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "leg_curl/loop_side.mp4",
+              "path": "leg_curl/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 28861,
-              "sha256": "14a9eac9b2d4503e8d883eb4c01bbb21f6caa29fa6db187972980768ec459f65"
+              "bytes": 40545,
+              "sha256": "4de120b0bd3eac11eb4d0d596c406c25cd810f338b67b555907b9da6e8dc62a1"
             },
             "poster": {
-              "path": "leg_curl/poster_side.webp",
+              "path": "leg_curl/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7756,
-              "sha256": "10b08333e828e53c74e61ec23055fce4f4cb3d1e948468324fca782b257dc857"
+              "bytes": 9510,
+              "sha256": "58ba6cfa6dfc6a9c0d07d03b50c23166d3d1b2c64a22674c73bef70439751289"
             }
           },
           "threeq": {
             "video": {
-              "path": "leg_curl/loop_threeq.mp4",
+              "path": "leg_curl/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 49260,
-              "sha256": "39a3baac0571156112104c5f4374cb344f4d6f7783d88167e88f4b35ffc8d162"
+              "bytes": 63446,
+              "sha256": "8123cc08cb96fed0816b90f8cb584fc5fa8542644422506b662d8f9a526f5a41"
             },
             "poster": {
-              "path": "leg_curl/poster_threeq.webp",
+              "path": "leg_curl/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9874,
-              "sha256": "010a3bdeebc14af1fdb782e4468fbf7e2e736f9e49d68b7df3daab2f214e5c4a"
+              "bytes": 11764,
+              "sha256": "658e49db49bebc9d47ceecc2cd1d824169001b9064c2d000558baa35f624dd2f"
             }
           },
           "front": {
             "video": {
-              "path": "leg_curl/loop_front.mp4",
+              "path": "leg_curl/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 55391,
-              "sha256": "abe69a67ff429035d603ff3600fc612ec9df95a46be169b6e1d125b7f65a8be7"
+              "bytes": 67215,
+              "sha256": "6ab15215808e54e00e28d8adf6886200589583a04e1a3924c27829b3e26f7419"
             },
             "poster": {
-              "path": "leg_curl/poster_front.webp",
+              "path": "leg_curl/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10330,
-              "sha256": "e7c9c87f25b702ad9a6a1366827d883ae794213b75995240fa983c8afe7d7155"
+              "bytes": 11904,
+              "sha256": "464310df0caaacdd73db85bab159c9f37e0f181c25f53ce5f6dd33dd5874efa6"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "leg_curl/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 39468,
+              "sha256": "8f11365a29e886fa6a1035731e99e29b9d0eee49db9ac1c2ab91244903d6ff3e"
+            },
+            "poster": {
+              "path": "leg_curl/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9284,
+              "sha256": "076eff627289dbac4d0aea81104d1af948d573493403bb866c6d2320c647da21"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "leg_curl/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 55554,
+              "sha256": "fcca0246210844de175e7d2d6d2992eb77fcddba832afa17846999583d34dd0e"
+            },
+            "poster": {
+              "path": "leg_curl/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10526,
+              "sha256": "630e4254200b54239f744354892fc08c851bfed1056636a151aab270bed6afe9"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "leg_curl/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 64673,
+              "sha256": "f7c613e5e99a2f169e4861ec9ea45fd89ea28c5eb52aee098e70f14d85d5729d"
+            },
+            "poster": {
+              "path": "leg_curl/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11512,
+              "sha256": "e693b64b70c6f4685cc8fb015dccf14dca192ddaf0801033fc9248207fa322d6"
             }
           }
         }
@@ -1468,6 +2520,13 @@
     {
       "id": "leg_extension",
       "name": "Leg Extension",
+      "primary": [
+        "quadriceps"
+      ],
+      "secondary": [],
+      "equipment": [
+        "leg_extension"
+      ],
       "steps": [
         "Adjust the seat so knees line up with the machine pivot and the roller sits above the ankles.",
         "Sit back against the pad and hold the handles.",
@@ -1484,57 +2543,104 @@
       ],
       "breathing": "Exhale as you extend; inhale as you lower.",
       "source": "free-exercise-db:Leg_Extensions",
-      "primary": ["quadriceps"],
-      "secondary": [],
-      "equipment": ["leg_extension"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "leg_extension/loop_side.mp4",
+              "path": "leg_extension/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 30642,
-              "sha256": "b11d9129b10eeecc04647fe67a2661b341415e19c90f22050069cba2a3d31634"
+              "bytes": 40961,
+              "sha256": "3b988d3e929b26867d0d2d3806b1b8eddf51792fff271b9fadb7c1931d2ab7ee"
             },
             "poster": {
-              "path": "leg_extension/poster_side.webp",
+              "path": "leg_extension/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7744,
-              "sha256": "1c2c47e92bf844f44e14325295efc19a8374842068416058d91d186899a9b8e4"
+              "bytes": 8648,
+              "sha256": "900adb3356f83ed0c8defd30f432d5b2aa903ec2d6a2d852b65062d0501f0ba7"
             }
           },
           "threeq": {
             "video": {
-              "path": "leg_extension/loop_threeq.mp4",
+              "path": "leg_extension/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 49689,
-              "sha256": "bc2ef29cd046c46d3c6e9f0e5f5c9521780e791adba6a70ad841d0be3858ab65"
+              "bytes": 62139,
+              "sha256": "e2b29b4d66da184ff86ba1372526bff2b7e3de377f46a230a97f5847bec1a33b"
             },
             "poster": {
-              "path": "leg_extension/poster_threeq.webp",
+              "path": "leg_extension/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10568,
-              "sha256": "a4fb8a13a91885890968e67f9fdb365d4145ded5462750018bc646dd1fe2c320"
+              "bytes": 11322,
+              "sha256": "83a6c4a10c5e807a7dbd0036d195fc44bcc86f7349187d77fc584cfb5bee1f32"
             }
           },
           "front": {
             "video": {
-              "path": "leg_extension/loop_front.mp4",
+              "path": "leg_extension/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 59795,
-              "sha256": "eb0b48218ecf7b9853211492b4c2ee5621b760e5056e2efa27f2e97532f4d251"
+              "bytes": 71044,
+              "sha256": "78d8a6e366345ae2bad031de6d5b97e510eee5b00dfdb0181a3b0f49a7923160"
             },
             "poster": {
-              "path": "leg_extension/poster_front.webp",
+              "path": "leg_extension/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 12216,
-              "sha256": "8215e8874691ca769fe2f36c52295fd24268aca7f394486501d36f6351860f0e"
+              "bytes": 14200,
+              "sha256": "77829a5f759ab6d3b801dccda797dc1da0d07338453332930cb85d02e50354ab"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "leg_extension/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 39561,
+              "sha256": "c6899c6eb187efebac24e125c521d1d4b3185b7ec7ae54748aec1ca4865590d1"
+            },
+            "poster": {
+              "path": "leg_extension/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8770,
+              "sha256": "2d2939e24a60305ef34792ece76f90d7fc765d0d2c6cc9a7b90e9ca201eeda6d"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "leg_extension/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 54282,
+              "sha256": "d2c44e8415980845880e2ba976782325f4b982769b94d63788e0a41741ad3e17"
+            },
+            "poster": {
+              "path": "leg_extension/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11084,
+              "sha256": "10026dae9d3f29d4f937c7a461a046acea04b58bf6ba0b3e7228a5b68e94fecc"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "leg_extension/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 69783,
+              "sha256": "47ef453ba696fc3874dfbc9ceb8a21f2fcc97a1603d64fe6ce3ebb639105dd64"
+            },
+            "poster": {
+              "path": "leg_extension/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 14002,
+              "sha256": "7266f870ea8921083f1cfda501235bc2b797ad909be30440db365fbf00b33222"
             }
           }
         }
@@ -1543,6 +2649,17 @@
     {
       "id": "leg_press",
       "name": "Leg Press",
+      "primary": [
+        "quadriceps"
+      ],
+      "secondary": [
+        "calves",
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": [
+        "leg_press"
+      ],
       "steps": [
         "Sit with pelvis and back supported and feet about shoulder width on the plate.",
         "Release the safety stops while supporting the sled.",
@@ -1559,57 +2676,104 @@
       ],
       "breathing": "Inhale as you lower; exhale as you press.",
       "source": "free-exercise-db:Leg_Press",
-      "primary": ["quadriceps"],
-      "secondary": ["calves", "glutes", "hamstrings"],
-      "equipment": ["leg_press"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "leg_press/loop_side.mp4",
+              "path": "leg_press/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 31024,
-              "sha256": "cc92233a8c393097d16a43b3c5c4639ee9967c5bd4917abf585585709321e9be"
+              "bytes": 38433,
+              "sha256": "6fdbc5a75cb413e47db8005f0e67a7806106048eef9609af4e8e5c116792ca2b"
             },
             "poster": {
-              "path": "leg_press/poster_side.webp",
+              "path": "leg_press/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9082,
-              "sha256": "8b289e6e5cb9e1bce036a5b9438f2b3ac7fd4755eb36a914f7bf155b9dabe747"
+              "bytes": 10256,
+              "sha256": "1c4a81facdbd609af854157f545dad4c7d47cf3c85f02e71c93654b6f22decb3"
             }
           },
           "threeq": {
             "video": {
-              "path": "leg_press/loop_threeq.mp4",
+              "path": "leg_press/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 44718,
-              "sha256": "e6418117f11448bf4e52b4a9138191b694eafa8e702fd064a37e3a97c8483ad2"
+              "bytes": 50974,
+              "sha256": "a750995c281045d42831afa069d31568b84e899414be12df547dea5751dc1804"
             },
             "poster": {
-              "path": "leg_press/poster_threeq.webp",
+              "path": "leg_press/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 14000,
-              "sha256": "1890f8231ec685d8999023166e2166fa7ffe2934bf7ef9b06be6f0c7273725d4"
+              "bytes": 15612,
+              "sha256": "ee64160102fa3920311a726c41533344f565ac4885aeb25c3330deaea13c93dc"
             }
           },
           "top": {
             "video": {
-              "path": "leg_press/loop_top.mp4",
+              "path": "leg_press/male/male_loop_top.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 43268,
-              "sha256": "e2367f4181e34074bbf41aee166056cd022f9c1c58a07d7ea065c33ed2c32f8d"
+              "bytes": 46431,
+              "sha256": "75441fa90704fa4d7b36626bdb6680e2508e44f317f8dbd0fc40897a4c517747"
             },
             "poster": {
-              "path": "leg_press/poster_top.webp",
+              "path": "leg_press/male/male_poster_top.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9244,
-              "sha256": "4353c3e2469287b62409428481260142c6765052648d6b1566541f3afc2320ec"
+              "bytes": 9972,
+              "sha256": "5a17db979a17ed5522d5cc74eb62c70a05896502e86579b7317c84df6cb2bb65"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "leg_press/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 39458,
+              "sha256": "81bfb6cdb391137d28f2996163af44706fd29c40dfadd6a41ba402ae859c9821"
+            },
+            "poster": {
+              "path": "leg_press/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10176,
+              "sha256": "d30534ab691e9b7f25a31324f86044ac887ecf16f2a04008616c3b25063bb70b"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "leg_press/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 48872,
+              "sha256": "0c288f0c37c84e62b69449a300c2ba2468f25c1c2bc2db0ff9242f2b843bb3d7"
+            },
+            "poster": {
+              "path": "leg_press/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 15666,
+              "sha256": "e2053e13c973eabf8756d2f3a298a524f7f4e507d3a1f63ec615b199df353063"
+            }
+          },
+          "top": {
+            "video": {
+              "path": "leg_press/female/female_loop_top.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 42621,
+              "sha256": "976ad589324477c4ae1e9f9ca172d054afd654f7bb62af6cf2472e5f0c8caf47"
+            },
+            "poster": {
+              "path": "leg_press/female/female_poster_top.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 9650,
+              "sha256": "1a3c7b8b67c591ee2df3fd4754ed465b44e97201a6efb7815b50dbeb5cf5c047"
             }
           }
         }
@@ -1618,6 +2782,15 @@
     {
       "id": "lunge",
       "name": "Forward Lunge",
+      "primary": [
+        "quadriceps"
+      ],
+      "secondary": [
+        "calves",
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": [],
       "steps": [
         "Stand upright with feet hip width.",
         "Step one foot forward, keeping some side-to-side space between the feet.",
@@ -1634,57 +2807,104 @@
       ],
       "breathing": "Inhale as you lower; exhale as you push back.",
       "source": "free-exercise-db:Bodyweight_Walking_Lunge",
-      "primary": ["quadriceps"],
-      "secondary": ["calves", "glutes", "hamstrings"],
-      "equipment": [],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "lunge/loop_side.mp4",
+              "path": "lunge/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 62596,
-              "sha256": "8ecc3eb58a37fef6e2bbdde12ac2234b971dd7f62e592b42db069a0cb3158402"
+              "bytes": 77671,
+              "sha256": "7cf0b757651c1ebda7af84b45bafd7914a748efe5622ca4b44f082da4069a9ef"
             },
             "poster": {
-              "path": "lunge/poster_side.webp",
+              "path": "lunge/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6828,
-              "sha256": "5d7eba20b5f5da6b8019a1a0f8d152076720ed7eeff207bfbb4867912b165ffe"
+              "bytes": 7504,
+              "sha256": "31191168add52fdb6c297ff632a05b2f77875213ac289651edcf1593cfa6c2f2"
             }
           },
           "threeq": {
             "video": {
-              "path": "lunge/loop_threeq.mp4",
+              "path": "lunge/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 65115,
-              "sha256": "ce0bddc7cb75fe89430221bf25619a87f03c74d0b3a3f08a714c2db7b9abc571"
+              "bytes": 81601,
+              "sha256": "3ec911ed57e460414e88d31015bcca506e2ef56b36fc4e1404dc5784260653df"
             },
             "poster": {
-              "path": "lunge/poster_threeq.webp",
+              "path": "lunge/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9774,
-              "sha256": "2b5c52d577629792fc1dce7e0215f310c7ae640ca7a3be09c12eb89ed879b0b1"
+              "bytes": 11922,
+              "sha256": "b81db262ceea275d4b4f6db882997a735671ed4dc39416b0035afe796532dc6c"
             }
           },
           "front": {
             "video": {
-              "path": "lunge/loop_front.mp4",
+              "path": "lunge/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 55754,
-              "sha256": "5730a9debe9fc416eebc6cd8dc34a9ad87ea62543376796e774e7ec7ebbcdffc"
+              "bytes": 74702,
+              "sha256": "23e1950d14825fa0f366fba3ea3c9afc539fb89d9647a65379b456bf0cf65182"
             },
             "poster": {
-              "path": "lunge/poster_front.webp",
+              "path": "lunge/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10030,
-              "sha256": "92df73158691c8980b1146fc651456f95c8fc23ffb654ae4a662d8859b04fc0c"
+              "bytes": 12062,
+              "sha256": "f17988f3b90a5669574754ba61660b45ae41b78b70cb0b8a508586f095327ba5"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "lunge/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 86999,
+              "sha256": "f73c7a671062b035d8fac621a188e99f7d828c9dd73d5fd3aea5ea0d368fbb75"
+            },
+            "poster": {
+              "path": "lunge/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 8922,
+              "sha256": "083c681d815c88a924be3f35f9a05e7817f33f3a520b8cc813cabae2bbe2a49f"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "lunge/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 84967,
+              "sha256": "f1fd4858000af7500b6a4c32b4bae1cae413bb6c3d315045a3684915ea73b977"
+            },
+            "poster": {
+              "path": "lunge/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 12040,
+              "sha256": "4541a230107987cc252bee10eee27cba77c821fd0500e1d2f1e9042788b080f3"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "lunge/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 74015,
+              "sha256": "a463d56aa7b35d97e123b0a793e40e44f068a24f016107c75b56cab23fe74b1c"
+            },
+            "poster": {
+              "path": "lunge/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 12374,
+              "sha256": "a3520f3cd34df509caf753f71dcfb84f980ad3abb5af2c94cf5897a0702f9aa3"
             }
           }
         }
@@ -1693,6 +2913,18 @@
     {
       "id": "one_arm_dumbbell_row",
       "name": "One-arm Dumbbell Row",
+      "primary": [
+        "middle_back"
+      ],
+      "secondary": [
+        "biceps",
+        "lats",
+        "shoulders"
+      ],
+      "equipment": [
+        "dumbbell",
+        "bench"
+      ],
       "steps": [
         "Support one hand and the same-side knee on a bench, with the opposite foot on the floor.",
         "Keep the back steady and let the dumbbell hang below the shoulder.",
@@ -1709,57 +2941,104 @@
       ],
       "breathing": "Exhale while rowing; inhale while lowering.",
       "source": "free-exercise-db:One-Arm_Dumbbell_Row",
-      "primary": ["middle_back"],
-      "secondary": ["biceps", "lats", "shoulders"],
-      "equipment": ["dumbbell", "bench"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "one_arm_dumbbell_row/loop_side.mp4",
+              "path": "one_arm_dumbbell_row/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 43449,
-              "sha256": "b406ffc7ad59b1561bc49bc1e601443428078e1febcc576eb176b6ef5c3b4a4d"
+              "bytes": 57408,
+              "sha256": "3c3a1b84e5ac4a7fb5179f9af052d20667b32928774a141f97ae380f01cbebab"
             },
             "poster": {
-              "path": "one_arm_dumbbell_row/poster_side.webp",
+              "path": "one_arm_dumbbell_row/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9210,
-              "sha256": "598ea5a6fedece11ca3f5061f02289f473376a67f4c929f9d11eb7c2af50406c"
+              "bytes": 11648,
+              "sha256": "5cf4e4552b85f2dd95390221adba57616c8663665836bde601505b55be215579"
             }
           },
           "threeq": {
             "video": {
-              "path": "one_arm_dumbbell_row/loop_threeq.mp4",
+              "path": "one_arm_dumbbell_row/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 62244,
-              "sha256": "705af00e1a8cfbc7705a84f4153188820075f09b30100fee37dc53af777194eb"
+              "bytes": 81441,
+              "sha256": "9f0bd426ae99037bd3a3003d229cc06dfe51f47abcda54f86ff5c584d23e934e"
             },
             "poster": {
-              "path": "one_arm_dumbbell_row/poster_threeq.webp",
+              "path": "one_arm_dumbbell_row/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 11288,
-              "sha256": "6763115bad524ff5519d829e5a874ca9e51dd5a3af1dba75226b2cbb2c680c4f"
+              "bytes": 14978,
+              "sha256": "84d2749438d6eba2604548edd2a7ac83d1b3caa924464b320e2efb64dabb937d"
             }
           },
           "back": {
             "video": {
-              "path": "one_arm_dumbbell_row/loop_back.mp4",
+              "path": "one_arm_dumbbell_row/male/male_loop_back.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 53086,
-              "sha256": "7622cef3ef3ad04605a5677576a06f60ccf9c536a8c5e45379bc9285f4b5a038"
+              "bytes": 65406,
+              "sha256": "5d3ee38d5a9b72f36fc83acd6fa98099635423d68ef2190e00283500981420c8"
             },
             "poster": {
-              "path": "one_arm_dumbbell_row/poster_back.webp",
+              "path": "one_arm_dumbbell_row/male/male_poster_back.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10098,
-              "sha256": "16ae9a51ee0c9153d2956c98f363ec2b72e10705adb0b8beb6c7a711545f4a8d"
+              "bytes": 11418,
+              "sha256": "7f96f942b34fdaa1802a63b45bb48412bb7ab4ae223c9b750b20037cb562836e"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "one_arm_dumbbell_row/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 60798,
+              "sha256": "7ce764d0c2730f4eccf33213dd68d507ab860b76d7ecf2bf357fc3724a35d1e7"
+            },
+            "poster": {
+              "path": "one_arm_dumbbell_row/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 12334,
+              "sha256": "16f034fdbf2a07274a6c4e5c961ec6c2a621e046906500db9c02ecdc7a9fd7d2"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "one_arm_dumbbell_row/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 76174,
+              "sha256": "d01d2be649489bcf469a89f64c070f14d8c1502b3fcb424eac52bb23c1ee624a"
+            },
+            "poster": {
+              "path": "one_arm_dumbbell_row/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 14842,
+              "sha256": "adc5a11636a5d4767a00bc8904ad062d351c16f0fa8c44997391cf69e3929260"
+            }
+          },
+          "back": {
+            "video": {
+              "path": "one_arm_dumbbell_row/female/female_loop_back.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 61817,
+              "sha256": "667cd7899a3a7b106ab817de52fe0c5be620bed6a4819e06b8c0e924e21e3843"
+            },
+            "poster": {
+              "path": "one_arm_dumbbell_row/female/female_poster_back.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10988,
+              "sha256": "4012d8e18c277b4dcfaeec8db66f0893e4b72e95db74c344304e3f06c4822cd4"
             }
           }
         }
@@ -1768,6 +3047,13 @@
     {
       "id": "plank",
       "name": "Forearm Plank",
+      "primary": [
+        "abs"
+      ],
+      "secondary": [],
+      "equipment": [
+        "mat"
+      ],
       "steps": [
         "Place forearms on the floor with elbows below the shoulders.",
         "Step feet back and lift the hips until the body forms a straight line.",
@@ -1784,57 +3070,72 @@
       ],
       "breathing": "Take small, steady breaths throughout the hold.",
       "source": "free-exercise-db:Plank",
-      "primary": ["abs"],
-      "secondary": [],
-      "equipment": ["mat"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "plank/loop_side.mp4",
+              "path": "plank/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 18062,
-              "sha256": "592b6804ebac532b3ca53b4610bc36104c1454302c41e143f4070a50d5b83744"
+              "bytes": 9635,
+              "sha256": "6b3601bf08b09a91bee161bcf6e17c4e6b1a1e1bd5776cbefdc3f4e727bcf6f4"
             },
             "poster": {
-              "path": "plank/poster_side.webp",
+              "path": "plank/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 5510,
-              "sha256": "565cae2683a2611f6d8e0663e623040dfd1a898d346a9bb54f323ffd519a9b2b"
+              "bytes": 6118,
+              "sha256": "8a2a06a8fd09511f634feda09c07e1b1e29b06af87edb04c4f5de7889e5f5c19"
             }
           },
           "threeq": {
             "video": {
-              "path": "plank/loop_threeq.mp4",
+              "path": "plank/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 21122,
-              "sha256": "519e873e37fbb5f76e2213edcb06abfd4473780474e3d85b90af2da960afb4ae"
+              "bytes": 11712,
+              "sha256": "4f527068982f512cd339b6b4dfa07b46db80eb69bee74fba7108105aae92aaa5"
             },
             "poster": {
-              "path": "plank/poster_threeq.webp",
+              "path": "plank/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 6416,
-              "sha256": "f245e425b5c20923c7d6751e31b2a79703078e42a713b40378f928f5be8e0667"
+              "bytes": 7698,
+              "sha256": "ca9450563bbe812f18ada4792bc9cc6dbdf2da4d593f85a928a4e70519fe2972"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "plank/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 10328,
+              "sha256": "89ed7276c50386204d349916720d8e3a14809f4733afda794726fc8222045a2f"
+            },
+            "poster": {
+              "path": "plank/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6762,
+              "sha256": "3325a7477e6bde1cf1029e741b12dd8c161ee1b91b8de9ddfe993981a77c7679"
             }
           },
-          "front": {
+          "threeq": {
             "video": {
-              "path": "plank/loop_front.mp4",
+              "path": "plank/female/female_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 46822,
-              "sha256": "5f62d47c94180f566d591d67cd577e12e0dca635304a05f414a88eb9edae10b6"
+              "bytes": 12918,
+              "sha256": "6bdb05c41e57ee01db60ba8afce8879cf796eeab2c1263478081d5f293854373"
             },
             "poster": {
-              "path": "plank/poster_front.webp",
+              "path": "plank/female/female_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10338,
-              "sha256": "8023842257cfdd23efe85a0dec99817b8e3a0793e2cda559c6d19a6a792f7673"
+              "bytes": 8652,
+              "sha256": "8fe6240730a9f9f9c3e7337ac0c834a04bd86e123e10c84720e909fc46a8d16f"
             }
           }
         }
@@ -1843,6 +3144,16 @@
     {
       "id": "pull_up",
       "name": "Pull-up",
+      "primary": [
+        "lats"
+      ],
+      "secondary": [
+        "biceps",
+        "middle_back"
+      ],
+      "equipment": [
+        "pullup_bar"
+      ],
       "steps": [
         "Grip the bar overhand slightly wider than shoulder width.",
         "Hang with a braced trunk and controlled shoulders.",
@@ -1859,57 +3170,104 @@
       ],
       "breathing": "Exhale as you pull up; inhale as you lower.",
       "source": "free-exercise-db:Pullups",
-      "primary": ["lats"],
-      "secondary": ["biceps", "middle_back"],
-      "equipment": ["pullup_bar"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "pull_up/loop_side.mp4",
+              "path": "pull_up/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 31990,
-              "sha256": "0340885c8e40bfdeb628649e5f584f8463438c34e63d9b6df2b96b3d7cbe8d7f"
+              "bytes": 42763,
+              "sha256": "4304ee5ed8c31b91e76915309f976ec258254efb9053e0868f0bd7240f706c8b"
             },
             "poster": {
-              "path": "pull_up/poster_side.webp",
+              "path": "pull_up/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 5540,
-              "sha256": "5d4c9474417fcce9a81589c6e714a7404092c874bd0bebb3dc592f7960887425"
+              "bytes": 5772,
+              "sha256": "cdc495aef3b040506522cb9af5038193974900c31a300b98c821aee20b2e15a1"
             }
           },
           "threeq": {
             "video": {
-              "path": "pull_up/loop_threeq.mp4",
+              "path": "pull_up/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 46436,
-              "sha256": "34f9170b8a0fb77b06ca109537ba92355d8d83c838b4fca597d6e2bc250f9ea6"
+              "bytes": 64327,
+              "sha256": "779fd8909a0bc415ade5a7871d889e1e07787434695c447f831c902a5de4a1f2"
             },
             "poster": {
-              "path": "pull_up/poster_threeq.webp",
+              "path": "pull_up/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7718,
-              "sha256": "c36d1824265f80f5a507b7fbb0a4dc463d19e49f454ee7e095739bde412e98c0"
+              "bytes": 9756,
+              "sha256": "0f4551718bc9aab3ea0daf91d257d023dd00a352b770f7b387a73b35b1e1300b"
             }
           },
           "front": {
             "video": {
-              "path": "pull_up/loop_front.mp4",
+              "path": "pull_up/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 44068,
-              "sha256": "c99b441b0e1f7ce16e90749953de8da1e41392050359c17c03751aa385842e21"
+              "bytes": 60809,
+              "sha256": "269e0909c8816bd693fcde9371e015f260e64f2a8b03afdad0feb3d1c15c4cc7"
             },
             "poster": {
-              "path": "pull_up/poster_front.webp",
+              "path": "pull_up/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7794,
-              "sha256": "ddb04ced28a2bd71039599af1b9e18c5805d76d5bd68394290b269e2312e740f"
+              "bytes": 9816,
+              "sha256": "7d7353ed6792474d07c867962f90345e22366d76a76e22c3d7cb002b6a48caa5"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "pull_up/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 48019,
+              "sha256": "145b25d81cb79be31e5466bb5b13409c783cc4762700088d54ef3e554e045008"
+            },
+            "poster": {
+              "path": "pull_up/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6744,
+              "sha256": "817c3f85254e7b2cd28fed17bfd6408bfe270930ebd42c47cb0f72a44e4bfc2a"
+            }
+          },
+          "threeq": {
+            "video": {
+              "path": "pull_up/female/female_loop_threeq.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 66968,
+              "sha256": "7d0e3d84b2d7cf95a82bf896e1f9b401f2709b70b5169d51cbf4f21ac6fb29fd"
+            },
+            "poster": {
+              "path": "pull_up/female/female_poster_threeq.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10388,
+              "sha256": "c514ef07119b15429be6ae289d6264ad85d9e22690da34f28b440e94717b6fc9"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "pull_up/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 61049,
+              "sha256": "634e47b3bcbedb086921400546de09dbadea2b01d06f282fbd5edafb6fe85e22"
+            },
+            "poster": {
+              "path": "pull_up/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10358,
+              "sha256": "11199b46ebf3d107e04d5721344baadfc3e42dfbd50d9eed554cb7f328ea7738"
             }
           }
         }
@@ -1918,6 +3276,16 @@
     {
       "id": "push_up",
       "name": "Push-up",
+      "primary": [
+        "chest"
+      ],
+      "secondary": [
+        "shoulders",
+        "triceps"
+      ],
+      "equipment": [
+        "mat"
+      ],
       "steps": [
         "Place hands just outside shoulder width with legs extended and toes on the floor.",
         "Brace the trunk so head, hips and heels form one line.",
@@ -1934,57 +3302,72 @@
       ],
       "breathing": "Inhale while lowering; exhale while pressing up.",
       "source": "free-exercise-db:Pushups",
-      "primary": ["chest"],
-      "secondary": ["shoulders", "triceps"],
-      "equipment": ["mat"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "push_up/loop_side.mp4",
+              "path": "push_up/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 32569,
-              "sha256": "0064582290f6625a81ec88da9a75d1787b03ddb75ca1830be020c9604d86c9e8"
+              "bytes": 40100,
+              "sha256": "6a3e32e6dd895bd1a672f674f243e262c1009e66d309599ec86acfd81ca40c7f"
             },
             "poster": {
-              "path": "push_up/poster_side.webp",
+              "path": "push_up/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 5702,
-              "sha256": "8ca51d4bc92f3194181113ca34d6e9d04b1e948eb1eaf8c87bf16d00d3e32cbe"
+              "bytes": 6284,
+              "sha256": "f218165a652c1e9feb263dc44fb47ecb7359e1815ec9fdb6e47c90cb422cf7b3"
             }
           },
           "threeq": {
             "video": {
-              "path": "push_up/loop_threeq.mp4",
+              "path": "push_up/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 46281,
-              "sha256": "7acb382077607de016a1e568916800cd44817237989d33347498f23dab2da225"
+              "bytes": 62261,
+              "sha256": "0d9db25efd40d2206fd06b9c759189c3f3959fc57f9db48ee48bb3fdf97f25bb"
             },
             "poster": {
-              "path": "push_up/poster_threeq.webp",
+              "path": "push_up/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 7964,
-              "sha256": "249a39fed76d75aef5dc7943e6fa5597bb64dca90044003996a7e1667a63bbb1"
+              "bytes": 9100,
+              "sha256": "61cb962982be00b4f4a35f557d99cfad7977f5020c0436a9689e0cfa376a960f"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "push_up/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 42559,
+              "sha256": "b0bd17fed614da4fd47637c721a2b234b1dc406c87d640dce3d46f7cce6604b3"
+            },
+            "poster": {
+              "path": "push_up/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 6860,
+              "sha256": "e2428ebebae73b018f9a12aa76b4bdeb3706215395ba728ba55f171b9f27a52d"
             }
           },
-          "front": {
+          "threeq": {
             "video": {
-              "path": "push_up/loop_front.mp4",
+              "path": "push_up/female/female_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 82213,
-              "sha256": "f53f31bcc2f98b7b30fd1d6f634cb0a5d4d765550f504ef413e22da3f7ccf720"
+              "bytes": 62977,
+              "sha256": "33fcc6ae7f9f3d5d8b003e097c76d8b6dd79498124869103454676dba0b06eec"
             },
             "poster": {
-              "path": "push_up/poster_front.webp",
+              "path": "push_up/female/female_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10534,
-              "sha256": "1f2ee1b24554d490e2f124175850cb18d0c335ba4941f812d4e8de4d3b50ed82"
+              "bytes": 10664,
+              "sha256": "3558ae1798dc4e1dbebe78e1736aaec64786c749d4c01bd5bec277cd0fa34724"
             }
           }
         }
@@ -1993,6 +3376,14 @@
     {
       "id": "rope_pushdown",
       "name": "Rope Triceps Pushdown",
+      "primary": [
+        "triceps"
+      ],
+      "secondary": [],
+      "equipment": [
+        "cable_tower",
+        "rope"
+      ],
       "steps": [
         "Attach a rope to a high pulley and hold one end in each hand.",
         "Keep elbows close to the sides and brace the trunk.",
@@ -2009,57 +3400,104 @@
       ],
       "breathing": "Exhale during extension; inhale on the controlled return.",
       "source": "free-exercise-db:Triceps_Pushdown_-_Rope_Attachment",
-      "primary": ["triceps"],
-      "secondary": [],
-      "equipment": ["cable_tower", "rope"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "rope_pushdown/loop_side.mp4",
+              "path": "rope_pushdown/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 38463,
-              "sha256": "f3c9822d13fbd7b2d9c24395610f5a4d8d4c121e451ae2d8f765a7f09077074a"
+              "bytes": 48137,
+              "sha256": "e94cb92b87bfe133da5ce0c534edbf27973b648f2892d578ce690e1d53f23b0c"
             },
             "poster": {
-              "path": "rope_pushdown/poster_side.webp",
+              "path": "rope_pushdown/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 8796,
-              "sha256": "cd9b2194e32419dea49da8213d6b24b32e74ddac85511d4789a31c5e103badbc"
+              "bytes": 10036,
+              "sha256": "04879d3cc0f8cda8a9af46d04b36d78a77b287aa69c2aed79da438efdd535968"
             }
           },
           "rear": {
             "video": {
-              "path": "rope_pushdown/loop_rear.mp4",
+              "path": "rope_pushdown/male/male_loop_rear.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 36677,
-              "sha256": "370c87ebd96e13cd98afbae836d1e22b36946c0f614829cf9a64422bb0396e09"
+              "bytes": 45530,
+              "sha256": "00b8d139ee8cb651310ca0e4147f2ca9a87e8807b978e94cd6d76ace1abdeac6"
             },
             "poster": {
-              "path": "rope_pushdown/poster_rear.webp",
+              "path": "rope_pushdown/male/male_poster_rear.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9356,
-              "sha256": "4b43f56af30998fef56dd9478a409c38252144c5cf7ade6420ac5cf4c7594c66"
+              "bytes": 11148,
+              "sha256": "4425a1769f94c6279c4e35bcf661bba8879c93d664e50549e9422166c98a49f0"
             }
           },
           "front": {
             "video": {
-              "path": "rope_pushdown/loop_front.mp4",
+              "path": "rope_pushdown/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 46416,
-              "sha256": "0766760b0b72cbaca98a405e41c307a271996277b694468b87c4c810ae7d9616"
+              "bytes": 65910,
+              "sha256": "74fc32099f3c90eaf450525ffcebe6f778134e31d5f21ea6aac67dde62bac81c"
             },
             "poster": {
-              "path": "rope_pushdown/poster_front.webp",
+              "path": "rope_pushdown/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10962,
-              "sha256": "8a008e5bb23f3972867932d724022098a87ca6aa0e053d49ba41f11ba1ec67ea"
+              "bytes": 14594,
+              "sha256": "019a0b6aba521d7746fab85d54b37789519b01f94a8408c7c0812692fc274c48"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "rope_pushdown/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 46281,
+              "sha256": "7dcd43b779d7e27df2cfff9c1446c5b6880c1640022a7d85ed4e434ad3d6718e"
+            },
+            "poster": {
+              "path": "rope_pushdown/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10164,
+              "sha256": "5024a23d2196617b01f9eaffadf52af1709b30e9088074c9e3f79f95f9820752"
+            }
+          },
+          "rear": {
+            "video": {
+              "path": "rope_pushdown/female/female_loop_rear.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 43158,
+              "sha256": "0c6c09d53f15650e263bfb7798ace25acfe19b5974c2c08e8ab14c43ef87009c"
+            },
+            "poster": {
+              "path": "rope_pushdown/female/female_poster_rear.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10808,
+              "sha256": "d876ae1839ff4c092943c35b73e7ad43bf3ddd509abdafe196ac878667080a80"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "rope_pushdown/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 59127,
+              "sha256": "662d019a05faabe7dc7c45e38c0a35d87fc42ae9a80d3402e7787e0931ef3def"
+            },
+            "poster": {
+              "path": "rope_pushdown/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 14004,
+              "sha256": "914ddbd3963e3898b8ae212e1c17f438db6c45455065b52e1853d7e9ef466b00"
             }
           }
         }
@@ -2068,6 +3506,18 @@
     {
       "id": "seated_cable_row",
       "name": "Seated Cable Row",
+      "primary": [
+        "middle_back"
+      ],
+      "secondary": [
+        "biceps",
+        "lats",
+        "shoulders"
+      ],
+      "equipment": [
+        "seated_row",
+        "v_bar"
+      ],
       "steps": [
         "Sit facing the low cable with feet on the footrests and knees slightly bent.",
         "Hold the handle with arms extended and trunk tall.",
@@ -2084,57 +3534,72 @@
       ],
       "breathing": "Exhale as you pull; inhale as the arms extend.",
       "source": "free-exercise-db:Seated_Cable_Rows",
-      "primary": ["middle_back"],
-      "secondary": ["biceps", "lats", "shoulders"],
-      "equipment": ["seated_row", "v_bar"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "seated_cable_row/loop_side.mp4",
+              "path": "seated_cable_row/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 32730,
-              "sha256": "6a0d89eff85052e1b43246fb9ad301ee2abc6c5ebb5f6bbd2dee58f89818d322"
+              "bytes": 48188,
+              "sha256": "fbd2aaa54753f480e0a91d8ad2b44ae2f360b473c9335af545967fc614906285"
             },
             "poster": {
-              "path": "seated_cable_row/poster_side.webp",
+              "path": "seated_cable_row/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 8424,
-              "sha256": "8b14dddf349d6c45e225cc8e97ce737afefb871ee055cdd8d5adc590685f8ad5"
+              "bytes": 13102,
+              "sha256": "e966d56da028902e2517ec2ec25062d3bcc47a19d801c5b57d233d1620d945f5"
             }
           },
           "threeq": {
             "video": {
-              "path": "seated_cable_row/loop_threeq.mp4",
+              "path": "seated_cable_row/male/male_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 42303,
-              "sha256": "41965ca274edd34e8863607643958f97ec5ccb582a05b5b68490b0bfa2dbb576"
+              "bytes": 49739,
+              "sha256": "379add123f897765e6927dc79fa60bef518defe2375c3dba34f0d239611d84dc"
             },
             "poster": {
-              "path": "seated_cable_row/poster_threeq.webp",
+              "path": "seated_cable_row/male/male_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10126,
-              "sha256": "2e597efa20fe5cfb719a988919700d1e802b85c8965da3e1a5240efe35364a1d"
+              "bytes": 12576,
+              "sha256": "40e4859e2eba5fb22a6e5cea21ef599954d2e07fde7a2dea9ff9b7d7dd03944d"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "seated_cable_row/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 49145,
+              "sha256": "95df30221ce85fd13ee2f8a336ec0ad3ddaca9bd6a17d724641c637feec3b63f"
+            },
+            "poster": {
+              "path": "seated_cable_row/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 13510,
+              "sha256": "0c52e1c9f6753ea99857487ab280b5bfb3d6a150a0dbfbc70616ae2a514e97e4"
             }
           },
-          "front": {
+          "threeq": {
             "video": {
-              "path": "seated_cable_row/loop_front.mp4",
+              "path": "seated_cable_row/female/female_loop_threeq.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 51517,
-              "sha256": "145709dc1c40b8caad2322a445345240a93369a98d64f1d3c854a27b3d6f37f2"
+              "bytes": 47213,
+              "sha256": "14559985d9bc832243789a43be01a3ae445861e847fcdf426f9bb5011491e691"
             },
             "poster": {
-              "path": "seated_cable_row/poster_front.webp",
+              "path": "seated_cable_row/female/female_poster_threeq.webp",
               "width": 720,
               "height": 900,
-              "bytes": 10654,
-              "sha256": "cf704a289fbc4740c5bd839ffba3a3b83809db1a8c9027ac702ef0f67d8a526d"
+              "bytes": 13072,
+              "sha256": "9b29a0e14bb697a4684e3d5894f074951bfbe85be706f415281788ca320cb48c"
             }
           }
         }
@@ -2143,77 +3608,814 @@
     {
       "id": "triceps_pushdown",
       "name": "Straight-bar Triceps Pushdown",
+      "primary": [
+        "triceps"
+      ],
+      "secondary": [],
+      "equipment": [
+        "cable_tower",
+        "straight_bar"
+      ],
       "steps": [
         "Attach a straight bar to a high pulley and grip overhand.",
         "Stand close enough for the cable to pull mostly upward, with elbows near the ribs.",
         "Extend the elbows to press the bar down.",
         "Return slowly without letting the upper arms swing forward."
       ],
-      "cues": ["Keep wrists neutral.", "Move mainly at the elbows."],
+      "cues": [
+        "Keep wrists neutral.",
+        "Move mainly at the elbows."
+      ],
       "mistakes": [
         "Leaning body weight onto the bar.",
         "Letting elbows flare or drift with every rep."
       ],
       "breathing": "Exhale as you push down; inhale as you return.",
       "source": "free-exercise-db:Triceps_Pushdown",
-      "primary": ["triceps"],
-      "secondary": [],
-      "equipment": ["cable_tower", "straight_bar"],
       "media": {
         "male": {
           "side": {
             "video": {
-              "path": "triceps_pushdown/loop_side.mp4",
+              "path": "triceps_pushdown/male/male_loop_side.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 37860,
-              "sha256": "82be13222cc5174682086c12fc32c35803ee2703f9e7d16e9e9534a1bddbb763"
+              "bytes": 48878,
+              "sha256": "c76476040abe8730bf22480145f819a5ceb7faea5d890ff1a627aa4b56a4fdb2"
             },
             "poster": {
-              "path": "triceps_pushdown/poster_side.webp",
+              "path": "triceps_pushdown/male/male_poster_side.webp",
               "width": 720,
               "height": 900,
-              "bytes": 8692,
-              "sha256": "07197092b3998efb2c25ec4ac53ae6ecaf682f0b90774448d25e9d767640af3e"
+              "bytes": 10372,
+              "sha256": "fcf5b11e89747dfc05cd66241b371928f9d28a9d853cb26d7a8e454c4f8e4ee7"
             }
           },
           "rear": {
             "video": {
-              "path": "triceps_pushdown/loop_rear.mp4",
+              "path": "triceps_pushdown/male/male_loop_rear.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 41279,
-              "sha256": "e22a3296b5e2ee9891f7264cbb227527d0fc0f40ae57497289f53fc3d97b34a7"
+              "bytes": 49116,
+              "sha256": "ee33a263e1f0496ac8956ba6428e71b5d77332b5f2af5811ba4f6d9051064432"
             },
             "poster": {
-              "path": "triceps_pushdown/poster_rear.webp",
+              "path": "triceps_pushdown/male/male_poster_rear.webp",
               "width": 720,
               "height": 900,
-              "bytes": 9982,
-              "sha256": "f67d14445d775668298608def290932b00e6fd86a4504a9a4758ab1e4eca9161"
+              "bytes": 12038,
+              "sha256": "98b3bb443847405d67435c2adbb54ac97154a3ee0625fb90050a72c47b9ab41d"
             }
           },
           "front": {
             "video": {
-              "path": "triceps_pushdown/loop_front.mp4",
+              "path": "triceps_pushdown/male/male_loop_front.mp4",
               "width": 720,
               "height": 900,
-              "bytes": 48535,
-              "sha256": "eb43defa06cf9bd7ed4741be56cf877864d2a2c5ee259b6d60834281e38805bc"
+              "bytes": 66753,
+              "sha256": "63e68ea4f463800d542b2399b31946a1a6e2b04ebf5e0a0dc6fd16347b131171"
             },
             "poster": {
-              "path": "triceps_pushdown/poster_front.webp",
+              "path": "triceps_pushdown/male/male_poster_front.webp",
               "width": 720,
               "height": 900,
-              "bytes": 11188,
-              "sha256": "e6f8b69ea8916f3e81f1aa34b70a3137bfe868ef8b74d87f3b6a3bec1de38e34"
+              "bytes": 14750,
+              "sha256": "7e3b5d6b15db5dc8ed30b1074c1d5f4292cd57446e69e4d141b321983405954b"
+            }
+          }
+        },
+        "female": {
+          "side": {
+            "video": {
+              "path": "triceps_pushdown/female/female_loop_side.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 45523,
+              "sha256": "45012d245a3ea27fddfe76b7edf22b6edd94c10b2dabe464a23e8e2dbebe7bbd"
+            },
+            "poster": {
+              "path": "triceps_pushdown/female/female_poster_side.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 10328,
+              "sha256": "a563a2047268c858bb841ec9e53de9fcaf9d39eb92fa200f7e52e00151126d6a"
+            }
+          },
+          "rear": {
+            "video": {
+              "path": "triceps_pushdown/female/female_loop_rear.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 45069,
+              "sha256": "0834f50726fc2402cbc6bfd4eafef8f2c1b6017bb0eee71f7251618ad6ef29b2"
+            },
+            "poster": {
+              "path": "triceps_pushdown/female/female_poster_rear.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 11416,
+              "sha256": "57922a39cfdb1a76b91a812a07ab1c640a7614da031201e18645a54dfab9f18d"
+            }
+          },
+          "front": {
+            "video": {
+              "path": "triceps_pushdown/female/female_loop_front.mp4",
+              "width": 720,
+              "height": 900,
+              "bytes": 59836,
+              "sha256": "c70f37e3646ef999f730400346fad3170409bc343386e83ddad84d4d5ffb0092"
+            },
+            "poster": {
+              "path": "triceps_pushdown/female/female_poster_front.webp",
+              "width": 720,
+              "height": 900,
+              "bytes": 14628,
+              "sha256": "d6191ee7eaba21b7a8ce6bda69fcbb94269ae1ee9584eb724e48889f05b70eb4"
             }
           }
         }
       }
     }
   ],
-  "bodymap": {},
-  "heroes": {},
-  "attribution": "# Anatomy derivatives \u2014 CC BY-SA 4.0\n\nBodyParts3D \u2014 The Database Center for Life Science \u2014 CC BY-SA 2.1 Japan.\nZ-Anatomy \u2014 The libre 3D atlas of anatomy \u2014 CC BY-SA 4.0.\nCreators: Kousaku Okubo (BodyParts3D), Gauthier Kervyn (anatomy/3D), Marcin Zielinski.\nSource: https://github.com/Z-Anatomy/Models-of-human-anatomy\nLicence: https://creativecommons.org/licenses/by-sa/4.0/\nOriginal database: https://dbarchive.biosciencedbc.jp/en/bodyparts3d/desc.html\n\nChanges: muscle meshes fitted to the CC0 MPFB body, baked to UV masks, softened,\nconverted to shallow height relief, rendered as visible muscle IDs and traced into\nsimplified SVG hit regions. These anatomy-derived images, maps and paths remain\nCC BY-SA 4.0. Retain attribution and share-alike when distributing derivatives.\nOnly muscular/skeletal collections are used; excluded organs/inner-ear assets are\nnot part of this pipeline. MPFB body assets are CC0. Equipment is procedural.\n\nSources and licence terms checked 2026-10-16. This notice must accompany app media;\nalso show the attribution in the future app's About/Credits screen.\n\n## Exercise data\n\nfree-exercise-db by yuhonas and contributors: https://github.com/yuhonas/free-exercise-db\nSource muscle/equipment classification: Unlicense. Original coaching text is provided as a draft for review.\n\n### Unlicense\n\nThis is free and unencumbered software released into the public domain.\n\nAnyone is free to copy, modify, publish, use, compile, sell, or\ndistribute this software, either in source code form or as a compiled\nbinary, for any purpose, commercial or non-commercial, and by any\nmeans.\n\nIn jurisdictions that recognize copyright laws, the author or authors\nof this software dedicate any and all copyright interest in the\nsoftware to the public domain. We make this dedication for the benefit\nof the public at large and to the detriment of our heirs and\nsuccessors. We intend this dedication to be an overt act of\nrelinquishment in perpetuity of all present and future rights to this\nsoftware under copyright law.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR\nOTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,\nARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\nOTHER DEALINGS IN THE SOFTWARE.\n\nFor more information, please refer to <https://unlicense.org>\n"
+  "bodymap": {
+    "male": {
+      "front": {
+        "base": {
+          "path": "bodymap/male/body_front.webp",
+          "width": 800,
+          "height": 1000,
+          "bytes": 25902,
+          "sha256": "7d349f6995e168d4ed74cf8407424cce03f35011c117ddd538736ab3f2dfb071"
+        },
+        "masks": {
+          "chest": {
+            "path": "bodymap/male/mask_front_chest.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 37550,
+            "sha256": "916b8f06c4f412167bab15f65b752004306a880d2d6506445128a6e08f7194ed"
+          },
+          "shoulders": {
+            "path": "bodymap/male/mask_front_shoulders.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 30935,
+            "sha256": "67aaf9c9e9190637f522c75f910a2bdf50dde96fcab63889ed82b622b7158cf7"
+          },
+          "biceps": {
+            "path": "bodymap/male/mask_front_biceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 30408,
+            "sha256": "49b0f870c96bb2aaf80705f73e730ece48127d0ff955f5abaa802fa699f683cc"
+          },
+          "triceps": {
+            "path": "bodymap/male/mask_front_triceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 25806,
+            "sha256": "5a29b5fdf99ac588675934d98aa5ead1803d7c6ff552065b80e5a4bc126936f0"
+          },
+          "forearms": {
+            "path": "bodymap/male/mask_front_forearms.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 28374,
+            "sha256": "25824496229cfbb808b32aaf47836a1d2428e63f20cf573340a080cb3d56eb79"
+          },
+          "abs": {
+            "path": "bodymap/male/mask_front_abs.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 38594,
+            "sha256": "268a56c631ded3c848ff6b158f5c8a078c9f0d949116939c9e842a4c7bc73c52"
+          },
+          "quadriceps": {
+            "path": "bodymap/male/mask_front_quadriceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 49794,
+            "sha256": "83d6913098426cbd67fc74d4fd45bc84a387697534936b9dbec41e65dcd75ea9"
+          },
+          "hamstrings": {
+            "path": "bodymap/male/mask_front_hamstrings.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 34099,
+            "sha256": "b6d8d33e43cea1f110a5fa5070737ce5f63083b9ccfd6e8721f7a48a18d7a415"
+          },
+          "glutes": {
+            "path": "bodymap/male/mask_front_glutes.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 20915,
+            "sha256": "1b628d44de76f58d0ac26c91e3afa9555fde2758506e50361e970f880dffcf60"
+          },
+          "calves": {
+            "path": "bodymap/male/mask_front_calves.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 35185,
+            "sha256": "df2e7126596c599a5c27bc64e1369a6065876664a9aaa60e331d0d3011d3d044"
+          },
+          "lats": {
+            "path": "bodymap/male/mask_front_lats.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 24126,
+            "sha256": "d46d69353dec13ee1099e4a58949aa71a98d251b452a58ccc5b66031f65f2369"
+          },
+          "traps": {
+            "path": "bodymap/male/mask_front_traps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 23274,
+            "sha256": "f175b400f6268f5f282eb711918239236f23e5084a39132975297eda2e57e736"
+          },
+          "middle_back": {
+            "path": "bodymap/male/mask_front_middle_back.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 19163,
+            "sha256": "0ea2a1d068803bbd4ce8c1a0ca60f1587f0f6489dfbaeb6df03b3b1f546923d1"
+          },
+          "lower_back": {
+            "path": "bodymap/male/mask_front_lower_back.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 16837,
+            "sha256": "c378841a03143c766a0f0f98aa61d1b670bd6b548eb4808d1185a16a773a6ffa"
+          },
+          "adductors": {
+            "path": "bodymap/male/mask_front_adductors.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 46953,
+            "sha256": "02bd4fe0871cebc5f59c2c9bd51e4b7db765dfa01c408eb6824f72ba9d9af215"
+          },
+          "abductors": {
+            "path": "bodymap/male/mask_front_abductors.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 25001,
+            "sha256": "c1e818b98d471978472cad7967d23bcc6bff8220f9654a2ef79357971b873ff3"
+          },
+          "neck": {
+            "path": "bodymap/male/mask_front_neck.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 26327,
+            "sha256": "1fd124fd3c9db8c23c9f3b2c6f5b334ccbb93c5f88790e8424454445cc12b4a4"
+          }
+        },
+        "hitRegions": {
+          "path": "bodymap/male/hits_front.svg",
+          "width": 800,
+          "height": 1000,
+          "bytes": 7096,
+          "sha256": "0d2b926ed3fca3ff54d560f83274369fb9daac7b8f9c01b276c13e167202cc09"
+        }
+      },
+      "back": {
+        "base": {
+          "path": "bodymap/male/body_back.webp",
+          "width": 800,
+          "height": 1000,
+          "bytes": 24206,
+          "sha256": "1ef069f22c7a8bd7311cd730c3968add8e6e4d70741daa1e06ae45f3afc82ac0"
+        },
+        "masks": {
+          "chest": {
+            "path": "bodymap/male/mask_back_chest.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 24445,
+            "sha256": "4c382d6a03ee6e7f955906b423890e969ce090a9389260e620ec5111d2028b95"
+          },
+          "shoulders": {
+            "path": "bodymap/male/mask_back_shoulders.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 27527,
+            "sha256": "6ac9cb8aaafe7782effde5687d15725e2be0fccf694fd3c66578e405ab2afe33"
+          },
+          "biceps": {
+            "path": "bodymap/male/mask_back_biceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 28365,
+            "sha256": "b520d4125c341dafa4fa296abb1b4439bf783c751c0cadaf70cc312edfeec42d"
+          },
+          "triceps": {
+            "path": "bodymap/male/mask_back_triceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 34306,
+            "sha256": "41aba302ace18c4c4ac06e7a479f8934e133c88196263cc780e317bc9ce061b4"
+          },
+          "forearms": {
+            "path": "bodymap/male/mask_back_forearms.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 29512,
+            "sha256": "a5cdd158f915f3a46b9b5fb68f06269466ac998ba4a65cc73183af3fde0ee989"
+          },
+          "abs": {
+            "path": "bodymap/male/mask_back_abs.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 27615,
+            "sha256": "57a669c95626ff29afd8f4ab2ee835d695ae108730048794c2c34ba7c440914a"
+          },
+          "quadriceps": {
+            "path": "bodymap/male/mask_back_quadriceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 32676,
+            "sha256": "6c5f0a6e1d2102b508ec523360dd0d3a6c808aa63c1db5b0b13b1fbf01413723"
+          },
+          "hamstrings": {
+            "path": "bodymap/male/mask_back_hamstrings.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 44619,
+            "sha256": "70ca9323ba963f492478006161b76b8b6e2e1bc5b86adcc41498b6df73ed48c6"
+          },
+          "glutes": {
+            "path": "bodymap/male/mask_back_glutes.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 39563,
+            "sha256": "163681cb69269127c12ca90ec445564700082217906f9c9384f77e726f9b7ee4"
+          },
+          "calves": {
+            "path": "bodymap/male/mask_back_calves.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 37335,
+            "sha256": "120aaac1402c194e09635fbb055562f75e7468e4f47c7cf9ad6883bccc31adb2"
+          },
+          "lats": {
+            "path": "bodymap/male/mask_back_lats.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 47694,
+            "sha256": "49832186958201b360154e7f66f6deb6feedf6dd1d76aca7ea949852e09122c4"
+          },
+          "traps": {
+            "path": "bodymap/male/mask_back_traps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 40987,
+            "sha256": "9f0c2363891fbf186a9956d4d523b42d138f9070dc0e1884cf44d52b2e6d7f00"
+          },
+          "middle_back": {
+            "path": "bodymap/male/mask_back_middle_back.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 35674,
+            "sha256": "397773eaecf5dce9457e8d26e015e5405cc2625e337219b8da5355b050d27f45"
+          },
+          "lower_back": {
+            "path": "bodymap/male/mask_back_lower_back.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 23008,
+            "sha256": "c6a3ac8ff0a791e3ccfe6d87c799205092c46edaf2098d07c70e3d7c50a34b36"
+          },
+          "adductors": {
+            "path": "bodymap/male/mask_back_adductors.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 31775,
+            "sha256": "acbba4ed47c43c4606fd40ab079d0ec1fa5088b606bf0e413f6a9bdc79ed9509"
+          },
+          "abductors": {
+            "path": "bodymap/male/mask_back_abductors.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 22024,
+            "sha256": "6dc8745e6cd0031726cece6ef5d2069b90d7f6c3007d6ad1f8d95cd7f495e516"
+          },
+          "neck": {
+            "path": "bodymap/male/mask_back_neck.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 24263,
+            "sha256": "a615a86b4cc177aa3aefef2eec2437003e6558d30ba30e69506c0f6523aa497c"
+          }
+        },
+        "hitRegions": {
+          "path": "bodymap/male/hits_back.svg",
+          "width": 800,
+          "height": 1000,
+          "bytes": 8164,
+          "sha256": "26d8bba38ffe10c71c15e697a076eb7def53b7830f35bb3a9dca9dac45ca2b1e"
+        }
+      }
+    },
+    "female": {
+      "front": {
+        "base": {
+          "path": "bodymap/female/body_front.webp",
+          "width": 800,
+          "height": 1000,
+          "bytes": 24018,
+          "sha256": "ab920d1376576f31a789bb2db0d4170f13f82eab03ea478893dabfcdf0f22d6b"
+        },
+        "masks": {
+          "chest": {
+            "path": "bodymap/female/mask_front_chest.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 36144,
+            "sha256": "2e2d1ace0b743b51e1ce38345257e682f9e79db6ad47ebb3905e7e8caa943195"
+          },
+          "shoulders": {
+            "path": "bodymap/female/mask_front_shoulders.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 28546,
+            "sha256": "795aa0ae274c4892a7468ad0f7a43c5cdf3b0358b625e1d6bd8284335c167edc"
+          },
+          "biceps": {
+            "path": "bodymap/female/mask_front_biceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 29020,
+            "sha256": "d527f6c85e62beaab0aac895e83b0a8f0d71b01ad4c13c89ca7ba4fd2e7f6532"
+          },
+          "triceps": {
+            "path": "bodymap/female/mask_front_triceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 23516,
+            "sha256": "4afb906dd61235436a8171d679a87418380ac5c351918ad27f78b47f7ec2dcd5"
+          },
+          "forearms": {
+            "path": "bodymap/female/mask_front_forearms.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 26788,
+            "sha256": "977da9a5f066e5e3a7c207b7275a0d8950fe10503428bfe6c792cb77de97a285"
+          },
+          "abs": {
+            "path": "bodymap/female/mask_front_abs.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 40049,
+            "sha256": "5e927cef5871a21e96e0697b6c34696338a3bb85e38f417ed8bcdac15136ae87"
+          },
+          "quadriceps": {
+            "path": "bodymap/female/mask_front_quadriceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 46305,
+            "sha256": "e79ff24f915761f02ca3f3039308928e53ed6f0c7467ca05dff8f4dc583fbb8d"
+          },
+          "hamstrings": {
+            "path": "bodymap/female/mask_front_hamstrings.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 31631,
+            "sha256": "af7b2ef57860e6c6d33d8267551f7e2d74ff28399f3f64531db4c8a2da35249c"
+          },
+          "glutes": {
+            "path": "bodymap/female/mask_front_glutes.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 23105,
+            "sha256": "afd91342f9281a07debd1c6bf1835fc78adc562bb02d5df77c840fe44ec8e31c"
+          },
+          "calves": {
+            "path": "bodymap/female/mask_front_calves.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 32055,
+            "sha256": "63ba24331a155e051413751e87c6a833aabaf57bfcc303ced0c70d254a01e70b"
+          },
+          "lats": {
+            "path": "bodymap/female/mask_front_lats.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 21989,
+            "sha256": "b921cbb56ec73da4481b7e2c534c5cd5868d17bb461534727a6dad6811b7349f"
+          },
+          "traps": {
+            "path": "bodymap/female/mask_front_traps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 22739,
+            "sha256": "c29031560661ae6981f2eaa437918da5272a38888bde084d482f1c8f6de6b044"
+          },
+          "middle_back": {
+            "path": "bodymap/female/mask_front_middle_back.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 18834,
+            "sha256": "7d9edd1c8243be22ee03b6a91380630695238d5f7e692738e559a862deb18fdd"
+          },
+          "lower_back": {
+            "path": "bodymap/female/mask_front_lower_back.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 17079,
+            "sha256": "21b4df3e3ae6a8e73e88688aa10c0df7dd3d73fb20cb768e7c2868b823e94649"
+          },
+          "adductors": {
+            "path": "bodymap/female/mask_front_adductors.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 42881,
+            "sha256": "0de1c4f3da843cbc1b48e6fb2251455ef43f0f5cba5556a00206b601e347b592"
+          },
+          "abductors": {
+            "path": "bodymap/female/mask_front_abductors.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 25531,
+            "sha256": "3ca2cebc8373da1b81ba66e05f4ae45b8ddfefc751959e2fc3e261fbbf6921a2"
+          },
+          "neck": {
+            "path": "bodymap/female/mask_front_neck.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 25559,
+            "sha256": "d31c32a637348a8d0f0a1544e8789b137fab7e25856c8fae0ba4a6a49a69616c"
+          }
+        },
+        "hitRegions": {
+          "path": "bodymap/female/hits_front.svg",
+          "width": 800,
+          "height": 1000,
+          "bytes": 6904,
+          "sha256": "acb9e43ba62fe6c713d4574ba35b6634adb757726a7e7033e93d86e9eccbb142"
+        }
+      },
+      "back": {
+        "base": {
+          "path": "bodymap/female/body_back.webp",
+          "width": 800,
+          "height": 1000,
+          "bytes": 22582,
+          "sha256": "cee88296e6bd28a06c2b6139b79478757d174255c7036be8184edf9b981dff62"
+        },
+        "masks": {
+          "chest": {
+            "path": "bodymap/female/mask_back_chest.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 23475,
+            "sha256": "1489d6ea27abdeec1f0cb98e01013dd59d8152518664e0441faa2e7b993b1567"
+          },
+          "shoulders": {
+            "path": "bodymap/female/mask_back_shoulders.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 26116,
+            "sha256": "e98d1111deba1494bc863123177a9f521ecafea4a4a9820cabc666f829627512"
+          },
+          "biceps": {
+            "path": "bodymap/female/mask_back_biceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 26762,
+            "sha256": "c2d52e13e5971352745578741165ce9eed423b8cbb665cc746db88d40bf8dff9"
+          },
+          "triceps": {
+            "path": "bodymap/female/mask_back_triceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 31004,
+            "sha256": "6e6c3853c6f122ffaf203763f646693357e2b6dc5f9ae68fc4d9077c43936bc6"
+          },
+          "forearms": {
+            "path": "bodymap/female/mask_back_forearms.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 27900,
+            "sha256": "c8cab3ad17cb43a438105cde15ba2745d0178cb8aed0d9126938cea998238683"
+          },
+          "abs": {
+            "path": "bodymap/female/mask_back_abs.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 29184,
+            "sha256": "e7ac1501e8f9a0fbb19c5e793f45a7d0391e285d3f8578441b2d9061e66a6c39"
+          },
+          "quadriceps": {
+            "path": "bodymap/female/mask_back_quadriceps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 30604,
+            "sha256": "77fa78186d1d5f431efeeadc1d957e08f21068ff05961ae61a5a686bf1d829b0"
+          },
+          "hamstrings": {
+            "path": "bodymap/female/mask_back_hamstrings.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 40495,
+            "sha256": "b0217bb885118efc8984269d074363b80a93dee7ffd9592fd671adc42db54609"
+          },
+          "glutes": {
+            "path": "bodymap/female/mask_back_glutes.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 41704,
+            "sha256": "53a244f7ec490f94c925541d4be52744331115f1164d063e291cde743825e6b1"
+          },
+          "calves": {
+            "path": "bodymap/female/mask_back_calves.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 33283,
+            "sha256": "90cee5bd19af1bb0f2afece491a803653e4b4b53c261b0d99c7e239a501aba26"
+          },
+          "lats": {
+            "path": "bodymap/female/mask_back_lats.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 43600,
+            "sha256": "49566afeb7f028552861449b101d8deb24d5dec89253a8154b2ad096dfd50747"
+          },
+          "traps": {
+            "path": "bodymap/female/mask_back_traps.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 37463,
+            "sha256": "9deeb8ede553c2d723f59f4a98d3c35f8a18a00db0ff02f566d3f0fda66be311"
+          },
+          "middle_back": {
+            "path": "bodymap/female/mask_back_middle_back.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 31689,
+            "sha256": "8eb528b4e4fbede508f00c7a78911ea4d97ed4bf3b6cfe2401cd92e2a27d8c47"
+          },
+          "lower_back": {
+            "path": "bodymap/female/mask_back_lower_back.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 22286,
+            "sha256": "b8dffb2227be0d9d904b5dccc9c91e6ff4f880e5ff370681cf25fe628b355697"
+          },
+          "adductors": {
+            "path": "bodymap/female/mask_back_adductors.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 30282,
+            "sha256": "d82e251409dff734581973aa4f5e6d9a96e31e302635e01f0ec70739f384d695"
+          },
+          "abductors": {
+            "path": "bodymap/female/mask_back_abductors.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 23078,
+            "sha256": "09bdcaa68d368913d06b1e09a35ff8b9dbf6fbe7eb4299b9b487b7513fadbbf8"
+          },
+          "neck": {
+            "path": "bodymap/female/mask_back_neck.png",
+            "width": 800,
+            "height": 1000,
+            "bytes": 22824,
+            "sha256": "9272d800aa59249717603496df895907d0f3ce3eb3ed0486929260e79c4db93c"
+          }
+        },
+        "hitRegions": {
+          "path": "bodymap/female/hits_back.svg",
+          "width": 800,
+          "height": 1000,
+          "bytes": 8002,
+          "sha256": "52d8b9b6d6d806a200d095e085571d843e919b27cc6849bc399176ac3cb89000"
+        }
+      }
+    }
+  },
+  "heroes": {
+    "male": {
+      "path": "heroes/male/hero.webp",
+      "width": 800,
+      "height": 1200,
+      "bytes": 37472,
+      "sha256": "aa4324eb532506d2655461ce6b06d833a0dedaa9d552a61384e9dafbc48c1b1e"
+    },
+    "female": {
+      "path": "heroes/female/hero.webp",
+      "width": 800,
+      "height": 1200,
+      "bytes": 37110,
+      "sha256": "dbdd81997656621dd3d794b65a8d107afafca675def81242d814cd2e459e9123"
+    }
+  },
+  "attribution": "# Anatomy derivatives \u2014 CC BY-SA 4.0\n\nBodyParts3D \u2014 The Database Center for Life Science \u2014 CC BY-SA 2.1 Japan.\nZ-Anatomy \u2014 The libre 3D atlas of anatomy \u2014 CC BY-SA 4.0.\nCreators: Kousaku Okubo (BodyParts3D), Gauthier Kervyn (anatomy/3D), Marcin Zielinski.\nSource: https://github.com/Z-Anatomy/Models-of-human-anatomy\nLicence: https://creativecommons.org/licenses/by-sa/4.0/\nOriginal database: https://dbarchive.biosciencedbc.jp/en/bodyparts3d/desc.html\n\nChanges: muscle meshes fitted to the CC0 MPFB body, baked to UV masks, softened,\nconverted to shallow height relief, rendered as visible muscle IDs and traced into\nsimplified SVG hit regions. These anatomy-derived images, maps and paths remain\nCC BY-SA 4.0. Retain attribution and share-alike when distributing derivatives.\nOnly muscular/skeletal collections are used; excluded organs/inner-ear assets are\nnot part of this pipeline. MPFB body assets are CC0. Equipment is procedural.\n\nSources and licence terms checked 2026-10-16. This notice must accompany app media;\nalso show the attribution in the future app's About/Credits screen.\n\n## Exercise data\n\nfree-exercise-db by yuhonas and contributors: https://github.com/yuhonas/free-exercise-db\nSource muscle/equipment classification: Unlicense. Original coaching text is provided as a draft for review.\n\n### Unlicense\n\nThis is free and unencumbered software released into the public domain.\n\nAnyone is free to copy, modify, publish, use, compile, sell, or\ndistribute this software, either in source code form or as a compiled\nbinary, for any purpose, commercial or non-commercial, and by any\nmeans.\n\nIn jurisdictions that recognize copyright laws, the author or authors\nof this software dedicate any and all copyright interest in the\nsoftware to the public domain. We make this dedication for the benefit\nof the public at large and to the detriment of our heirs and\nsuccessors. We intend this dedication to be an overt act of\nrelinquishment in perpetuity of all present and future rights to this\nsoftware under copyright law.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR\nOTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,\nARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\nOTHER DEALINGS IN THE SOFTWARE.\n\nFor more information, please refer to <https://unlicense.org>\n\n# MakeHuman system hair \u2014 CC0\n\nSource: https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html\nPack: https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip\n\nThe source page lists the system hair assets as CC0. Original per-file notices\nremain intact: explicitly released as CC0 in September 2020, copyright holders\nat release Data Collection AB, Joel Palmius and Jonas Hauquier. Asset author:\nmakehuman_system. Legal contact: Data Collection AB.\n\nCC0 1.0 Universal: https://creativecommons.org/publicdomain/zero/1.0/legalcode\n\nThe pipeline uses short01 for the male and ponytail01 for the female. The assets\nare fitted using MPFB's basemesh references; textures and authored silhouettes\nare retained. Reference screenshots used during design are style references\nonly and are not included in these assets.\n\nPipeline modifications: short01 sides/nape are tapered toward the fitted scalp\nwith a graded alpha density for a fade. Ponytail01 is recoloured black by a\nstrand-preserving shader; original mesh/texture files remain intact.\n\nRevision 7 gently feathers low hairline/card ends while keeping the crown opaque,\nwith softer rough strand highlights. Source textures and meshes remain intact.\n",
+  "equipmentIcons": {
+    "barbell": {
+      "icon": {
+        "path": "icons/barbell.webp",
+        "width": 256,
+        "height": 256,
+        "bytes": 5142,
+        "sha256": "37b2df31192806ee7ad6840c36855b9b65da39bc8cab8356d6cc15bac8efce25"
+      },
+      "equipment": [
+        "barbell",
+        "power_rack"
+      ]
+    },
+    "dumbbell": {
+      "icon": {
+        "path": "icons/dumbbell.webp",
+        "width": 256,
+        "height": 256,
+        "bytes": 4198,
+        "sha256": "19102dd12f74d552eeae69a6b7764a77878821e361923bbbd53402137cb65a76"
+      },
+      "equipment": [
+        "dumbbell"
+      ]
+    },
+    "kettlebell": {
+      "icon": {
+        "path": "icons/kettlebell.webp",
+        "width": 256,
+        "height": 256,
+        "bytes": 5492,
+        "sha256": "5cd7ed7600727179e3b552f0768eff46639f1291076415a91385cd0ebcd3f950"
+      },
+      "equipment": [
+        "kettlebell"
+      ]
+    },
+    "cable": {
+      "icon": {
+        "path": "icons/cable.webp",
+        "width": 256,
+        "height": 256,
+        "bytes": 3530,
+        "sha256": "c75604bb53fe5151de5c8e71a6eaebd05e5f05e18c46eef21dea8e0482b1a478"
+      },
+      "equipment": [
+        "cable_tower",
+        "dual_cable",
+        "rope",
+        "d_handle",
+        "v_bar",
+        "lat_bar",
+        "straight_bar"
+      ]
+    },
+    "machine": {
+      "icon": {
+        "path": "icons/machine.webp",
+        "width": 256,
+        "height": 256,
+        "bytes": 7870,
+        "sha256": "6c379e8269f2111b9dea1f55a96fc9459d64c870d0d19896f98f11bbd0173a53"
+      },
+      "equipment": [
+        "seated_row",
+        "lat_pulldown",
+        "leg_curl",
+        "leg_extension",
+        "leg_press"
+      ]
+    },
+    "bench": {
+      "icon": {
+        "path": "icons/bench.webp",
+        "width": 256,
+        "height": 256,
+        "bytes": 5606,
+        "sha256": "bc10fe7a9a5befece30b0b55d11a96375d5870e6d3fcc58cd786104bd9f1a361"
+      },
+      "equipment": [
+        "bench"
+      ]
+    },
+    "bodyweight": {
+      "icon": {
+        "path": "icons/bodyweight.webp",
+        "width": 256,
+        "height": 256,
+        "bytes": 4262,
+        "sha256": "e8511e91271674780217cb16dd51dab5ad7d7c6d471dd9241e6365498bdf6ab9"
+      },
+      "equipment": [
+        "mat",
+        "pullup_bar",
+        "dip_station"
+      ]
+    },
+    "band": {
+      "icon": {
+        "path": "icons/band.webp",
+        "width": 256,
+        "height": 256,
+        "bytes": 5602,
+        "sha256": "4e40d6aa1affb1178b8c7e1df2d121cd2d8e703309e2bfc0e8220b1368273e95"
+      },
+      "equipment": [
+        "band"
+      ]
+    }
+  }
 }

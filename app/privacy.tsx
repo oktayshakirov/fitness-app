@@ -1,5 +1,6 @@
 import { router } from "expo-router";
-import { ScrollView, Text } from "react-native";
+import { ScrollView } from "react-native";
+import { Text } from "../src/components/Text";
 import { Screen, Heading, IconButton, Card, s } from "../src/components/ui";
 export default function Privacy() {
   return (

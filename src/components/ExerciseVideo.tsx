@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { AppState, StyleSheet, Text, View } from "react-native";
+import { AppState, StyleSheet, View } from "react-native";
+import { Text } from "./Text";
 import { useVideoPlayer, VideoView } from "expo-video";
 import { Image } from "expo-image";
 import { useIsFocused } from "expo-router";
@@ -94,6 +95,7 @@ export function ExerciseVideo({
       )}
       <View style={styles.controls}>
         <IconButton
+          plain
           name={error ? "refresh" : paused ? "play" : "pause"}
           label={error ? "Retry video" : paused ? "Play video" : "Pause video"}
           onPress={() =>
@@ -114,10 +116,16 @@ const styles = StyleSheet.create({
     width: "100%",
     aspectRatio: 4 / 5,
     backgroundColor: mediaBackground,
-    borderRadius: 16,
+    borderRadius: 24,
     overflow: "hidden",
   },
-  controls: { position: "absolute", right: 12, bottom: 12 },
+  controls: {
+    position: "absolute",
+    right: 12,
+    bottom: 12,
+    borderRadius: 22,
+    backgroundColor: "rgba(0,0,0,0.55)",
+  },
   error: {
     position: "absolute",
     left: 12,

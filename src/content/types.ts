@@ -19,7 +19,25 @@ export const muscleIds = [
 ] as const;
 export type Muscle = (typeof muscleIds)[number];
 export type Model = "male" | "female";
-export type CameraView = "front" | "side" | "threeq" | "back" | "foot" | "rear";
+export type CameraView =
+  | "front"
+  | "side"
+  | "threeq"
+  | "back"
+  | "foot"
+  | "rear"
+  | "top";
+export const equipmentCategories = [
+  "barbell",
+  "dumbbell",
+  "kettlebell",
+  "cable",
+  "machine",
+  "bench",
+  "bodyweight",
+  "band",
+] as const;
+export type EquipmentCategory = (typeof equipmentCategories)[number];
 /** Serialized media references are independent of Metro and hosting. */
 export interface MediaAsset {
   path: string;
@@ -58,6 +76,10 @@ export interface ContentRelease {
   bodymap: Partial<Record<Model, Partial<Record<"front" | "back", BodyView>>>>;
   heroes: Partial<Record<Model, MediaAsset>>;
   attribution: string;
+  /** Optional since 2026-10-31: chip icon plus the catalog equipment ids it filters. */
+  equipmentIcons?: Partial<
+    Record<EquipmentCategory, { icon: MediaAsset; equipment: string[] }>
+  >;
 }
 export type MediaSource = number | { uri: string };
 export interface ContentRepository {

@@ -1,35 +1,29 @@
-import { weightText } from "../../src/storage/units";
-import { useSettings } from "../../src/storage/store";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { useEntries } from "../../src/storage/store";
-import { Asset } from "expo-asset";
 import { useEffect, useMemo, useRef, useState, type ComponentRef } from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import {
-  ScrollView,
-  Pressable,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
-import {
-  Screen,
-  IconButton,
-  Chip,
-  Card,
-  Button,
-  s,
-} from "../../src/components/ui";
+import { Pressable, ScrollView, View, useWindowDimensions } from "react-native";
+import { Text } from "../../src/components/Text";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { Asset } from "expo-asset";
+import { Screen, IconButton, Button, Segmented, SectionLabel, s } from "../../src/components/ui";
 import { ExerciseVideo } from "../../src/components/ExerciseVideo";
+import { BodyFigure } from "../../src/components/BodyFigure";
 import {
+  bodyFor,
   content,
+  coverFor,
+  equipmentSummary,
   exercises,
+  filterCatalog,
   label,
   mediaFor,
   viewLabels,
+  viewOrder,
 } from "../../src/content";
-import { filterExercises } from "../../src/content/query";
-import type { CameraView } from "../../src/content/types";
+import type { CameraView, Muscle } from "../../src/content/types";
+import { useEntries, useSettings } from "../../src/storage/store";
+import { weightText } from "../../src/storage/units";
 import { colors } from "../../src/theme";
 function Section({
   title,
@@ -44,28 +38,78 @@ function Section({
 }) {
   const [open, setOpen] = useState(initial);
   return (
-    <Card>
+    <View style={{ backgroundColor: colors.surface, borderRadius: 24, paddingHorizontal: 18 }}>
       <Pressable
         accessibilityRole="button"
         accessibilityState={{ expanded: open }}
         onPress={() => setOpen(!open)}
-        style={[s.row, { minHeight: 44, justifyContent: "space-between" }]}
+        style={[s.row, { minHeight: 52, justifyContent: "space-between" }]}
       >
-        <Text style={[s.title, { flex: 1 }]}>{title}</Text>
-        <Text style={s.secondary}>{open ? "−" : "+"}</Text>
+        <Text style={[s.headline, { flex: 1 }]}>{title}</Text>
+        <Ionicons
+          name={open ? "chevron-up" : "chevron-down"}
+          size={18}
+          color={colors.secondary}
+        />
       </Pressable>
-      {open &&
-        lines.map((line, i) => (
-          <Text key={i} style={[s.secondary, { marginTop: 12 }]}>
-            {numbered ? `${i + 1}. ` : ""}
-            {line}
-          </Text>
+      {open && (
+        <View style={{ gap: 12, paddingBottom: 16 }}>
+          {lines.map((line, i) => (
+            <View key={i} style={[s.row, { alignItems: "flex-start", gap: 10 }]}>
+              {numbered ? (
+                <View
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: 12,
+                    backgroundColor: colors.accentDim,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ color: colors.accent, fontSize: 13, fontWeight: "700" }}>
+                    {i + 1}
+                  </Text>
+                </View>
+              ) : (
+                <Text style={[s.secondary, { width: 12 }]}>•</Text>
+              )}
+              <Text style={[s.secondary, { flex: 1 }]}>{line}</Text>
+            </View>
+          ))}
+        </View>
+      )}
+    </View>
+  );
+}
+function MuscleLine({ muscles, color, title }: { muscles: Muscle[]; color: string; title: string }) {
+  if (!muscles.length) return null;
+  return (
+    <View style={{ gap: 6 }}>
+      <SectionLabel title={title} />
+      <View style={[s.row, { flexWrap: "wrap", gap: 6 }]}>
+        {muscles.map((m) => (
+          <Pressable
+            key={m}
+            accessibilityRole="button"
+            accessibilityLabel={`${label(m)} exercises`}
+            onPress={() => router.navigate({ pathname: "/(tabs)/exercises", params: { muscle: m } })}
+            style={[
+              s.row,
+              { gap: 6, paddingHorizontal: 10, minHeight: 32, borderRadius: 16, backgroundColor: colors.surface2 },
+            ]}
+          >
+            <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: color }} />
+            <Text style={{ color: colors.text, fontSize: 14 }}>{label(m)}</Text>
+          </Pressable>
         ))}
-    </Card>
+      </View>
+    </View>
   );
 }
 export default function ExerciseDetail() {
   const { model, units } = useSettings();
+  const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{
     id: string;
     muscle?: string;
@@ -75,7 +119,7 @@ export default function ExerciseDetail() {
   const list = useMemo(() => {
     const requested = exercises.find((e) => e.id === params.id);
     if (!requested) return [];
-    const filtered = filterExercises(exercises, params);
+    const filtered = filterCatalog(params);
     return filtered.some((e) => e.id === requested.id) ? filtered : [requested];
   }, [params.id, params.muscle, params.equipment, params.query]);
   const initial = list.findIndex((e) => e.id === params.id);
@@ -93,9 +137,7 @@ export default function ExerciseDetail() {
   useEffect(() => {
     const next = list[index + 1];
     if (!next) return;
-    const views = mediaFor(next, model).views;
-    const clip = views.threeq ?? views.side ?? Object.values(views)[0];
-    if (!clip) return;
+    const clip = coverFor(next, model);
     for (const asset of [clip.poster, clip.video]) {
       const source = content.resolve(asset);
       if (typeof source === "number")
@@ -130,33 +172,22 @@ export default function ExerciseDetail() {
       </Screen>
     );
   const media = mediaFor(exercise, model).views;
-  const selected = media[view]
-    ? view
-    : media.threeq
-      ? "threeq"
-      : (Object.keys(media)[0] as CameraView);
+  const views = viewOrder.filter((v) => media[v]);
+  const selected = media[view] ? view : views[0]!;
   const current = media[selected]!;
+  const body = bodyFor(model);
+  const tints = Object.fromEntries([
+    ...exercise.secondary.map((m) => [m, colors.recovering]),
+    ...exercise.primary.map((m) => [m, colors.trained]),
+  ]);
   return (
     <Screen>
-      <View
-        style={[
-          s.row,
-          {
-            paddingHorizontal: 20,
-            paddingVertical: 8,
-            justifyContent: "space-between",
-          },
-        ]}
-      >
-        <IconButton
-          name="close"
-          label="Close exercise"
-          onPress={() => router.back()}
-        />
+      <View style={[s.row, { paddingHorizontal: 16, paddingVertical: 6, justifyContent: "space-between" }]}>
+        <IconButton name="chevron-down" label="Close exercise" onPress={() => router.back()} />
         <Text style={s.footnote}>
           {index + 1} of {list.length}
         </Text>
-        <View style={s.row}>
+        <View style={[s.row, { gap: 8 }]}>
           <IconButton
             name="chevron-up"
             label="Previous exercise"
@@ -174,77 +205,94 @@ export default function ExerciseDetail() {
       <GestureDetector gesture={nativeScroll}>
         <ScrollView
           ref={scroll}
-          onScroll={(e) =>
-            setVisible(e.nativeEvent.contentOffset.y < (width - 40) * 1.25 - 40)
-          }
+          onScroll={(e) => setVisible(e.nativeEvent.contentOffset.y < (width - 32) * 1.25 - 40)}
           scrollEventThrottle={32}
-          contentContainerStyle={{
-            padding: 20,
-            paddingTop: 4,
-            gap: 20,
-            paddingBottom: 40,
-          }}
+          contentContainerStyle={{ padding: 16, paddingTop: 4, gap: 16, paddingBottom: 32 }}
         >
           <GestureDetector gesture={gesture}>
             <View collapsable={false}>
               <ExerciseVideo media={current} visible={visible} />
             </View>
           </GestureDetector>
-          <View style={[s.row, { justifyContent: "center", flexWrap: "wrap" }]}>
-            {(Object.keys(media) as CameraView[]).map((v) => (
-              <Chip
-                key={v}
-                title={viewLabels[v]}
-                selected={selected === v}
-                onPress={() => setView(v)}
-              />
-            ))}
-          </View>
-          <View key={exercise.id} style={{ gap: 20 }}>
-            <View style={{ gap: 8 }}>
-              <Text accessibilityRole="header" style={s.large}>
+          {views.length > 1 && (
+            <Segmented
+              label="Camera view"
+              value={selected}
+              onChange={setView}
+              options={views.map((v) => ({ value: v, title: viewLabels[v] }))}
+            />
+          )}
+          <View key={exercise.id} style={{ gap: 16 }}>
+            <View style={{ gap: 4, paddingHorizontal: 4 }}>
+              <Text accessibilityRole="header" style={[s.large, { fontSize: 26, lineHeight: 34 }]}>
                 {exercise.name}
               </Text>
-              <Text style={s.secondary}>
-                {exercise.equipment.map(label).join(" · ")}
-              </Text>
-            </View>
-            <View style={{ gap: 8 }}>
-              <Text style={s.footnote}>MUSCLES WORKED</Text>
-              <View style={[s.row, { flexWrap: "wrap" }]}>
-                {exercise.primary.map((m) => (
-                  <Text key={m} style={{ color: colors.trained, fontSize: 15 }}>
-                    ● {label(m)}
-                  </Text>
-                ))}
-                {exercise.secondary.map((m) => (
-                  <Text
-                    key={m}
-                    style={{ color: colors.recovering, fontSize: 15 }}
+              <View style={[s.row, { flexWrap: "wrap", gap: 8, marginTop: 8 }]}>
+                {(
+                  [
+                    ["videocam", `${views.length} ${views.length === 1 ? "angle" : "angles"}`, false],
+                    ["barbell", equipmentSummary(exercise), false],
+                    ["flash", exercise.primary.map(label).join(", "), true],
+                  ] as const
+                ).map(([icon, text, lime]) => (
+                  <View
+                    key={icon}
+                    style={[
+                      s.row,
+                      {
+                        gap: 6,
+                        paddingHorizontal: 12,
+                        minHeight: 32,
+                        borderRadius: 16,
+                        backgroundColor: lime ? colors.accent : "transparent",
+                        borderWidth: 1,
+                        borderColor: lime ? colors.accent : colors.surface3,
+                      },
+                    ]}
                   >
-                    ● {label(m)}
-                  </Text>
+                    <Ionicons name={icon} size={14} color={lime ? colors.onAccent : colors.secondary} />
+                    <Text style={[s.caption, { color: lime ? colors.onAccent : colors.text }]}>{text}</Text>
+                  </View>
                 ))}
               </View>
             </View>
+            <View style={[s.card, s.row, { alignItems: "center" }]}>
+              <View style={{ flex: 1, gap: 12 }}>
+                <MuscleLine title="Primary" muscles={exercise.primary} color={colors.trained} />
+                <MuscleLine title="Secondary" muscles={exercise.secondary} color={colors.recovering} />
+              </View>
+              {body?.front && body.back && (
+                <View style={{ flexDirection: "row" }}>
+                  {(["front", "back"] as const).map((side) => (
+                    <BodyFigure
+                      key={side}
+                      view={body[side]!}
+                      tints={tints}
+                      accessibilityLabel={`${label(side)} body with worked muscles highlighted`}
+                      style={{ width: 76, height: 95 }}
+                    />
+                  ))}
+                </View>
+              )}
+            </View>
             {last && (
-              <Text style={s.footnote}>
-                Last:{" "}
-                {last.sets.length
-                  ? last.sets
-                      .map(
-                        (set) =>
-                          `${set.reps} × ${weightText(set.weightKg, units)} ${units}`,
-                      )
-                      .join(" · ")
-                  : "Done"}{" "}
-                ·{" "}
-                {new Date(last.timestamp).toLocaleDateString(undefined, {
-                  weekday: "short",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </Text>
+              <View style={[s.row, { gap: 8, paddingHorizontal: 4 }]}>
+                <Ionicons name="time-outline" size={16} color={colors.secondary} />
+                <Text style={[s.footnote, { flex: 1 }]}>
+                  Last:{" "}
+                  {last.sets.length
+                    ? last.sets
+                        .map((set) => `${set.reps} × ${weightText(set.weightKg, units)} ${units}`)
+                        .join(" · ")
+                    : "Done"}{" "}
+                  ·{" "}
+                  {new Date(last.timestamp).toLocaleDateString(undefined, {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </Text>
+              </View>
             )}
             <Section title="How to" lines={exercise.steps} numbered initial />
             <Section title="Cues" lines={exercise.cues} />
@@ -254,16 +302,17 @@ export default function ExerciseDetail() {
         </ScrollView>
       </GestureDetector>
       <View
-        style={{ padding: 20, paddingBottom: 32, backgroundColor: colors.bg }}
+        style={{
+          paddingHorizontal: 16,
+          paddingTop: 12,
+          paddingBottom: Math.max(insets.bottom, 16),
+          backgroundColor: colors.bg,
+        }}
       >
         <Button
-          title="Log"
-          onPress={() =>
-            router.push({
-              pathname: "/log",
-              params: { exerciseId: exercise.id },
-            })
-          }
+          title="Log this exercise"
+          arrow
+          onPress={() => router.push({ pathname: "/log", params: { exerciseId: exercise.id } })}
         />
       </View>
     </Screen>

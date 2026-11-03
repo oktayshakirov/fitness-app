@@ -60,3 +60,12 @@ export function monthDays(month: Date) {
       : new Date(month.getFullYear(), month.getMonth(), i - offset + 1, 12),
   );
 }
+/** Monday to Sunday of the week containing `day`, at noon. */
+export function weekDays(day: Date) {
+  const start = monday(day);
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(start);
+    d.setDate(start.getDate() + i);
+    return d;
+  });
+}
