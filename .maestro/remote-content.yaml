@@ -1,0 +1,54 @@
+appId: com.oktayshakirov.fitness
+name: M6 remote content (after a staged v0.3.1 fixture and a JS restart)
+---
+# Setup: python3 scripts/make_test_release.py, serve work/remote-fixture on :8790,
+# start Metro with EXPO_PUBLIC_CONTENT_URL=http://127.0.0.1:8790/, open the app once
+# (it stages v0.3.1), then restart it. See README "Remote content".
+- launchApp:
+    stopApp: false
+- runFlow:
+    when:
+      visible: "Toggle performance monitor"
+      platform: Android
+    commands:
+      - back
+- runFlow:
+    when:
+      visible: "Close"
+    commands:
+      - tapOn: "Close"
+- runFlow:
+    when:
+      visible: Get started
+    commands:
+      - tapOn: Get started
+      - tapOn: Male model
+      - tapOn: Continue
+      - tapOn: Kilograms
+      - tapOn: Continue
+      - tapOn: Start training
+- openLink: "fitness://exercises"
+- extendedWaitUntil:
+    visible: "Search exercises"
+    timeout: 30000
+- runFlow:
+    when:
+      visible: "Clear filters"
+    commands:
+      - tapOn: "Clear filters"
+- assertVisible: "31 exercises"
+- tapOn: "Search exercises"
+- inputText: "mirrored"
+- pressKey: Enter
+- assertVisible: "1 exercise"
+- takeScreenshot: remote-library
+- tapOn:
+    id: exercise-push_up_mirrored
+- assertVisible: "Push-up (mirrored test)"
+- assertVisible: "Pause video"
+- takeScreenshot: remote-exercise
+- openLink: "fitness://profile"
+- scrollUntilVisible:
+    element: "v0.3.1 · 31 exercises"
+    direction: DOWN
+- takeScreenshot: remote-profile

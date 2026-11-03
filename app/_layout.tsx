@@ -15,11 +15,13 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import { colors } from "../src/theme";
+import { useContentUpdates } from "../src/content/updates";
 void SplashScreen.preventAutoHideAsync();
 export const unstable_settings = { anchor: "(tabs)" };
 
 export default function RootLayout() {
   const settings = useSettings();
+  useContentUpdates();
   const [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,

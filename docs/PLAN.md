@@ -254,3 +254,28 @@ no longer exists.
   M7 monetization (needs the user's accounts decision); M8 release prep (icon, splash,
   store assets, accessibility and performance passes). The Mac disk runs near full; device
   builds use several GB of DerivedData.
+
+## 2026-11-03 — M6 remote content
+
+- `src/content/remote.ts` (pure, node-tested) + `src/content/device.ts` (expo-file-system IO,
+  native SHA-256) + `src/content/updates.ts` (launch/foreground checks). Configured by
+  `EXPO_PUBLIC_CONTENT_URL`; unset means bundled only, so nothing changes until hosting exists.
+- Flow: `current.json` → `content.json` (size + sha256 against the pointer, schema checks,
+  unknown fields/muscles/views dropped) → only media whose sha256 is not already bundled or
+  downloaded → each verified → `files/<sha256>.<ext>`; hit-region SVGs become polygons. The
+  switch is one rename of `state.json`; it applies at the next JS start (Profile shows a
+  restart row). Startup: active → previous → bundle; a newer bundle after an app update wins.
+  Host pointing back at the bundled version = rollback to the bundle. Active + previous kept,
+  the rest pruned.
+- Deviation from MVP.md: videos are downloaded with the release, not lazily on first view.
+  Releases are small (v0.3.0 is 14 MB in full, and only changed files are fetched), and it
+  keeps the app fully offline and every file sha-verified before activation.
+- Verified: 37 unit tests (11 new: incremental download, throttle, corrupt/missing file,
+  pointer mismatch, newer schema, previous fallback + repair, pruning, rollback, newer bundle,
+  SVG hits, unsafe paths); typecheck. Android `Dev_Phone`: fixture v0.3.1 (v0.3.0 + mirrored
+  push-up, `scripts/make_test_release.py`) fetched exactly its 8 new files, and after a restart
+  `.maestro/remote-content.yaml` passed (31 exercises, new clip plays, Profile shows v0.3.1).
+  Rolling the host back to v0.3.0 returned the app to 30 exercises and emptied its store.
+- Not verified: iOS (no simulator run this session), a real HTTPS host, a crash-loop guard for
+  a release that parses but breaks a screen. Open: hosting choice/upload (user's go-ahead),
+  iOS redesign check, M7, M8.

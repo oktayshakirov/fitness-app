@@ -1,8 +1,13 @@
 import raw from "./bundled.json";
+import bundledHits from "./hit-regions.json";
 import { bundledAssets } from "./bundled-assets";
+import { loadDeviceContent } from "./device";
+import { muscleAt as muscleIn } from "./hits";
 import { filterExercises, type ExerciseFilter } from "./query";
+import type { Bundled, HitRegions } from "./remote";
 import {
   equipmentCategories,
+  type BodyView,
   type CameraView,
   type ContentRelease,
   type ContentRepository,
@@ -13,15 +18,21 @@ import {
 } from "./types";
 /** Exercise videos and posters are rendered on white (MVP request of 2026-10-26). */
 export const mediaBackground = "#FFFFFF";
-export const content: ContentRepository = {
+export const bundled: Bundled = {
   release: raw as ContentRelease,
-  resolve: (asset) => {
-    const source = bundledAssets[asset.path];
-    if (source === undefined)
-      throw new Error(`Missing bundled asset: ${asset.path}`);
-    return source;
-  },
+  hits: bundledHits as HitRegions,
+  assets: bundledAssets,
 };
+/** Chosen once per JS start: a verified downloaded release, else the bundle. */
+const loaded = loadDeviceContent(bundled);
+export const content: ContentRepository = {
+  release: loaded.release,
+  resolve: loaded.resolve,
+};
+export const contentOrigin = loaded.origin;
+/** Muscle under a point in the active release's body view. */
+export const muscleAt = (view: BodyView, x: number, y: number) =>
+  muscleIn(view, x, y, loaded.hits);
 export const exercises = content.release.exercises;
 export function mediaFor(exercise: Exercise, model: Model) {
   const selected =
@@ -101,4 +112,3 @@ export function equipmentSummary(exercise: Exercise) {
     .map((f) => f.title);
   return (named.length ? named : exercise.equipment.map(label)).join(" · ");
 }
-export { muscleAt } from "./hits";

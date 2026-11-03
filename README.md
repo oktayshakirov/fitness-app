@@ -41,6 +41,29 @@ size and sha256, and converts the hit-test SVGs to polygons for body taps. Full 
 attribution is bundled and visible in Profile. Never edit the rendering repo from this app
 workspace.
 
+## Remote content (M6)
+
+With `EXPO_PUBLIC_CONTENT_URL` set to a directory holding `current.json` (the layout
+`fitness-automation/releases` already has), the app checks it on launch and on foreground
+(every time in development, at most every 6 hours in release builds). A newer release is
+downloaded, checked against `current.json` and every file's size and sha256, and staged.
+It takes effect at the next app start, never mid-session; Profile offers a restart. Files the
+bundle or an earlier download already has (same sha256) are not fetched again. Startup uses
+the active release, then the previous one, then the bundle; a host that points back at the
+bundled version returns the app to its bundle. Unset URL = bundled content only. Logic and
+tests: `src/content/remote.ts`, `tests/remote.test.ts`; device IO: `src/content/device.ts`.
+
+Local end-to-end check (no hosting):
+
+```sh
+python3 scripts/make_test_release.py   # v0.3.1 = v0.3.0 + a mirrored push-up, in work/remote-fixture
+python3 -m http.server 8790 --bind 127.0.0.1 -d work/remote-fixture
+EXPO_PUBLIC_CONTENT_URL=http://127.0.0.1:8790/ npx expo start --dev-client --localhost --clear
+```
+
+On Android also run `adb reverse tcp:8790 tcp:8790`. Open the app once (Metro logs
+`[content] {"status":"staged",...}`), restart it, then run `.maestro/remote-content.yaml`.
+
 ## Native checks without rebuilding
 
 Reuse the installed development builds unless native dependencies or configuration

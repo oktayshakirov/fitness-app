@@ -6,10 +6,12 @@ import * as DocumentPicker from "expo-document-picker";
 import * as Sharing from "expo-sharing";
 import { File, Paths } from "expo-file-system";
 import Constants from "expo-constants";
+import { reloadAppAsync } from "expo";
 import { Screen, Heading, Group, IconCircle, Row, Segmented, SectionTitle, s } from "../../src/components/ui";
 import { ModelChoice } from "../../src/components/ModelChoice";
 import { Avatar } from "../../src/components/Avatar";
 import { content, label } from "../../src/content";
+import { useStagedContent } from "../../src/content/updates";
 import { dayKey } from "../../src/storage/calendar";
 import {
   exportData,
@@ -28,6 +30,7 @@ export default function Profile() {
   const lock = useRef(false);
   const [busy, setBusy] = useState(false);
   const [credits, setCredits] = useState(false);
+  const staged = useStagedContent();
   function save(patch: Partial<Preferences>) {
     try {
       updateSettings(patch);
@@ -193,6 +196,15 @@ export default function Profile() {
             value={`${content.release.contentVersion} · ${content.release.exercises.length} exercises`}
             icon="cube-outline"
           />
+          {staged && (
+            <Row
+              title="Exercise update ready"
+              detail={staged.version ? `${staged.version} · applies on restart` : "Restores the built-in library"}
+              icon="refresh"
+              value="Restart"
+              onPress={() => void reloadAppAsync("Content update")}
+            />
+          )}
           <Row
             title="App version"
             value={Constants.expoConfig?.version ?? "0.1.0"}
