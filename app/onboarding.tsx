@@ -4,14 +4,14 @@ import { router } from "expo-router";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import { Text } from "../src/components/Text";
-import { Screen, Button, IconCircle, Segmented, s } from "../src/components/ui";
+import { Screen, Button, IconCircle, s } from "../src/components/ui";
 import { ModelChoice } from "../src/components/ModelChoice";
 import { content } from "../src/content";
 import { updateSettings, useSettings } from "../src/storage/store";
 import type { Model } from "../src/content/types";
 import type { Units } from "../src/storage/preferences";
 import { colors } from "../src/theme";
-const steps = ["welcome", "model", "units"] as const;
+const steps = ["welcome", "model", "units", "ready"] as const;
 type Step = (typeof steps)[number];
 function Dots({ step }: { step: Step }) {
   return (
@@ -95,7 +95,7 @@ export default function Onboarding() {
           accessibilityRole="button"
           accessibilityLabel="Back"
           hitSlop={8}
-          onPress={() => setStep(step === "units" ? "model" : "welcome")}
+          onPress={() => setStep(steps[steps.indexOf(step) - 1]!)}
           style={{
             width: 44,
             height: 44,
@@ -123,35 +123,122 @@ export default function Onboarding() {
             <View style={{ flex: 1 }} />
             <Button title="Continue" arrow onPress={() => setStep("units")} />
           </>
-        ) : (
+        ) : step === "units" ? (
           <>
             <View style={{ gap: 6 }}>
               <Text accessibilityRole="header" style={s.large}>
                 Weight units
               </Text>
-              <Text style={s.subhead}>Used when you log sets. Change it anytime in Settings.</Text>
+              <Text style={s.subhead}>Used when you log sets. Change it anytime in Profile.</Text>
             </View>
-            <Segmented
-              label="Weight units"
-              value={units}
-              onChange={setUnits}
-              options={[
-                { value: "kg", title: "Kilograms" },
-                { value: "lb", title: "Pounds" },
-              ]}
-            />
-            <View style={[s.card, { gap: 16 }]}>
+            <View style={{ gap: 12 }}>
               {(
                 [
-                  ["body", "See which muscles are recovering"],
-                  ["play", "Learn each exercise from a 3D loop"],
-                  ["add", "Log a workout in one tap"],
-                  ["lock-closed", "Your data stays on this phone"],
+                  ["kg", "Kilograms", "Metric, plates in 2.5 kg steps"],
+                  ["lb", "Pounds", "Imperial, plates in 5 lb steps"],
                 ] as const
-              ).map(([icon, text]) => (
-                <View key={text} style={[s.row, { gap: 14 }]}>
-                  <IconCircle name={icon} size={36} />
-                  <Text style={[s.text, { flex: 1 }]}>{text}</Text>
+              ).map(([value, title, detail]) => {
+                const selected = units === value;
+                return (
+                  <Pressable
+                    key={value}
+                    accessibilityRole="radio"
+                    accessibilityState={{ checked: selected }}
+                    accessibilityLabel={title}
+                    onPress={() => setUnits(value)}
+                    style={({ pressed }) => [
+                      s.row,
+                      {
+                        gap: 16,
+                        padding: 18,
+                        borderRadius: 24,
+                        borderWidth: 2,
+                        borderColor: selected ? colors.accent : colors.surface,
+                        backgroundColor: selected ? colors.accentDim : colors.surface,
+                        opacity: pressed ? 0.85 : 1,
+                      },
+                    ]}
+                  >
+                    <View
+                      style={{
+                        width: 56,
+                        height: 56,
+                        borderRadius: 28,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: selected ? colors.accent : colors.surface2,
+                      }}
+                    >
+                      <Text style={{ fontSize: 18, fontWeight: "700", color: selected ? colors.onAccent : colors.text }}>
+                        {value}
+                      </Text>
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={s.title}>{title}</Text>
+                      <Text style={s.footnote}>{detail}</Text>
+                    </View>
+                    <Ionicons
+                      name={selected ? "checkmark-circle" : "ellipse-outline"}
+                      size={24}
+                      color={selected ? colors.accent : colors.tertiary}
+                    />
+                  </Pressable>
+                );
+              })}
+            </View>
+            <View style={{ flex: 1 }} />
+            <Button title="Continue" arrow onPress={() => setStep("ready")} />
+          </>
+        ) : (
+          <>
+            <View style={{ alignItems: "center", marginTop: 12 }}>
+              <Image
+                source={require("../assets/ui/glow.png")}
+                style={{ position: "absolute", width: 260, height: 260, top: -70, opacity: 0.5 }}
+              />
+              <View
+                style={{
+                  width: 112,
+                  height: 112,
+                  borderRadius: 56,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: colors.accent,
+                }}
+              >
+                <Ionicons name="checkmark" size={56} color={colors.onAccent} />
+              </View>
+            </View>
+            <View style={{ gap: 6, alignItems: "center", marginTop: 8 }}>
+              <Text accessibilityRole="header" style={[s.large, { textAlign: "center" }]}>
+                You're all set
+              </Text>
+              <View style={[s.row, { gap: 8 }]}>
+                {[`${model === "male" ? "Male" : "Female"} model`, units === "kg" ? "Kilograms" : "Pounds"].map((chip) => (
+                  <View
+                    key={chip}
+                    style={{ paddingHorizontal: 12, paddingVertical: 5, borderRadius: 16, borderWidth: 1, borderColor: colors.surface3 }}
+                  >
+                    <Text style={[s.caption, { color: colors.text }]}>{chip}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+            <View style={[s.card, { gap: 18, marginTop: 8 }]}>
+              {(
+                [
+                  ["body", "Recovery at a glance", "Your body map shows which muscles need rest"],
+                  ["play", "Correct form", "Every exercise is a 3D loop from several angles"],
+                  ["add", "One-tap logging", "Tap + on any exercise, add sets if you like"],
+                  ["lock-closed", "Private by default", "No account. Your data stays on this phone"],
+                ] as const
+              ).map(([icon, title, detail]) => (
+                <View key={title} style={[s.row, { gap: 14 }]}>
+                  <IconCircle name={icon} size={40} />
+                  <View style={{ flex: 1 }}>
+                    <Text style={s.headline}>{title}</Text>
+                    <Text style={s.footnote}>{detail}</Text>
+                  </View>
                 </View>
               ))}
             </View>

@@ -3,8 +3,8 @@ name: M5 saved preferences after process restart
 ---
 - openLink: fitness:///
 - assertVisible: About recovery
-- assertNotVisible: Choose your model
-- tapOn: Settings
+- assertNotVisible: Get started
+- tapOn: Profile
 - assertVisible: Female model
 - runFlow:
     when:

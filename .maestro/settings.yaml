@@ -1,16 +1,19 @@
 appId: com.oktayshakirov.fitness
-name: M5 onboarding and settings
+name: M5 onboarding and profile
 ---
 - openLink: fitness:///
 - runFlow:
     when:
-      visible: Choose your model
+      visible: Get started
     commands:
+      - tapOn: Get started
       - tapOn: Female model
-      - tapOn: lb
       - tapOn: Continue
+      - tapOn: Pounds
+      - tapOn: Continue
+      - tapOn: Start training
 - assertVisible: About recovery
-- tapOn: Settings
+- tapOn: Profile
 - assertVisible: Weight units
 - tapOn: Female model
 - tapOn: lb

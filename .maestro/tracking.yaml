@@ -68,7 +68,7 @@ name: M3 tracking and persistence
 - stopApp
 - launchApp
 - extendedWaitUntil:
-    visible: Settings
+    visible: Profile
     timeout: 30000
 - openLink: fitness://history
 - runFlow:

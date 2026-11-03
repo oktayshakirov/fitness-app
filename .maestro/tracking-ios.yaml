@@ -64,7 +64,7 @@ name: M3 iOS tracking with steppers
 - stopApp
 - launchApp
 - extendedWaitUntil:
-    visible: Settings
+    visible: Profile
     timeout: 30000
 - openLink: fitness://history
 - runFlow:

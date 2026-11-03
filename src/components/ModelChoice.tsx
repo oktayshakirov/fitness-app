@@ -7,7 +7,7 @@ import { content, label } from "../content";
 import type { Model } from "../content/types";
 import { colors } from "../theme";
 import { s } from "./ui";
-/** Two hero cards. `compact` crops to the upper body for Settings. */
+/** Two hero cards. `compact` crops to the upper body for Profile. */
 export function ModelChoice({
   value,
   onChange,

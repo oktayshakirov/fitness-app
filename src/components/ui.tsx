@@ -318,7 +318,7 @@ export function Segmented<T extends string>({
     </View>
   );
 }
-/** Grouped inset list (Settings). Rows are separated by hairlines. */
+/** Grouped inset list (Profile). Rows are separated by hairlines. */
 export function Group({ children }: PropsWithChildren) {
   const rows = React.Children.toArray(children).filter(Boolean);
   return (

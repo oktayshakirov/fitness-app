@@ -9,7 +9,7 @@ const tabs = [
   { name: "index", title: "Home", icon: "home", sf: "house", sfActive: "house.fill" },
   { name: "exercises", title: "Exercises", icon: "barbell", sf: "dumbbell", sfActive: "dumbbell.fill" },
   { name: "history", title: "History", icon: "calendar", sf: "calendar", sfActive: "calendar.circle.fill" },
-  { name: "settings", title: "Settings", icon: "settings", sf: "gearshape", sfActive: "gearshape.fill" },
+  { name: "profile", title: "Profile", icon: "person", sf: "person", sfActive: "person.fill" },
 ] as const;
 function TabIcon({ tab, focused }: { tab: (typeof tabs)[number]; focused: boolean }) {
   const color = focused ? colors.onAccent : colors.secondary;

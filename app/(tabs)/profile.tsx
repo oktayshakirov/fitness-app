@@ -8,7 +8,9 @@ import { File, Paths } from "expo-file-system";
 import Constants from "expo-constants";
 import { Screen, Heading, Group, IconCircle, Row, Segmented, SectionTitle, s } from "../../src/components/ui";
 import { ModelChoice } from "../../src/components/ModelChoice";
-import { content } from "../../src/content";
+import { Avatar } from "../../src/components/Avatar";
+import { content, label } from "../../src/content";
+import { dayKey } from "../../src/storage/calendar";
 import {
   exportData,
   getEntries,
@@ -19,8 +21,8 @@ import {
 } from "../../src/storage/store";
 import type { Settings as Preferences } from "../../src/storage/preferences";
 import { maxBackupBytes, parseBackup } from "../../src/storage/backup";
-import { tabBarSpace } from "../../src/theme";
-export default function Settings() {
+import { colors, tabBarSpace } from "../../src/theme";
+export default function Profile() {
   const settings = useSettings();
   const entries = useEntries();
   const lock = useRef(false);
@@ -91,8 +93,33 @@ export default function Settings() {
   }
   return (
     <Screen>
-      <Heading eyebrow="Preferences" title="Settings" />
+      <Heading eyebrow="You" title="Profile" />
       <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 0, gap: 12, paddingBottom: tabBarSpace }}>
+        <View style={[s.card, { gap: 18 }]}>
+          <View style={[s.row, { gap: 14 }]}>
+            <Avatar model={settings.model} size={64} />
+            <View style={{ flex: 1 }}>
+              <Text style={s.title}>Your training</Text>
+              <Text style={s.footnote}>
+                {label(settings.model)} model · {settings.units} · {label(settings.recoverySpeed)} recovery
+              </Text>
+            </View>
+          </View>
+          <View style={[s.row, { gap: 8 }]}>
+            {(
+              [
+                [entries.length, entries.length === 1 ? "Log" : "Logs"],
+                [new Set(entries.map((e) => dayKey(e.timestamp))).size, "Active days"],
+                [new Set(entries.map((e) => e.exerciseId)).size, "Exercises"],
+              ] as const
+            ).map(([value, title]) => (
+              <View key={title} style={{ flex: 1, padding: 12, borderRadius: 18, backgroundColor: colors.surface2 }}>
+                <Text style={[s.large, { fontSize: 24, lineHeight: 30 }]}>{value}</Text>
+                <Text style={s.footnote}>{title}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
         <SectionTitle title="Model" />
         <ModelChoice compact value={settings.model} onChange={(model) => save({ model })} />
         <Text style={[s.footnote, { marginHorizontal: 4 }]}>

@@ -25,19 +25,21 @@ Dynamic Type up to XL without layout breakage; contrast AA; hit targets ≥ 44 p
 ## Navigation
 
 Floating pill tab bar (blur on iOS, solid surface on Android), 4 tabs: **Home** · **Exercises**
-· **History** · **Settings**. The active tab is a lime pill behind the icon. Screens reserve
+· **History** · **Profile**. The active tab is a lime pill behind the icon. Screens reserve
 `tabBarSpace` at the bottom.
 Exercise detail and Log sheet are presented above tabs.
 
 ## Screens
 
-**Onboarding (3 steps).** Welcome: both hero renders on a soft lime glow, "Train with correct
-form", page dots, lime "Get started" pill with an arrow. Then "Choose your model" (two tall
-hero cards, lime outline when selected) and "Weight units" (pill segmented control plus a
-card of what the app does). Privacy link in the footnote. No account, no quiz, no paywall.
+**Onboarding (4 steps, one decision per screen).** Welcome: both hero renders on a soft lime
+glow, "Train with correct form", page dots, lime "Get started" pill with an arrow. "Choose
+your model": two tall hero cards, lime outline when selected. "Weight units": two large
+radio cards (Kilograms, Pounds). "You're all set": lime check, chips summarising the choices,
+a card of what the app does, "Start training" and the privacy link. No account, no quiz, no
+paywall.
 
 **Home.** Greeting eyebrow, "Ready to train?", info button and a round avatar of the chosen
-model (opens Settings). A lime recovery card (share of muscles ready, which muscles are
+model (opens Profile). A lime recovery card (share of muscles ready, which muscles are
 resting, progress bar). Two stat tiles: day streak, workouts this week. "Body map" card with
 a Front | Back pill switch, the body render with tinted masks per recovery state and a
 legend; tapping a muscle selects it and shows a row linking to its exercises. "Muscles"
@@ -66,7 +68,8 @@ today ringed; stats row below: Active days (month) · Current streak · Weekly s
 Tap a day → list of that day's entries (poster thumb, name, sets summary), swipe to delete,
 tap to edit. Below the calendar: "Recent" list of last sessions.
 
-**Settings.** Grouped inset list: Model (Male/Female), Units, Recovery speed, Pro
+**Profile** (was Settings, renamed 2026-11-03). Header card with the model avatar, the
+current choices and totals (logs, active days, exercises tried), then a grouped list: Model (Male/Female), Units, Recovery speed, Pro
 (Remove ads / Restore purchase), Export data / Import data, Privacy policy, Credits &
 licences, Content version, App version.
 

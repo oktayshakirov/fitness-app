@@ -38,7 +38,7 @@ npm run content:import -- /Users/oktayshakirov/Coding/fitness-automation/release
 
 The importer follows `current.json`, checks the `content.json` digest and every media file's
 size and sha256, and converts the hit-test SVGs to polygons for body taps. Full media
-attribution is bundled and visible in Settings. Never edit the rendering repo from this app
+attribution is bundled and visible in Profile. Never edit the rendering repo from this app
 workspace.
 
 ## Native checks without rebuilding
@@ -78,7 +78,7 @@ body images or hit regions.
 Restart the development app after source changes before native acceptance runs;
 iOS may retain an older bundle when Fast Refresh is unavailable.
 
-### Settings and backup checks (M5)
+### Profile and backup checks (M5)
 
 Run `.maestro/settings.yaml` for first-run choice, preferences and Privacy. Restart
 that device's app process, reconnect the development URL if needed, then run

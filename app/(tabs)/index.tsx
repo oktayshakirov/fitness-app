@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AppState, Alert, Pressable, ScrollView, View, useWindowDimensions } from "react-native";
 import { router, useFocusEffect } from "expo-router";
-import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { Text } from "../../src/components/Text";
@@ -16,7 +15,8 @@ import {
   s,
 } from "../../src/components/ui";
 import { BodyFigure } from "../../src/components/BodyFigure";
-import { bodyFor, content, exercises, label } from "../../src/content";
+import { Avatar } from "../../src/components/Avatar";
+import { bodyFor, exercises, label } from "../../src/content";
 import { muscleIds, type Muscle } from "../../src/content/types";
 import { useEntries, useSettings } from "../../src/storage/store";
 import { streaks, weekDays } from "../../src/storage/calendar";
@@ -82,7 +82,6 @@ export default function Home() {
   const thisWeek = entries.filter((e) => e.timestamp >= weekStart.getTime() && e.timestamp <= now).length;
   const body = bodyFor(model);
   const figure = body?.[side];
-  const hero = content.release.heroes[model];
   const tints = Object.fromEntries(
     muscleIds.filter((m) => status[m].state !== "ready").map((m) => [m, stateColors[status[m].state]]),
   );
@@ -110,29 +109,13 @@ export default function Home() {
                   )
                 }
               />
-              {hero && (
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel="Change model in Settings"
-                  onPress={() => router.navigate("/(tabs)/settings")}
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 22,
-                    overflow: "hidden",
-                    backgroundColor: colors.surface2,
-                    borderWidth: 1.5,
-                    borderColor: colors.accent,
-                  }}
-                >
-                  <Image
-                    source={content.resolve(hero)}
-                    contentFit="cover"
-                    contentPosition="top"
-                    style={{ width: 41, height: 62 }}
-                  />
-                </Pressable>
-              )}
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Open profile"
+                onPress={() => router.navigate("/(tabs)/profile")}
+              >
+                <Avatar model={model} size={44} />
+              </Pressable>
             </View>
           }
         />
