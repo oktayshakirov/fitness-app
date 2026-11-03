@@ -200,12 +200,10 @@ planning checkpoint beyond the explicitly requested planning repository.
   TypeScript typecheck passing. iOS/Android M5 settings and playback Maestro checks
   passed before this polish. A new Android polish Maestro run was started but its
   completion was not captured; do not claim this polish itself passed native QA.
-- The Codex session ended on a model availability warning (`gpt-6-astra` not
-  supported for the signed-in ChatGPT account), not an app build failure. Resume
-  with a supported configured model, inspect `git status` first, run typecheck and
-  tests, then smoke the current preview and approved bundle on iOS and Android.
-  Confirm both model selections have poster-first playback, scrolling, settings
-  label, large-text layout, history accessibility and video error retry.
+- That session ended before native QA of the polish. Resume by checking `git status`,
+  running typecheck and tests, then smoking the preview and approved bundle on iOS and
+  Android: poster-first playback for both models, scrolling, settings label, large-text
+  layout, history accessibility and video error retry.
 - Before committing, stage only app-owned polish/preview files and README. Do not
   stage the pre-existing `docs/MVP.md` white-background note. Commit in a small
   plain-message checkpoint. Current source renders still have no human content
@@ -213,3 +211,46 @@ planning checkpoint beyond the explicitly requested planning repository.
   local-fixture testing for remote content validation/cache/atomic activation, after
   completing this polish QA; do not create paid services/accounts. Keep M4 body-map
   alignment and direct region taps, M7, and M8 open as above.
+
+## 2026-11-03 — v0.3.0 content, dark/lime redesign, device builds (handoff)
+
+State: `main` at the onboarding/Profile commit, pushed. Working tree clean. Supersedes
+the preview notes above: the dev preview snapshot is gone and `EXPO_PUBLIC_CONTENT_PREVIEW`
+no longer exists.
+
+- **Content.** `npm run content:import -- <fitness-automation>/releases` bundles whatever
+  `current.json` points at (now v0.3.0: 30 exercises, male + female, white-background H.264
+  loops and posters, body views with 17 masks and hit SVGs, heroes, 8 equipment icons). It
+  checks the `content.json` digest and every file's bytes + sha256, and turns the hit SVGs
+  into polygons (`src/content/hit-regions.json`, read by `src/content/hits.ts`). Types gained
+  `"top"` and optional `equipmentIcons`; requests note in `docs/MVP.md`.
+- **Structure.** Tabs: Home · Exercises · History · Profile (floating pill bar,
+  `tabBarSpace` bottom padding on every tab screen). Onboarding is 4 steps: welcome, model,
+  units, all set. Home's muscle list no longer scroll-syncs the body; selection comes from
+  tapping the body (hit regions) instead.
+- **Design.** Per `docs/DESIGN.md` (rewritten from the user's dark + lime references):
+  Poppins via `src/components/Text.tsx` (always import `Text`/`TextInput` from there, not
+  from `react-native`, or the font is lost on Android), lime `#C8FA3C` with black text,
+  shared pieces in `src/components/ui.tsx` (`Stat`, `IconCircle`, `SectionTitle`,
+  `Segmented`, `Group`/`Row`, pill `Button` with `arrow`), `BodyFigure`, `Avatar`. No fake
+  metrics: everything shown is computed from local logs.
+- **Verified.** Typecheck clean, 26 unit tests pass. Android emulator (`Dev_Phone`): full
+  onboarding, all tabs, body tap, detail video, logging a weighted set, recovery and
+  History updates, Profile totals. iPhone 14 Pro: signed dev client installed and loaded
+  the redesign's predecessor over LAN; the final redesign was not seen on the phone (it was
+  locked), so iOS visuals (blur tab bar, SF Symbols, font) are unverified. Maestro flows were
+  updated for the new onboarding and Profile but not run.
+- **Running on devices.** `npx expo start --dev-client --lan` (phone and Mac on the same
+  Wi-Fi). Android: `adb reverse tcp:8081 tcp:8081`, then open Fitness. iPhone build:
+  `xcodebuild -workspace ios/Fitness.xcworkspace -scheme Fitness -configuration Debug
+  -destination 'id=<udid>' -allowProvisioningUpdates DEVELOPMENT_TEAM=2UNNRK9L5Q
+  CODE_SIGN_STYLE=Automatic build`, install with `xcrun devicectl device install app`.
+  If Pods point at a missing `node_modules` path, run `LANG=en_US.UTF-8 pod install` in
+  `ios/`. Only rebuild native when native deps or `app.json` plugins change (Poppins loads at
+  runtime through the existing ExpoFont module).
+- **Open.** iOS visual check of the redesign; run the Maestro flows on both platforms;
+  M6 remote content (fetch `current.json` → `content.json`, verify sha256, cache, atomic
+  switch, keep bundled fallback; local fixtures only, no hosting until the user says so);
+  M7 monetization (needs the user's accounts decision); M8 release prep (icon, splash,
+  store assets, accessibility and performance passes). The Mac disk runs near full; device
+  builds use several GB of DerivedData.
