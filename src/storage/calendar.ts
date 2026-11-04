@@ -3,10 +3,37 @@ export function dayKey(value: number | Date) {
   const d = new Date(value);
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
-function dayBefore(d: Date) {
+/** `d` moved by whole calendar days, keeping its local clock time. */
+export function addDays(d: Date, days: number) {
   const result = new Date(d);
-  result.setDate(result.getDate() - 1);
+  result.setDate(result.getDate() + days);
   return result;
+}
+const dayBefore = (d: Date) => addDays(d, -1);
+/** "Today", "Yesterday", else a short local date such as "Mon, Nov 2". */
+export function dayLabel(day: Date, now = new Date()) {
+  const key = dayKey(day);
+  if (key === dayKey(now)) return "Today";
+  if (key === dayKey(dayBefore(now))) return "Yesterday";
+  return day.toLocaleDateString(undefined, {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+}
+/** `timestamp`'s local clock time on `day`'s date, never later than `now`. */
+export function onDay(timestamp: number, day: Date, now = Date.now()) {
+  const t = new Date(timestamp);
+  const moved = new Date(
+    day.getFullYear(),
+    day.getMonth(),
+    day.getDate(),
+    t.getHours(),
+    t.getMinutes(),
+    t.getSeconds(),
+    t.getMilliseconds(),
+  );
+  return Math.min(moved.getTime(), now);
 }
 function monday(d: Date) {
   const result = new Date(d);
@@ -44,7 +71,16 @@ export function streaks(entries: LogEntry[], now = new Date(), month = now) {
     weekly++;
     week.setDate(week.getDate() - 7);
   }
-  return { activeDays, current, weekly };
+  let longest = 0,
+    run = 0,
+    previous = "";
+  // Keys sort chronologically; a run continues when the previous key is the day before.
+  for (const key of [...days].sort()) {
+    run = previous === dayKey(dayBefore(new Date(`${key}T12:00:00`))) ? run + 1 : 1;
+    longest = Math.max(longest, run);
+    previous = key;
+  }
+  return { activeDays, current, weekly, longest };
 }
 export function monthDays(month: Date) {
   const start = new Date(month.getFullYear(), month.getMonth(), 1, 12);
