@@ -1,0 +1,30 @@
+appId: com.oktayshakirov.fitness
+name: Routines (create, start, walk through, delete)
+---
+# Creates "Maestro routine" with two exercises and deletes it at the end.
+- openLink: fitness://routine/edit
+- runFlow:
+    when:
+      visible: Open
+    commands:
+      - tapOn: Open
+- tapOn:
+    id: routine-name
+- inputText: Maestro routine
+- hideKeyboard
+- tapOn: Add Barbell Back Squat
+- tapOn: Search exercises to add
+- inputText: push
+- hideKeyboard
+- tapOn: Add Push-up
+- assertVisible: In this routine (2)
+- tapOn: Save routine
+- assertVisible: Maestro routine
+- tapOn: Start workout
+- assertVisible: "Maestro routine · 1 of 2"
+- tapOn: Next exercise
+- assertVisible: "Maestro routine · 2 of 2"
+- tapOn: Close exercise
+- tapOn: Delete routine
+- tapOn: Delete
+- assertVisible: Deleted Maestro routine

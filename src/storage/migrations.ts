@@ -10,6 +10,10 @@ export const migrations = [
  ); CREATE INDEX entries_timestamp ON entries(timestamp DESC);
  CREATE INDEX entries_exercise ON entries(exercise_id, timestamp DESC);`,
   `CREATE TABLE settings (key TEXT PRIMARY KEY NOT NULL, value TEXT NOT NULL);`,
+  `CREATE TABLE routines (
+ id TEXT PRIMARY KEY NOT NULL, name TEXT NOT NULL, exercises TEXT NOT NULL DEFAULT '[]',
+ created INTEGER NOT NULL, updated INTEGER NOT NULL
+ );`,
 ] as const;
 /** Each schema step and version update commit together. Never discard an unknown future schema. */
 export function migrate(

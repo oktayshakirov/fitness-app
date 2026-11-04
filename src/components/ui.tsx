@@ -178,25 +178,30 @@ export function IconButton({
   onPress,
   disabled = false,
   plain = false,
+  color = colors.text,
+  selected,
 }: {
   name: IconName;
   label: string;
   onPress: () => void;
   disabled?: boolean;
   plain?: boolean;
+  color?: string;
+  /** For toggles such as a favourite star. */
+  selected?: boolean;
 }) {
   return (
     <PressableScale
       accessibilityRole="button"
       accessibilityLabel={label}
       disabled={disabled}
-      accessibilityState={{ disabled }}
+      accessibilityState={{ disabled, selected }}
       onPress={onPress}
       hitSlop={4}
       scaleTo={0.88}
       style={[s.icon, plain && { backgroundColor: "transparent" }, { opacity: disabled ? 0.3 : 1 }]}
     >
-      <Ionicons name={name} size={22} color={colors.text} />
+      <Ionicons name={name} size={22} color={color} />
     </PressableScale>
   );
 }
@@ -282,12 +287,15 @@ export function Chip({
   selected,
   onPress,
   icon,
+  ionicon,
   dot,
 }: {
   title: string;
   selected: boolean;
   onPress: () => void;
   icon?: MediaSource;
+  /** A vector icon before the title, e.g. a star. */
+  ionicon?: IconName;
   dot?: string;
 }) {
   return (
@@ -315,6 +323,7 @@ export function Chip({
           <Image source={icon} contentFit="contain" style={{ width: 28, height: 28 }} />
         </View>
       )}
+      {ionicon && <Ionicons name={ionicon} size={16} color={selected ? colors.onAccent : colors.accent} />}
       {dot && (
         <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: dot }} />
       )}

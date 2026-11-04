@@ -33,7 +33,12 @@ import {
   viewOrder,
 } from "../../src/content";
 import type { CameraView, Muscle } from "../../src/content/types";
-import { useEntries, useSettings } from "../../src/storage/store";
+import { getRoutines, updateSettings, useEntries, useSettings } from "../../src/storage/store";
+import { oneRepMax } from "../../src/storage/progress";
+import { toDisplayWeight } from "../../src/storage/units";
+import { ProgressChart } from "../../src/components/ProgressChart";
+import { PlateCalculator } from "../../src/components/PlateCalculator";
+import * as Haptics from "expo-haptics";
 import { bestSet, setText, setsSummary } from "../../src/storage/format";
 import { colors } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
@@ -131,20 +136,29 @@ function MuscleLine({ muscles, color, title }: { muscles: Muscle[]; color: strin
   );
 }
 export default function ExerciseDetail() {
-  const { model, units, restSeconds } = useSettings();
+  const { model, units, restSeconds, favorites } = useSettings();
   const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{
     id: string;
     muscle?: string;
     equipment?: string;
     query?: string;
+    /** "1" when opened from the Favorites filter. */
+    favorites?: string;
+    /** Routine id when opened from a routine: previous/next walk its exercises in order. */
+    routine?: string;
   }>();
+  // Favourites as they were when the screen opened, so un-starring does not reshuffle the list.
+  const [startFavorites] = useState(favorites);
+  const routine = params.routine ? getRoutines().find((r) => r.id === params.routine) : undefined;
   const list = useMemo(() => {
     const requested = exercises.find((e) => e.id === params.id);
     if (!requested) return [];
-    const filtered = filterCatalog(params);
-    return filtered.some((e) => e.id === requested.id) ? filtered : [requested];
-  }, [params.id, params.muscle, params.equipment, params.query]);
+    const candidates = routine
+      ? routine.exercises.flatMap((id) => exercises.filter((e) => e.id === id))
+      : filterCatalog(params).filter((e) => params.favorites !== "1" || startFavorites.includes(e.id));
+    return candidates.some((e) => e.id === requested.id) ? candidates : [requested];
+  }, [params.id, params.muscle, params.equipment, params.query, params.favorites, routine, startFavorites]);
   const initial = list.findIndex((e) => e.id === params.id);
   const [index, setIndex] = useState(Math.max(0, initial));
   // Direction of the last previous/next move; the info block slides in from that side.
@@ -207,6 +221,20 @@ export default function ExerciseDetail() {
         <IconButton name="close" label="Close" onPress={() => router.back()} />
       </Screen>
     );
+  const isFavorite = favorites.includes(exercise.id);
+  function toggleFavorite() {
+    if (!exercise) return;
+    void Haptics.selectionAsync();
+    try {
+      updateSettings({
+        favorites: isFavorite ? favorites.filter((id) => id !== exercise.id) : [...favorites, exercise.id],
+      });
+    } catch {
+      // Settings write failed; the star simply stays as it was.
+    }
+  }
+  const estimate = best ? oneRepMax(best.set) : undefined;
+  const heaviestLogged = history.flatMap((e) => e.sets).reduce((m, set) => Math.max(m, set.weightKg), 0);
   const media = mediaFor(exercise, model).views;
   const views = viewOrder.filter((v) => media[v]);
   const selected = media[view] ? view : views[0]!;
@@ -220,10 +248,18 @@ export default function ExerciseDetail() {
     <Screen>
       <View style={[s.row, { paddingHorizontal: 16, paddingVertical: 6, justifyContent: "space-between" }]}>
         <IconButton name="close" label="Close exercise" onPress={() => router.back()} />
-        <Text style={s.footnote}>
+        <Text numberOfLines={1} style={[s.footnote, { flexShrink: 1, textAlign: "center" }]}>
+          {routine ? `${routine.name} · ` : ""}
           {index + 1} of {list.length}
         </Text>
         <View style={[s.row, { gap: 8 }]}>
+          <IconButton
+            name={isFavorite ? "star" : "star-outline"}
+            color={isFavorite ? colors.accent : colors.text}
+            selected={isFavorite}
+            label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            onPress={toggleFavorite}
+          />
           <IconButton
             name="chevron-up"
             label="Previous exercise"
@@ -328,10 +364,18 @@ export default function ExerciseDetail() {
                     <Text style={[s.footnote, { flex: 1 }]}>
                       Best set: <Text style={[s.footnote, { color: colors.text }]}>{setText(best.set, units)}</Text> ·{" "}
                       {shortDate(best.timestamp)}
+                      {estimate ? ` · est. 1RM ${Math.round(toDisplayWeight(estimate, units))} ${units}` : ""}
                     </Text>
                   </View>
                 )}
               </View>
+            )}
+            <ProgressChart entries={history} units={units} />
+            {exercise.equipment.includes("barbell") && (
+              <PlateCalculator
+                units={units}
+                startWeight={heaviestLogged ? toDisplayWeight(heaviestLogged, units) : undefined}
+              />
             )}
             <Section title="How to" lines={exercise.steps} numbered initial />
             <Section title="Cues" lines={exercise.cues} />

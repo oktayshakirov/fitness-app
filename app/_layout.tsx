@@ -69,6 +69,9 @@ export default function RootLayout() {
               >
                 <Stack.Screen name="(tabs)" />
                 <Stack.Screen name="exercise/[id]" />
+                <Stack.Screen name="routine/[id]" />
+                {/* No swipe-back: unsaved changes are only discarded through Close's prompt. */}
+                <Stack.Screen name="routine/edit" options={{ gestureEnabled: false }} />
                 <Stack.Screen
                   name="log"
                   options={{

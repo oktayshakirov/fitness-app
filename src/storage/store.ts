@@ -1,6 +1,7 @@
 import { defaults, parsePreferences, type Settings } from "./preferences";
 import { applyBackup, parseBackup, serializeBackup } from "./backup";
 import { eraseEntries, restoreEntries as restoreRows } from "./erase";
+import { parseRoutine, type Routine } from "./routines";
 import { useSyncExternalStore } from "react";
 import { openDatabaseSync } from "expo-sqlite";
 import { randomUUID } from "expo-crypto";
@@ -9,6 +10,7 @@ import { migrate } from "./migrations";
 import { validateSets, type LogEntry, type TrainingSet } from "./types";
 let db: ReturnType<typeof openDatabaseSync> | undefined;
 let entries: LogEntry[] = [];
+let routines: Routine[] = [];
 let settings: Settings = defaults;
 const listeners = new Set<() => void>();
 function database() {
@@ -56,6 +58,17 @@ function refresh() {
     ...parsePreferences({ ...defaults, ...values }),
     onboarded: values.onboarded === true,
   };
+  routines = db
+    .getAllSync<{ id: string; name: string; exercises: string; created: number; updated: number }>(
+      "SELECT * FROM routines ORDER BY created ASC",
+    )
+    .flatMap((row) => {
+      try {
+        return [parseRoutine({ ...row, exercises: JSON.parse(row.exercises) })];
+      } catch {
+        return []; // A damaged row is skipped rather than breaking every screen.
+      }
+    });
   for (const listener of listeners) listener();
 }
 function subscribe(listener: () => void) {
@@ -169,9 +182,58 @@ export function updateSettings(patch: Partial<Settings>) {
   }
   refresh();
 }
+export function useRoutines() {
+  database();
+  return useSyncExternalStore(
+    subscribe,
+    () => routines,
+    () => routines,
+  );
+}
+export function getRoutines() {
+  database();
+  return routines;
+}
+/** Creates (no id) or updates a routine; throws with a readable message on invalid input. */
+export function saveRoutine(input: { id?: string; name: string; exercises: string[] }) {
+  const db = database();
+  const now = Date.now();
+  const existing = input.id ? routines.find((r) => r.id === input.id) : undefined;
+  const routine = parseRoutine({
+    id: input.id ?? randomUUID(),
+    name: input.name,
+    exercises: input.exercises,
+    created: existing?.created ?? now,
+    updated: now,
+  });
+  writeRoutine(db, routine);
+  refresh();
+  return routine;
+}
+function writeRoutine(db: ReturnType<typeof database>, r: Routine) {
+  db.runSync(
+    "INSERT OR REPLACE INTO routines (id,name,exercises,created,updated) VALUES (?,?,?,?,?)",
+    r.id,
+    r.name,
+    JSON.stringify(r.exercises),
+    r.created,
+    r.updated,
+  );
+}
+/** Deletes a routine and returns it, so Undo can put it back unchanged. */
+export function deleteRoutine(id: string) {
+  const removed = routines.find((r) => r.id === id);
+  database().runSync("DELETE FROM routines WHERE id=?", id);
+  refresh();
+  return removed;
+}
+export function restoreRoutine(routine: Routine) {
+  writeRoutine(database(), parseRoutine(routine));
+  refresh();
+}
 export function exportData() {
   database();
-  return serializeBackup(entries, settings);
+  return serializeBackup(entries, settings, routines);
 }
 export function importData(text: string) {
   const validated = parseBackup(text);

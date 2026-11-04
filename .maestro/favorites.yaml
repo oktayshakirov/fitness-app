@@ -1,0 +1,22 @@
+appId: com.oktayshakirov.fitness
+name: Favorites (star an exercise, filter the grid, unstar)
+---
+- openLink: fitness://exercise/push_up
+- runFlow:
+    when:
+      visible: Open
+    commands:
+      - tapOn: Open
+- tapOn: Add to favorites
+- assertVisible: Remove from favorites
+- tapOn: Close exercise
+- openLink: fitness://exercises
+- tapOn: Favorites
+- assertVisible:
+    id: exercise-push_up
+- tapOn:
+    id: exercise-push_up
+- tapOn: Remove from favorites
+- tapOn: Close exercise
+- assertVisible: No favorites yet
+- tapOn: Clear filters

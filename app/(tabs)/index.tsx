@@ -12,15 +12,19 @@ import {
   Segmented,
   SectionTitle,
   Stat,
+  Button,
   s,
 } from "../../src/components/ui";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { BodyFigure } from "../../src/components/BodyFigure";
 import { PressableScale, ProgressBar, motion } from "../../src/components/motion";
 import { Avatar } from "../../src/components/Avatar";
-import { bodyFor, exercises, label } from "../../src/content";
+import { bodyFor, content, coverFor, exercises, label, mediaBackground } from "../../src/content";
 import { muscleIds, type Muscle } from "../../src/content/types";
-import { useEntries, useSettings } from "../../src/storage/store";
+import { useEntries, useRoutines, useSettings } from "../../src/storage/store";
+import { doneOn } from "../../src/storage/routines";
+import { suggestExercises } from "../../src/recovery/suggest";
+import { Image } from "expo-image";
 import { dayKey, streaks, weekDays } from "../../src/storage/calendar";
 import { plural } from "../../src/storage/format";
 import { recovery } from "../../src/recovery/engine";
@@ -57,7 +61,8 @@ function greeting(hour: number) {
   return hour < 5 ? "Good night" : hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 }
 export default function Home() {
-  const { model, recoverySpeed } = useSettings();
+  const { model, recoverySpeed, weeklyGoal, favorites } = useSettings();
+  const routines = useRoutines();
   const entries = useEntries();
   const [now, setNow] = useState(Date.now());
   const [side, setSide] = useState<"front" | "back">("front");
@@ -100,6 +105,12 @@ export default function Home() {
     active: trained.has(dayKey(d)),
   }));
   const thisWeek = week.filter((d) => d.active);
+  const goalMet = thisWeek.length >= weeklyGoal;
+  // Exercises for fully recovered muscles, rested longest first.
+  const suggestions = useMemo(
+    () => suggestExercises(exercises, status, entries, favorites),
+    [status, entries, favorites],
+  );
   const body = bodyFor(model);
   const figure = body?.[side];
   const tints = Object.fromEntries(
@@ -200,14 +211,98 @@ export default function Home() {
             <Stat
               label="This week"
               value={thisWeek.length}
-              unit={thisWeek.length === 1 ? "training day" : "training days"}
-              icon="barbell"
+              unit={`of ${weeklyGoal} days`}
+              icon={goalMet ? "trophy" : "barbell"}
               onPress={() => router.navigate("/(tabs)/history")}
               hint="Opens History"
-              description={thisWeek.length ? `Trained ${thisWeek.map((d) => d.name).join(", ")}` : undefined}
+              description={`${goalMet ? "Weekly goal reached." : `${weeklyGoal - thisWeek.length} to go for your goal.`}${thisWeek.length ? ` Trained ${thisWeek.map((d) => d.name).join(", ")}.` : ""}`}
               footer={<WeekStrip days={week} today={today} />}
             />
           </View>
+          <SectionTitle
+            title="Routines"
+            action={routines.length ? "New" : undefined}
+            onAction={() => router.push("/routine/edit")}
+          />
+          {routines.length ? (
+            <View style={[s.card, { padding: 0, overflow: "hidden" }]}>
+              {routines.map((r, i) => {
+                const total = r.exercises.filter((x) => exercises.some((e) => e.id === x)).length;
+                const done = doneOn(r, entries, today).size;
+                const complete = total > 0 && done >= total;
+                return (
+                  <Pressable
+                    key={r.id}
+                    accessibilityRole="button"
+                    accessibilityLabel={`${r.name}, ${plural(total, "exercise")}, ${done} done today`}
+                    onPress={() => router.push({ pathname: "/routine/[id]", params: { id: r.id } })}
+                    style={({ pressed }) => ({ backgroundColor: pressed ? colors.surface2 : "transparent" })}
+                  >
+                    {i > 0 && <View style={{ height: 1, backgroundColor: colors.separator, marginLeft: 66 }} />}
+                    <View style={[s.row, { minHeight: 64, paddingHorizontal: 16, gap: 14 }]}>
+                      <IconCircle name={complete ? "checkmark" : "list"} size={36} dim={!complete} />
+                      <View style={{ flex: 1 }}>
+                        <Text style={s.headline}>{r.name}</Text>
+                        <Text style={s.footnote}>
+                          {plural(total, "exercise")}
+                          {done ? ` · ${done} done today` : ""}
+                        </Text>
+                      </View>
+                      <Ionicons name="chevron-forward" size={18} color={colors.tertiary} />
+                    </View>
+                  </Pressable>
+                );
+              })}
+            </View>
+          ) : (
+            <View style={[s.card, { gap: 14 }]}>
+              <View style={[s.row, { gap: 14 }]}>
+                <IconCircle name="list" size={40} />
+                <View style={{ flex: 1 }}>
+                  <Text style={s.headline}>Build a routine</Text>
+                  <Text style={s.footnote}>Save the exercises you train together and start them in one tap.</Text>
+                </View>
+              </View>
+              <Button secondary icon="add" title="Create a routine" onPress={() => router.push("/routine/edit")} />
+            </View>
+          )}
+          {suggestions.length > 0 && (
+            <>
+              <SectionTitle title="Ready to train" />
+              <View style={[s.card, { padding: 0, overflow: "hidden" }]}>
+                {suggestions.map(({ exercise, muscle, lastTrained }, i) => {
+                  const rested = lastTrained
+                    ? `rested ${plural(Math.max(1, Math.floor((now - lastTrained) / 86_400_000)), "day")}`
+                    : "not trained yet";
+                  return (
+                    <Pressable
+                      key={exercise.id}
+                      accessibilityRole="button"
+                      accessibilityLabel={`${exercise.name}, for ${label(muscle)}, ${rested}`}
+                      onPress={() => router.push({ pathname: "/exercise/[id]", params: { id: exercise.id } })}
+                      style={({ pressed }) => ({ backgroundColor: pressed ? colors.surface2 : "transparent" })}
+                    >
+                      {i > 0 && <View style={{ height: 1, backgroundColor: colors.separator, marginLeft: 72 }} />}
+                      <View style={[s.row, { minHeight: 72, paddingHorizontal: 12, gap: 12 }]}>
+                        <Image
+                          source={content.resolve(coverFor(exercise, model).poster)}
+                          contentFit="contain"
+                          style={{ width: 44, height: 55, borderRadius: 12, backgroundColor: mediaBackground }}
+                        />
+                        <View style={{ flex: 1 }}>
+                          <Text style={s.headline}>{exercise.name}</Text>
+                          <Text style={s.footnote}>
+                            {label(muscle)} · {rested}
+                          </Text>
+                        </View>
+                        <Ionicons name="chevron-forward" size={18} color={colors.tertiary} />
+                      </View>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </>
+          )}
           {figure && (
             <>
               <SectionTitle title="Body map" />
