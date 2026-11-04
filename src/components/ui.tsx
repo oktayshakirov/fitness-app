@@ -1,4 +1,4 @@
-import React, { type PropsWithChildren } from "react";
+import React, { useEffect, useRef, useState, type PropsWithChildren } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -10,8 +10,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import * as Haptics from "expo-haptics";
+import Animated, {
+  interpolateColor,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  type SharedValue,
+} from "react-native-reanimated";
 import { Text } from "./Text";
-import { colors, radius, type } from "../theme";
+import { PressableScale, settle } from "./motion";
+import { colors, fonts, radius, type } from "../theme";
 import type { MediaSource } from "../content/types";
 export type IconName = React.ComponentProps<typeof Ionicons>["name"];
 export function Screen({ children }: PropsWithChildren) {
@@ -148,15 +156,16 @@ export function Stat({
     </>
   );
   return onPress ? (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityLabel={a11y}
       accessibilityHint={hint}
       onPress={onPress}
-      style={({ pressed }) => [...tile, pressed && { backgroundColor: colors.surface2 }]}
+      scaleTo={0.97}
+      style={tile}
     >
       {body}
-    </Pressable>
+    </PressableScale>
   ) : (
     <View accessible accessibilityLabel={a11y} style={tile}>
       {body}
@@ -177,21 +186,18 @@ export function IconButton({
   plain?: boolean;
 }) {
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityLabel={label}
       disabled={disabled}
       accessibilityState={{ disabled }}
       onPress={onPress}
       hitSlop={4}
-      style={({ pressed }) => [
-        s.icon,
-        plain && { backgroundColor: "transparent" },
-        { opacity: disabled ? 0.3 : pressed ? 0.6 : 1 },
-      ]}
+      scaleTo={0.88}
+      style={[s.icon, plain && { backgroundColor: "transparent" }, { opacity: disabled ? 0.3 : 1 }]}
     >
       <Ionicons name={name} size={22} color={colors.text} />
-    </Pressable>
+    </PressableScale>
   );
 }
 export function Button({
@@ -218,16 +224,16 @@ export function Button({
       ? colors.text
       : colors.onAccent;
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       disabled={disabled}
       accessibilityState={{ disabled }}
       onPress={onPress}
-      style={({ pressed }) => [
+      style={[
         s.button,
         {
           backgroundColor: secondary || destructive ? colors.surface2 : colors.accent,
-          opacity: disabled ? 0.4 : pressed ? 0.8 : 1,
+          opacity: disabled ? 0.4 : 1,
         },
       ]}
     >
@@ -238,7 +244,7 @@ export function Button({
           <Ionicons name="arrow-forward" size={20} color={colors.accent} />
         </View>
       )}
-    </Pressable>
+    </PressableScale>
   );
 }
 /** Small lime-on-dim pill for header shortcuts such as "Today" or "Clear". */
@@ -253,22 +259,22 @@ export function PillButton({
   onPress: () => void;
 }) {
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityLabel={label ?? title}
       hitSlop={8}
       onPress={onPress}
-      style={({ pressed }) => ({
+      scaleTo={0.94}
+      style={{
         minHeight: 36,
         paddingHorizontal: 16,
         borderRadius: 18,
         justifyContent: "center",
         backgroundColor: colors.accentDim,
-        opacity: pressed ? 0.7 : 1,
-      })}
+      }}
     >
       <Text style={[s.subhead, { color: colors.accent, fontWeight: "600" }]}>{title}</Text>
-    </Pressable>
+    </PressableScale>
   );
 }
 export function Chip({
@@ -285,19 +291,15 @@ export function Chip({
   dot?: string;
 }) {
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityState={{ selected }}
       onPress={() => {
         void Haptics.selectionAsync();
         onPress();
       }}
-      style={({ pressed }) => [
-        s.chip,
-        !!icon && { paddingLeft: 6 },
-        selected && s.selected,
-        { opacity: pressed ? 0.75 : 1 },
-      ]}
+      scaleTo={0.94}
+      style={[s.chip, !!icon && { paddingLeft: 6 }, selected && s.selected]}
     >
       {icon && (
         <View
@@ -325,10 +327,41 @@ export function Chip({
       >
         {title}
       </Text>
-    </Pressable>
+    </PressableScale>
   );
 }
-/** Pill segmented control; the selected segment is lime. */
+/** Label whose colour follows the sliding pill: dark on lime, grey elsewhere. */
+function SegmentLabel({
+  title,
+  index,
+  segment,
+  x,
+  selected,
+}: {
+  title: string;
+  index: number;
+  segment: number;
+  x: SharedValue<number>;
+  selected: boolean;
+}) {
+  const color = useAnimatedStyle(() => {
+    if (!segment) return { color: selected ? colors.onAccent : colors.secondary };
+    const distance = Math.min(1, Math.abs(x.value - index * segment) / segment);
+    return { color: interpolateColor(distance, [0, 1], [colors.onAccent, colors.secondary]) };
+  });
+  return (
+    <Animated.Text
+      numberOfLines={1}
+      style={[
+        { fontFamily: fonts["500"], fontSize: type.subhead.fontSize, lineHeight: type.subhead.lineHeight },
+        color,
+      ]}
+    >
+      {title}
+    </Animated.Text>
+  );
+}
+/** Pill segmented control; a lime pill slides to the selected segment. */
 export function Segmented<T extends string>({
   options,
   value,
@@ -340,9 +373,28 @@ export function Segmented<T extends string>({
   onChange: (value: T) => void;
   label: string;
 }) {
+  const [width, setWidth] = useState(0);
+  const index = Math.max(0, options.findIndex((o) => o.value === value));
+  // Segments are equal flex children inside 4 pt of padding.
+  const segment = width ? (width - 8) / options.length : 0;
+  const x = useSharedValue(0);
+  const placed = useRef(false);
+  useEffect(() => {
+    if (!segment) return;
+    // The first measurement places the pill without sliding in from the left.
+    x.value = placed.current ? withSpring(index * segment, settle) : index * segment;
+    placed.current = true;
+  }, [index, segment, x]);
+  const pill = useAnimatedStyle(() => ({ transform: [{ translateX: x.value }] }));
   return (
-    <View accessibilityRole="tablist" accessibilityLabel={label} style={s.segmented}>
-      {options.map((option) => {
+    <View
+      accessibilityRole="tablist"
+      accessibilityLabel={label}
+      onLayout={(e) => setWidth(e.nativeEvent.layout.width)}
+      style={s.segmented}
+    >
+      {segment > 0 && <Animated.View pointerEvents="none" style={[s.pill, { width: segment }, pill]} />}
+      {options.map((option, i) => {
         const selected = option.value === value;
         return (
           <Pressable
@@ -354,18 +406,10 @@ export function Segmented<T extends string>({
               void Haptics.selectionAsync();
               onChange(option.value);
             }}
-            style={[s.segment, selected && { backgroundColor: colors.accent }]}
+            // Until measured there is no pill, so the segment itself is lime.
+            style={[s.segment, selected && !segment && { backgroundColor: colors.accent }]}
           >
-            <Text
-              numberOfLines={1}
-              style={{
-                ...type.subhead,
-                fontWeight: "500",
-                color: selected ? colors.onAccent : colors.secondary,
-              }}
-            >
-              {option.title}
-            </Text>
+            <SegmentLabel title={option.title} index={i} segment={segment} x={x} selected={selected} />
           </Pressable>
         );
       })}
@@ -523,6 +567,14 @@ export const s = StyleSheet.create({
     padding: 4,
     borderRadius: radius.pill,
     backgroundColor: colors.surface,
+  },
+  pill: {
+    position: "absolute",
+    top: 4,
+    bottom: 4,
+    left: 4,
+    borderRadius: radius.pill,
+    backgroundColor: colors.accent,
   },
   segment: {
     flex: 1,

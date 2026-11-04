@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, View, useWindowDimensions } from "react-native";
+import { ScrollView, View, useWindowDimensions } from "react-native";
 import { Image } from "expo-image";
 import * as Haptics from "expo-haptics";
 import { Text } from "./Text";
@@ -6,6 +6,7 @@ import { content, mediaBackground, viewHints, viewLabels, viewOrder } from "../c
 import type { CameraView, ExerciseView } from "../content/types";
 import { colors, type } from "../theme";
 import { s } from "./ui";
+import { PressableScale } from "./motion";
 
 /**
  * Camera angle picker: each option shows that angle's own poster, so the
@@ -30,7 +31,7 @@ export function AnglePicker({
   const options = views.map((view) => {
     const selected = view === value;
     return (
-      <Pressable
+      <PressableScale
         key={view}
         accessibilityRole="tab"
         accessibilityLabel={viewLabels[view]}
@@ -41,7 +42,8 @@ export function AnglePicker({
           void Haptics.selectionAsync();
           onChange(view);
         }}
-        style={({ pressed }) => [
+        scaleTo={0.95}
+        style={[
           stacked ? { alignItems: "center", gap: 4, paddingHorizontal: 6 } : [s.row, { gap: 6, paddingRight: 8 }],
           {
             paddingVertical: 5,
@@ -51,7 +53,6 @@ export function AnglePicker({
             borderWidth: 1.5,
             borderColor: selected ? colors.accent : colors.surface,
             backgroundColor: selected ? colors.accentDim : colors.surface,
-            opacity: pressed ? 0.8 : 1,
           },
           scrolls ? { width: 120 } : { flex: 1 },
         ]}
@@ -80,7 +81,7 @@ export function AnglePicker({
         >
           {viewLabels[view]}
         </Text>
-      </Pressable>
+      </PressableScale>
     );
   });
   return scrolls ? (
