@@ -21,13 +21,14 @@ import {
   eraseAllEntries,
   exportData,
   getEntries,
+  getRoutines,
   importData,
   restoreEntries,
   updateSettings,
   useEntries,
   useSettings,
 } from "../../src/storage/store";
-import { restChoices, type Settings as Preferences } from "../../src/storage/preferences";
+import { goalChoices, restChoices, type Settings as Preferences } from "../../src/storage/preferences";
 import { clock } from "../../src/workout/rest";
 import { maxBackupBytes, parseBackup } from "../../src/storage/backup";
 import { plural } from "../../src/storage/format";
@@ -86,10 +87,12 @@ export default function Profile() {
         const known = new Set(getEntries().map((e) => e.id));
         const added = backup.entries.filter((e) => !known.has(e.id)).length;
         const existing = backup.entries.length - added;
+        const knownRoutines = new Set(getRoutines().map((r) => r.id));
+        const newRoutines = backup.routines.filter((r) => !knownRoutines.has(r.id)).length;
         const confirmed = await new Promise<boolean>((resolve) =>
           Alert.alert(
             "Import backup?",
-            `Adds ${plural(added, "new log")}${existing ? ` and skips ${existing} already on this device` : ""}. Also restores your settings from this backup.`,
+            `Adds ${plural(added, "new log")}${existing ? ` and skips ${existing} already on this device` : ""}${newRoutines ? `, plus ${plural(newRoutines, "routine")}` : ""}. Also restores your settings from this backup.`,
             [
               { text: "Cancel", style: "cancel", onPress: () => resolve(false) },
               { text: "Import", onPress: () => resolve(true) },
@@ -119,7 +122,7 @@ export default function Profile() {
     const count = entries.length;
     Alert.alert(
       "Erase all logs?",
-      `This deletes ${count === 1 ? "your log" : `all ${count} logs`} and their notes from this device. Your model, units and other settings stay. Export first if you want a copy.`,
+      `This deletes ${count === 1 ? "your log" : `all ${count} logs`} and their notes from this device. Your routines, favorites and settings stay. Export first if you want a copy.`,
       [
         { text: "Cancel", style: "cancel" },
         { text: "Export first", onPress: () => void transfer("export") },
@@ -223,6 +226,19 @@ export default function Profile() {
             <Text style={s.footnote}>
               Start it with the timer button on an exercise, or between sets in the log sheet.
             </Text>
+          </View>
+          <View style={{ padding: 16, gap: 12 }}>
+            <View style={s.row}>
+              <IconCircle name="flag-outline" size={36} dim />
+              <Text style={s.headline}>Weekly goal</Text>
+            </View>
+            <Segmented
+              label="Weekly goal, training days"
+              value={String(settings.weeklyGoal)}
+              onChange={(value) => save({ weeklyGoal: Number(value) })}
+              options={goalChoices.map((days) => ({ value: String(days), title: `${days} days` }))}
+            />
+            <Text style={s.footnote}>Home shows this week's training days against your goal.</Text>
           </View>
         </Group>
         <SectionTitle title="Your data" />

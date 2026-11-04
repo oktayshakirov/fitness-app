@@ -479,8 +479,75 @@ with the same model and units; Undo in the toast brings every log back. (G) Eras
 pill reads "Rest timer, 1 minute 23 seconds left", buttons "Add 15 seconds" and "Skip rest".
 Maestro: `.maestro/rest-timer.yaml`.
 
-**Suggested next (not done):** CI on pull requests (`npm ci`, typecheck, tests); a rest-over
-notification while the app is closed (`expo-notifications`, native build); automatic M6
-crash-loop detection (the error screen covers JS render errors; a native crash on launch is
-still not detected); tap a Home week bar to open that day in History. Still open from before:
-iOS redesign visual check, Maestro runs on both platforms, M7 and M8.
+**Round 6: features (same branch)**
+- Routines: migration 3 adds a `routines` table; `src/storage/routines.ts` (validation, today's
+  progress, next exercise, reorder; tested); store CRUD with Undo on delete; backups carry
+  routines as an optional field (schema stays 1, merged by id, older backups still import).
+  Home "Routines" section, `app/routine/[id].tsx` (progress, ordered list, Start/Continue) and
+  `app/routine/edit.tsx` (name, order, searchable catalog; asks before discarding). The
+  exercise screen walks the routine: header "Push day · 2 of 5", previous/next in order.
+- Progress chart (`src/components/ProgressChart.tsx`, `progressSeries` tested): last 12 sessions,
+  heaviest set or volume (reps for bodyweight), built to the dataviz rules: emphasis form,
+  gray #6E6E73 validated at ≥ 3:1 on the card, columns from zero, sparse labels.
+- Personal records: `newBest` (tested). Beating every earlier set shows a trophy toast "New best:
+  8 reps · 62.5 kg" and announces it; first logs and edits never count.
+- Weekly goal: `weeklyGoal` (2–6, default 3, optional in saved settings and backups). Home tile
+  "2 of 3 days", a trophy once met; Profile → Training → Weekly goal.
+- Ready to train: `suggestExercises` (tested). Primary muscles fully recovered, secondary not
+  freshly trained, rested longest first (never-trained first), one per primary muscle,
+  favourites win ties. Home card with up to three picks.
+- Favourites: `favorites` in settings (optional in backups). Star on the exercise screen, a
+  "Favorites" chip in Exercises once anything is starred, a lime star on cards, previous/next
+  stay within favourites, an empty state when none are left.
+- One-rep max and plates: Epley estimate (1–12 reps) on the best-set line; a plate calculator on
+  barbell exercises (per side, 20/15 kg or 45/35 lb bars, computed in hundredths; tested).
+- CI: `.github/workflows/ci.yml` runs `npm ci`, typecheck, tests and an Android JS bundle on pull
+  requests and pushes to `main`. Its first run on this PR passed on GitHub.
+- Verified: typecheck; 71 tests (13 new); `git diff --check`; Android and iOS bundles; CI green;
+  chart layout checked in an HTML mock. Not verified: anything on a device.
+
+**Round 6 checks:** (I) Home → Create a routine: name it, add three exercises, reorder, Save →
+the routine screen. Start workout → header "<name> · 1 of 3"; log it; swipe up → 2 of 3; back
+on the routine screen: 1 done, Continue. (J) Edit the routine (rename, remove one); delete it
+from the header; Undo in the toast restores it. (K) Export with a routine and a favourite; Erase
+all logs keeps both; importing the backup restores them. (L) On an exercise logged before, log a
+heavier set → trophy toast "New best: …"; a first log or a tie shows "Logged". (M) An exercise
+logged twice with sets shows Progress; switch Heaviest/Volume and tap columns; a bodyweight
+exercise charts reps with no switch; the best-set line shows "est. 1RM". (N) Barbell exercise →
+Plate calculator: 100 kg on a 20 kg bar → 25 · 15 per side; 61 kg → a note that 1 kg cannot be
+made; in lb the bars are 45/35. (O) Star an exercise → Favorites chip in Exercises; filter; the
+card shows a star; unstar → "No favorites yet". (P) Profile → Weekly goal 4 days → Home reads
+"x of 4 days"; reaching it shows a trophy. (Q) Ready to train: a new user sees three varied
+picks; after a heavy chest log, no chest picks until chest has recovered. Maestro:
+`.maestro/favorites.yaml`, `.maestro/routine.yaml`.
+
+## 2026-11-04 — Session end: moving to the local build
+
+The polish pass (rounds 1–6 above) is merged into `main` through PR #1. To continue locally:
+
+```sh
+git checkout main && git pull
+npm ci
+npm run typecheck && npm test
+NODE_OPTIONS=--dns-result-order=ipv4first npm start -- --localhost   # simulators
+npx expo start --dev-client --lan                                    # phone on the same Wi-Fi
+```
+
+- No native rebuild is needed: `package.json` dependencies and `app.json` plugins did not change
+  in this pass. Everything uses modules already in the installed development builds
+  (Reanimated, expo-haptics, expo-system-ui, expo-file-system, expo-video, expo-sqlite).
+  Restart the development app after pulling rather than relying on Fast Refresh.
+- First launch runs SQLite migration 3 (the `routines` table) automatically; logs and settings
+  are kept, and older backups still import.
+- Test in this order: the round checklists above (1–10, a–g, h–q, r–z, A–H, I–Q), then the
+  Maestro flows one device at a time (library, navigation, body, tracking or tracking-ios,
+  settings and settings-persistence, backup-*, model-fallback, log-day, rest-timer, favorites,
+  routine). Tracking and routine flows add and remove their own data; failed runs may leave
+  some behind.
+- Not verified in this session: anything on a device or simulator, the Maestro flows, real
+  performance of the animations, VoiceOver and TalkBack.
+- Still open: a rest-over notification while the app is closed (`expo-notifications`, native
+  build); automatic M6 crash-loop detection for native crashes; tapping a Home week bar to open
+  that day in History; the iOS redesign visual check; Maestro runs on both platforms; M7
+  monetization (needs the accounts decision); M8 release prep (icon, splash, store assets,
+  accessibility and performance passes on a mid-range Android phone, web export).
