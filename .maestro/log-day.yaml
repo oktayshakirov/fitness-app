@@ -1,0 +1,19 @@
+appId: com.oktayshakirov.fitness
+name: Polish — log an exercise for yesterday, then undo it
+---
+# Creates one log for yesterday and removes it again with Undo.
+- openLink: fitness://exercise/barbell_back_squat
+- runFlow:
+    when:
+      visible: Open
+    commands:
+      - tapOn: Open
+- tapOn: Log this exercise
+- assertVisible: Log exercise
+- tapOn: Previous day
+- takeScreenshot: log-yesterday
+- tapOn: Done
+- assertVisible: "Logged · Yesterday"
+- tapOn: Undo
+- assertNotVisible: "Logged · Yesterday"
+- tapOn: Close exercise

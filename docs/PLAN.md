@@ -279,3 +279,77 @@ no longer exists.
 - Not verified: iOS (no simulator run this session), a real HTTPS host, a crash-loop guard for
   a release that parses but breaks a screen. Open: hosting choice/upload (user's go-ahead),
   iOS redesign check, M7, M8.
+
+## 2026-11-04 — Polish pass (handoff: test locally)
+
+Branch `claude/eager-allen-1tdnnq`. JS only: no native dependencies, `app.json` plugins or
+content changed, so the installed iOS/Android development builds keep working. Pull, then
+restart the dev app (not just Fast Refresh) before testing.
+
+**Fixes**
+- Exercise detail: Close was the same chevron-down as "Next exercise"; it is now an X.
+- Home "This week" counted log entries as "workouts" (five exercises in one session read as
+  five workouts). It now counts training days, with a Mon–Sun bar strip (today outlined).
+- Privacy said "no automatic content downloads" and "version 0.1.0" after M6 added update
+  checks. It now describes the check only when `EXPO_PUBLIC_CONTENT_URL` is set (exercise
+  content only, nothing personal sent), reads the version from `app.json`, and shows the
+  local-server note only in development.
+- Android hardware back in onboarding left the app; it now steps back (only while
+  onboarding is focused, so it still closes Privacy).
+- History could page into future months; › is disabled on the current month and a "Today"
+  pill jumps back. Import dialogs no longer say "Add 1 logs" / "1 existing entries".
+- Maestro: `fitness://settings` (route renamed to Profile) → `fitness://profile`; Body tab →
+  Home; backup assertion text updated. Removed the unused `posterior` set on Home.
+
+**Polish**
+- Log sheet day stepper: log for an earlier day (Today → Yesterday → dates, never the future);
+  editing an entry can move it to another day, keeping its clock time (clamped to now).
+  Toasts read "Logged · Yesterday" / "Updated · Mon, Nov 2"; plain "Logged" for today.
+- Set summaries everywhere (`src/storage/format.ts`): identical sets grouped
+  ("3 × 10 · 40 kg, 1 × 8 · 45 kg"), bodyweight without "× 0 kg" ("3 × 12").
+- Exercise detail "Best set" (heaviest, then most reps, first date) once two or more sessions
+  have sets. Home day-streak tile shows the best streak. History shows a day summary
+  ("2 exercises · 6 sets"). Body map: tap the selected muscle again or outside to clear.
+
+**Verified here:** typecheck clean; 44 unit tests pass (7 new: plurals, grouped summaries,
+pounds grouping, best set, longest streak, moving a log between days, day labels);
+`git diff --check`; `expo export --platform android` bundles. **Not verified:** anything on a
+device or simulator (none in this environment); Maestro flows were edited but not run.
+
+**Local test checklist**
+
+```sh
+git fetch origin claude/eager-allen-1tdnnq && git checkout claude/eager-allen-1tdnnq
+npm ci && npm run typecheck && npm test
+NODE_OPTIONS=--dns-result-order=ipv4first npm start -- --localhost   # simulators
+npx expo start --dev-client --lan                                    # physical phone
+```
+
+1. Log sheet: open an exercise → Log this exercise. Day shows Today and › is disabled. Tap ‹
+   → Yesterday (lime) → Done → toast "Logged · Yesterday"; Undo removes it. Log again for
+   yesterday: History marks yesterday, Home streak/This week update. Edit that entry from
+   History, › to Today, Save → it moves to today.
+2. Home: log three exercises today → This week = 1 training day, today's bar lime. Streak
+   footer reads "Log today to start" on a fresh install, "Best: N days" after logging.
+3. Body map: tap a muscle → its row; tap it again, or beside the body → selection clears.
+4. Exercise detail: top-left is an X. Log the same exercise twice with sets (e.g. 3 × 10 at
+   40 kg, then 8 at 45 kg): Last reads "3 × 10 · 40 kg"-style, "Best set" appears.
+   A 0 kg set reads as reps only.
+5. History: › disabled this month; go back a month → Today pill → returns and selects today.
+6. Android onboarding (needs fresh data: export first, then
+   `adb shell pm clear com.oktayshakirov.fitness`): on Model/Units/All set, hardware back goes
+   to the previous step; on All set open Privacy, back closes Privacy and stays on the step.
+7. Privacy: without `EXPO_PUBLIC_CONTENT_URL` → "Exercises are built into the app…"; with it
+   → the update-check paragraph. Version line matches `app.json`.
+8. Profile → Import the `.maestro/fixtures/backup.json` fixture twice → second result reads
+   "Added 0 logs. Kept 1 existing entry."
+9. Large text (Settings → Display/Accessibility → XL): Home stat tiles and the Log day row
+   still fit.
+10. Maestro (one device at a time): `library`, `body`, `tracking`/`tracking-ios`, `settings`,
+    `backup-*` and the new `log-day.yaml`.
+
+**Suggested next (not done):** CI on pull requests (`npm ci`, typecheck, tests); "Erase all
+data" in Profile (decide whether it also resets onboarding); M6 crash-loop guard for a release
+that parses but breaks a screen; tap a Home week bar to open that day in History; group
+History "Recent" by day; rest timer (MVP "later"). Still open from before: iOS redesign visual
+check, Maestro runs on both platforms, M7 and M8.

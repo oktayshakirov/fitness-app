@@ -48,7 +48,8 @@ export function BodyFigure({
   view: BodyView;
   tints: Partial<Record<Muscle, string>>;
   focused?: Muscle;
-  onPressMuscle?: (muscle: Muscle) => void;
+  /** Called with the tapped muscle, or undefined for a tap outside every muscle. */
+  onPressMuscle?: (muscle: Muscle | undefined) => void;
   style?: StyleProp<ViewStyle>;
   accessibilityLabel: string;
 }) {
@@ -86,15 +87,14 @@ export function BodyFigure({
   return (
     <Pressable
       accessibilityLabel={accessibilityLabel}
-      accessibilityHint="Tap a muscle to select it"
+      accessibilityHint="Tap a muscle to select it, or outside to clear"
       onLayout={(e) => setSize(e.nativeEvent.layout)}
       onPress={(e) => {
         // contentFit="contain": map the touch into the 800×1000 render frame.
         const scale = Math.min(size.width / 800, size.height / 1000);
         const x = (e.nativeEvent.locationX - (size.width - 800 * scale) / 2) / scale;
         const y = (e.nativeEvent.locationY - (size.height - 1000 * scale) / 2) / scale;
-        const muscle = muscleAt(view, x, y);
-        if (muscle) onPressMuscle(muscle);
+        onPressMuscle(muscleAt(view, x, y));
       }}
       style={style}
     >

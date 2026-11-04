@@ -23,6 +23,7 @@ import {
 } from "../../src/storage/store";
 import type { Settings as Preferences } from "../../src/storage/preferences";
 import { maxBackupBytes, parseBackup } from "../../src/storage/backup";
+import { plural } from "../../src/storage/format";
 import { colors, tabBarSpace } from "../../src/theme";
 export default function Profile() {
   const settings = useSettings();
@@ -66,10 +67,11 @@ export default function Profile() {
         const backup = parseBackup(text);
         const known = new Set(getEntries().map((e) => e.id));
         const added = backup.entries.filter((e) => !known.has(e.id)).length;
+        const existing = backup.entries.length - added;
         const confirmed = await new Promise<boolean>((resolve) =>
           Alert.alert(
             "Import backup?",
-            `Add ${added} logs and keep ${backup.entries.length - added} existing entries. Restore model, units and recovery speed from this backup.`,
+            `Adds ${plural(added, "new log")}${existing ? ` and skips ${existing} already on this device` : ""}. Also restores model, units and recovery speed from this backup.`,
             [
               { text: "Cancel", style: "cancel", onPress: () => resolve(false) },
               { text: "Import", onPress: () => resolve(true) },
@@ -81,7 +83,7 @@ export default function Profile() {
         const imported = importData(text);
         Alert.alert(
           "Import complete",
-          `Added ${imported.added} logs. Kept ${imported.skipped} existing entries.`,
+          `Added ${plural(imported.added, "log")}. Kept ${plural(imported.skipped, "existing entry", "existing entries")}.`,
         );
       }
     } catch (error) {
@@ -167,7 +169,7 @@ export default function Profile() {
         <Group>
           <Row
             title={busy ? "Please wait…" : "Export data"}
-            detail={`${entries.length} ${entries.length === 1 ? "log" : "logs"} on this device`}
+            detail={`${plural(entries.length, "log")} on this device`}
             icon="share-outline"
             onPress={() => !busy && void transfer("export")}
           />

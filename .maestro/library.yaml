@@ -63,7 +63,7 @@ name: M1 and M2 native smoke
     commands:
       - tapOn: "Open"
 - assertVisible: "Active days"
-- openLink: "fitness://settings"
+- openLink: "fitness://profile"
 - runFlow:
     when:
       visible: "Open"

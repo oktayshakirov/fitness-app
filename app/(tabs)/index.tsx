@@ -19,26 +19,37 @@ import { Avatar } from "../../src/components/Avatar";
 import { bodyFor, exercises, label } from "../../src/content";
 import { muscleIds, type Muscle } from "../../src/content/types";
 import { useEntries, useSettings } from "../../src/storage/store";
-import { streaks, weekDays } from "../../src/storage/calendar";
+import { dayKey, streaks, weekDays } from "../../src/storage/calendar";
+import { plural } from "../../src/storage/format";
 import { recovery } from "../../src/recovery/engine";
 import { stateColors, stateNames } from "../../src/recovery/labels";
 import { colors, tabBarSpace } from "../../src/theme";
-const posterior = new Set<Muscle>([
-  "hamstrings",
-  "glutes",
-  "calves",
-  "lats",
-  "traps",
-  "middle_back",
-  "lower_back",
-  "triceps",
-]);
 const counts = Object.fromEntries(
   muscleIds.map((m) => [
     m,
     exercises.filter((e) => [...e.primary, ...e.secondary].includes(m)).length,
   ]),
 ) as Record<Muscle, number>;
+/** Mon–Sun bars: lime for days with a log, outlined today. */
+function WeekStrip({ days, today }: { days: { key: string; active: boolean }[]; today: string }) {
+  return (
+    <View style={[s.row, { gap: 4 }]}>
+      {days.map(({ key, active }) => (
+        <View
+          key={key}
+          style={{
+            flex: 1,
+            height: 6,
+            borderRadius: 3,
+            backgroundColor: active ? colors.accent : key > today ? colors.surface2 : colors.surface3,
+            borderWidth: key === today && !active ? 1 : 0,
+            borderColor: colors.accent,
+          }}
+        />
+      ))}
+    </View>
+  );
+}
 function greeting(hour: number) {
   return hour < 5 ? "Good night" : hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 }
@@ -77,17 +88,25 @@ export default function Home() {
   const resting = muscles.filter((m) => status[m].state !== "ready");
   const readyShare = Math.round(((muscleIds.length - resting.length) / muscleIds.length) * 100);
   const stats = streaks(entries, new Date(now));
-  const weekStart = weekDays(new Date(now))[0]!;
-  weekStart.setHours(0, 0, 0, 0);
-  const thisWeek = entries.filter((e) => e.timestamp >= weekStart.getTime() && e.timestamp <= now).length;
+  // Training days this week (several exercises in one session are one day).
+  const today = dayKey(now);
+  const trained = new Set(entries.filter((e) => e.timestamp <= now).map((e) => dayKey(e.timestamp)));
+  const week = weekDays(new Date(now)).map((d) => ({
+    key: dayKey(d),
+    name: d.toLocaleDateString(undefined, { weekday: "long" }),
+    active: trained.has(dayKey(d)),
+  }));
+  const thisWeek = week.filter((d) => d.active);
   const body = bodyFor(model);
   const figure = body?.[side];
   const tints = Object.fromEntries(
     muscleIds.filter((m) => status[m].state !== "ready").map((m) => [m, stateColors[status[m].state]]),
   );
-  function select(muscle: Muscle) {
+  function select(muscle: Muscle | undefined) {
+    if (!muscle && !focused) return;
     void Haptics.selectionAsync();
-    setFocused(muscle);
+    // Tapping the selected muscle again, or outside the body, clears the selection.
+    setFocused(muscle === focused ? undefined : muscle);
   }
   const open = (muscle?: Muscle) =>
     router.push({ pathname: "/(tabs)/exercises", params: { muscle: muscle ?? "" } });
@@ -169,8 +188,25 @@ export default function Home() {
             </View>
           </Pressable>
           <View style={[s.row, { gap: 12, alignItems: "stretch" }]}>
-            <Stat label="Day streak" value={stats.current} unit={stats.current === 1 ? "day" : "days"} icon="flame" />
-            <Stat label="This week" value={thisWeek} unit={thisWeek === 1 ? "workout" : "workouts"} icon="barbell" />
+            <Stat
+              label="Day streak"
+              value={stats.current}
+              unit={stats.current === 1 ? "day" : "days"}
+              icon="flame"
+              footer={
+                <Text numberOfLines={1} style={s.footnote}>
+                  {stats.longest ? `Best: ${plural(stats.longest, "day")}` : "Log today to start"}
+                </Text>
+              }
+            />
+            <Stat
+              label="This week"
+              value={thisWeek.length}
+              unit={thisWeek.length === 1 ? "training day" : "training days"}
+              icon="barbell"
+              description={thisWeek.length ? `Trained ${thisWeek.map((d) => d.name).join(", ")}` : undefined}
+              footer={<WeekStrip days={week} today={today} />}
+            />
           </View>
           {figure && (
             <>

@@ -10,7 +10,7 @@ import { useToast } from "../../src/components/Toast";
 import { content, coverFor, exercises, mediaBackground } from "../../src/content";
 import { deleteEntry, saveEntry, useEntries, useSettings } from "../../src/storage/store";
 import { dayKey, monthDays, streaks } from "../../src/storage/calendar";
-import { weightText } from "../../src/storage/units";
+import { plural, setsSummary } from "../../src/storage/format";
 import type { LogEntry } from "../../src/storage/types";
 import { colors, tabBarSpace } from "../../src/theme";
 function EntryRow({ entry, showDate = false }: { entry: LogEntry; showDate?: boolean }) {
@@ -76,8 +76,8 @@ function EntryRow({ entry, showDate = false }: { entry: LogEntry; showDate?: boo
               </Text>
             </View>
             {!!entry.sets.length && (
-              <Text style={s.footnote} numberOfLines={1}>
-                {entry.sets.map((set) => `${set.reps} × ${weightText(set.weightKg, units)} ${units}`).join(" · ")}
+              <Text style={s.footnote} numberOfLines={2}>
+                {setsSummary(entry.sets, units)}
               </Text>
             )}
           </View>
@@ -101,9 +101,39 @@ export default function History() {
   const dayEntries = entries.filter((e) => dayKey(e.timestamp) === selected);
   const recent = entries.filter((e) => dayKey(e.timestamp) !== selected).slice(0, 20);
   const selectedDate = new Date(`${selected}T12:00:00`);
+  const now = new Date();
+  const onCurrentMonth = month.getFullYear() === now.getFullYear() && month.getMonth() === now.getMonth();
+  const daySets = dayEntries.reduce((n, e) => n + e.sets.length, 0);
+  const dayExercises = new Set(dayEntries.map((e) => e.exerciseId)).size;
   return (
     <Screen>
-      <Heading eyebrow="Your training" title="History" />
+      <Heading
+        eyebrow="Your training"
+        title="History"
+        action={
+          (!onCurrentMonth || selected !== today) && (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Go to today"
+              hitSlop={8}
+              onPress={() => {
+                setMonth(new Date());
+                setSelected(today);
+              }}
+              style={({ pressed }) => ({
+                minHeight: 36,
+                paddingHorizontal: 16,
+                borderRadius: 18,
+                justifyContent: "center",
+                backgroundColor: colors.accentDim,
+                opacity: pressed ? 0.7 : 1,
+              })}
+            >
+              <Text style={[s.subhead, { color: colors.accent, fontWeight: "600" }]}>Today</Text>
+            </Pressable>
+          )
+        }
+      />
       <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 0, gap: 12, paddingBottom: tabBarSpace }}>
         <View style={[s.row, { gap: 10 }]}>
           {(
@@ -140,6 +170,7 @@ export default function History() {
               plain
               name="chevron-forward"
               label="Next month"
+              disabled={onCurrentMonth}
               onPress={() => setMonth((m) => new Date(m.getFullYear(), m.getMonth() + 1, 1))}
             />
           </View>
@@ -201,6 +232,12 @@ export default function History() {
               : selectedDate.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })
           }
         />
+        {!!dayEntries.length && (
+          <Text style={[s.footnote, { marginTop: -6 }]}>
+            {plural(dayExercises, "exercise")}
+            {daySets ? ` · ${plural(daySets, "set")}` : ""}
+          </Text>
+        )}
         {dayEntries.map((e) => (
           <EntryRow key={e.id} entry={e} />
         ))}
@@ -216,7 +253,7 @@ export default function History() {
         )}
         {!!recent.length && (
           <>
-                <SectionTitle title="Recent" />
+            <SectionTitle title="Recent" />
             {recent.map((e) => (
               <EntryRow key={e.id} entry={e} showDate />
             ))}
