@@ -18,6 +18,7 @@ import Animated, {
 import { motion } from "../../src/components/motion";
 import { Screen, IconButton, Button, SectionLabel, s } from "../../src/components/ui";
 import { AnglePicker } from "../../src/components/AnglePicker";
+import { RestStartButton } from "../../src/components/RestTimer";
 import { ExerciseVideo } from "../../src/components/ExerciseVideo";
 import { BodyFigure } from "../../src/components/BodyFigure";
 import {
@@ -130,7 +131,7 @@ function MuscleLine({ muscles, color, title }: { muscles: Muscle[]; color: strin
   );
 }
 export default function ExerciseDetail() {
-  const { model, units } = useSettings();
+  const { model, units, restSeconds } = useSettings();
   const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{
     id: string;
@@ -351,18 +352,25 @@ export default function ExerciseDetail() {
         </ScrollView>
       </GestureDetector>
       <View
-        style={{
-          paddingHorizontal: 16,
-          paddingTop: 12,
-          paddingBottom: Math.max(insets.bottom, 16),
-          backgroundColor: colors.bg,
-        }}
+        style={[
+          s.row,
+          {
+            gap: 10,
+            paddingHorizontal: 16,
+            paddingTop: 12,
+            paddingBottom: Math.max(insets.bottom, 16),
+            backgroundColor: colors.bg,
+          },
+        ]}
       >
-        <Button
-          title="Log this exercise"
-          arrow
-          onPress={() => router.push({ pathname: "/log", params: { exerciseId: exercise.id } })}
-        />
+        <RestStartButton seconds={restSeconds} />
+        <View style={{ flex: 1 }}>
+          <Button
+            title="Log this exercise"
+            arrow
+            onPress={() => router.push({ pathname: "/log", params: { exerciseId: exercise.id } })}
+          />
+        </View>
       </View>
     </Screen>
   );

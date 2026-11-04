@@ -1,5 +1,6 @@
 import { defaults, parsePreferences, type Settings } from "./preferences";
 import { applyBackup, parseBackup, serializeBackup } from "./backup";
+import { eraseEntries, restoreEntries as restoreRows } from "./erase";
 import { useSyncExternalStore } from "react";
 import { openDatabaseSync } from "expo-sqlite";
 import { randomUUID } from "expo-crypto";
@@ -116,6 +117,26 @@ export function logExercise(
 export function deleteEntry(id: string) {
   database().runSync("DELETE FROM entries WHERE id=?", id);
   refresh();
+}
+/** Deletes every log; settings and onboarding stay. Returns the logs so Undo can put them back. */
+export function eraseAllEntries() {
+  const db = database();
+  const removed = [...entries];
+  eraseEntries(db);
+  // Rewrite the file and empty the write-ahead log so erased notes do not linger on disk.
+  try {
+    db.execSync("VACUUM");
+    db.execSync("PRAGMA wal_checkpoint(TRUNCATE)");
+  } catch {
+    // Best effort; the rows are already gone.
+  }
+  refresh();
+  return removed;
+}
+export function restoreEntries(list: readonly LogEntry[]) {
+  const added = restoreRows(database(), list);
+  refresh();
+  return added;
 }
 
 export function useSettings() {

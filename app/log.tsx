@@ -9,6 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import Animated, { FadeIn, FadeInDown, FadeOut, LayoutAnimationConfig, LinearTransition } from "react-native-reanimated";
 import { motion } from "../src/components/motion";
+import { RestControl } from "../src/components/RestTimer";
 import { content, coverFor, exercises, mediaBackground } from "../src/content";
 import { Screen, Heading, IconButton, Button, s } from "../src/components/ui";
 import { useToast } from "../src/components/Toast";
@@ -309,6 +310,10 @@ export default function LogSheet() {
                   disabled={sets.length >= 100}
                   onPress={() => setSets((rows) => [...rows, { ...rows[rows.length - 1]!, id: nextId.current++ }])}
                 />
+              </Animated.View>
+              {/* Rest between sets; the floating pill is hidden behind this sheet, so it shows here. */}
+              <Animated.View layout={LinearTransition.duration(motion.base)}>
+                <RestControl seconds={settings.restSeconds} />
               </Animated.View>
             </Animated.View>
           )}
