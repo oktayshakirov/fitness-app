@@ -1,7 +1,9 @@
 import { router } from "expo-router";
 import { ScrollView } from "react-native";
+import Constants from "expo-constants";
 import { Text } from "../src/components/Text";
 import { Screen, Heading, IconButton, Card, s } from "../src/components/ui";
+import { contentUrl } from "../src/content/updates";
 export default function Privacy() {
   return (
     <Screen>
@@ -26,8 +28,12 @@ export default function Privacy() {
           </Text>
         </Card>
         <Text style={s.text}>
-          This build has no analytics, ads, purchases or automatic content
-          downloads.
+          This version has no analytics, ads or purchases.
+        </Text>
+        <Text style={s.text}>
+          {contentUrl
+            ? "To get new and corrected exercises, the app checks the exercise library server when it opens, at most every few hours. It downloads exercise text, videos and images only; your logs, notes and preferences are never sent. Like any web request, the server can see your IP address."
+            : "Exercises are built into the app; this version does not download content."}
         </Text>
         <Text style={s.text}>
           Export creates a plain JSON backup containing your logs, notes and
@@ -44,8 +50,8 @@ export default function Privacy() {
           export first if you want to keep it.
         </Text>
         <Text style={s.footnote}>
-          Applies to app version 0.1.0. Development builds also connect to the
-          developer's local server.
+          Applies to app version {Constants.expoConfig?.version ?? "0.1.0"}.
+          {__DEV__ ? " Development builds also connect to the developer's local server." : ""}
         </Text>
       </ScrollView>
     </Screen>

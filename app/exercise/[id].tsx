@@ -23,7 +23,7 @@ import {
 } from "../../src/content";
 import type { CameraView, Muscle } from "../../src/content/types";
 import { useEntries, useSettings } from "../../src/storage/store";
-import { weightText } from "../../src/storage/units";
+import { bestSet, setText, setsSummary } from "../../src/storage/format";
 import { colors } from "../../src/theme";
 function Section({
   title,
@@ -82,6 +82,8 @@ function Section({
     </View>
   );
 }
+const shortDate = (timestamp: number) =>
+  new Date(timestamp).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
 function MuscleLine({ muscles, color, title }: { muscles: Muscle[]; color: string; title: string }) {
   if (!muscles.length) return null;
   return (
@@ -126,7 +128,13 @@ export default function ExerciseDetail() {
   const [index, setIndex] = useState(Math.max(0, initial));
   const exercise = list[index];
   const entries = useEntries();
-  const last = entries.find((entry) => entry.exerciseId === exercise?.id);
+  const history = useMemo(
+    () => entries.filter((entry) => entry.exerciseId === exercise?.id),
+    [entries, exercise?.id],
+  );
+  const last = history[0];
+  // Only worth a line once there is more than one logged session with sets.
+  const best = history.filter((e) => e.sets.length).length > 1 ? bestSet(history) : undefined;
   useEffect(() => {
     setIndex(Math.max(0, initial));
   }, [initial, params.id]);
@@ -183,7 +191,7 @@ export default function ExerciseDetail() {
   return (
     <Screen>
       <View style={[s.row, { paddingHorizontal: 16, paddingVertical: 6, justifyContent: "space-between" }]}>
-        <IconButton name="chevron-down" label="Close exercise" onPress={() => router.back()} />
+        <IconButton name="close" label="Close exercise" onPress={() => router.back()} />
         <Text style={s.footnote}>
           {index + 1} of {list.length}
         </Text>
@@ -276,22 +284,22 @@ export default function ExerciseDetail() {
               )}
             </View>
             {last && (
-              <View style={[s.row, { gap: 8, paddingHorizontal: 4 }]}>
-                <Ionicons name="time-outline" size={16} color={colors.secondary} />
-                <Text style={[s.footnote, { flex: 1 }]}>
-                  Last:{" "}
-                  {last.sets.length
-                    ? last.sets
-                        .map((set) => `${set.reps} × ${weightText(set.weightKg, units)} ${units}`)
-                        .join(" · ")
-                    : "Done"}{" "}
-                  ·{" "}
-                  {new Date(last.timestamp).toLocaleDateString(undefined, {
-                    weekday: "short",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </Text>
+              <View style={{ gap: 6, paddingHorizontal: 4 }}>
+                <View style={[s.row, { gap: 8 }]}>
+                  <Ionicons name="time-outline" size={16} color={colors.secondary} />
+                  <Text style={[s.footnote, { flex: 1 }]}>
+                    Last: {last.sets.length ? setsSummary(last.sets, units) : "Done"} · {shortDate(last.timestamp)}
+                  </Text>
+                </View>
+                {best && (
+                  <View style={[s.row, { gap: 8 }]}>
+                    <Ionicons name="trophy-outline" size={16} color={colors.accent} />
+                    <Text style={[s.footnote, { flex: 1 }]}>
+                      Best set: <Text style={[s.footnote, { color: colors.text }]}>{setText(best.set, units)}</Text> ·{" "}
+                      {shortDate(best.timestamp)}
+                    </Text>
+                  </View>
+                )}
               </View>
             )}
             <Section title="How to" lines={exercise.steps} numbered initial />

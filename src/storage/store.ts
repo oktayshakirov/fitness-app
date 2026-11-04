@@ -98,12 +98,13 @@ export function logExercise(
   exercise: Exercise,
   sets: TrainingSet[] = [],
   note = "",
+  timestamp = Date.now(),
 ) {
   const entry: LogEntry = {
     id: randomUUID(),
     exerciseId: exercise.id,
     exerciseName: exercise.name,
-    timestamp: Date.now(),
+    timestamp,
     sets,
     note,
     primary: exercise.primary,

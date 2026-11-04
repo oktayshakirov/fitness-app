@@ -91,6 +91,8 @@ failed runs may leave sample entries in the test device.
 The tests exercise functional behavior. They do not establish packaged offline
 startup, physical-device playback/lifecycle behavior or 60 fps performance.
 
+`.maestro/log-day.yaml` logs one exercise for yesterday and undoes it (Log sheet day stepper).
+
 For iOS tracking, use `.maestro/tracking-ios.yaml`: it verifies reps/weight via
 steppers plus typed notes, persistence and Undo. Direct numeric typing on iOS is
 still an open verification item after XCTest stalled while changing numeric fields.

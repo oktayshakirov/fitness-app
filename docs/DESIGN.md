@@ -40,9 +40,11 @@ paywall.
 
 **Home.** Greeting eyebrow, "Ready to train?", info button and a round avatar of the chosen
 model (opens Profile). A lime recovery card (share of muscles ready, which muscles are
-resting, progress bar). Two stat tiles: day streak, workouts this week. "Body map" card with
+resting, progress bar). Two stat tiles: day streak (with the best streak below) and training
+days this week (distinct days with a log, plus a Mon–Sun bar strip). "Body map" card with
 a Front | Back pill switch, the body render with tinted masks per recovery state and a
-legend; tapping a muscle selects it and shows a row linking to its exercises. "Muscles"
+legend; tapping a muscle selects it and shows a row linking to its exercises; tapping it
+again or outside the body clears the selection. "Muscles"
 list (resting muscles first) with state icon circles and exercise counts; tap opens the
 filtered library.
 
@@ -56,16 +58,22 @@ Ad banner (free tier) docked at the bottom above the tab bar, never covering con
 (Front · Side · ¾) under it. Title, muscles worked as chips (red primary, orange
 secondary) + a mini body thumbnail with those muscles tinted. Big accent **Log** button
 (sticky at the bottom). Sections: How to (numbered steps), Cues, Common mistakes,
-Breathing — collapsible, first one open. Last-done line ("Last: 3 × 10 · 40 kg, Tue").
+Breathing — collapsible, first one open. Last-done line ("Last: 3 × 10 · 40 kg · Tue"), and
+once there are two or more sessions with sets, a best-set line ("Best set: 8 reps · 60 kg").
+Close is an X (the header's chevrons are previous/next exercise).
 Swipe up/down for next/previous exercise; swipe right / X to close. No ads here.
 
-**Log sheet.** Glass bottom sheet. Primary button "Done" (one tap = logged). Expandable
+**Log sheet.** Glass bottom sheet. A day stepper on top (Today by default; ‹ goes back a
+day, never into the future; editing an entry can move it to another day, keeping its time).
+Primary button "Done" (one tap = logged). Expandable
 "Add sets": rows of reps × weight with +/− steppers, prefilled from last time, "Add set".
 Save → haptic, recovery updates, sheet closes, toast with Undo.
 
 **History.** Large title "History". Month calendar card: active days filled accent,
 today ringed; stats row below: Active days (month) · Current streak · Weekly streak.
-Tap a day → list of that day's entries (poster thumb, name, sets summary), swipe to delete,
+No paging past the current month; a "Today" pill in the header jumps back.
+Tap a day → that day's summary (exercises · sets) and entries (poster thumb, name, grouped
+sets summary such as "3 × 10 · 40 kg"; bodyweight sets show reps only), swipe to delete,
 tap to edit. Below the calendar: "Recent" list of last sessions.
 
 **Profile** (was Settings, renamed 2026-11-03). Header card with the model avatar, the

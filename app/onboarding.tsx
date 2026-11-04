@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Alert, Pressable, ScrollView, View } from "react-native";
-import { router } from "expo-router";
+import { useCallback, useState } from "react";
+import { Alert, BackHandler, Pressable, ScrollView, View } from "react-native";
+import { router, useFocusEffect } from "expo-router";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import { Text } from "../src/components/Text";
@@ -36,6 +36,19 @@ export default function Onboarding() {
   const [model, setModel] = useState<Model>(settings.model);
   const [units, setUnits] = useState<Units>(settings.units);
   const { male, female } = content.release.heroes;
+  const back = useCallback(() => setStep((current) => steps[Math.max(0, steps.indexOf(current) - 1)]!), []);
+  // Android back steps through onboarding instead of leaving the app. Only while
+  // focused, so it never swallows the back press that closes Privacy.
+  useFocusEffect(
+    useCallback(() => {
+      if (step === "welcome") return;
+      const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+        back();
+        return true;
+      });
+      return () => sub.remove();
+    }, [step, back]),
+  );
   function finish() {
     try {
       updateSettings({ model, units, onboarded: true });
@@ -95,7 +108,7 @@ export default function Onboarding() {
           accessibilityRole="button"
           accessibilityLabel="Back"
           hitSlop={8}
-          onPress={() => setStep(steps[steps.indexOf(step) - 1]!)}
+          onPress={back}
           style={{
             width: 44,
             height: 44,

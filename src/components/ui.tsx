@@ -108,22 +108,27 @@ export function IconCircle({
     </View>
   );
 }
-/** Stat tile: label and icon on top, big number below. */
+/** Stat tile: label and icon on top, big number below, optional one-line footer. */
 export function Stat({
   label,
   value,
   unit,
   icon,
+  footer,
+  description,
 }: {
   label: string;
   value: string | number;
   unit?: string;
   icon: IconName;
+  footer?: React.ReactNode;
+  /** Spoken after the value, e.g. what the footer shows. */
+  description?: string;
 }) {
   return (
     <View
       accessible
-      accessibilityLabel={`${label}: ${value} ${unit ?? ""}`}
+      accessibilityLabel={`${label}: ${value} ${unit ?? ""}${description ? `. ${description}` : ""}`}
       style={[s.card, { flex: 1, padding: 16, gap: 14 }]}
     >
       <View style={[s.row, { justifyContent: "space-between", alignItems: "flex-start" }]}>
@@ -136,6 +141,7 @@ export function Stat({
         {value}
         {!!unit && <Text style={[s.footnote, { color: colors.secondary }]}> {unit}</Text>}
       </Text>
+      {footer ? <View style={{ minHeight: 18, justifyContent: "center", marginTop: -6 }}>{footer}</View> : null}
     </View>
   );
 }

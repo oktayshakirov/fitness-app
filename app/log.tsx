@@ -17,6 +17,7 @@ import {
   saveEntry,
 } from "../src/storage/store";
 import type { TrainingSet } from "../src/storage/types";
+import { addDays, dayKey, dayLabel, onDay } from "../src/storage/calendar";
 import { colors } from "../src/theme";
 export default function LogSheet() {
   const settings = useSettings();
@@ -41,6 +42,11 @@ export default function LogSheet() {
     })),
   );
   const [note, setNote] = useState(original?.note ?? "");
+  // The day this log counts for; never later than today.
+  const [day, setDay] = useState(() => new Date(original?.timestamp ?? Date.now()));
+  const isToday = dayKey(day) >= dayKey(Date.now());
+  const moveDay = (delta: number) =>
+    setDay((d) => (delta > 0 && dayKey(d) >= dayKey(Date.now()) ? d : addDays(d, delta)));
   const [busy, setBusy] = useState(false);
   const toast = useToast();
   const [keyboardOpen, setKeyboardOpen] = useState(false);
@@ -87,12 +93,24 @@ export default function LogSheet() {
         : [];
       if (expanded && sets.some((s) => !s.reps.trim() || !s.weight.trim()))
         throw new Error("Fill in reps and weight, or use 0 for bodyweight.");
+      const suffix = isToday ? "" : ` · ${dayLabel(day)}`;
       if (original) {
-        saveEntry({ ...original, sets: values, note });
-        toast({ text: "Updated", undo: () => saveEntry(original) });
+        const moved = dayKey(day) !== dayKey(original.timestamp);
+        saveEntry({
+          ...original,
+          sets: values,
+          note,
+          timestamp: moved ? onDay(original.timestamp, day) : original.timestamp,
+        });
+        toast({ text: `Updated${moved ? suffix : ""}`, undo: () => saveEntry(original) });
       } else if (exercise) {
-        const entry = logExercise(exercise, values, note);
-        toast({ text: "Logged", undo: () => deleteEntry(entry.id) });
+        const entry = logExercise(
+          exercise,
+          values,
+          note,
+          isToday ? Date.now() : onDay(Date.now(), day),
+        );
+        toast({ text: `Logged${suffix}`, undo: () => deleteEntry(entry.id) });
       } else throw new Error("Exercise unavailable.");
       void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       router.back();
@@ -186,6 +204,24 @@ export default function LogSheet() {
           keyboardDismissMode="on-drag"
           contentContainerStyle={{ padding: 20, gap: 12, paddingBottom: 40 }}
         >
+          <View style={[s.row, styles.day]}>
+            <IconButton plain name="chevron-back" label="Previous day" onPress={() => moveDay(-1)} />
+            <View
+              accessible
+              accessibilityRole="adjustable"
+              accessibilityLabel="Day"
+              accessibilityValue={{ text: dayLabel(day) }}
+              accessibilityActions={[{ name: "decrement" }, { name: "increment" }]}
+              onAccessibilityAction={(e) => moveDay(e.nativeEvent.actionName === "increment" ? 1 : -1)}
+              style={[s.row, { flex: 1, justifyContent: "center", gap: 8 }]}
+            >
+              <Ionicons name="calendar-outline" size={18} color={isToday ? colors.secondary : colors.accent} />
+              <Text testID="log-day" style={[s.headline, !isToday && { color: colors.accent }]}>
+                {dayLabel(day)}
+              </Text>
+            </View>
+            <IconButton plain name="chevron-forward" label="Next day" disabled={isToday} onPress={() => moveDay(1)} />
+          </View>
           <Button
             title={original ? "Save changes" : expanded ? `Save ${sets.length} ${sets.length === 1 ? "set" : "sets"}` : "Done"}
             icon="checkmark-circle"
@@ -266,6 +302,7 @@ export default function LogSheet() {
   );
 }
 const styles = StyleSheet.create({
+  day: { backgroundColor: colors.surface, borderRadius: 24, minHeight: 52, paddingHorizontal: 4 },
   stepper: {
     flexDirection: "row",
     alignItems: "center",
