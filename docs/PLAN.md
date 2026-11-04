@@ -413,6 +413,38 @@ xcrun simctl openurl booted fitness://nope
 adb shell am start -a android.intent.action.VIEW -d fitness://nope
 ```
 
+**Round 4: motion (same branch)**
+- `src/components/motion.tsx`: `PressableScale`/`usePressScale` (spring scale on press, skipped
+  with Reduce Motion), `ProgressBar`, shared timings. Everything runs on the UI thread with
+  the already-installed Reanimated 4; no new dependencies, no rebuild.
+- Applied: press feedback on Button, IconButton, Chip, PillButton, Stat, ModelChoice, angle
+  cards, grid cards and the lime recovery card; sliding Segmented pill with colour-following
+  labels; tab cross-fade (off with Reduce Motion) and animated active pill; toast slide/fade
+  with an Undo countdown line; Home recovery bar, Front/Back cross-fade, muscle row fade;
+  exercise info slides in from the swipe direction, section chevrons rotate and cards glide;
+  quick-log "+" pops into a check (keyed per exercise so recycled cells never show another
+  exercise's check); Log set rows enter/exit with stable ids; History month slide, day-list
+  fade, row reflow; onboarding step slides, stretching dots, welcome and "all set" entrances.
+- Performance guardrails: transform/opacity only (two small width animations), ≤ 220 ms except
+  the 600 ms recovery bar, no loops, no entering/layout animations in FlashList.
+- Verified: typecheck, 50 tests, `git diff --check`, Android and iOS bundles; a plain-JS export
+  confirms the new animation functions are compiled into UI-thread worklets. Not verified:
+  how any of it looks or performs on a device.
+
+**Round 4 checks:** (r) Tap and hold buttons, chips and grid cards: a slight shrink and spring
+back, no delay to the action. (s) Profile units/recovery speed and Home Front/Back: the lime
+pill slides and the labels change colour with it. (t) Switching tabs cross-fades; the lime
+pill grows behind the new icon. (u) Quick-log from the grid: toast slides up with a lime line
+running down for 10 s; Undo fades it down; the "+" pops into a check. (v) Exercise screen:
+swipe up/down, the info slides in from below/above; open and close How to/Cues, the chevron
+turns and the cards below glide. (w) Log sheet: Add sets, add and remove sets, rows slide in
+and fade out, the note glides. (x) History: page months both ways; delete a row and Undo, the
+rows glide. (y) Fresh onboarding: welcome entrance, step slides both ways, stretching dots, the
+check pops on "You're all set". (z) Turn on Reduce Motion (iOS: Accessibility → Motion;
+Android: Accessibility → Remove animations), restart the app: no slides, scaling, tab fade or
+countdown line; everything still works. Also scroll the Exercises grid and History on the
+Android emulator (or a mid-range phone) and watch for dropped frames.
+
 **Suggested next (not done):** CI on pull requests (`npm ci`, typecheck, tests); "Erase all
 data" in Profile (decide whether it also resets onboarding); automatic M6 crash-loop detection
 (the error screen covers JS render errors; a native crash on launch is still not detected); tap a Home week bar to open that day in History; group

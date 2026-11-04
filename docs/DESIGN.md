@@ -101,11 +101,29 @@ links open a "Page not found" screen with Go to Home.
 
 ## Motion and feel
 
-- Spring transitions (native stack); shared-element feel from grid poster → detail video
-  (poster stays visible until the video's first frame, so no flash).
-- Body highlight changes cross-fade 150 ms; no jank while the list scrolls (driven on the
-  UI thread with Reanimated).
-- Haptics: selection on segmented control, success on Log.
+Rules (`src/components/motion.tsx`): Reanimated on the UI thread, transforms and opacity (only
+the recovery bar and onboarding dots animate a width), 90–220 ms (600 ms for the recovery bar),
+nothing that loops, and no entering/layout animations inside FlashList cells (recycling would
+replay them). Reanimated skips all of it when Reduce Motion was on at app start; the tab
+cross-fade and the toast countdown are off then too.
+
+- Press feedback: buttons, chips, pills, stat tiles, model and angle cards and grid cards shrink
+  slightly while held (`PressableScale` / `usePressScale`) and spring back; list rows keep a
+  background highlight instead.
+- Segmented controls: the lime pill slides to the chosen segment; label colours follow it.
+- Tabs: 150 ms native cross-fade between tabs; the active icon's lime pill grows in.
+- Toast: slides up, fades down; a thin lime line counts down the 10 s Undo window.
+- Home: the recovery bar eases to its value; Front/Back cross-fades; the muscle row fades in.
+- Exercise detail: the info block slides in from the direction of the previous/next move;
+  section chevrons rotate, content fades in, cards below glide.
+- Exercises: the quick-log "+" pops into a check for a moment after logging.
+- Log sheet: added sets slide in, removed ones fade out, the note and buttons glide.
+- History: months slide in from the side you paged to; the day list fades in; rows glide into
+  place after a delete or undo.
+- Onboarding: steps slide in from the right (left when going back); page dots stretch; welcome
+  content and the "all set" check have one-time entrances.
+- Body highlight changes cross-fade 150 ms. Haptics: selection on segmented controls and chips,
+  success on Log, warning on delete. The video poster stays until the first frame (no flash).
 - Everything works offline.
 
 ## Assets

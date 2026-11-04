@@ -14,7 +14,9 @@ import {
   Stat,
   s,
 } from "../../src/components/ui";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { BodyFigure } from "../../src/components/BodyFigure";
+import { PressableScale, ProgressBar, motion } from "../../src/components/motion";
 import { Avatar } from "../../src/components/Avatar";
 import { bodyFor, exercises, label } from "../../src/content";
 import { muscleIds, type Muscle } from "../../src/content/types";
@@ -140,17 +142,12 @@ export default function Home() {
           }
         />
         <View style={{ paddingHorizontal: 20, gap: 14 }}>
-          <Pressable
+          <PressableScale
             accessibilityRole="button"
             accessibilityLabel={`${readyShare}% of muscles ready. Open exercises.`}
             onPress={() => open()}
-            style={({ pressed }) => ({
-              backgroundColor: colors.accent,
-              borderRadius: 24,
-              padding: 18,
-              gap: 14,
-              opacity: pressed ? 0.9 : 1,
-            })}
+            scaleTo={0.98}
+            style={{ backgroundColor: colors.accent, borderRadius: 24, padding: 18, gap: 14 }}
           >
             <View style={[s.row, { gap: 10 }]}>
               <View
@@ -184,10 +181,8 @@ export default function Home() {
                 <Text style={{ color: colors.onAccent, fontSize: 16, fontWeight: "600" }}>% ready</Text>
               </Text>
             </View>
-            <View style={{ height: 8, borderRadius: 4, backgroundColor: "rgba(11,11,12,0.15)" }}>
-              <View style={{ width: `${readyShare}%`, height: 8, borderRadius: 4, backgroundColor: colors.onAccent }} />
-            </View>
-          </Pressable>
+            <ProgressBar value={readyShare / 100} fill={colors.onAccent} track="rgba(11,11,12,0.15)" />
+          </PressableScale>
           <View style={[s.row, { gap: 12, alignItems: "stretch" }]}>
             <Stat
               label="Day streak"
@@ -228,14 +223,21 @@ export default function Home() {
                     ]}
                   />
                 </View>
-                <BodyFigure
-                  view={figure}
-                  tints={tints}
-                  focused={focused}
-                  onPressMuscle={select}
-                  accessibilityLabel={`${label(side)} body${focused ? `, ${label(focused)} selected` : ""}`}
-                  style={{ height: Math.min(height * 0.42, 400), marginTop: 6 }}
-                />
+                {/* Front/Back cross-fade: the old view fades out on top while the new one fades in. */}
+                <Animated.View
+                  key={side}
+                  entering={FadeIn.duration(motion.base)}
+                  exiting={FadeOut.duration(motion.fast)}
+                >
+                  <BodyFigure
+                    view={figure}
+                    tints={tints}
+                    focused={focused}
+                    onPressMuscle={select}
+                    accessibilityLabel={`${label(side)} body${focused ? `, ${label(focused)} selected` : ""}`}
+                    style={{ height: Math.min(height * 0.42, 400), marginTop: 6 }}
+                  />
+                </Animated.View>
                 <View style={[s.row, { justifyContent: "center", flexWrap: "wrap", gap: 12, marginTop: 6 }]}>
                   {(["trained", "recovering", "almost", "ready"] as const).map((state) => (
                     <View key={state} style={[s.row, { gap: 5 }]}>
@@ -245,36 +247,40 @@ export default function Home() {
                   ))}
                 </View>
                 {focused ? (
-                  <Pressable
-                    accessibilityRole="button"
-                    onPress={() => open(focused)}
-                    style={({ pressed }) => [
-                      s.row,
-                      {
-                        marginTop: 14,
-                        padding: 12,
-                        borderRadius: 18,
-                        backgroundColor: pressed ? colors.surface3 : colors.surface2,
-                      },
-                    ]}
-                  >
-                    <View
-                      style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: stateColors[status[focused].state] }}
-                    />
-                    <View style={{ flex: 1 }}>
-                      <Text style={s.headline}>{label(focused)}</Text>
-                      <Text style={s.footnote}>
-                        {stateNames[status[focused].state]}
-                        {status[focused].readyInHours ? ` · ${readyIn(status[focused].readyInHours)}` : ""}
-                      </Text>
-                    </View>
-                    <Text style={[s.subhead, { color: colors.accent }]}>{counts[focused]} exercises</Text>
-                    <Ionicons name="chevron-forward" size={18} color={colors.accent} />
-                  </Pressable>
+                  <Animated.View key={focused} entering={FadeIn.duration(motion.fast)}>
+                    <Pressable
+                      accessibilityRole="button"
+                      onPress={() => open(focused)}
+                      style={({ pressed }) => [
+                        s.row,
+                        {
+                          marginTop: 14,
+                          padding: 12,
+                          borderRadius: 18,
+                          backgroundColor: pressed ? colors.surface3 : colors.surface2,
+                        },
+                      ]}
+                    >
+                      <View
+                        style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: stateColors[status[focused].state] }}
+                      />
+                      <View style={{ flex: 1 }}>
+                        <Text style={s.headline}>{label(focused)}</Text>
+                        <Text style={s.footnote}>
+                          {stateNames[status[focused].state]}
+                          {status[focused].readyInHours ? ` · ${readyIn(status[focused].readyInHours)}` : ""}
+                        </Text>
+                      </View>
+                      <Text style={[s.subhead, { color: colors.accent }]}>{counts[focused]} exercises</Text>
+                      <Ionicons name="chevron-forward" size={18} color={colors.accent} />
+                    </Pressable>
+                  </Animated.View>
                 ) : (
-                  <Text style={[s.footnote, { textAlign: "center", marginTop: 12 }]}>
-                    Tap a muscle to see its exercises
-                  </Text>
+                  <Animated.View entering={FadeIn.duration(motion.fast)}>
+                    <Text style={[s.footnote, { textAlign: "center", marginTop: 12 }]}>
+                      Tap a muscle to see its exercises
+                    </Text>
+                  </Animated.View>
                 )}
               </View>
             </>

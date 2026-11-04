@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import {
   Alert,
@@ -12,6 +12,16 @@ import { FlashList } from "@shopify/flash-list";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
+import Animated, {
+  FadeIn,
+  useAnimatedStyle,
+  useReducedMotion,
+  useSharedValue,
+  withSequence,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
+import { PressableScale, motion, settle, usePressScale } from "../../src/components/motion";
 import { Screen, Heading, Chip, Empty, IconButton, PillButton, s } from "../../src/components/ui";
 import { Text, TextInput } from "../../src/components/Text";
 import { useToast } from "../../src/components/Toast";
@@ -24,11 +34,95 @@ import {
   label,
   mediaBackground,
 } from "../../src/content";
-import { muscleIds, type Exercise } from "../../src/content/types";
+import { muscleIds, type Exercise, type Model } from "../../src/content/types";
 import { deleteEntry, logExercise, useEntries, useSettings } from "../../src/storage/store";
 import { dayKey } from "../../src/storage/calendar";
 import { colors, tabBarSpace } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
+/** Quick-log "+": shrinks while held; after a log the icon pops into a check for a moment. */
+function QuickLogButton({ name, onLog }: { name: string; onLog: () => boolean }) {
+  const [justLogged, setJustLogged] = useState(false);
+  const reduced = useReducedMotion();
+  const pop = useSharedValue(1);
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
+  const icon = useAnimatedStyle(() => ({ transform: [{ scale: pop.value }] }));
+  return (
+    <PressableScale
+      accessibilityRole="button"
+      accessibilityLabel={`Log ${name}`}
+      hitSlop={6}
+      scaleTo={0.85}
+      onPress={() => {
+        if (!onLog()) return;
+        setJustLogged(true);
+        clearTimeout(timer.current);
+        timer.current = setTimeout(() => setJustLogged(false), 1200);
+        if (!reduced) pop.value = withSequence(withTiming(1.3, { duration: 110 }), withSpring(1, settle));
+      }}
+      style={styles.add}
+    >
+      <Animated.View style={icon}>
+        <Ionicons name={justLogged ? "checkmark" : "add"} size={22} color={colors.onAccent} />
+      </Animated.View>
+    </PressableScale>
+  );
+}
+/** Grid card. The whole card scales while its poster area is pressed; the + is a separate button. */
+function ExerciseCard({
+  item,
+  model,
+  columns,
+  done,
+  onOpen,
+  onLog,
+}: {
+  item: Exercise;
+  model: Model;
+  columns: number;
+  done: boolean;
+  onOpen: () => void;
+  onLog: () => boolean;
+}) {
+  const press = usePressScale(0.97);
+  const cover = coverFor(item, model);
+  return (
+    <Animated.View style={[styles.card, press.style]}>
+      <Pressable
+        accessibilityRole="button"
+        testID={`exercise-${item.id}`}
+        accessibilityLabel={`${item.name}, ${equipmentSummary(item)}${done ? ", logged today" : ""}`}
+        onPress={onOpen}
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+      >
+        <Image
+          source={content.resolve(cover.poster)}
+          recyclingKey={cover.poster.path}
+          contentFit="contain"
+          cachePolicy="memory-disk"
+          style={styles.poster}
+        />
+        {done && (
+          <View style={styles.today}>
+            <Ionicons name="checkmark" size={13} color={colors.accent} />
+            <Text style={[s.caption, { color: colors.text }]}>Today</Text>
+          </View>
+        )}
+        <View style={{ paddingHorizontal: 8, paddingTop: 10, paddingBottom: 6, gap: 2 }}>
+          <Text numberOfLines={columns === 1 ? undefined : 2} style={s.headline}>
+            {item.name}
+          </Text>
+          <Text numberOfLines={1} style={s.footnote}>
+            {equipmentSummary(item)}
+          </Text>
+        </View>
+      </Pressable>
+      {/* Keyed so a recycled cell never shows another exercise's check. */}
+      <QuickLogButton key={item.id} name={item.name} onLog={onLog} />
+    </Animated.View>
+  );
+}
 export default function Library() {
   const { model } = useSettings();
   const { fontScale } = useWindowDimensions();
@@ -74,8 +168,10 @@ export default function Library() {
       const entry = logExercise(exercise);
       toast({ text: `Logged ${exercise.name}`, undo: () => deleteEntry(entry.id) });
       void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      return true;
     } catch {
       Alert.alert("Could not log", "Please try again.");
+      return false;
     }
   }
   return (
@@ -121,28 +217,30 @@ export default function Library() {
         )}
       </View>
       {(showMuscles || !!muscle) && (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.filters}
-          contentContainerStyle={styles.chips}
-        >
-          {showMuscles ? (
-            <>
-              <Chip title="All muscles" selected={!muscle} onPress={() => chooseMuscle("")} />
-              {muscleIds.map((m) => (
-                <Chip
-                  key={m}
-                  title={label(m)}
-                  selected={muscle === m}
-                  onPress={() => chooseMuscle(m)}
-                />
-              ))}
-            </>
-          ) : (
-            <Chip title={`${label(muscle)}  ✕`} selected onPress={() => chooseMuscle("")} />
-          )}
-        </ScrollView>
+        <Animated.View entering={FadeIn.duration(motion.fast)}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.filters}
+            contentContainerStyle={styles.chips}
+          >
+            {showMuscles ? (
+              <>
+                <Chip title="All muscles" selected={!muscle} onPress={() => chooseMuscle("")} />
+                {muscleIds.map((m) => (
+                  <Chip
+                    key={m}
+                    title={label(m)}
+                    selected={muscle === m}
+                    onPress={() => chooseMuscle(m)}
+                  />
+                ))}
+              </>
+            ) : (
+              <Chip title={`${label(muscle)}  ✕`} selected onPress={() => chooseMuscle("")} />
+            )}
+          </ScrollView>
+        </Animated.View>
       )}
       <ScrollView
         horizontal
@@ -178,55 +276,16 @@ export default function Library() {
             action={filtering ? { title: "Clear filters", onPress: clearFilters } : undefined}
           />
         }
-        renderItem={({ item }) => {
-          const cover = coverFor(item, model);
-          const done = doneToday.has(item.id);
-          return (
-            <View style={styles.card}>
-              <Pressable
-                accessibilityRole="button"
-                testID={`exercise-${item.id}`}
-                accessibilityLabel={`${item.name}, ${equipmentSummary(item)}${done ? ", logged today" : ""}`}
-                onPress={() => open(item)}
-                style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-              >
-                <Image
-                  source={content.resolve(cover.poster)}
-                  recyclingKey={cover.poster.path}
-                  contentFit="contain"
-                  cachePolicy="memory-disk"
-                  style={styles.poster}
-                />
-                {done && (
-                  <View style={styles.today}>
-                    <Ionicons name="checkmark" size={13} color={colors.accent} />
-                    <Text style={[s.caption, { color: colors.text }]}>Today</Text>
-                  </View>
-                )}
-                <View style={{ paddingHorizontal: 8, paddingTop: 10, paddingBottom: 6, gap: 2 }}>
-                  <Text
-                    numberOfLines={columns === 1 ? undefined : 2}
-                    style={s.headline}
-                  >
-                    {item.name}
-                  </Text>
-                  <Text numberOfLines={1} style={s.footnote}>
-                    {equipmentSummary(item)}
-                  </Text>
-                </View>
-              </Pressable>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={`Log ${item.name}`}
-                hitSlop={6}
-                onPress={() => quickLog(item)}
-                style={({ pressed }) => [styles.add, { opacity: pressed ? 0.6 : 1 }]}
-              >
-                <Ionicons name="add" size={22} color={colors.onAccent} />
-              </Pressable>
-            </View>
-          );
-        }}
+        renderItem={({ item }) => (
+          <ExerciseCard
+            item={item}
+            model={model}
+            columns={columns}
+            done={doneToday.has(item.id)}
+            onOpen={() => open(item)}
+            onLog={() => quickLog(item)}
+          />
+        )}
       />
     </Screen>
   );

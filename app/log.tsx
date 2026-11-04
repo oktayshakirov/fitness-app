@@ -7,6 +7,8 @@ import { Text, TextInput } from "../src/components/Text";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
+import Animated, { FadeIn, FadeInDown, FadeOut, LayoutAnimationConfig, LinearTransition } from "react-native-reanimated";
+import { motion } from "../src/components/motion";
 import { content, coverFor, exercises, mediaBackground } from "../src/content";
 import { Screen, Heading, IconButton, Button, s } from "../src/components/ui";
 import { useToast } from "../src/components/Toast";
@@ -62,8 +64,11 @@ export default function LogSheet() {
   const last =
     original ?? getEntries().find((e) => e.exerciseId === exerciseId);
   const [expanded, setExpanded] = useState(!!original?.sets.length);
-  const [sets, setSets] = useState(
+  // Stable row ids, so adding or removing a set animates the right row.
+  const nextId = useRef(0);
+  const [sets, setSets] = useState(() =>
     (last?.sets.length ? last.sets : [{ reps: 10, weightKg: 0 }]).map((s) => ({
+      id: nextId.current++,
       reps: String(s.reps),
       weight: weightText(s.weightKg, units),
       originalWeight: s.weightKg,
@@ -255,68 +260,89 @@ export default function LogSheet() {
             </Text>
           </Pressable>
           {!original && !expanded && !!last?.sets.length && (
-            <Text style={[s.footnote, { textAlign: "center", marginTop: -8 }]}>
-              Last time: {setsSummary(last.sets, units)} · {dayLabel(new Date(last.timestamp))}. Add sets starts from these.
-            </Text>
+            <Animated.View entering={FadeIn.duration(motion.base)}>
+              <Text style={[s.footnote, { textAlign: "center", marginTop: -8 }]}>
+                Last time: {setsSummary(last.sets, units)} · {dayLabel(new Date(last.timestamp))}. Add sets starts from
+                these.
+              </Text>
+            </Animated.View>
           )}
           {expanded && (
-            <View style={{ gap: 8 }}>
-              {sets.map((_, i) => (
-                <View key={i} style={[s.card, s.row, { padding: 12, gap: 10 }]}>
-                  <View style={styles.badge}>
-                    <Text style={{ color: colors.onAccent, fontWeight: "700" }}>{i + 1}</Text>
-                  </View>
-                  {field(i, "reps")}
-                  {field(i, "weight")}
-                  <Pressable
-                    accessibilityRole="button"
-                    accessibilityLabel={`Remove set ${i + 1}`}
-                    disabled={sets.length === 1}
-                    onPress={() => setSets((rows) => rows.filter((_, j) => j !== i))}
-                    hitSlop={8}
-                    style={{ opacity: sets.length === 1 ? 0.25 : 1, paddingTop: 18 }}
+            <Animated.View
+              entering={FadeIn.duration(motion.base)}
+              exiting={FadeOut.duration(motion.fast)}
+              style={{ gap: 8 }}
+            >
+              {/* Rows present when the list opens appear with it; later rows slide in. */}
+              <LayoutAnimationConfig skipEntering>
+                {sets.map((row, i) => (
+                  <Animated.View
+                    key={row.id}
+                    entering={FadeInDown.duration(motion.base)}
+                    exiting={FadeOut.duration(motion.fast)}
+                    layout={LinearTransition.duration(motion.base)}
+                    style={[s.card, s.row, { padding: 12, gap: 10 }]}
                   >
-                    <Ionicons name="trash-outline" size={20} color={colors.secondary} />
-                  </Pressable>
-                </View>
-              ))}
-              <Button
-                secondary
-                icon="add"
-                title="Add set"
-                disabled={sets.length >= 100}
-                onPress={() => setSets((rows) => [...rows, { ...rows[rows.length - 1]! }])}
-              />
-            </View>
+                    <View style={styles.badge}>
+                      <Text style={{ color: colors.onAccent, fontWeight: "700" }}>{i + 1}</Text>
+                    </View>
+                    {field(i, "reps")}
+                    {field(i, "weight")}
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityLabel={`Remove set ${i + 1}`}
+                      disabled={sets.length === 1}
+                      onPress={() => setSets((rows) => rows.filter((_, j) => j !== i))}
+                      hitSlop={8}
+                      style={{ opacity: sets.length === 1 ? 0.25 : 1, paddingTop: 18 }}
+                    >
+                      <Ionicons name="trash-outline" size={20} color={colors.secondary} />
+                    </Pressable>
+                  </Animated.View>
+                ))}
+              </LayoutAnimationConfig>
+              <Animated.View layout={LinearTransition.duration(motion.base)}>
+                <Button
+                  secondary
+                  icon="add"
+                  title="Add set"
+                  disabled={sets.length >= 100}
+                  onPress={() => setSets((rows) => [...rows, { ...rows[rows.length - 1]!, id: nextId.current++ }])}
+                />
+              </Animated.View>
+            </Animated.View>
           )}
-          <TextInput
-            testID="log-note"
-            accessibilityLabel="Note"
-            placeholder="Add a note (optional)"
-            placeholderTextColor={colors.secondary}
-            value={note}
-            onChangeText={setNote}
-            multiline
-            maxLength={2000}
-            style={[s.text, { backgroundColor: colors.surface, borderRadius: 24, padding: 18, minHeight: 96, marginTop: 8, textAlignVertical: "top" }]}
-          />
-          {original && (
-            <Button
-              destructive
-              icon="trash-outline"
-              title="Delete entry"
-              onPress={() => {
-                try {
-                  deleteEntry(original.id);
-                  void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-                  toast({ text: "Deleted", undo: () => saveEntry(original) });
-                  router.back();
-                } catch {
-                  Alert.alert("Could not delete", "Please try again.");
-                }
-              }}
+          {/* Glides when the set list opens, grows or closes above it. */}
+          <Animated.View layout={LinearTransition.duration(motion.base)} style={{ gap: 12 }}>
+            <TextInput
+              testID="log-note"
+              accessibilityLabel="Note"
+              placeholder="Add a note (optional)"
+              placeholderTextColor={colors.secondary}
+              value={note}
+              onChangeText={setNote}
+              multiline
+              maxLength={2000}
+              style={[s.text, { backgroundColor: colors.surface, borderRadius: 24, padding: 18, minHeight: 96, marginTop: 8, textAlignVertical: "top" }]}
             />
-          )}
+            {original && (
+              <Button
+                destructive
+                icon="trash-outline"
+                title="Delete entry"
+                onPress={() => {
+                  try {
+                    deleteEntry(original.id);
+                    void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+                    toast({ text: "Deleted", undo: () => saveEntry(original) });
+                    router.back();
+                  } catch {
+                    Alert.alert("Could not delete", "Please try again.");
+                  }
+                }}
+              />
+            )}
+          </Animated.View>
         </ScrollView>
       </View>
     </Screen>

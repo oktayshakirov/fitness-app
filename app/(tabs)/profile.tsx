@@ -6,6 +6,8 @@ import * as DocumentPicker from "expo-document-picker";
 import * as Sharing from "expo-sharing";
 import { File, Paths } from "expo-file-system";
 import Constants from "expo-constants";
+import Animated, { FadeIn } from "react-native-reanimated";
+import { motion } from "../../src/components/motion";
 import { reloadAppAsync } from "expo";
 import { Screen, Heading, Group, IconCircle, Row, Segmented, SectionTitle, s } from "../../src/components/ui";
 import { ModelChoice } from "../../src/components/ModelChoice";
@@ -215,9 +217,11 @@ export default function Profile() {
           />
         </Group>
         {credits && (
-          <Text selectable style={[s.footnote, { lineHeight: 20, marginTop: 8 }]}>
-            {content.release.attribution}
-          </Text>
+          <Animated.View entering={FadeIn.duration(motion.base)}>
+            <Text selectable style={[s.footnote, { lineHeight: 20, marginTop: 8 }]}>
+              {content.release.attribution}
+            </Text>
+          </Animated.View>
         )}
         <Text style={[s.footnote, { textAlign: "center", marginTop: 16 }]}>
           Available offline · no account needed
