@@ -2,7 +2,7 @@ import { useSettings } from "../src/storage/store";
 import { toDisplayWeight, toKilograms, weightText } from "../src/storage/units";
 import { useEffect, useRef, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import { Alert, Keyboard, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { AccessibilityInfo, Alert, Keyboard, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { Text, TextInput } from "../src/components/Text";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
@@ -21,7 +21,8 @@ import {
 } from "../src/storage/store";
 import type { TrainingSet } from "../src/storage/types";
 import { addDays, dayKey, dayLabel, onDay } from "../src/storage/calendar";
-import { setsSummary } from "../src/storage/format";
+import { setText, setsSummary } from "../src/storage/format";
+import { newBest } from "../src/storage/progress";
 import { colors } from "../src/theme";
 export { ScreenError as ErrorBoundary } from "../src/components/ErrorScreen";
 /** Stepper button: one step per tap; holding repeats until released. */
@@ -139,13 +140,21 @@ export default function LogSheet() {
         });
         toast({ text: `Updated${moved ? suffix : ""}`, undo: () => saveEntry(original) });
       } else if (exercise) {
+        // Earlier logs of this exercise, read before saving, to spot a new best set.
+        const previous = getEntries().filter((e) => e.exerciseId === exercise.id);
         const entry = logExercise(
           exercise,
           values,
           note,
           isToday ? Date.now() : onDay(Date.now(), day),
         );
-        toast({ text: `Logged${suffix}`, undo: () => deleteEntry(entry.id) });
+        const record = newBest(previous, values);
+        toast(
+          record
+            ? { text: `New best: ${setText(record, units)}${suffix}`, icon: "trophy", undo: () => deleteEntry(entry.id) }
+            : { text: `Logged${suffix}`, undo: () => deleteEntry(entry.id) },
+        );
+        if (record) AccessibilityInfo.announceForAccessibility(`New best set: ${setText(record, units)}`);
       } else throw new Error("Exercise unavailable.");
       void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       router.back();

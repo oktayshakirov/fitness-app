@@ -7,6 +7,7 @@ import {
   type PropsWithChildren,
 } from "react";
 import { AccessibilityInfo, Alert, Pressable } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import Animated, {
   Easing,
   FadeInDown,
@@ -19,9 +20,10 @@ import Animated, {
 import { Text } from "./Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../theme";
-import { s } from "./ui";
+import { s, type IconName } from "./ui";
 import { motion } from "./motion";
-type Message = { text: string; undo: () => void };
+/** `icon` (e.g. a trophy for a new best) shows in lime before the text. */
+type Message = { text: string; undo: () => void; icon?: IconName };
 /** How long Undo stays available. */
 const visibleMs = 10000;
 const Context = createContext<(message: Message) => void>(() => {});
@@ -93,6 +95,7 @@ export function ToastProvider({ children }: PropsWithChildren) {
             justifyContent: "space-between",
           }}
         >
+          {message.icon && <Ionicons name={message.icon} size={20} color={colors.accent} style={{ marginRight: 8 }} />}
           <Text style={[s.text, { flex: 1 }]}>{message.text}</Text>
           <Pressable
             accessibilityRole="button"

@@ -1,12 +1,15 @@
 import { muscleIds, type Muscle } from "../content/types";
 import { parsePreferences, type Preferences } from "./preferences";
 import { validateSets, type LogEntry, type TrainingSet } from "./types";
+import { parseRoutine, type Routine } from "./routines";
 export const maxBackupBytes = 25 * 1024 * 1024;
 export interface Backup {
   schemaVersion: 1;
   exportedAt: string;
   preferences: Preferences;
   entries: LogEntry[];
+  /** Optional in the file (added after schema 1 shipped); always present once parsed. */
+  routines: Routine[];
 }
 function record(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== "object" || Array.isArray(value))
@@ -74,16 +77,23 @@ export function parseBackup(text: string): Backup {
   const entries = v.entries.map(entry);
   if (new Set(entries.map((e) => e.id)).size !== entries.length)
     throw new Error("This backup contains duplicate log IDs.");
+  if (v.routines !== undefined && (!Array.isArray(v.routines) || v.routines.length > 200))
+    throw new Error("Invalid routine list.");
+  const routines = ((v.routines as unknown[] | undefined) ?? []).map(parseRoutine);
+  if (new Set(routines.map((r) => r.id)).size !== routines.length)
+    throw new Error("This backup contains duplicate routine IDs.");
   return {
     schemaVersion: 1,
     exportedAt,
     preferences: parsePreferences(v.preferences),
     entries,
+    routines,
   };
 }
 export function serializeBackup(
   entries: readonly LogEntry[],
   preferences: Preferences,
+  routines: readonly Routine[] = [],
   now = new Date(),
 ): string {
   const text = JSON.stringify(
@@ -92,6 +102,7 @@ export function serializeBackup(
       exportedAt: now.toISOString(),
       preferences: parsePreferences(preferences),
       entries,
+      routines,
     },
     null,
     2,
@@ -120,12 +131,27 @@ export function insertEntries(db: BackupDatabase, entries: readonly LogEntry[]) 
     ).changes;
   return added;
 }
-/** Keep existing IDs. Logs and preferences commit together; a failed write changes neither. */
+/** Inserts routines, keeping any whose id already exists. Call inside a transaction. */
+export function insertRoutines(db: BackupDatabase, routines: readonly Routine[]) {
+  let added = 0;
+  for (const r of routines)
+    added += db.runSync(
+      "INSERT OR IGNORE INTO routines (id,name,exercises,created,updated) VALUES (?,?,?,?,?)",
+      r.id,
+      r.name,
+      JSON.stringify(r.exercises),
+      r.created,
+      r.updated,
+    ).changes;
+  return added;
+}
+/** Keep existing IDs. Logs, routines and preferences commit together; a failed write changes none. */
 export function applyBackup(db: BackupDatabase, backup: Backup) {
   let added = 0;
   db.execSync("BEGIN IMMEDIATE");
   try {
     added = insertEntries(db, backup.entries);
+    insertRoutines(db, backup.routines);
     for (const [key, value] of Object.entries(backup.preferences))
       db.runSync(
         "INSERT OR REPLACE INTO settings (key,value) VALUES (?,?)",

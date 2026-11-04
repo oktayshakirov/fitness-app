@@ -40,8 +40,11 @@ paywall.
 
 **Home.** Greeting eyebrow, "Ready to train?", info button and a round avatar of the chosen
 model (opens Profile). A lime recovery card (share of muscles ready, which muscles are
-resting, progress bar). Two stat tiles: day streak (with the best streak below) and training
-days this week (distinct days with a log, plus a Mon–Sun bar strip). "Body map" card with
+resting, progress bar). Two stat tiles: day streak (with the best streak below) and "This
+week": training days against the weekly goal ("2 of 3 days", a trophy once met) with a Mon–Sun
+bar strip. "Routines": a row per routine (exercises, done today) opening its screen, or a
+"Build a routine" card. "Ready to train": up to three exercises whose primary muscles are fully
+recovered, rested-longest first, one per muscle, favourites winning ties. "Body map" card with
 a Front | Back pill switch, the body render with tinted masks per recovery state and a
 legend; tapping a muscle selects it and shows a row linking to its exercises; tapping it
 again or outside the body clears the selection. "Muscles"
@@ -52,7 +55,8 @@ filtered library.
 for equipment (icons rendered from our equipment). 2-column grid; card = poster on
 `bg.video` (4:5), name (2 lines max), equipment in `text.2`, small "+" quick-log button in
 the corner (logs "done" with haptic + toast "Logged · Undo"); exercises already logged today
-show a small dark "✓ Today" badge on the poster. A "Clear" pill in the header resets muscle,
+show a small dark "✓ Today" badge on the poster. Starred exercises show a small lime star, and a "Favorites" chip (once anything is starred)
+filters to them. A "Clear" pill in the header resets favourites,
 equipment and search; the empty state offers "Clear filters" too. Grid never autoplays video.
 Search matches at word starts and understands everyday words (legs, arms, back, core, pecs,
 quads, delts, db/bb/kb, rdl, ohp), plurals and missing spaces ("push ups"). Exercises with no
@@ -70,7 +74,14 @@ timer button (starts the rest timer; its icon is lime while resting) and the big
 **Log** button. Sections: How to (numbered steps), Cues, Common mistakes,
 Breathing — collapsible, first one open. Last-done line ("Last: 3 × 10 · 40 kg · Tue"), and
 once there are two or more sessions with sets, a best-set line ("Best set: 8 reps · 60 kg").
-Close is an X (the header's chevrons are previous/next exercise). With two or more logs, a
+Close is an X (the header's chevrons are previous/next exercise); a star beside them saves
+the exercise to favourites (lime when on). The best-set line adds an Epley one-rep-max estimate
+for 1–12-rep sets. With two or more sessions with sets, a "Progress" card charts the last 12
+(heaviest set or volume; reps for bodyweight work): columns from zero, at most 24 pt wide with
+4 pt rounded tops, earlier sessions gray #6E6E73 (≥ 3:1 on the card), the latest lime, the
+first/last dates under a hairline baseline; tap a column to read that session. Barbell
+exercises get a collapsible "Plate calculator": total stepper, bar choice (20/15 kg or 45/35 lb)
+and the plates per side, drawn to scale. With two or more logs, a
 collapsible "Your sessions (n)" section lists the last 10 with grouped set summaries.
 Swipe up/down for next/previous exercise; swipe right / X to close. No ads here.
 
@@ -80,6 +91,14 @@ Primary button "Done" (one tap = logged). Expandable
 "Add sets": rows of reps × weight with +/− steppers, prefilled from last time, "Add set", and
 "Rest 1:30" (the chosen length), which turns into the live countdown in the sheet.
 Save → haptic, recovery updates, sheet closes, toast with Undo.
+
+**Routine.** Name, "n exercises · k done today", a lime progress bar, the exercises in order
+(poster, name, equipment; a lime check once logged today, else its number) and a sticky
+"Start workout" / "Continue" / "All done · Start again" that opens the next undone exercise.
+On the exercise screen the header reads "Push day · 2 of 5" and previous/next follow the
+routine. Edit and delete (with Undo) in the header. **Routine editor:** name field, "In this
+routine (n)" with up/down/remove, and a searchable catalog with add/check toggles; Save is
+disabled until there is a name and an exercise; Close asks before discarding changes.
 
 **Rest timer.** One timer for the whole app, derived from timestamps so it stays right after
 backgrounding. While it runs, a dark pill floats above the toast lane on every screen: timer
@@ -98,7 +117,8 @@ tap to edit. Below the calendar: "Recent" list of last sessions.
 
 **Profile** (was Settings, renamed 2026-11-03). Header card with the model avatar, the
 current choices and totals (logs, active days, exercises tried), then a grouped list: Model
-(Male/Female), Units, Recovery speed, Rest timer (0:30 · 1:00 · 1:30 · 2:00 · 3:00), Pro
+(Male/Female), Units, Recovery speed, Rest timer (0:30 · 1:00 · 1:30 · 2:00 · 3:00), Weekly goal
+(2–6 days), Pro
 (Remove ads / Restore purchase, later), Export data / Import data / Erase all logs (red; a
 confirmation with Export first, then an Undo toast; settings and onboarding stay), Privacy
 policy, Credits & licences, Content version, App version.

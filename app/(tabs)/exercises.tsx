@@ -74,6 +74,7 @@ function ExerciseCard({
   model,
   columns,
   done,
+  favorite,
   onOpen,
   onLog,
 }: {
@@ -81,6 +82,7 @@ function ExerciseCard({
   model: Model;
   columns: number;
   done: boolean;
+  favorite: boolean;
   onOpen: () => void;
   onLog: () => boolean;
 }) {
@@ -91,7 +93,7 @@ function ExerciseCard({
       <Pressable
         accessibilityRole="button"
         testID={`exercise-${item.id}`}
-        accessibilityLabel={`${item.name}, ${equipmentSummary(item)}${done ? ", logged today" : ""}`}
+        accessibilityLabel={`${item.name}, ${equipmentSummary(item)}${favorite ? ", favorite" : ""}${done ? ", logged today" : ""}`}
         onPress={onOpen}
         onPressIn={press.onPressIn}
         onPressOut={press.onPressOut}
@@ -113,9 +115,12 @@ function ExerciseCard({
           <Text numberOfLines={columns === 1 ? undefined : 2} style={s.headline}>
             {item.name}
           </Text>
-          <Text numberOfLines={1} style={s.footnote}>
-            {equipmentSummary(item)}
-          </Text>
+          <View style={[s.row, { gap: 4 }]}>
+            {favorite && <Ionicons name="star" size={12} color={colors.accent} />}
+            <Text numberOfLines={1} style={[s.footnote, { flexShrink: 1 }]}>
+              {equipmentSummary(item)}
+            </Text>
+          </View>
         </View>
       </Pressable>
       {/* Keyed so a recycled cell never shows another exercise's check. */}
@@ -124,7 +129,7 @@ function ExerciseCard({
   );
 }
 export default function Library() {
-  const { model } = useSettings();
+  const { model, favorites } = useSettings();
   const { fontScale } = useWindowDimensions();
   const columns = fontScale > 1.15 ? 1 : 2;
   const toast = useToast();
@@ -133,6 +138,8 @@ export default function Library() {
   const [equipment, setEquipment] = useState("");
   const [query, setQuery] = useState("");
   const [showMuscles, setShowMuscles] = useState(false);
+  const [favoritesOnly, setFavoritesOnly] = useState(false);
+  const favoriteSet = useMemo(() => new Set(favorites), [favorites]);
   const entries = useEntries();
   // Exercises already logged today get a badge, handy mid-workout.
   const today = dayKey(Date.now());
@@ -140,19 +147,22 @@ export default function Library() {
     () => new Set(entries.filter((e) => dayKey(e.timestamp) === today).map((e) => e.exerciseId)),
     [entries, today],
   );
-  const filtering = !!(muscle || equipment || query);
+  const filtering = !!(muscle || equipment || query || favoritesOnly);
   function clearFilters() {
     setQuery("");
     setEquipment("");
+    setFavoritesOnly(false);
     chooseMuscle("");
   }
   useEffect(() => {
     setMuscle(params.muscle ?? "");
   }, [params.muscle]);
   const filtered = useMemo(
-    () => filterCatalog({ muscle, equipment, query }),
-    [muscle, equipment, query],
+    () => filterCatalog({ muscle, equipment, query }).filter((e) => !favoritesOnly || favoriteSet.has(e.id)),
+    [muscle, equipment, query, favoritesOnly, favoriteSet],
   );
+  // FlashList re-renders cells only when this changes.
+  const cellState = useMemo(() => ({ doneToday, favoriteSet }), [doneToday, favoriteSet]);
   function chooseMuscle(m: string) {
     setMuscle(m);
     router.setParams({ muscle: m });
@@ -160,7 +170,7 @@ export default function Library() {
   function open(exercise: Exercise) {
     router.push({
       pathname: "/exercise/[id]",
-      params: { id: exercise.id, muscle, equipment, query },
+      params: { id: exercise.id, muscle, equipment, query, favorites: favoritesOnly ? "1" : "" },
     });
   }
   function quickLog(exercise: Exercise) {
@@ -248,6 +258,14 @@ export default function Library() {
         style={styles.filters}
         contentContainerStyle={styles.chips}
       >
+        {(favorites.length > 0 || favoritesOnly) && (
+          <Chip
+            title="Favorites"
+            ionicon="star"
+            selected={favoritesOnly}
+            onPress={() => setFavoritesOnly(!favoritesOnly)}
+          />
+        )}
         <Chip title="All" selected={!equipment} onPress={() => setEquipment("")} />
         {equipmentFilters.map((f) => (
           <Chip
@@ -264,15 +282,19 @@ export default function Library() {
         key={columns}
         numColumns={columns}
         keyExtractor={(e) => e.id}
-        extraData={doneToday}
+        extraData={cellState}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
         contentContainerStyle={{ paddingHorizontal: 14, paddingTop: 12, paddingBottom: tabBarSpace }}
         ListEmptyComponent={
           <Empty
-            icon="search"
-            title="No exercises found"
-            description="Try a different muscle, equipment or search."
+            icon={favoritesOnly && !favorites.length ? "star-outline" : "search"}
+            title={favoritesOnly && !favorites.length ? "No favorites yet" : "No exercises found"}
+            description={
+              favoritesOnly && !favorites.length
+                ? "Tap the star on an exercise to keep it here."
+                : "Try a different muscle, equipment or search."
+            }
             action={filtering ? { title: "Clear filters", onPress: clearFilters } : undefined}
           />
         }
@@ -282,6 +304,7 @@ export default function Library() {
             model={model}
             columns={columns}
             done={doneToday.has(item.id)}
+            favorite={favoriteSet.has(item.id)}
             onOpen={() => open(item)}
             onLog={() => quickLog(item)}
           />
