@@ -51,11 +51,16 @@ filtered library.
 **Exercises.** Large title (muscle name or "All exercises"), search field, horizontal chips
 for equipment (icons rendered from our equipment). 2-column grid; card = poster on
 `bg.video` (4:5), name (2 lines max), equipment in `text.2`, small "+" quick-log button in
-the corner (logs "done" with haptic + toast "Logged · Undo"). Grid never autoplays video.
+the corner (logs "done" with haptic + toast "Logged · Undo"); exercises already logged today
+show a small dark "✓ Today" badge on the poster. A "Clear" pill in the header resets muscle,
+equipment and search; the empty state offers "Clear filters" too. Grid never autoplays video.
 Ad banner (free tier) docked at the bottom above the tab bar, never covering content.
 
-**Exercise detail.** Video full width at the top (4:5, rounded 16), view switcher pills
-(Front · Side · ¾) under it. Title, muscles worked as chips (red primary, orange
+**Exercise detail.** Video full width at the top (4:5, rounded 16), camera angle picker under
+it: one card per angle with that angle's own poster thumbnail and a plain name (Angled,
+Front, Side, Back, Rear angle, Above, Foot end; spoken hints say where the camera is). Narrow
+screens (< 350 pt) and large text stack the name under the thumbnail. The picked angle stays
+selected for the next exercise opened in the session. Title, muscles worked as chips (red primary, orange
 secondary) + a mini body thumbnail with those muscles tinted. Big accent **Log** button
 (sticky at the bottom). Sections: How to (numbered steps), Cues, Common mistakes,
 Breathing — collapsible, first one open. Last-done line ("Last: 3 × 10 · 40 kg · Tue"), and

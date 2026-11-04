@@ -61,14 +61,25 @@ export const viewOrder: CameraView[] = [
   "top",
   "foot",
 ];
+/** Short names for the camera angle picker (checked against the v0.3.0 renders). */
 export const viewLabels: Record<CameraView, string> = {
   front: "Front",
   side: "Side",
-  threeq: "¾",
+  threeq: "Angled",
   back: "Back",
-  foot: "Foot",
-  rear: "Rear",
-  top: "Top",
+  foot: "Foot end",
+  rear: "Rear angle",
+  top: "Above",
+};
+/** Spoken hint: where the camera is. */
+export const viewHints: Record<CameraView, string> = {
+  front: "Camera faces you from the front",
+  side: "Camera at your side, in profile",
+  threeq: "Camera at a three-quarter angle",
+  back: "Camera directly behind you",
+  foot: "Camera at the foot end of the bench",
+  rear: "Camera behind you at an angle",
+  top: "Camera looking straight down from above",
 };
 export function label(value: string) {
   return value.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase());

@@ -1,19 +1,30 @@
-import { useState } from "react";
+import { useRef, useState, type ComponentRef } from "react";
 import { router } from "expo-router";
 import { Alert, Pressable, ScrollView, View } from "react-native";
 import { Text } from "../../src/components/Text";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
-import { Screen, Heading, Card, IconButton, Empty, Button, IconCircle, SectionTitle, s } from "../../src/components/ui";
+import {
+  Screen,
+  Heading,
+  Card,
+  IconButton,
+  Empty,
+  Button,
+  IconCircle,
+  PillButton,
+  SectionTitle,
+  s,
+} from "../../src/components/ui";
 import { useToast } from "../../src/components/Toast";
 import { content, coverFor, exercises, mediaBackground } from "../../src/content";
 import { deleteEntry, saveEntry, useEntries, useSettings } from "../../src/storage/store";
-import { dayKey, monthDays, streaks } from "../../src/storage/calendar";
+import { dayKey, dayLabel, monthDays, streaks } from "../../src/storage/calendar";
 import { plural, setsSummary } from "../../src/storage/format";
 import type { LogEntry } from "../../src/storage/types";
 import { colors, tabBarSpace } from "../../src/theme";
-function EntryRow({ entry, showDate = false }: { entry: LogEntry; showDate?: boolean }) {
+function EntryRow({ entry }: { entry: LogEntry }) {
   const { model, units } = useSettings();
   const toast = useToast();
   const exercise = exercises.find((e) => e.id === entry.exerciseId);
@@ -81,11 +92,7 @@ function EntryRow({ entry, showDate = false }: { entry: LogEntry; showDate?: boo
               </Text>
             )}
           </View>
-          <Text style={s.footnote}>
-            {showDate
-              ? when.toLocaleDateString(undefined, { month: "short", day: "numeric" })
-              : when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-          </Text>
+          <Text style={s.footnote}>{when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</Text>
         </Card>
       </Pressable>
     </ReanimatedSwipeable>
@@ -95,11 +102,19 @@ export default function History() {
   const entries = useEntries();
   const [month, setMonth] = useState(new Date());
   const [selected, setSelected] = useState(dayKey(Date.now()));
+  const scroll = useRef<ComponentRef<typeof ScrollView>>(null);
   const stats = streaks(entries, new Date(), month);
   const days = new Set(entries.map((e) => dayKey(e.timestamp)));
   const today = dayKey(Date.now());
   const dayEntries = entries.filter((e) => dayKey(e.timestamp) === selected);
-  const recent = entries.filter((e) => dayKey(e.timestamp) !== selected).slice(0, 20);
+  // Last 30 logs outside the selected day, grouped under a heading per day (newest first).
+  const recent: [string, LogEntry[]][] = [];
+  for (const e of entries.filter((e) => dayKey(e.timestamp) !== selected).slice(0, 30)) {
+    const key = dayKey(e.timestamp);
+    const group = recent[recent.length - 1];
+    if (group?.[0] === key) group[1].push(e);
+    else recent.push([key, [e]]);
+  }
   const selectedDate = new Date(`${selected}T12:00:00`);
   const now = new Date();
   const onCurrentMonth = month.getFullYear() === now.getFullYear() && month.getMonth() === now.getMonth();
@@ -112,29 +127,21 @@ export default function History() {
         title="History"
         action={
           (!onCurrentMonth || selected !== today) && (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Go to today"
-              hitSlop={8}
+            <PillButton
+              title="Today"
+              label="Go to today"
               onPress={() => {
                 setMonth(new Date());
                 setSelected(today);
               }}
-              style={({ pressed }) => ({
-                minHeight: 36,
-                paddingHorizontal: 16,
-                borderRadius: 18,
-                justifyContent: "center",
-                backgroundColor: colors.accentDim,
-                opacity: pressed ? 0.7 : 1,
-              })}
-            >
-              <Text style={[s.subhead, { color: colors.accent, fontWeight: "600" }]}>Today</Text>
-            </Pressable>
+            />
           )
         }
       />
-      <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 0, gap: 12, paddingBottom: tabBarSpace }}>
+      <ScrollView
+        ref={scroll}
+        contentContainerStyle={{ padding: 20, paddingTop: 0, gap: 12, paddingBottom: tabBarSpace }}
+      >
         <View style={[s.row, { gap: 10 }]}>
           {(
             [
@@ -254,8 +261,28 @@ export default function History() {
         {!!recent.length && (
           <>
             <SectionTitle title="Recent" />
-            {recent.map((e) => (
-              <EntryRow key={e.id} entry={e} showDate />
+            {recent.map(([key, group]) => (
+              <View key={key} style={{ gap: 10 }}>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={`${dayLabel(new Date(`${key}T12:00:00`))}, ${plural(group.length, "log")}. Show this day`}
+                  onPress={() => {
+                    const date = new Date(`${key}T12:00:00`);
+                    setSelected(key);
+                    setMonth(new Date(date.getFullYear(), date.getMonth(), 1));
+                    scroll.current?.scrollTo({ y: 0, animated: true });
+                  }}
+                  style={[s.row, { justifyContent: "space-between", minHeight: 32, marginTop: 4 }]}
+                >
+                  <Text style={[s.subhead, { color: colors.text, fontWeight: "500" }]}>
+                    {dayLabel(new Date(`${key}T12:00:00`))}
+                  </Text>
+                  <Text style={s.footnote}>{plural(group.length, "log")}</Text>
+                </Pressable>
+                {group.map((e) => (
+                  <EntryRow key={e.id} entry={e} />
+                ))}
+              </View>
             ))}
           </>
         )}

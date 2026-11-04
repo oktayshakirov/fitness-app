@@ -223,6 +223,36 @@ export function Button({
     </Pressable>
   );
 }
+/** Small lime-on-dim pill for header shortcuts such as "Today" or "Clear". */
+export function PillButton({
+  title,
+  label,
+  onPress,
+}: {
+  title: string;
+  /** Spoken label when the visible title is shorter. */
+  label?: string;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={label ?? title}
+      hitSlop={8}
+      onPress={onPress}
+      style={({ pressed }) => ({
+        minHeight: 36,
+        paddingHorizontal: 16,
+        borderRadius: 18,
+        justifyContent: "center",
+        backgroundColor: colors.accentDim,
+        opacity: pressed ? 0.7 : 1,
+      })}
+    >
+      <Text style={[s.subhead, { color: colors.accent, fontWeight: "600" }]}>{title}</Text>
+    </Pressable>
+  );
+}
 export function Chip({
   title,
   selected,
@@ -382,10 +412,13 @@ export function Empty({
   title,
   description,
   icon,
+  action,
 }: {
   title: string;
   description: string;
   icon?: IconName;
+  /** Optional secondary button below the text, e.g. "Clear filters". */
+  action?: { title: string; onPress: () => void };
 }) {
   return (
     <View style={s.empty}>
@@ -394,6 +427,11 @@ export function Empty({
         {title}
       </Text>
       <Text style={[s.subhead, { textAlign: "center" }]}>{description}</Text>
+      {action && (
+        <View style={{ marginTop: 8, alignSelf: "stretch" }}>
+          <Button secondary title={action.title} onPress={action.onPress} />
+        </View>
+      )}
     </View>
   );
 }

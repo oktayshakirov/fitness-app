@@ -6,7 +6,8 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-asset";
-import { Screen, IconButton, Button, Segmented, SectionLabel, s } from "../../src/components/ui";
+import { Screen, IconButton, Button, SectionLabel, s } from "../../src/components/ui";
+import { AnglePicker } from "../../src/components/AnglePicker";
 import { ExerciseVideo } from "../../src/components/ExerciseVideo";
 import { BodyFigure } from "../../src/components/BodyFigure";
 import {
@@ -18,7 +19,6 @@ import {
   filterCatalog,
   label,
   mediaFor,
-  viewLabels,
   viewOrder,
 } from "../../src/content";
 import type { CameraView, Muscle } from "../../src/content/types";
@@ -82,6 +82,8 @@ function Section({
     </View>
   );
 }
+/** The angle last picked stays selected for the next exercise opened in this session. */
+let preferredView: CameraView = "threeq";
 const shortDate = (timestamp: number) =>
   new Date(timestamp).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
 function MuscleLine({ muscles, color, title }: { muscles: Muscle[]; color: string; title: string }) {
@@ -138,7 +140,11 @@ export default function ExerciseDetail() {
   useEffect(() => {
     setIndex(Math.max(0, initial));
   }, [initial, params.id]);
-  const [view, setView] = useState<CameraView>("threeq");
+  const [view, setView] = useState<CameraView>(preferredView);
+  const chooseView = (next: CameraView) => {
+    preferredView = next;
+    setView(next);
+  };
   const [visible, setVisible] = useState(true);
   const scroll = useRef<ComponentRef<typeof ScrollView>>(null);
   const { width } = useWindowDimensions();
@@ -222,14 +228,7 @@ export default function ExerciseDetail() {
               <ExerciseVideo media={current} visible={visible} />
             </View>
           </GestureDetector>
-          {views.length > 1 && (
-            <Segmented
-              label="Camera view"
-              value={selected}
-              onChange={setView}
-              options={views.map((v) => ({ value: v, title: viewLabels[v] }))}
-            />
-          )}
+          <AnglePicker media={media} value={selected} onChange={chooseView} />
           <View key={exercise.id} style={{ gap: 16 }}>
             <View style={{ gap: 4, paddingHorizontal: 4 }}>
               <Text accessibilityRole="header" style={[s.large, { fontSize: 26, lineHeight: 34 }]}>

@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { recovery, recoveryState } from "../src/recovery/engine";
+import { readyIn } from "../src/recovery/labels";
 import type { LogEntry } from "../src/storage/types";
 const now = Date.UTC(2026, 9, 25, 12);
 const hour = 3600000;
@@ -73,4 +74,13 @@ test("state boundaries match the product contract", () => {
   assert.equal(recoveryState(0.33), "recovering");
   assert.equal(recoveryState(0.66), "recovering");
   assert.equal(recoveryState(0.661), "trained");
+});
+test("ready times read in hours under a day, then whole days", () => {
+  assert.equal(readyIn(0), "");
+  assert.equal(readyIn(5), "ready in ~5 h");
+  assert.equal(readyIn(23), "ready in ~23 h");
+  assert.equal(readyIn(24), "ready in ~1 day");
+  assert.equal(readyIn(30), "ready in ~1 day");
+  assert.equal(readyIn(54), "ready in ~2 days");
+  assert.equal(readyIn(90), "ready in ~4 days");
 });

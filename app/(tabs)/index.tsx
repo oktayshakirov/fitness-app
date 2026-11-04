@@ -22,7 +22,7 @@ import { useEntries, useSettings } from "../../src/storage/store";
 import { dayKey, streaks, weekDays } from "../../src/storage/calendar";
 import { plural } from "../../src/storage/format";
 import { recovery } from "../../src/recovery/engine";
-import { stateColors, stateNames } from "../../src/recovery/labels";
+import { readyIn, stateColors, stateNames } from "../../src/recovery/labels";
 import { colors, tabBarSpace } from "../../src/theme";
 const counts = Object.fromEntries(
   muscleIds.map((m) => [
@@ -260,7 +260,7 @@ export default function Home() {
                       <Text style={s.headline}>{label(focused)}</Text>
                       <Text style={s.footnote}>
                         {stateNames[status[focused].state]}
-                        {status[focused].readyInHours ? ` · ready in ~${status[focused].readyInHours} h` : ""}
+                        {status[focused].readyInHours ? ` · ${readyIn(status[focused].readyInHours)}` : ""}
                       </Text>
                     </View>
                     <Text style={[s.subhead, { color: colors.accent }]}>{counts[focused]} exercises</Text>
@@ -298,7 +298,7 @@ export default function Home() {
                       <Text style={s.headline}>{label(item)}</Text>
                       <Text style={[s.footnote, state !== "ready" && { color: stateColors[state] }]}>
                         {stateNames[state]}
-                        {readyInHours ? ` · ready in ~${readyInHours} h` : ""}
+                        {readyInHours ? ` · ${readyIn(readyInHours)}` : ""}
                       </Text>
                     </View>
                     {counts[item] > 0 && (
