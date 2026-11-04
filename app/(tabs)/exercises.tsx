@@ -28,6 +28,7 @@ import { muscleIds, type Exercise } from "../../src/content/types";
 import { deleteEntry, logExercise, useEntries, useSettings } from "../../src/storage/store";
 import { dayKey } from "../../src/storage/calendar";
 import { colors, tabBarSpace } from "../../src/theme";
+export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 export default function Library() {
   const { model } = useSettings();
   const { fontScale } = useWindowDimensions();
@@ -98,7 +99,7 @@ export default function Library() {
         <Ionicons name="search" size={20} color={colors.secondary} />
         <TextInput
           accessibilityLabel="Search exercises"
-          placeholder="Search"
+          placeholder="Search name, muscle, equipment"
           placeholderTextColor={colors.secondary}
           value={query}
           onChangeText={setQuery}

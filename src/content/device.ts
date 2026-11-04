@@ -3,6 +3,7 @@ import { Platform } from "react-native";
 import {
   checkForUpdate,
   loadContent,
+  rejectRelease,
   type Bundled,
   type LoadedContent,
   type UpdateIO,
@@ -84,4 +85,9 @@ export function checkDeviceUpdate(
     running = null;
   });
   return running;
+}
+
+/** Turns off the downloaded release this session runs on; the bundle applies at the next start. */
+export function rejectRunningRelease(version: string) {
+  if (supported) rejectRelease(io, version);
 }

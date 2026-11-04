@@ -25,6 +25,7 @@ import type { CameraView, Muscle } from "../../src/content/types";
 import { useEntries, useSettings } from "../../src/storage/store";
 import { bestSet, setText, setsSummary } from "../../src/storage/format";
 import { colors } from "../../src/theme";
+export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 function Section({
   title,
   lines,
@@ -305,6 +306,17 @@ export default function ExerciseDetail() {
             <Section title="Cues" lines={exercise.cues} />
             <Section title="Common mistakes" lines={exercise.mistakes} />
             <Section title="Breathing" lines={[exercise.breathing]} />
+            {history.length > 1 && (
+              <Section
+                title={`Your sessions (${history.length})`}
+                lines={[
+                  ...history
+                    .slice(0, 10)
+                    .map((e) => `${shortDate(e.timestamp)} · ${e.sets.length ? setsSummary(e.sets, units) : "Done"}`),
+                  ...(history.length > 10 ? [`${history.length - 10} earlier sessions are in History.`] : []),
+                ]}
+              />
+            )}
           </View>
         </ScrollView>
       </GestureDetector>
