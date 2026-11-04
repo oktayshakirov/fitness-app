@@ -25,6 +25,7 @@ import type { Settings as Preferences } from "../../src/storage/preferences";
 import { maxBackupBytes, parseBackup } from "../../src/storage/backup";
 import { plural } from "../../src/storage/format";
 import { colors, tabBarSpace } from "../../src/theme";
+export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 export default function Profile() {
   const settings = useSettings();
   const entries = useEntries();

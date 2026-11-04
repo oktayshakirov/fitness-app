@@ -7,6 +7,7 @@ import { ThemeProvider, DarkTheme } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
+import * as SystemUI from "expo-system-ui";
 import {
   useFonts,
   Poppins_400Regular,
@@ -17,7 +18,10 @@ import {
 import { colors } from "../src/theme";
 import { useContentUpdates } from "../src/content/updates";
 void SplashScreen.preventAutoHideAsync();
+// Dark root view: no white flash behind sheets, the keyboard or screen transitions.
+void SystemUI.setBackgroundColorAsync(colors.bg).catch(() => {});
 export const unstable_settings = { anchor: "(tabs)" };
+export { RootError as ErrorBoundary } from "../src/components/ErrorScreen";
 
 export default function RootLayout() {
   const settings = useSettings();

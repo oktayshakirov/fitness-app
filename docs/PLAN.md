@@ -373,8 +373,48 @@ resets everything. (e) Log sheet for an exercise logged before with sets shows "
 (f) History: tap a Recent day heading → that day selected at the top. (g) Home muscle list
 reads "ready in ~2 days" after a heavy chest log.
 
+**Round 3 (same branch)**
+- Error screens: every tab, the exercise screen, Log sheet and onboarding export an
+  `ErrorBoundary` (`src/components/ErrorScreen.tsx`), so a throwing screen shows "Something went
+  wrong" with Try again (and Close on stacked screens) while the rest of the app keeps working.
+  The root layout's boundary hides the splash (it would otherwise stay up) and offers Restart.
+  While a downloaded release runs, "Use built-in exercises" calls `rejectRelease`
+  (`src/content/remote.ts`): back to the bundle at restart, and that version is never fetched
+  again; a newer one is. This is the manual half of the M6 crash-loop guard. Styled
+  `app/+not-found.tsx` replaces the router's debug page for unknown links.
+- Video: "0.5×" slow-motion toggle beside play/pause, kept for the session. The rate is only
+  set when playing because on iOS a non-zero `playbackRate` starts playback.
+- Search: word-start matching (fixes "tri" hitting hamstrings), synonyms (legs, arms, back,
+  core, pecs, quads, delts, db/bb/kb, rdl, ohp, "dumbell"), plurals, missing spaces ("push ups"),
+  equipment chip names ("machine"). Placeholder "Search name, muscle, equipment".
+- Bug: the Bodyweight chip missed Bodyweight Squat and Forward Lunge (no equipment listed) and
+  their cards showed an empty equipment line. They now count as Bodyweight.
+- Log sheet steppers repeat while held. Exercise screen lists "Your sessions (n)". History rows
+  show notes; deleting gives a warning haptic. Home stat tiles open History. Root view is dark
+  via `expo-system-ui` (installed since the first commit, so no rebuild).
+- Verified: typecheck; 50 tests (5 new: rejected release, synonyms, plurals/spaces, word
+  starts, no-equipment chip); `git diff --check`; Android and iOS bundles export.
+
+**Round 3 checks:** (h) Exercise video: 0.5× turns lime and slows the loop; the next exercise
+stays slow; on iOS, pause, toggle 0.5×, and the video must stay paused until Play. (i) Search
+"legs", "pecs", "db curls", "push ups", "rdl"; "tri" lists only triceps work. (j) Bodyweight chip
+includes Bodyweight Squat and Forward Lunge; their cards read "Bodyweight". (k) Log sheet: hold +
+on weight, it climbs until released. (l) An exercise logged twice shows "Your sessions (2)".
+(m) A History entry with a note shows it. (n) Home: tapping Day streak or This week opens History.
+(o) Error screen: temporarily put `throw new Error("test");` as the first line of `Home()` in
+`app/(tabs)/index.tsx`, reload: Home shows the error card, other tabs work; remove it, Try again
+recovers. (p) With the remote fixture active (v0.3.1, README "Remote content"), repeat (o): the
+card offers "Use built-in exercises"; tap it → app restarts on 30 exercises, Profile shows
+v0.3.0, and the next check logs `[content] {"status":"current"}` without downloading v0.3.1.
+(q) Unknown link → "Page not found" → Go to Home:
+
+```sh
+xcrun simctl openurl booted fitness://nope
+adb shell am start -a android.intent.action.VIEW -d fitness://nope
+```
+
 **Suggested next (not done):** CI on pull requests (`npm ci`, typecheck, tests); "Erase all
-data" in Profile (decide whether it also resets onboarding); M6 crash-loop guard for a release
-that parses but breaks a screen; tap a Home week bar to open that day in History; group
+data" in Profile (decide whether it also resets onboarding); automatic M6 crash-loop detection
+(the error screen covers JS render errors; a native crash on launch is still not detected); tap a Home week bar to open that day in History; group
 History "Recent" by day; rest timer (MVP "later"). Still open from before: iOS redesign visual
 check, Maestro runs on both platforms, M7 and M8.

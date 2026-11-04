@@ -11,6 +11,7 @@ import { updateSettings, useSettings } from "../src/storage/store";
 import type { Model } from "../src/content/types";
 import type { Units } from "../src/storage/preferences";
 import { colors } from "../src/theme";
+export { ScreenError as ErrorBoundary } from "../src/components/ErrorScreen";
 const steps = ["welcome", "model", "units", "ready"] as const;
 type Step = (typeof steps)[number];
 function Dots({ step }: { step: Step }) {

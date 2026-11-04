@@ -116,6 +116,8 @@ export function Stat({
   icon,
   footer,
   description,
+  onPress,
+  hint,
 }: {
   label: string;
   value: string | number;
@@ -124,13 +126,14 @@ export function Stat({
   footer?: React.ReactNode;
   /** Spoken after the value, e.g. what the footer shows. */
   description?: string;
+  onPress?: () => void;
+  /** Spoken hint for what a tap opens. */
+  hint?: string;
 }) {
-  return (
-    <View
-      accessible
-      accessibilityLabel={`${label}: ${value} ${unit ?? ""}${description ? `. ${description}` : ""}`}
-      style={[s.card, { flex: 1, padding: 16, gap: 14 }]}
-    >
+  const a11y = `${label}: ${value} ${unit ?? ""}${description ? `. ${description}` : ""}`;
+  const tile = [s.card, { flex: 1, padding: 16, gap: 14 }];
+  const body = (
+    <>
       <View style={[s.row, { justifyContent: "space-between", alignItems: "flex-start" }]}>
         <Text style={[s.subhead, { color: colors.text, flex: 1 }]} numberOfLines={2}>
           {label}
@@ -142,6 +145,21 @@ export function Stat({
         {!!unit && <Text style={[s.footnote, { color: colors.secondary }]}> {unit}</Text>}
       </Text>
       {footer ? <View style={{ minHeight: 18, justifyContent: "center", marginTop: -6 }}>{footer}</View> : null}
+    </>
+  );
+  return onPress ? (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={a11y}
+      accessibilityHint={hint}
+      onPress={onPress}
+      style={({ pressed }) => [...tile, pressed && { backgroundColor: colors.surface2 }]}
+    >
+      {body}
+    </Pressable>
+  ) : (
+    <View accessible accessibilityLabel={a11y} style={tile}>
+      {body}
     </View>
   );
 }

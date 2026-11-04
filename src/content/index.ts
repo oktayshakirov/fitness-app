@@ -3,7 +3,7 @@ import bundledHits from "./hit-regions.json";
 import { bundledAssets } from "./bundled-assets";
 import { loadDeviceContent } from "./device";
 import { muscleAt as muscleIn } from "./hits";
-import { filterExercises, type ExerciseFilter } from "./query";
+import { NO_EQUIPMENT, equipmentOf, filterExercises, type ExerciseFilter } from "./query";
 import type { Bundled, HitRegions } from "./remote";
 import {
   equipmentCategories,
@@ -107,7 +107,11 @@ export const equipmentFilters: {
         equipment: content.release.equipmentIcons![c]!.equipment,
       }))
       .filter((f) =>
-        exercises.some((e) => e.equipment.some((q) => f.equipment.includes(q))),
+        exercises.some(
+          (e) =>
+            e.equipment.some((q) => f.equipment.includes(q)) ||
+            (f.id === NO_EQUIPMENT && !e.equipment.length),
+        ),
       )
   : [...new Set(exercises.flatMap((e) => e.equipment))]
       .sort()
@@ -117,9 +121,11 @@ const groups = Object.fromEntries(
 );
 export const filterCatalog = (filter: ExerciseFilter) =>
   filterExercises(exercises, filter, groups);
+/** "Barbell · Bench"; exercises that need nothing read "Bodyweight". */
 export function equipmentSummary(exercise: Exercise) {
+  if (!exercise.equipment.length) return label(NO_EQUIPMENT);
   const named = equipmentFilters
-    .filter((f) => exercise.equipment.some((q) => f.equipment.includes(q)))
+    .filter((f) => equipmentOf(exercise).some((q) => f.equipment.includes(q)))
     .map((f) => f.title);
   return (named.length ? named : exercise.equipment.map(label)).join(" · ");
 }

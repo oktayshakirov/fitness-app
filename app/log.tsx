@@ -1,6 +1,6 @@
 import { useSettings } from "../src/storage/store";
 import { toDisplayWeight, toKilograms, weightText } from "../src/storage/units";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { Alert, Keyboard, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { Text, TextInput } from "../src/components/Text";
@@ -20,6 +20,34 @@ import type { TrainingSet } from "../src/storage/types";
 import { addDays, dayKey, dayLabel, onDay } from "../src/storage/calendar";
 import { setsSummary } from "../src/storage/format";
 import { colors } from "../src/theme";
+export { ScreenError as ErrorBoundary } from "../src/components/ErrorScreen";
+/** Stepper button: one step per tap; holding repeats until released. */
+function StepButton({ label, icon, onStep }: { label: string; icon: "add" | "remove"; onStep: () => void }) {
+  const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+  const stop = () => {
+    clearInterval(timer.current);
+    timer.current = undefined;
+  };
+  useEffect(() => stop, []);
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      onPress={onStep}
+      delayLongPress={350}
+      onLongPress={() => {
+        void Haptics.selectionAsync();
+        onStep();
+        stop();
+        timer.current = setInterval(onStep, 90);
+      }}
+      onPressOut={stop}
+      style={({ pressed }) => [styles.step, pressed && { opacity: 0.6 }]}
+    >
+      <Ionicons name={icon} size={20} color={colors.text} />
+    </Pressable>
+  );
+}
 export default function LogSheet() {
   const settings = useSettings();
   const [units] = useState(settings.units);
@@ -140,14 +168,7 @@ export default function LogSheet() {
           {kind === "reps" ? "Reps" : units}
         </Text>
         <View style={styles.stepper}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={`Decrease set ${i + 1} ${name}`}
-            onPress={() => adjust(i, kind, -step)}
-            style={styles.step}
-          >
-            <Ionicons name="remove" size={20} color={colors.text} />
-          </Pressable>
+          <StepButton label={`Decrease set ${i + 1} ${name}`} icon="remove" onStep={() => adjust(i, kind, -step)} />
           <TextInput
             testID={`log-${kind}-${i}`}
             accessibilityLabel={`Set ${i + 1} ${name}`}
@@ -165,14 +186,7 @@ export default function LogSheet() {
             }
             style={[s.headline, styles.input]}
           />
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={`Increase set ${i + 1} ${name}`}
-            onPress={() => adjust(i, kind, step)}
-            style={styles.step}
-          >
-            <Ionicons name="add" size={20} color={colors.text} />
-          </Pressable>
+          <StepButton label={`Increase set ${i + 1} ${name}`} icon="add" onStep={() => adjust(i, kind, step)} />
         </View>
       </View>
     );
@@ -294,6 +308,7 @@ export default function LogSheet() {
               onPress={() => {
                 try {
                   deleteEntry(original.id);
+                  void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
                   toast({ text: "Deleted", undo: () => saveEntry(original) });
                   router.back();
                 } catch {

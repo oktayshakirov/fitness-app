@@ -5,6 +5,7 @@ import { Text } from "../../src/components/Text";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
+import * as Haptics from "expo-haptics";
 import {
   Screen,
   Heading,
@@ -24,6 +25,7 @@ import { dayKey, dayLabel, monthDays, streaks } from "../../src/storage/calendar
 import { plural, setsSummary } from "../../src/storage/format";
 import type { LogEntry } from "../../src/storage/types";
 import { colors, tabBarSpace } from "../../src/theme";
+export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 function EntryRow({ entry }: { entry: LogEntry }) {
   const { model, units } = useSettings();
   const toast = useToast();
@@ -32,6 +34,7 @@ function EntryRow({ entry }: { entry: LogEntry }) {
   function remove() {
     try {
       deleteEntry(entry.id);
+      void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
       toast({ text: "Deleted", undo: () => saveEntry(entry) });
     } catch {
       Alert.alert("Could not delete", "Please try again.");
@@ -90,6 +93,14 @@ function EntryRow({ entry }: { entry: LogEntry }) {
               <Text style={s.footnote} numberOfLines={2}>
                 {setsSummary(entry.sets, units)}
               </Text>
+            )}
+            {!!entry.note.trim() && (
+              <View style={[s.row, { gap: 5, alignItems: "flex-start" }]}>
+                <Ionicons name="document-text-outline" size={13} color={colors.secondary} style={{ marginTop: 2 }} />
+                <Text style={[s.footnote, { flex: 1 }]} numberOfLines={2}>
+                  {entry.note.trim()}
+                </Text>
+              </View>
             )}
           </View>
           <Text style={s.footnote}>{when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</Text>

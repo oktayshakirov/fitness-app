@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AppState, StyleSheet, View } from "react-native";
+import { AppState, Pressable, StyleSheet, View } from "react-native";
 import { Text } from "./Text";
 import { useVideoPlayer, VideoView } from "expo-video";
 import { Image } from "expo-image";
@@ -8,6 +8,8 @@ import { content, mediaBackground } from "../content";
 import type { ExerciseView } from "../content/types";
 import { colors } from "../theme";
 import { IconButton, s } from "./ui";
+/** Slow motion stays on for the next exercise opened in this session. */
+let slowMotion = false;
 /** One decoder for this detail route. Source replacements are serialized; stale loads never play. */
 export function ExerciseVideo({
   media,
@@ -27,6 +29,7 @@ export function ExerciseVideo({
   const [firstFrame, setFirstFrame] = useState("");
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const [slow, setSlow] = useState(slowMotion);
   const queue = useRef(Promise.resolve());
   const path = media.video.path;
   useEffect(() => {
@@ -66,11 +69,13 @@ export function ExerciseVideo({
     return () => sub.remove();
   }, [player]);
   useEffect(() => {
-    if (focused && active && visible && !paused && loaded === path && !error)
+    if (focused && active && visible && !paused && loaded === path && !error) {
+      // Only set the rate when playing: on iOS a non-zero rate starts playback.
+      player.playbackRate = slow ? 0.5 : 1;
       player.play();
-    else player.pause();
+    } else player.pause();
     return () => player.pause();
-  }, [player, focused, active, visible, paused, loaded, path, error]);
+  }, [player, focused, active, visible, paused, loaded, path, error, slow]);
   return (
     <View style={styles.container}>
       {loaded === path && (
@@ -94,14 +99,34 @@ export function ExerciseVideo({
         />
       )}
       <View style={styles.controls}>
-        <IconButton
-          plain
-          name={error ? "refresh" : paused ? "play" : "pause"}
-          label={error ? "Retry video" : paused ? "Play video" : "Pause video"}
-          onPress={() =>
-            error ? setAttempt((a) => a + 1) : setPaused((p) => !p)
-          }
-        />
+        {!error && (
+          <Pressable
+            accessibilityRole="switch"
+            accessibilityLabel="Slow motion"
+            accessibilityHint="Plays the loop at half speed"
+            accessibilityState={{ checked: slow }}
+            hitSlop={4}
+            onPress={() => {
+              slowMotion = !slow;
+              setSlow(!slow);
+            }}
+            style={({ pressed }) => [
+              styles.speed,
+              slow && { backgroundColor: colors.accent },
+              { opacity: pressed ? 0.7 : 1 },
+            ]}
+          >
+            <Text style={{ color: slow ? colors.onAccent : colors.text, fontSize: 14, fontWeight: "600" }}>0.5×</Text>
+          </Pressable>
+        )}
+        <View style={styles.pill}>
+          <IconButton
+            plain
+            name={error ? "refresh" : paused ? "play" : "pause"}
+            label={error ? "Retry video" : paused ? "Play video" : "Pause video"}
+            onPress={() => (error ? setAttempt((a) => a + 1) : setPaused((p) => !p))}
+          />
+        </View>
       </View>
       {error && (
         <View accessibilityLiveRegion="polite" style={styles.error}>
@@ -123,7 +148,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 12,
     bottom: 12,
+    flexDirection: "row",
+    gap: 8,
+  },
+  pill: { borderRadius: 22, backgroundColor: "rgba(0,0,0,0.55)" },
+  speed: {
+    minWidth: 56,
+    height: 44,
+    paddingHorizontal: 12,
     borderRadius: 22,
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "rgba(0,0,0,0.55)",
   },
   error: {

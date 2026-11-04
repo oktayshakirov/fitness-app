@@ -14,6 +14,7 @@ import {
   loadContent,
   parseRelease,
   readState,
+  rejectRelease,
   type Bundled,
   type HitRegions,
   type UpdateIO,
@@ -311,6 +312,7 @@ test("a second update keeps the previous release, prunes older media, and startu
     active: "v0.3.2",
     previous: "v0.3.1",
     lastCheck: 100_000,
+    rejected: null,
   });
   assert.equal(io.list("files").length, 4);
 
@@ -432,4 +434,34 @@ test("unsafe or malformed releases are rejected", () => {
   );
   assert.equal(compareVersions("v0.10.0", "v0.9.2"), 1);
   assert.equal(compareVersions("v0.3.0", "v0.3.0"), 0);
+});
+
+test("a rejected release returns to the bundle and only a newer one is fetched", async () => {
+  const bundled = makeBundled();
+  const { io, publish, fetched, url } = setup();
+  const next = withNewExercise(bundled);
+  publish(next.release, next.files);
+  await checkForUpdate(io, bundled, config(url, 1_000));
+  assert.equal(loadContent(io, bundled, uri).origin, "remote");
+
+  rejectRelease(io, "v0.3.1");
+  assert.equal(loadContent(io, bundled, uri).origin, "bundled");
+  assert.deepEqual(io.list("files"), []);
+  assert.deepEqual(io.list("releases"), []);
+
+  // The host still offers v0.3.1: nothing is downloaded or staged.
+  fetched.length = 0;
+  assert.deepEqual(await checkForUpdate(io, bundled, config(url, 100_000)), {
+    status: "current",
+  });
+  assert.deepEqual(fetched, ["current.json"]);
+  assert.equal(loadContent(io, bundled, uri).origin, "bundled");
+
+  // A newer release is fetched as usual, and the rejection is remembered.
+  const newer = withNewExercise(bundled, "v0.3.2", "plank");
+  publish(newer.release, newer.files);
+  const result = await checkForUpdate(io, bundled, config(url, 200_000));
+  assert.equal(result.status, "staged");
+  assert.equal(loadContent(io, bundled, uri).release.contentVersion, "v0.3.2");
+  assert.equal(readState(io).rejected, "v0.3.1");
 });

@@ -54,18 +54,23 @@ for equipment (icons rendered from our equipment). 2-column grid; card = poster 
 the corner (logs "done" with haptic + toast "Logged · Undo"); exercises already logged today
 show a small dark "✓ Today" badge on the poster. A "Clear" pill in the header resets muscle,
 equipment and search; the empty state offers "Clear filters" too. Grid never autoplays video.
+Search matches at word starts and understands everyday words (legs, arms, back, core, pecs,
+quads, delts, db/bb/kb, rdl, ohp), plurals and missing spaces ("push ups"). Exercises with no
+equipment count as Bodyweight, in the chip and on the card.
 Ad banner (free tier) docked at the bottom above the tab bar, never covering content.
 
 **Exercise detail.** Video full width at the top (4:5, rounded 16), camera angle picker under
 it: one card per angle with that angle's own poster thumbnail and a plain name (Angled,
 Front, Side, Back, Rear angle, Above, Foot end; spoken hints say where the camera is). Narrow
 screens (< 350 pt) and large text stack the name under the thumbnail. The picked angle stays
-selected for the next exercise opened in the session. Title, muscles worked as chips (red primary, orange
+selected for the next exercise opened in the session. A "0.5×" slow-motion toggle sits beside
+play/pause on the video (lime when on; also kept for the session). Title, muscles worked as chips (red primary, orange
 secondary) + a mini body thumbnail with those muscles tinted. Big accent **Log** button
 (sticky at the bottom). Sections: How to (numbered steps), Cues, Common mistakes,
 Breathing — collapsible, first one open. Last-done line ("Last: 3 × 10 · 40 kg · Tue"), and
 once there are two or more sessions with sets, a best-set line ("Best set: 8 reps · 60 kg").
-Close is an X (the header's chevrons are previous/next exercise).
+Close is an X (the header's chevrons are previous/next exercise). With two or more logs, a
+collapsible "Your sessions (n)" section lists the last 10 with grouped set summaries.
 Swipe up/down for next/previous exercise; swipe right / X to close. No ads here.
 
 **Log sheet.** Glass bottom sheet. A day stepper on top (Today by default; ‹ goes back a
@@ -85,6 +90,14 @@ tap to edit. Below the calendar: "Recent" list of last sessions.
 current choices and totals (logs, active days, exercises tried), then a grouped list: Model (Male/Female), Units, Recovery speed, Pro
 (Remove ads / Restore purchase), Export data / Import data, Privacy policy, Credits &
 licences, Content version, App version.
+
+## Errors
+
+A screen that throws shows a calm error card in place ("Something went wrong", Try again, Close
+on stacked screens) instead of crashing; tabs stay usable. A failure in the root layout shows
+the same card full screen with Restart. While a downloaded exercise update is running, the
+card also offers "Use built-in exercises", which turns that update off and restarts. Unknown
+links open a "Page not found" screen with Go to Home.
 
 ## Motion and feel
 

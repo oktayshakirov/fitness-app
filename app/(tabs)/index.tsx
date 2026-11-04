@@ -24,6 +24,7 @@ import { plural } from "../../src/storage/format";
 import { recovery } from "../../src/recovery/engine";
 import { readyIn, stateColors, stateNames } from "../../src/recovery/labels";
 import { colors, tabBarSpace } from "../../src/theme";
+export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 const counts = Object.fromEntries(
   muscleIds.map((m) => [
     m,
@@ -193,6 +194,8 @@ export default function Home() {
               value={stats.current}
               unit={stats.current === 1 ? "day" : "days"}
               icon="flame"
+              onPress={() => router.navigate("/(tabs)/history")}
+              hint="Opens History"
               footer={
                 <Text numberOfLines={1} style={s.footnote}>
                   {stats.longest ? `Best: ${plural(stats.longest, "day")}` : "Log today to start"}
@@ -204,6 +207,8 @@ export default function Home() {
               value={thisWeek.length}
               unit={thisWeek.length === 1 ? "training day" : "training days"}
               icon="barbell"
+              onPress={() => router.navigate("/(tabs)/history")}
+              hint="Opens History"
               description={thisWeek.length ? `Trained ${thisWeek.map((d) => d.name).join(", ")}` : undefined}
               footer={<WeekStrip days={week} today={today} />}
             />
