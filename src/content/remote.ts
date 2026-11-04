@@ -10,7 +10,7 @@
  *   files/<sha256>.<ext>    verified media, shared across releases
  *   releases/<version>.json verified content.json, sanitized
  *   releases/<version>.hits.json  tap polygons for its hit-region SVGs
- *   state.json              { active, previous, lastCheck }, replaced atomically
+ *   state.json              { active, previous, lastCheck, rejected }, replaced atomically
  *   tmp/                    in-flight downloads
  *
  * A staged release is only read at the next JS start, so screens never see
@@ -44,6 +44,8 @@ export interface State {
   active: string | null;
   previous: string | null;
   lastCheck: number;
+  /** A version the user turned off because it broke a screen; never fetched again. */
+  rejected: string | null;
 }
 
 /** Synchronous reads used at startup, before the first screen renders. */
@@ -344,9 +346,10 @@ export function readState(io: SyncIO): State {
       active: typeof s.active === "string" ? s.active : null,
       previous: typeof s.previous === "string" ? s.previous : null,
       lastCheck: typeof s.lastCheck === "number" ? s.lastCheck : 0,
+      rejected: typeof s.rejected === "string" ? s.rejected : null,
     };
   } catch {
-    return { active: null, previous: null, lastCheck: 0 };
+    return { active: null, previous: null, lastCheck: 0, rejected: null };
   }
 }
 
@@ -477,10 +480,12 @@ export async function checkForUpdate(
     if (compareVersions(target, bundled.release.contentVersion) <= 0) {
       // The host rolled back to (or behind) what this build ships: use the bundle.
       if (state.active === null) return { status: "current" };
-      writeState(io, { active: null, previous: null, lastCheck: config.now });
+      writeState(io, { ...state, active: null, previous: null, lastCheck: config.now });
       collectGarbage(io);
       return { status: "staged", version: null, downloaded: 0 };
     }
+    // Turned off by the user (it broke a screen): wait for a newer release.
+    if (target === state.rejected) return { status: "current" };
     // Same version and intact on disk; a damaged copy is downloaded again.
     if (
       target === state.active &&
@@ -548,6 +553,7 @@ export async function checkForUpdate(
       active: target,
       previous: state.active,
       lastCheck: config.now,
+      rejected: state.rejected,
     });
     clearTmp(io);
     collectGarbage(io);
@@ -559,6 +565,18 @@ export async function checkForUpdate(
       error: e instanceof Error ? e.message : String(e),
     };
   }
+}
+
+/**
+ * Stops using `version` (the downloaded release this session runs) and returns
+ * to the bundle at the next start. That version is never downloaded again; a
+ * newer one on the host is. For a release that loads but breaks a screen.
+ */
+export function rejectRelease(io: UpdateIO, version: string) {
+  io.mkdir("tmp");
+  const state = readState(io);
+  writeState(io, { active: null, previous: null, lastCheck: state.lastCheck, rejected: version });
+  collectGarbage(io);
 }
 
 function clearTmp(io: UpdateIO) {
