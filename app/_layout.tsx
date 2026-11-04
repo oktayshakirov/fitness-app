@@ -1,6 +1,7 @@
 import { useSettings } from "../src/storage/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ToastProvider } from "../src/components/Toast";
+import { RestTimerHost } from "../src/components/RestTimer";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { ThemeProvider, DarkTheme } from "expo-router";
@@ -79,6 +80,7 @@ export default function RootLayout() {
               </Stack.Protected>
               <Stack.Screen name="privacy" />
             </Stack>
+            <RestTimerHost />
           </ToastProvider>
         </SafeAreaProvider>
       </ThemeProvider>

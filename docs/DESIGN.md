@@ -65,8 +65,9 @@ Front, Side, Back, Rear angle, Above, Foot end; spoken hints say where the camer
 screens (< 350 pt) and large text stack the name under the thumbnail. The picked angle stays
 selected for the next exercise opened in the session. A "0.5×" slow-motion toggle sits beside
 play/pause on the video (lime when on; also kept for the session). Title, muscles worked as chips (red primary, orange
-secondary) + a mini body thumbnail with those muscles tinted. Big accent **Log** button
-(sticky at the bottom). Sections: How to (numbered steps), Cues, Common mistakes,
+secondary) + a mini body thumbnail with those muscles tinted. Sticky bottom bar: a round
+timer button (starts the rest timer; its icon is lime while resting) and the big accent
+**Log** button. Sections: How to (numbered steps), Cues, Common mistakes,
 Breathing — collapsible, first one open. Last-done line ("Last: 3 × 10 · 40 kg · Tue"), and
 once there are two or more sessions with sets, a best-set line ("Best set: 8 reps · 60 kg").
 Close is an X (the header's chevrons are previous/next exercise). With two or more logs, a
@@ -76,8 +77,17 @@ Swipe up/down for next/previous exercise; swipe right / X to close. No ads here.
 **Log sheet.** Glass bottom sheet. A day stepper on top (Today by default; ‹ goes back a
 day, never into the future; editing an entry can move it to another day, keeping its time).
 Primary button "Done" (one tap = logged). Expandable
-"Add sets": rows of reps × weight with +/− steppers, prefilled from last time, "Add set".
+"Add sets": rows of reps × weight with +/− steppers, prefilled from last time, "Add set", and
+"Rest 1:30" (the chosen length), which turns into the live countdown in the sheet.
 Save → haptic, recovery updates, sheet closes, toast with Undo.
+
+**Rest timer.** One timer for the whole app, derived from timestamps so it stays right after
+backgrounding. While it runs, a dark pill floats above the toast lane on every screen: timer
+icon, "1:23 rest", "+15 s", "Skip" and a lime line running down. Light haptic ticks at 3-2-1;
+at zero a success haptic and a lime "Rest over" pill (OK, or it hides after 5 s); VoiceOver
+and TalkBack hear "Rest over". No sound or notification while the app is closed (that needs a
+notifications module and a native build). Sheets cover root overlays, so the Log sheet shows
+the countdown inline.
 
 **History.** Large title "History". Month calendar card: active days filled accent,
 today ringed; stats row below: Active days (month) · Current streak · Weekly streak.
@@ -87,9 +97,11 @@ sets summary such as "3 × 10 · 40 kg"; bodyweight sets show reps only), swipe 
 tap to edit. Below the calendar: "Recent" list of last sessions.
 
 **Profile** (was Settings, renamed 2026-11-03). Header card with the model avatar, the
-current choices and totals (logs, active days, exercises tried), then a grouped list: Model (Male/Female), Units, Recovery speed, Pro
-(Remove ads / Restore purchase), Export data / Import data, Privacy policy, Credits &
-licences, Content version, App version.
+current choices and totals (logs, active days, exercises tried), then a grouped list: Model
+(Male/Female), Units, Recovery speed, Rest timer (0:30 · 1:00 · 1:30 · 2:00 · 3:00), Pro
+(Remove ads / Restore purchase, later), Export data / Import data / Erase all logs (red; a
+confirmation with Export first, then an Undo toast; settings and onboarding stay), Privacy
+policy, Credits & licences, Content version, App version.
 
 ## Errors
 

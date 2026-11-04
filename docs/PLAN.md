@@ -445,8 +445,42 @@ Android: Accessibility → Remove animations), restart the app: no slides, scali
 countdown line; everything still works. Also scroll the Exercises grid and History on the
 Android emulator (or a mid-range phone) and watch for dropped frames.
 
-**Suggested next (not done):** CI on pull requests (`npm ci`, typecheck, tests); "Erase all
-data" in Profile (decide whether it also resets onboarding); automatic M6 crash-loop detection
-(the error screen covers JS render errors; a native crash on launch is still not detected); tap a Home week bar to open that day in History; group
-History "Recent" by day; rest timer (MVP "later"). Still open from before: iOS redesign visual
-check, Maestro runs on both platforms, M7 and M8.
+**Round 5: rest timer and erase (same branch)**
+- Rest timer: `src/workout/rest.ts` (two timestamps; clock, progress, spoken duration; tested),
+  `src/workout/restTimer.ts` (one app-wide timer, a clock that re-renders on each whole second
+  and on return to the foreground), `src/components/RestTimer.tsx`. `RestTimerHost` in the root
+  layout owns the side effects (3-2-1 light ticks, success haptic and "Rest over" announcement
+  at zero, no late buzz if it ended in the background) and floats the pill 146 pt above the
+  bottom inset, above the toast lane. Start it with the timer button beside "Log this exercise"
+  or "Rest 1:30" in the Log sheet's sets block, where the countdown also shows (sheets cover
+  root overlays). Length in Profile → Training → Rest timer (30 s to 3 min, default 90 s);
+  `restSeconds` is optional in saved settings and backups, so older ones still load.
+- Erase all logs: Profile → Your data. Confirmation offers Export first; Erase deletes every
+  log in one transaction (`src/storage/erase.ts`, tested on real SQLite), then `VACUUM` and a
+  WAL checkpoint so erased notes do not stay on disk, and removes exported backup copies from
+  the cache. Settings and onboarding stay. A toast offers Undo for 10 s (restores the same
+  rows). Privacy copy updated.
+- Not built: a sound or notification when rest ends while the app is closed. That needs
+  `expo-notifications` and a native rebuild.
+- Verified: typecheck; 58 tests (8 new: timer math, clock, spoken durations, optional rest
+  setting, erase keeps settings, Undo restores exactly once, failed erase rolls back);
+  `git diff --check`; Android and iOS bundles.
+
+**Round 5 checks:** (A) Exercise screen: tap the timer button → pill floats above the bar with a
+countdown and running line; +15 s adds time; Skip hides it; tapping the button again restarts.
+(B) Let it run out with the phone in hand: light ticks at 3-2-1, a success buzz, lime "Rest over"
+that hides after 5 s. (C) Start a rest, lock the phone past the end, unlock: "Rest over" shows,
+no buzz. (D) Log sheet → Add sets → "Rest 1:30": the countdown runs inside the sheet; save the
+sheet and the floating pill continues. (E) Profile → Rest timer 2:00: the sheet button reads
+"Rest 2:00"; restart the app, the choice is kept. (F) With logs: Profile → Erase all logs →
+confirmation → Erase: History empties, Home resets, Profile totals read 0, you stay onboarded
+with the same model and units; Undo in the toast brings every log back. (G) Erase, wait past
+10 s: logs stay gone; exporting afterwards gives an empty backup. (H) VoiceOver/TalkBack: the
+pill reads "Rest timer, 1 minute 23 seconds left", buttons "Add 15 seconds" and "Skip rest".
+Maestro: `.maestro/rest-timer.yaml`.
+
+**Suggested next (not done):** CI on pull requests (`npm ci`, typecheck, tests); a rest-over
+notification while the app is closed (`expo-notifications`, native build); automatic M6
+crash-loop detection (the error screen covers JS render errors; a native crash on launch is
+still not detected); tap a Home week bar to open that day in History. Still open from before:
+iOS redesign visual check, Maestro runs on both platforms, M7 and M8.
