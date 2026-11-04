@@ -1,29 +1,37 @@
+import { useRef } from "react";
+import { useSegments } from "expo-router";
 import { Tabs } from "expo-router/js-tabs";
 import { Platform, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import { Ionicons } from "@expo/vector-icons";
 import { SymbolView } from "expo-symbols";
+import Animated, { useAnimatedStyle, useReducedMotion, withSpring } from "react-native-reanimated";
 import { colors, fonts } from "../../src/theme";
+import { settle } from "../../src/components/motion";
 const tabs = [
   { name: "index", title: "Home", icon: "home", sf: "house", sfActive: "house.fill" },
   { name: "exercises", title: "Exercises", icon: "barbell", sf: "dumbbell", sfActive: "dumbbell.fill" },
   { name: "history", title: "History", icon: "calendar", sf: "calendar", sfActive: "calendar.circle.fill" },
   { name: "profile", title: "Profile", icon: "person", sf: "person", sfActive: "person.fill" },
 ] as const;
-function TabIcon({ tab, focused }: { tab: (typeof tabs)[number]; focused: boolean }) {
+/**
+ * The tab bar renders a focused and an unfocused copy of every icon and swaps
+ * them instantly, so `focused` never changes for one copy. `active` is the real
+ * selection: when it turns on, the focused copy's lime pill springs from 60 %.
+ * Opacity stays 1 so the dark active glyph is never left on the dark bar.
+ */
+function TabIcon({ tab, focused, active }: { tab: (typeof tabs)[number]; focused: boolean; active: boolean }) {
   const color = focused ? colors.onAccent : colors.secondary;
+  const pill = useAnimatedStyle(() => ({ transform: [{ scale: withSpring(active ? 1 : 0.6, settle) }] }));
   return (
-    <View
-      style={{
-        width: 52,
-        height: 32,
-        borderRadius: 16,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: focused ? colors.accent : "transparent",
-      }}
-    >
+    <View style={{ width: 52, height: 32, alignItems: "center", justifyContent: "center" }}>
+      {focused && (
+        <Animated.View
+          pointerEvents="none"
+          style={[StyleSheet.absoluteFill, { borderRadius: 16, backgroundColor: colors.accent }, pill]}
+        />
+      )}
       {Platform.OS === "ios" ? (
         <SymbolView
           name={focused ? tab.sfActive : tab.sf}
@@ -39,11 +47,19 @@ function TabIcon({ tab, focused }: { tab: (typeof tabs)[number]; focused: boolea
 /** Floating pill tab bar; screens reserve `tabBarSpace` at the bottom. */
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
+  const reduced = useReducedMotion();
+  // Current tab from the route ("index" is omitted from segments); kept while a stacked
+  // screen such as an exercise is open, so returning does not replay the pill.
+  const segments = useSegments() as string[];
+  const lastTab = useRef("index");
+  if (segments[0] === "(tabs)") lastTab.current = segments[1] ?? "index";
   return (
     <Tabs
       safeAreaInsets={{ bottom: 0 }}
       screenOptions={{
         headerShown: false,
+        // 150 ms native-driver cross-fade between tabs; off with Reduce Motion.
+        animation: reduced ? "none" : "fade",
         tabBarActiveTintColor: colors.text,
         tabBarInactiveTintColor: colors.secondary,
         tabBarLabelStyle: { fontFamily: fonts["500"], fontSize: 11, marginTop: 4 },
@@ -83,7 +99,7 @@ export default function TabsLayout() {
           name={tab.name}
           options={{
             title: tab.title,
-            tabBarIcon: ({ focused }) => <TabIcon tab={tab} focused={focused} />,
+            tabBarIcon: ({ focused }) => <TabIcon tab={tab} focused={focused} active={lastTab.current === tab.name} />,
           }}
         />
       ))}

@@ -6,31 +6,77 @@ import {
   useState,
   type PropsWithChildren,
 } from "react";
-import { AccessibilityInfo, Alert, Pressable, View } from "react-native";
+import { AccessibilityInfo, Alert, Pressable } from "react-native";
+import Animated, {
+  Easing,
+  FadeInDown,
+  FadeOutDown,
+  useAnimatedStyle,
+  useReducedMotion,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import { Text } from "./Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../theme";
 import { s } from "./ui";
+import { motion } from "./motion";
 type Message = { text: string; undo: () => void };
+/** How long Undo stays available. */
+const visibleMs = 10000;
 const Context = createContext<(message: Message) => void>(() => {});
+/** Thin lime line that runs down while Undo is still available. Hidden with Reduce Motion. */
+function Countdown() {
+  const reduced = useReducedMotion();
+  const left = useSharedValue(1);
+  useEffect(() => {
+    left.value = withTiming(0, { duration: visibleMs, easing: Easing.linear });
+  }, [left]);
+  const style = useAnimatedStyle(() => ({ transform: [{ scaleX: left.value }] }));
+  if (reduced) return null;
+  return (
+    <Animated.View
+      pointerEvents="none"
+      style={[
+        {
+          position: "absolute",
+          left: 24,
+          right: 24,
+          bottom: 5,
+          height: 2,
+          borderRadius: 1,
+          backgroundColor: colors.accent,
+          opacity: 0.6,
+          transformOrigin: "left",
+        },
+        style,
+      ]}
+    />
+  );
+}
 export function ToastProvider({ children }: PropsWithChildren) {
-  const [message, setMessage] = useState<Message | null>(null);
+  const [message, setMessage] = useState<(Message & { id: number }) | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const count = useRef(0);
   const insets = useSafeAreaInsets();
   useEffect(() => () => clearTimeout(timer.current), []);
   function show(next: Message) {
     clearTimeout(timer.current);
-    setMessage(next);
+    // A new id re-runs the entrance and restarts the countdown.
+    setMessage({ ...next, id: ++count.current });
     AccessibilityInfo.announceForAccessibility(
       `${next.text}. Undo is available.`,
     );
-    timer.current = setTimeout(() => setMessage(null), 10000);
+    timer.current = setTimeout(() => setMessage(null), visibleMs);
   }
   return (
     <Context.Provider value={show}>
       {children}
       {message && (
-        <View
+        <Animated.View
+          key={message.id}
+          entering={FadeInDown.duration(motion.base)}
+          exiting={FadeOutDown.duration(motion.fast)}
           accessibilityLiveRegion="polite"
           style={{
             position: "absolute",
@@ -53,6 +99,7 @@ export function ToastProvider({ children }: PropsWithChildren) {
             onPress={() => {
               try {
                 message.undo();
+                clearTimeout(timer.current);
                 setMessage(null);
               } catch {
                 Alert.alert(
@@ -65,7 +112,8 @@ export function ToastProvider({ children }: PropsWithChildren) {
           >
             <Text style={{ color: colors.accent, fontSize: 16, fontWeight: "600" }}>Undo</Text>
           </Pressable>
-        </View>
+          <Countdown />
+        </Animated.View>
       )}
     </Context.Provider>
   );

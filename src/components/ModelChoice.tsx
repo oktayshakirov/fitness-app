@@ -1,4 +1,4 @@
-import { Pressable, View } from "react-native";
+import { View } from "react-native";
 import { Text } from "./Text";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
@@ -7,6 +7,7 @@ import { content, label } from "../content";
 import type { Model } from "../content/types";
 import { colors } from "../theme";
 import { s } from "./ui";
+import { PressableScale } from "./motion";
 /** Two hero cards. `compact` crops to the upper body for Profile. */
 export function ModelChoice({
   value,
@@ -23,7 +24,7 @@ export function ModelChoice({
         const hero = content.release.heroes[model];
         const selected = model === value;
         return (
-          <Pressable
+          <PressableScale
             key={model}
             accessibilityRole="radio"
             accessibilityLabel={`${label(model)} model`}
@@ -32,15 +33,15 @@ export function ModelChoice({
               void Haptics.selectionAsync();
               onChange(model);
             }}
-            style={({ pressed }) => ({
+            scaleTo={0.97}
+            style={{
               flex: 1,
               borderRadius: 24,
               borderWidth: 2,
               borderColor: selected ? colors.accent : colors.surface,
               backgroundColor: selected ? colors.accentDim : colors.surface,
               overflow: "hidden",
-              opacity: pressed ? 0.8 : 1,
-            })}
+            }}
           >
             {hero ? (
               <Image
@@ -75,7 +76,7 @@ export function ModelChoice({
               />
               <Text style={s.headline}>{label(model)}</Text>
             </View>
-          </Pressable>
+          </PressableScale>
         );
       })}
     </View>

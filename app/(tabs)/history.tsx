@@ -6,6 +6,8 @@ import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import * as Haptics from "expo-haptics";
+import Animated, { FadeIn, FadeInLeft, FadeInRight, LinearTransition } from "react-native-reanimated";
+import { motion } from "../../src/components/motion";
 import {
   Screen,
   Heading,
@@ -42,76 +44,88 @@ function EntryRow({ entry }: { entry: LogEntry }) {
   }
   const when = new Date(entry.timestamp);
   return (
-    <ReanimatedSwipeable
-      renderRightActions={() => (
+    // Rows glide into place when one above is deleted or restored.
+    <Animated.View layout={LinearTransition.duration(motion.base)}>
+      <ReanimatedSwipeable
+        renderRightActions={() => (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`Delete ${entry.exerciseName}`}
+            onPress={remove}
+            style={{
+              backgroundColor: colors.trained,
+              justifyContent: "center",
+              alignItems: "center",
+              width: 88,
+              marginLeft: 8,
+              borderRadius: 24,
+            }}
+          >
+            <Ionicons name="trash-outline" size={22} color={colors.text} />
+          </Pressable>
+        )}
+      >
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={`Delete ${entry.exerciseName}`}
-          onPress={remove}
-          style={{
-            backgroundColor: colors.trained,
-            justifyContent: "center",
-            alignItems: "center",
-            width: 88,
-            marginLeft: 8,
-            borderRadius: 24,
+          accessibilityLabel={`Edit ${entry.exerciseName}`}
+          accessibilityHint="Opens this log. Use the Delete accessibility action to remove it."
+          accessibilityActions={[{ name: "delete", label: "Delete log" }]}
+          onAccessibilityAction={(event) => {
+            if (event.nativeEvent.actionName === "delete") remove();
           }}
+          onPress={() => router.push({ pathname: "/log", params: { entryId: entry.id } })}
         >
-          <Ionicons name="trash-outline" size={22} color={colors.text} />
-        </Pressable>
-      )}
-    >
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`Edit ${entry.exerciseName}`}
-        accessibilityHint="Opens this log. Use the Delete accessibility action to remove it."
-        accessibilityActions={[{ name: "delete", label: "Delete log" }]}
-        onAccessibilityAction={(event) => {
-          if (event.nativeEvent.actionName === "delete") remove();
-        }}
-        onPress={() => router.push({ pathname: "/log", params: { entryId: entry.id } })}
-      >
-        <Card style={[s.row, { padding: 8, paddingRight: 16 }]}>
-          {clip ? (
-            <Image
-              source={content.resolve(clip.poster)}
-              style={{ width: 56, height: 70, borderRadius: 16, backgroundColor: mediaBackground }}
-              contentFit="contain"
-            />
-          ) : (
-            <View style={{ width: 56, height: 70, borderRadius: 16, backgroundColor: colors.surface2 }} />
-          )}
-          <View style={{ flex: 1, gap: 6, alignItems: "flex-start" }}>
-            <Text style={s.headline}>{entry.exerciseName}</Text>
-            <View style={[s.row, { gap: 4, paddingHorizontal: 10, paddingVertical: 3, borderRadius: 12, backgroundColor: colors.accent }]}>
-              <Ionicons name={entry.sets.length ? "barbell" : "checkmark"} size={12} color={colors.onAccent} />
-              <Text style={[s.caption, { color: colors.onAccent }]}>
-                {entry.sets.length ? `${entry.sets.length} ${entry.sets.length === 1 ? "set" : "sets"}` : "Done"}
-              </Text>
-            </View>
-            {!!entry.sets.length && (
-              <Text style={s.footnote} numberOfLines={2}>
-                {setsSummary(entry.sets, units)}
-              </Text>
+          <Card style={[s.row, { padding: 8, paddingRight: 16 }]}>
+            {clip ? (
+              <Image
+                source={content.resolve(clip.poster)}
+                style={{ width: 56, height: 70, borderRadius: 16, backgroundColor: mediaBackground }}
+                contentFit="contain"
+              />
+            ) : (
+              <View style={{ width: 56, height: 70, borderRadius: 16, backgroundColor: colors.surface2 }} />
             )}
-            {!!entry.note.trim() && (
-              <View style={[s.row, { gap: 5, alignItems: "flex-start" }]}>
-                <Ionicons name="document-text-outline" size={13} color={colors.secondary} style={{ marginTop: 2 }} />
-                <Text style={[s.footnote, { flex: 1 }]} numberOfLines={2}>
-                  {entry.note.trim()}
+            <View style={{ flex: 1, gap: 6, alignItems: "flex-start" }}>
+              <Text style={s.headline}>{entry.exerciseName}</Text>
+              <View style={[s.row, { gap: 4, paddingHorizontal: 10, paddingVertical: 3, borderRadius: 12, backgroundColor: colors.accent }]}>
+                <Ionicons name={entry.sets.length ? "barbell" : "checkmark"} size={12} color={colors.onAccent} />
+                <Text style={[s.caption, { color: colors.onAccent }]}>
+                  {entry.sets.length ? `${entry.sets.length} ${entry.sets.length === 1 ? "set" : "sets"}` : "Done"}
                 </Text>
               </View>
-            )}
-          </View>
-          <Text style={s.footnote}>{when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</Text>
-        </Card>
-      </Pressable>
-    </ReanimatedSwipeable>
+              {!!entry.sets.length && (
+                <Text style={s.footnote} numberOfLines={2}>
+                  {setsSummary(entry.sets, units)}
+                </Text>
+              )}
+              {!!entry.note.trim() && (
+                <View style={[s.row, { gap: 5, alignItems: "flex-start" }]}>
+                  <Ionicons name="document-text-outline" size={13} color={colors.secondary} style={{ marginTop: 2 }} />
+                  <Text style={[s.footnote, { flex: 1 }]} numberOfLines={2}>
+                    {entry.note.trim()}
+                  </Text>
+                </View>
+              )}
+            </View>
+            <Text style={s.footnote}>{when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</Text>
+          </Card>
+        </Pressable>
+      </ReanimatedSwipeable>
+    </Animated.View>
   );
 }
 export default function History() {
   const entries = useEntries();
   const [month, setMonth] = useState(new Date());
+  // Which way the calendar last paged, so the new month slides in from that side.
+  const [monthMove, setMonthMove] = useState(0);
+  function showMonth(date: Date) {
+    const target = new Date(date.getFullYear(), date.getMonth(), 1);
+    const delta = target.getFullYear() * 12 + target.getMonth() - (month.getFullYear() * 12 + month.getMonth());
+    if (!delta) return;
+    setMonthMove(Math.sign(delta));
+    setMonth(target);
+  }
   const [selected, setSelected] = useState(dayKey(Date.now()));
   const scroll = useRef<ComponentRef<typeof ScrollView>>(null);
   const stats = streaks(entries, new Date(), month);
@@ -142,7 +156,7 @@ export default function History() {
               title="Today"
               label="Go to today"
               onPress={() => {
-                setMonth(new Date());
+                showMonth(new Date());
                 setSelected(today);
               }}
             />
@@ -179,7 +193,7 @@ export default function History() {
               plain
               name="chevron-back"
               label="Previous month"
-              onPress={() => setMonth((m) => new Date(m.getFullYear(), m.getMonth() - 1, 1))}
+              onPress={() => showMonth(new Date(month.getFullYear(), month.getMonth() - 1, 1))}
             />
             <Text style={[s.headline, { flexShrink: 1 }]}>
               {month.toLocaleDateString(undefined, { month: "long", year: "numeric" })}
@@ -189,7 +203,7 @@ export default function History() {
               name="chevron-forward"
               label="Next month"
               disabled={onCurrentMonth}
-              onPress={() => setMonth((m) => new Date(m.getFullYear(), m.getMonth() + 1, 1))}
+              onPress={() => showMonth(new Date(month.getFullYear(), month.getMonth() + 1, 1))}
             />
           </View>
           <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 4 }}>
@@ -201,6 +215,18 @@ export default function History() {
                 {d}
               </Text>
             ))}
+          </View>
+          <Animated.View
+            key={`${month.getFullYear()}-${month.getMonth()}`}
+            entering={
+              monthMove > 0
+                ? FadeInRight.duration(motion.base)
+                : monthMove < 0
+                  ? FadeInLeft.duration(motion.base)
+                  : undefined
+            }
+            style={{ flexDirection: "row", flexWrap: "wrap" }}
+          >
             {monthDays(month).map((date, i) => {
               const key = date ? dayKey(date) : "";
               const active = days.has(key);
@@ -241,46 +267,50 @@ export default function History() {
                 </View>
               );
             })}
-          </View>
+          </Animated.View>
         </Card>
-        <SectionTitle
-          title={
-            selected === today
-              ? "Today"
-              : selectedDate.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })
-          }
-        />
-        {!!dayEntries.length && (
-          <Text style={[s.footnote, { marginTop: -6 }]}>
-            {plural(dayExercises, "exercise")}
-            {daySets ? ` · ${plural(daySets, "set")}` : ""}
-          </Text>
-        )}
-        {dayEntries.map((e) => (
-          <EntryRow key={e.id} entry={e} />
-        ))}
-        {!dayEntries.length && (
-          <Empty
-            icon="barbell-outline"
-            title="Nothing logged"
-            description={selected === today ? "Log an exercise and it shows up here." : "No exercises on this day."}
+        {/* Sections below the calendar glide together when its height or a list changes. */}
+        <Animated.View layout={LinearTransition.duration(motion.base)} style={{ gap: 12 }}>
+          <SectionTitle
+            title={
+              selected === today
+                ? "Today"
+                : selectedDate.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })
+            }
           />
-        )}
-        {!entries.length && (
-          <Button title="Browse exercises" onPress={() => router.navigate("/(tabs)/exercises")} />
-        )}
+          <Animated.View key={selected} entering={FadeIn.duration(motion.fast)} style={{ gap: 12 }}>
+            {!!dayEntries.length && (
+              <Text style={[s.footnote, { marginTop: -6 }]}>
+                {plural(dayExercises, "exercise")}
+                {daySets ? ` · ${plural(daySets, "set")}` : ""}
+              </Text>
+            )}
+            {dayEntries.map((e) => (
+              <EntryRow key={e.id} entry={e} />
+            ))}
+            {!dayEntries.length && (
+              <Empty
+                icon="barbell-outline"
+                title="Nothing logged"
+                description={selected === today ? "Log an exercise and it shows up here." : "No exercises on this day."}
+              />
+            )}
+          </Animated.View>
+          {!entries.length && (
+            <Button title="Browse exercises" onPress={() => router.navigate("/(tabs)/exercises")} />
+          )}
+        </Animated.View>
         {!!recent.length && (
-          <>
+          <Animated.View layout={LinearTransition.duration(motion.base)} style={{ gap: 12 }}>
             <SectionTitle title="Recent" />
             {recent.map(([key, group]) => (
-              <View key={key} style={{ gap: 10 }}>
+              <Animated.View key={key} layout={LinearTransition.duration(motion.base)} style={{ gap: 10 }}>
                 <Pressable
                   accessibilityRole="button"
                   accessibilityLabel={`${dayLabel(new Date(`${key}T12:00:00`))}, ${plural(group.length, "log")}. Show this day`}
                   onPress={() => {
-                    const date = new Date(`${key}T12:00:00`);
                     setSelected(key);
-                    setMonth(new Date(date.getFullYear(), date.getMonth(), 1));
+                    showMonth(new Date(`${key}T12:00:00`));
                     scroll.current?.scrollTo({ y: 0, animated: true });
                   }}
                   style={[s.row, { justifyContent: "space-between", minHeight: 32, marginTop: 4 }]}
@@ -293,9 +323,9 @@ export default function History() {
                 {group.map((e) => (
                   <EntryRow key={e.id} entry={e} />
                 ))}
-              </View>
+              </Animated.View>
             ))}
-          </>
+          </Animated.View>
         )}
       </ScrollView>
     </Screen>

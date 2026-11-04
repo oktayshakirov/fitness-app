@@ -6,6 +6,16 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-asset";
+import Animated, {
+  FadeIn,
+  FadeInDown,
+  FadeInUp,
+  LinearTransition,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+import { motion } from "../../src/components/motion";
 import { Screen, IconButton, Button, SectionLabel, s } from "../../src/components/ui";
 import { AnglePicker } from "../../src/components/AnglePicker";
 import { ExerciseVideo } from "../../src/components/ExerciseVideo";
@@ -38,8 +48,17 @@ function Section({
   initial?: boolean;
 }) {
   const [open, setOpen] = useState(initial);
+  const turn = useSharedValue(initial ? 180 : 0);
+  useEffect(() => {
+    turn.value = withTiming(open ? 180 : 0, { duration: motion.base });
+  }, [open, turn]);
+  const chevron = useAnimatedStyle(() => ({ transform: [{ rotate: `${turn.value}deg` }] }));
   return (
-    <View style={{ backgroundColor: colors.surface, borderRadius: 24, paddingHorizontal: 18 }}>
+    // The card animates its height change and the cards below glide instead of jumping.
+    <Animated.View
+      layout={LinearTransition.duration(motion.base)}
+      style={{ backgroundColor: colors.surface, borderRadius: 24, paddingHorizontal: 18, overflow: "hidden" }}
+    >
       <Pressable
         accessibilityRole="button"
         accessibilityState={{ expanded: open }}
@@ -47,14 +66,12 @@ function Section({
         style={[s.row, { minHeight: 52, justifyContent: "space-between" }]}
       >
         <Text style={[s.headline, { flex: 1 }]}>{title}</Text>
-        <Ionicons
-          name={open ? "chevron-up" : "chevron-down"}
-          size={18}
-          color={colors.secondary}
-        />
+        <Animated.View style={chevron}>
+          <Ionicons name="chevron-down" size={18} color={colors.secondary} />
+        </Animated.View>
       </Pressable>
       {open && (
-        <View style={{ gap: 12, paddingBottom: 16 }}>
+        <Animated.View entering={FadeIn.duration(motion.base)} style={{ gap: 12, paddingBottom: 16 }}>
           {lines.map((line, i) => (
             <View key={i} style={[s.row, { alignItems: "flex-start", gap: 10 }]}>
               {numbered ? (
@@ -78,9 +95,9 @@ function Section({
               <Text style={[s.secondary, { flex: 1 }]}>{line}</Text>
             </View>
           ))}
-        </View>
+        </Animated.View>
       )}
-    </View>
+    </Animated.View>
   );
 }
 /** The angle last picked stays selected for the next exercise opened in this session. */
@@ -129,6 +146,8 @@ export default function ExerciseDetail() {
   }, [params.id, params.muscle, params.equipment, params.query]);
   const initial = list.findIndex((e) => e.id === params.id);
   const [index, setIndex] = useState(Math.max(0, initial));
+  // Direction of the last previous/next move; the info block slides in from that side.
+  const [direction, setDirection] = useState(0);
   const exercise = list[index];
   const entries = useEntries();
   const history = useMemo(
@@ -164,6 +183,7 @@ export default function ExerciseDetail() {
   function move(delta: number) {
     const next = index + delta;
     if (next >= 0 && next < list.length) {
+      setDirection(delta);
       setIndex(next);
       setVisible(true);
       scroll.current?.scrollTo({ y: 0, animated: false });
@@ -230,7 +250,17 @@ export default function ExerciseDetail() {
             </View>
           </GestureDetector>
           <AnglePicker media={media} value={selected} onChange={chooseView} />
-          <View key={exercise.id} style={{ gap: 16 }}>
+          <Animated.View
+            key={exercise.id}
+            entering={
+              direction > 0
+                ? FadeInDown.duration(motion.base)
+                : direction < 0
+                  ? FadeInUp.duration(motion.base)
+                  : undefined
+            }
+            style={{ gap: 16 }}
+          >
             <View style={{ gap: 4, paddingHorizontal: 4 }}>
               <Text accessibilityRole="header" style={[s.large, { fontSize: 26, lineHeight: 34 }]}>
                 {exercise.name}
@@ -317,7 +347,7 @@ export default function ExerciseDetail() {
                 ]}
               />
             )}
-          </View>
+          </Animated.View>
         </ScrollView>
       </GestureDetector>
       <View
