@@ -92,6 +92,8 @@ The tests exercise functional behavior. They do not establish packaged offline
 startup, physical-device playback/lifecycle behavior or 60 fps performance.
 
 `.maestro/log-day.yaml` logs one exercise for yesterday and undoes it (Log sheet day stepper).
+`.maestro/rest-timer.yaml` starts the rest timer on an exercise, adds 15 s and skips it. There is
+deliberately no flow for Erase all logs: it would delete the test device's real logs.
 
 For iOS tracking, use `.maestro/tracking-ios.yaml`: it verifies reps/weight via
 steppers plus typed notes, persistence and Undo. Direct numeric typing on iOS is

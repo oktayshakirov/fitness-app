@@ -4,7 +4,8 @@ import { Alert, ScrollView, View } from "react-native";
 import { Text } from "../../src/components/Text";
 import * as DocumentPicker from "expo-document-picker";
 import * as Sharing from "expo-sharing";
-import { File, Paths } from "expo-file-system";
+import { Directory, File, Paths } from "expo-file-system";
+import * as Haptics from "expo-haptics";
 import Constants from "expo-constants";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { motion } from "../../src/components/motion";
@@ -12,22 +13,35 @@ import { reloadAppAsync } from "expo";
 import { Screen, Heading, Group, IconCircle, Row, Segmented, SectionTitle, s } from "../../src/components/ui";
 import { ModelChoice } from "../../src/components/ModelChoice";
 import { Avatar } from "../../src/components/Avatar";
+import { useToast } from "../../src/components/Toast";
 import { content, label } from "../../src/content";
 import { useStagedContent } from "../../src/content/updates";
 import { dayKey } from "../../src/storage/calendar";
 import {
+  eraseAllEntries,
   exportData,
   getEntries,
   importData,
+  restoreEntries,
   updateSettings,
   useEntries,
   useSettings,
 } from "../../src/storage/store";
-import type { Settings as Preferences } from "../../src/storage/preferences";
+import { restChoices, type Settings as Preferences } from "../../src/storage/preferences";
+import { clock } from "../../src/workout/rest";
 import { maxBackupBytes, parseBackup } from "../../src/storage/backup";
 import { plural } from "../../src/storage/format";
 import { colors, tabBarSpace } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
+/** Removes backup copies that Export wrote to this app's cache. */
+function clearExportedBackups() {
+  try {
+    for (const item of new Directory(Paths.cache).list())
+      if (item instanceof File && /^fitness-backup-\d+\.json$/.test(item.name)) item.delete();
+  } catch {
+    // Best effort: the system clears the cache over time too.
+  }
+}
 export default function Profile() {
   const settings = useSettings();
   const entries = useEntries();
@@ -35,6 +49,7 @@ export default function Profile() {
   const [busy, setBusy] = useState(false);
   const [credits, setCredits] = useState(false);
   const staged = useStagedContent();
+  const toast = useToast();
   function save(patch: Partial<Preferences>) {
     try {
       updateSettings(patch);
@@ -74,7 +89,7 @@ export default function Profile() {
         const confirmed = await new Promise<boolean>((resolve) =>
           Alert.alert(
             "Import backup?",
-            `Adds ${plural(added, "new log")}${existing ? ` and skips ${existing} already on this device` : ""}. Also restores model, units and recovery speed from this backup.`,
+            `Adds ${plural(added, "new log")}${existing ? ` and skips ${existing} already on this device` : ""}. Also restores your settings from this backup.`,
             [
               { text: "Cancel", style: "cancel", onPress: () => resolve(false) },
               { text: "Import", onPress: () => resolve(true) },
@@ -98,6 +113,33 @@ export default function Profile() {
       lock.current = false;
       setBusy(false);
     }
+  }
+  /** Deletes every log after a confirmation; settings and onboarding stay, and Undo restores them. */
+  function erase() {
+    const count = entries.length;
+    Alert.alert(
+      "Erase all logs?",
+      `This deletes ${count === 1 ? "your log" : `all ${count} logs`} and their notes from this device. Your model, units and other settings stay. Export first if you want a copy.`,
+      [
+        { text: "Cancel", style: "cancel" },
+        { text: "Export first", onPress: () => void transfer("export") },
+        {
+          text: "Erase",
+          style: "destructive",
+          onPress: () => {
+            try {
+              const removed = eraseAllEntries();
+              clearExportedBackups();
+              void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+              toast({ text: `Erased ${plural(removed.length, "log")}`, undo: () => restoreEntries(removed) });
+            } catch {
+              Alert.alert("Could not erase", "Your logs are unchanged. Please try again.");
+            }
+          },
+        },
+      ],
+      { cancelable: true },
+    );
   }
   return (
     <Screen>
@@ -167,6 +209,21 @@ export default function Profile() {
               Scales the estimated recovery time. Your saved logs stay the same.
             </Text>
           </View>
+          <View style={{ padding: 16, gap: 12 }}>
+            <View style={s.row}>
+              <IconCircle name="timer-outline" size={36} dim />
+              <Text style={s.headline}>Rest timer</Text>
+            </View>
+            <Segmented
+              label="Rest timer"
+              value={String(settings.restSeconds)}
+              onChange={(value) => save({ restSeconds: Number(value) })}
+              options={restChoices.map((seconds) => ({ value: String(seconds), title: clock(seconds * 1000) }))}
+            />
+            <Text style={s.footnote}>
+              Start it with the timer button on an exercise, or between sets in the log sheet.
+            </Text>
+          </View>
         </Group>
         <SectionTitle title="Your data" />
         <Group>
@@ -180,6 +237,14 @@ export default function Profile() {
             title="Import data"
             icon="download-outline"
             onPress={() => !busy && void transfer("import")}
+          />
+          <Row
+            title="Erase all logs"
+            detail={entries.length ? "Keeps your settings · Undo for 10 seconds" : "No logs on this device"}
+            icon="trash-outline"
+            destructive
+            chevron={false}
+            onPress={entries.length && !busy ? erase : undefined}
           />
         </Group>
         <SectionTitle title="About" />

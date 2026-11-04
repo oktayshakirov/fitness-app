@@ -1,0 +1,17 @@
+appId: com.oktayshakirov.fitness
+name: Rest timer from an exercise (start, +15 s, skip)
+---
+- openLink: fitness://exercise/barbell_back_squat
+- runFlow:
+    when:
+      visible: Open
+    commands:
+      - tapOn: Open
+- tapOn: Start rest timer
+- assertVisible: "Rest timer, .*"
+- assertVisible: Skip rest
+- takeScreenshot: rest-running
+- tapOn: Add 15 seconds
+- tapOn: Skip rest
+- assertNotVisible: Skip rest
+- tapOn: Close exercise

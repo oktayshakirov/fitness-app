@@ -103,23 +103,29 @@ export interface BackupDatabase {
   execSync(sql: string): void;
   runSync(sql: string, ...params: (string | number)[]): { changes: number };
 }
+/** Inserts logs, keeping any row whose id already exists. Call inside a transaction. */
+export function insertEntries(db: BackupDatabase, entries: readonly LogEntry[]) {
+  let added = 0;
+  for (const e of entries)
+    added += db.runSync(
+      "INSERT OR IGNORE INTO entries (id,exercise_id,exercise_name,timestamp,sets,note,primary_muscles,secondary_muscles) VALUES (?,?,?,?,?,?,?,?)",
+      e.id,
+      e.exerciseId,
+      e.exerciseName,
+      e.timestamp,
+      JSON.stringify(e.sets),
+      e.note,
+      JSON.stringify(e.primary),
+      JSON.stringify(e.secondary),
+    ).changes;
+  return added;
+}
 /** Keep existing IDs. Logs and preferences commit together; a failed write changes neither. */
 export function applyBackup(db: BackupDatabase, backup: Backup) {
   let added = 0;
   db.execSync("BEGIN IMMEDIATE");
   try {
-    for (const e of backup.entries)
-      added += db.runSync(
-        "INSERT OR IGNORE INTO entries (id,exercise_id,exercise_name,timestamp,sets,note,primary_muscles,secondary_muscles) VALUES (?,?,?,?,?,?,?,?)",
-        e.id,
-        e.exerciseId,
-        e.exerciseName,
-        e.timestamp,
-        JSON.stringify(e.sets),
-        e.note,
-        JSON.stringify(e.primary),
-        JSON.stringify(e.secondary),
-      ).changes;
+    added = insertEntries(db, backup.entries);
     for (const [key, value] of Object.entries(backup.preferences))
       db.runSync(
         "INSERT OR REPLACE INTO settings (key,value) VALUES (?,?)",

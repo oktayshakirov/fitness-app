@@ -437,6 +437,7 @@ export function Row({
   icon,
   onPress,
   chevron = !!onPress,
+  destructive = false,
   children,
 }: PropsWithChildren<{
   title: string;
@@ -445,12 +446,14 @@ export function Row({
   icon?: IconName;
   onPress?: () => void;
   chevron?: boolean;
+  /** Red title and icon, for actions such as erasing data. */
+  destructive?: boolean;
 }>) {
   const body = (
     <View style={s.rowItem}>
-      {icon && <IconCircle name={icon} size={36} dim />}
+      {icon && <IconCircle name={icon} size={36} dim={!destructive} color={destructive ? colors.trained : undefined} />}
       <View style={{ flex: 1 }}>
-        <Text style={s.headline}>{title}</Text>
+        <Text style={[s.headline, destructive && { color: colors.trained }]}>{title}</Text>
         {!!detail && <Text style={s.footnote}>{detail}</Text>}
       </View>
       {!!value && <Text style={[s.subhead, { flexShrink: 1 }]}>{value}</Text>}

@@ -45,6 +45,11 @@ export default function Privacy() {
           backup contains the same log IDs.
         </Text>
         <Text style={s.text}>
+          Erase all logs in Profile deletes your logs and notes from this
+          device, along with backup copies the app saved for sharing. Your
+          settings stay. Undo is available for 10 seconds.
+        </Text>
+        <Text style={s.text}>
           Your operating system may include app data in device backups according
           to your device settings. Uninstalling the app may remove local data;
           export first if you want to keep it.
