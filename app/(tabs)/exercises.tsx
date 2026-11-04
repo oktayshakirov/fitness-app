@@ -12,7 +12,7 @@ import { FlashList } from "@shopify/flash-list";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
-import { Screen, Heading, Chip, Empty, IconButton, s } from "../../src/components/ui";
+import { Screen, Heading, Chip, Empty, IconButton, PillButton, s } from "../../src/components/ui";
 import { Text, TextInput } from "../../src/components/Text";
 import { useToast } from "../../src/components/Toast";
 import {
@@ -25,7 +25,8 @@ import {
   mediaBackground,
 } from "../../src/content";
 import { muscleIds, type Exercise } from "../../src/content/types";
-import { deleteEntry, logExercise, useSettings } from "../../src/storage/store";
+import { deleteEntry, logExercise, useEntries, useSettings } from "../../src/storage/store";
+import { dayKey } from "../../src/storage/calendar";
 import { colors, tabBarSpace } from "../../src/theme";
 export default function Library() {
   const { model } = useSettings();
@@ -37,6 +38,19 @@ export default function Library() {
   const [equipment, setEquipment] = useState("");
   const [query, setQuery] = useState("");
   const [showMuscles, setShowMuscles] = useState(false);
+  const entries = useEntries();
+  // Exercises already logged today get a badge, handy mid-workout.
+  const today = dayKey(Date.now());
+  const doneToday = useMemo(
+    () => new Set(entries.filter((e) => dayKey(e.timestamp) === today).map((e) => e.exerciseId)),
+    [entries, today],
+  );
+  const filtering = !!(muscle || equipment || query);
+  function clearFilters() {
+    setQuery("");
+    setEquipment("");
+    chooseMuscle("");
+  }
   useEffect(() => {
     setMuscle(params.muscle ?? "");
   }, [params.muscle]);
@@ -70,11 +84,14 @@ export default function Library() {
         title={muscle ? label(muscle) : "Exercises"}
         subtitle={`${filtered.length} ${filtered.length === 1 ? "exercise" : "exercises"}`}
         action={
-          <IconButton
-            name={muscle || showMuscles ? "body" : "body-outline"}
-            label="Filter by muscle"
-            onPress={() => setShowMuscles(!showMuscles)}
-          />
+          <View style={[s.row, { gap: 8 }]}>
+            {filtering && <PillButton title="Clear" label="Clear filters" onPress={clearFilters} />}
+            <IconButton
+              name={muscle || showMuscles ? "body" : "body-outline"}
+              label="Filter by muscle"
+              onPress={() => setShowMuscles(!showMuscles)}
+            />
+          </View>
         }
       />
       <View style={styles.search}>
@@ -148,6 +165,7 @@ export default function Library() {
         key={columns}
         numColumns={columns}
         keyExtractor={(e) => e.id}
+        extraData={doneToday}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
         contentContainerStyle={{ paddingHorizontal: 14, paddingTop: 12, paddingBottom: tabBarSpace }}
@@ -156,16 +174,18 @@ export default function Library() {
             icon="search"
             title="No exercises found"
             description="Try a different muscle, equipment or search."
+            action={filtering ? { title: "Clear filters", onPress: clearFilters } : undefined}
           />
         }
         renderItem={({ item }) => {
           const cover = coverFor(item, model);
+          const done = doneToday.has(item.id);
           return (
             <View style={styles.card}>
               <Pressable
                 accessibilityRole="button"
                 testID={`exercise-${item.id}`}
-                accessibilityLabel={`${item.name}, ${equipmentSummary(item)}`}
+                accessibilityLabel={`${item.name}, ${equipmentSummary(item)}${done ? ", logged today" : ""}`}
                 onPress={() => open(item)}
                 style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
               >
@@ -176,6 +196,12 @@ export default function Library() {
                   cachePolicy="memory-disk"
                   style={styles.poster}
                 />
+                {done && (
+                  <View style={styles.today}>
+                    <Ionicons name="checkmark" size={13} color={colors.accent} />
+                    <Text style={[s.caption, { color: colors.text }]}>Today</Text>
+                  </View>
+                )}
                 <View style={{ paddingHorizontal: 8, paddingTop: 10, paddingBottom: 6, gap: 2 }}>
                   <Text
                     numberOfLines={columns === 1 ? undefined : 2}
@@ -230,6 +256,18 @@ const styles = StyleSheet.create({
     aspectRatio: 4 / 5,
     borderRadius: 18,
     backgroundColor: mediaBackground,
+  },
+  today: {
+    position: "absolute",
+    top: 8,
+    left: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    backgroundColor: "rgba(11,11,12,0.82)",
   },
   add: {
     position: "absolute",

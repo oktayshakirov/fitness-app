@@ -18,6 +18,7 @@ import {
 } from "../src/storage/store";
 import type { TrainingSet } from "../src/storage/types";
 import { addDays, dayKey, dayLabel, onDay } from "../src/storage/calendar";
+import { setsSummary } from "../src/storage/format";
 import { colors } from "../src/theme";
 export default function LogSheet() {
   const settings = useSettings();
@@ -239,6 +240,11 @@ export default function LogSheet() {
               {expanded ? "Log without sets" : "Add sets"}
             </Text>
           </Pressable>
+          {!original && !expanded && !!last?.sets.length && (
+            <Text style={[s.footnote, { textAlign: "center", marginTop: -8 }]}>
+              Last time: {setsSummary(last.sets, units)} · {dayLabel(new Date(last.timestamp))}. Add sets starts from these.
+            </Text>
+          )}
           {expanded && (
             <View style={{ gap: 8 }}>
               {sets.map((_, i) => (

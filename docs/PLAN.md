@@ -348,6 +348,31 @@ npx expo start --dev-client --lan                                    # physical 
 10. Maestro (one device at a time): `library`, `body`, `tracking`/`tracking-ios`, `settings`,
     `backup-*` and the new `log-day.yaml`.
 
+**Round 2 (same branch)**
+- Camera angles: the text pills (Front · Side · ¾ · Foot · Rear · Top) are now cards with each
+  angle's own poster thumbnail and plain names checked against the v0.3.0 renders: `threeq` =
+  Angled, `rear` = Rear angle (behind, angled; triceps/rope pushdown), `foot` = Foot end (bench
+  press from the feet), `top` = Above (leg press from overhead). VoiceOver/TalkBack hints say
+  where the camera is. Under 350 pt wide or with large text the name stacks under the
+  thumbnail; an HTML mock at 390/375/360 pt showed no label overflow (mock, not a device run).
+  The chosen angle carries over to the next exercise opened in the session.
+- Exercises: "✓ Today" badge on exercises logged today; "Clear" header pill and a "Clear
+  filters" empty-state button (the `library.yaml` "Clear filters" step now has a target).
+- Log sheet: when collapsed, shows "Last time: 3 × 10 · 40 kg · Yesterday. Add sets starts
+  from these." so the prefill is visible.
+- History: Recent is grouped under day headings (Yesterday, Mon, Nov 2, …) with times on rows;
+  tapping a heading selects that day, moves the calendar there and scrolls up.
+- Recovery times read "ready in ~2 days" from 24 h (hours below that). Shared `PillButton`.
+- Verified: typecheck, 45 tests (1 new for `readyIn`), `git diff --check`, Android bundle.
+
+**Round 2 checks:** (a) bench press shows Angled · Side · Foot end, triceps pushdown Front ·
+Side · Rear angle, leg press Angled · Side · Above; pick Side, swipe to the next exercise →
+Side stays selected. (b) iPhone SE/mini or a 360 dp Android, and XL text: no clipped angle
+names. (c) Quick-log an exercise → "Today" badge on its card. (d) Search "zzz" → Clear filters
+resets everything. (e) Log sheet for an exercise logged before with sets shows "Last time".
+(f) History: tap a Recent day heading → that day selected at the top. (g) Home muscle list
+reads "ready in ~2 days" after a heavy chest log.
+
 **Suggested next (not done):** CI on pull requests (`npm ci`, typecheck, tests); "Erase all
 data" in Profile (decide whether it also resets onboarding); M6 crash-loop guard for a release
 that parses but breaks a screen; tap a Home week bar to open that day in History; group
