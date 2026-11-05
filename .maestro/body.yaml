@@ -1,15 +1,31 @@
 appId: com.oktayshakirov.fitness
 name: M4 recovery list with bundled content
 ---
+# Taps that raise a toast skip the settle wait: its 10 s countdown line keeps
+# the screen moving, and Maestro would otherwise wait until the toast has gone.
 - openLink: fitness:///
-- assertVisible: About recovery
+- scrollUntilVisible:
+    element: About recovery
+    direction: UP
 - takeScreenshot: body
+- scrollUntilVisible:
+    element: "Chest, .*"
+    direction: DOWN
+    centerElement: true
 - tapOn: "Chest, .*"
 - assertVisible: 4 exercises
-- tapOn: Log Barbell Bench Press
-- assertVisible: Logged
+- tapOn:
+    text: Log Barbell Bench Press
+    waitToSettleTimeoutMs: 500
+- assertVisible: "Logged.*"
 - tapOn: "Home.*"
-- assertVisible: "Chest, (Recovering|Trained)"
+- scrollUntilVisible:
+    element: "Chest, (Recovering|Trained).*"
+    direction: DOWN
+    centerElement: true
+- scrollUntilVisible:
+    element: About recovery
+    direction: UP
 - tapOn: About recovery
 - assertVisible: Recovery estimates
 - tapOn: OK

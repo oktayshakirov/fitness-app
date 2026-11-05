@@ -11,7 +11,10 @@ name: M5 imported weight and no-op unit conversion
     direction: UP
 - tapOn: kg
 - openLink: fitness://log?entryId=m5-native-backup-test
-- assertVisible: "40"
+# The set rows render a moment after the sheet opens.
+- extendedWaitUntil:
+    visible: "40"
+    timeout: 10000
 - tapOn: Close log
 - openLink: fitness://profile
 - tapOn: lb

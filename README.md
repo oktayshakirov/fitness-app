@@ -97,6 +97,31 @@ failed runs may leave sample entries in the test device.
 The tests exercise functional behavior. They do not establish packaged offline
 startup, physical-device playback/lifecycle behavior or 60 fps performance.
 
+Full order (one device): library, navigation, body, tracking (iOS: tracking-ios), log-day,
+settings, settings-persistence, backup-android, backup-units (Android; dismiss the share
+sheet first), model-fallback, rest-timer, favorites, routine. Writing flows, on Android:
+
+- Maestro matches the whole text, so a toast with more words needs a pattern (`"Logged.*"`).
+- A playing exercise video keeps UiAutomator from going idle; every step then waits about
+  10 s and a toast can expire before it is read. Tap `Pause video` before logging.
+- A running rest timer changes every second, so UiAutomator can never dump the screen;
+  `rest-timer.yaml` runs on iOS only.
+- Home and Profile keep their scroll position, and rows near the bottom sit under the
+  floating tab bar, where a tap lands on a tab. Use `scrollUntilVisible` (with
+  `centerElement: true` before tapping).
+- If a run hangs on one step with nothing changing, stop it and rerun that flow alone.
+
+On iOS:
+
+- Hide the dev build's floating Tools button first; it sits over the exercise screen's
+  Next button and Maestro opens the dev menu instead:
+  `xcrun simctl spawn <udid> defaults write com.oktayshakirov.fitness EXDevMenuShowFloatingActionButton -bool false`,
+  then relaunch the app. A relaunch (`launchApp`, a crash) lands on the dev launcher, not the app.
+- Maestro waits for the screen to settle after a tap, and the toast's 10 s countdown line
+  keeps it moving, so taps that raise a toast use `waitToSettleTimeoutMs: 500`.
+- VoiceOver joins a row's texts and names tabs "Profile, tab, 4 of 4": match with `.*`.
+- Run one Maestro process at a time on the machine; two at once stall each other.
+
 `.maestro/log-day.yaml` logs one exercise for yesterday and undoes it (Log sheet day stepper).
 `.maestro/rest-timer.yaml` starts the rest timer on an exercise, adds 15 s and skips it.
 `.maestro/favorites.yaml` stars push-ups, filters the grid to favourites and unstars them.

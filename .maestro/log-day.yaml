@@ -1,6 +1,8 @@
 appId: com.oktayshakirov.fitness
 name: Polish — log an exercise for yesterday, then undo it
 ---
+# Taps that raise a toast skip the settle wait: its 10 s countdown line keeps
+# the screen moving, and Maestro would otherwise wait until the toast has gone.
 # Creates one log for yesterday and removes it again with Undo.
 - openLink: fitness://exercise/barbell_back_squat
 - runFlow:
@@ -8,11 +10,19 @@ name: Polish — log an exercise for yesterday, then undo it
       visible: Open
     commands:
       - tapOn: Open
+# Pause first: on Android a playing video keeps UiAutomator from going idle, so
+# every later step waits ~10 s and short-lived toasts expire before they are read.
+- tapOn: Pause video
 - tapOn: Log this exercise
 - assertVisible: Log exercise
 - tapOn: Previous day
 - takeScreenshot: log-yesterday
-- tapOn: Done
+# The sheet may still be moving after the day changes.
+- waitForAnimationToEnd:
+    timeout: 3000
+- tapOn:
+    text: Done
+    waitToSettleTimeoutMs: 500
 - assertVisible: "Logged · Yesterday"
 - tapOn: Undo
 - assertNotVisible: "Logged · Yesterday"

@@ -1,6 +1,8 @@
 appId: com.oktayshakirov.fitness
 name: M3 tracking and persistence
 ---
+# Taps that raise a toast skip the settle wait: its 10 s countdown line keeps
+# the screen moving, and Maestro would otherwise wait until the toast has gone.
 - runFlow:
     when:
       visible: OK
@@ -22,15 +24,26 @@ name: M3 tracking and persistence
       visible: Clear filters
     commands:
       - tapOn: Clear filters
-- tapOn: Log Barbell Back Squat
-- assertVisible: Logged
+# The grid keeps its scroll position between runs.
+- scrollUntilVisible:
+    element: Log Barbell Back Squat
+    direction: UP
+- tapOn:
+    text: Log Barbell Back Squat
+    waitToSettleTimeoutMs: 500
+- assertVisible: "Logged.*"
 - tapOn: Undo
 - tapOn:
     id: exercise-barbell_back_squat
-- tapOn: Log
+# Pause first: on Android a playing video keeps UiAutomator from going idle, so
+# every later step waits ~10 s and short-lived toasts expire before they are read.
+- tapOn: Pause video
+- tapOn: Log this exercise
 - assertVisible: Log exercise
-- tapOn: Done
-- assertVisible: Logged
+- tapOn:
+    text: Done
+    waitToSettleTimeoutMs: 500
+- assertVisible: "Logged.*"
 - tapOn: Close exercise
 - openLink: fitness://history
 - runFlow:
@@ -62,7 +75,9 @@ name: M3 tracking and persistence
 - scrollUntilVisible:
     element: Save changes
     direction: UP
-- tapOn: Save changes
+- tapOn:
+    text: Save changes
+    waitToSettleTimeoutMs: 500
 - assertVisible: Updated
 - takeScreenshot: history-saved
 - stopApp
@@ -85,7 +100,9 @@ name: M3 tracking and persistence
 - scrollUntilVisible:
     element: Delete entry
     direction: DOWN
-- tapOn: Delete entry
+- tapOn:
+    text: Delete entry
+    waitToSettleTimeoutMs: 500
 - assertVisible: Deleted
 - tapOn: Undo
 - tapOn:

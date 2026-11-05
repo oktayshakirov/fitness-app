@@ -2,10 +2,14 @@ appId: com.oktayshakirov.fitness
 name: M5 saved preferences after process restart
 ---
 - openLink: fitness:///
-- assertVisible: About recovery
+- scrollUntilVisible:
+    element: About recovery
+    direction: UP
 - assertNotVisible: Get started
-- tapOn: Profile
-- assertVisible: Female model
+- tapOn: "Profile.*"
+- scrollUntilVisible:
+    element: Female model
+    direction: UP
 - runFlow:
     when:
       platform: Android

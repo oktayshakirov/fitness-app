@@ -551,3 +551,46 @@ npx expo start --dev-client --lan                                    # phone on 
   that day in History; the iOS redesign visual check; Maestro runs on both platforms; M7
   monetization (needs the accounts decision); M8 release prep (icon, splash, store assets,
   accessibility and performance passes on a mid-range Android phone, web export).
+
+## 2026-11-05 — Device QA of rounds 1–6 (Android emulator + iOS simulator)
+
+First device run of the polish pass. Android `Dev_Phone` (API 36) and iPhone 17 Pro simulator
+(iOS 26.5), development builds over Metro. No native rebuild.
+
+**App fixes**
+- Links into Exercises from Home (muscle rows, "All exercises") and from an exercise's muscle
+  chips now clear an earlier search, equipment chip and Favorites filter. Before, tapping Chest
+  after searching "barbell bench press" showed 1 exercise instead of 4. Links carry an `at`
+  token; choosing a muscle inside Exercises still keeps the search.
+- Profile → Weekly goal read "2 da… 3 da…" on a 411 dp Android phone at normal text size.
+  Options are now 2–6 with "Training days per week" in the caption; TalkBack/VoiceOver still
+  hear "3 days" (new optional per-option `accessibilityLabel` on `Segmented`).
+- VoiceOver read icon glyphs: the main button was "Log this exercise, " and chip icons
+  were separate elements with private-use characters. New `src/components/Icon.tsx` hides
+  Ionicons from screen readers (all 45 uses switched); icon-only buttons keep their labels.
+- Quick-logging from the Exercises grid while searching dismisses the keyboard, so the
+  "Logged" toast and its Undo are not hidden behind it.
+
+**Checked and fine:** the iOS redesign (Poppins, dark/lime cards, blurred floating tab bar,
+angle cards with plain names), toasts on both platforms (the iOS "missing toast" was Maestro
+waiting out the countdown line, confirmed with timing logs), the rest pill on both, History.
+
+**Maestro:** all flows had been written for the old screens and never run. Updated for the
+current UI (toast text patterns, "Log this exercise", Home sections above the muscle list,
+scroll positions kept between runs, the floating tab bar covering bottom rows, a routine of
+exercises no other flow logs, a wait for set rows). README lists the platform quirks.
+- Android: every flow passes; most in one ordered run, the rest on rerun after fixes.
+  `tracking.yaml` takes over 5 minutes there (video screens are slow for UiAutomator).
+  `rest-timer.yaml` is iOS-only (a per-second countdown never lets UiAutomator go idle);
+  the timer itself was checked by hand (start, +15 s, skip).
+- iOS: navigation, body, log-day, settings, settings-persistence, model-fallback, rest-timer,
+  favorites and routine pass. Open: `library.yaml` (inside the flow the search field ends up
+  empty after typing; the same steps pass alone) and `tracking-ios.yaml` (fails after library
+  leaves the grid in another state). Neither looked like an app bug in manual checks.
+- Not checked: physical phones, real performance of the animations, TalkBack/VoiceOver by
+  ear, Reduce Motion by eye, large text on device, Android backup on iOS.
+
+**Next:** finish the two iOS flows; then M8 release prep (icon, splash, store screenshots,
+privacy page, accessibility and performance passes on a mid-range Android phone). M7 still
+waits on the accounts decision. Rest-over notification (`expo-notifications`, native build)
+and tapping a Home week bar to open that day remain open.

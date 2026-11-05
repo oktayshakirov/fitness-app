@@ -31,6 +31,9 @@ name: M1 and M2 native smoke
 - assertVisible: "30 exercises"
 - takeScreenshot: library
 - tapOn: "Search exercises"
+# iOS can drop keystrokes typed before the field has focus.
+- waitForAnimationToEnd:
+    timeout: 2000
 - inputText: "barbell bench press"
 - pressKey: Enter
 - assertVisible: "1 exercise"
@@ -38,12 +41,14 @@ name: M1 and M2 native smoke
     id: exercise-barbell_bench_press
 - assertVisible: "1 of 1"
 - assertVisible: "Pause video"
-- tapOn: "Side"
-- takeScreenshot: detail-side
 - tapOn: "Pause video"
 - assertVisible: "Play video"
 - tapOn: "Play video"
 - assertVisible: "Pause video"
+- tapOn: "Side"
+# A new angle starts playing again; pause so Android's UI dumps stay quick (README).
+- tapOn: "Pause video"
+- takeScreenshot: detail-side
 - tapOn: "Close exercise"
 - tapOn: "Clear filters"
 - assertVisible: "30 exercises"
@@ -69,5 +74,7 @@ name: M1 and M2 native smoke
       visible: "Open"
     commands:
       - tapOn: "Open"
-- assertVisible: "Credits & licences"
+- scrollUntilVisible:
+    element: "Credits & licences.*"
+    direction: DOWN
 - takeScreenshot: credits

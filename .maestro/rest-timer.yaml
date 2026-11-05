@@ -1,17 +1,24 @@
 appId: com.oktayshakirov.fitness
 name: Rest timer from an exercise (start, +15 s, skip)
 ---
-- openLink: fitness://exercise/barbell_back_squat
+# iOS only. On Android the countdown changes every second, so UiAutomator never sees
+# the 1 s of quiet it needs to dump the screen and Maestro waits forever. Check the
+# timer by hand on Android (README round 5 checks A–H).
 - runFlow:
     when:
-      visible: Open
+      platform: iOS
     commands:
-      - tapOn: Open
-- tapOn: Start rest timer
-- assertVisible: "Rest timer, .*"
-- assertVisible: Skip rest
-- takeScreenshot: rest-running
-- tapOn: Add 15 seconds
-- tapOn: Skip rest
-- assertNotVisible: Skip rest
-- tapOn: Close exercise
+      - openLink: fitness://exercise/barbell_back_squat
+      - runFlow:
+          when:
+            visible: Open
+          commands:
+            - tapOn: Open
+      - tapOn: Start rest timer
+      - assertVisible: "Rest timer, .*"
+      - assertVisible: Skip rest
+      - takeScreenshot: rest-running
+      - tapOn: Add 15 seconds
+      - tapOn: Skip rest
+      - assertNotVisible: Skip rest
+      - tapOn: Close exercise
