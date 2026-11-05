@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Alert, Pressable, ScrollView, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { Image } from "expo-image";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "../../src/components/Icon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text } from "../../src/components/Text";
 import { Button, Empty, IconButton, Screen, s } from "../../src/components/ui";
@@ -113,7 +113,7 @@ export default function RoutineScreen() {
                 </Text>
               </View>
               {isDone ? (
-                <Ionicons name="checkmark-circle" size={26} color={colors.accent} />
+                <Icon name="checkmark-circle" size={26} color={colors.accent} />
               ) : (
                 <View
                   style={{

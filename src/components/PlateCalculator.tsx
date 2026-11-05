@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "./Icon";
 import Animated, { FadeIn, LinearTransition, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { Text } from "./Text";
 import { Segmented, s } from "./ui";
@@ -47,7 +47,7 @@ export function PlateCalculator({ units, startWeight }: { units: Units; startWei
       >
         <Text style={[s.headline, { flex: 1 }]}>Plate calculator</Text>
         <Animated.View style={chevron}>
-          <Ionicons name="chevron-down" size={18} color={colors.secondary} />
+          <Icon name="chevron-down" size={18} color={colors.secondary} />
         </Animated.View>
       </Pressable>
       {open && (
@@ -60,7 +60,7 @@ export function PlateCalculator({ units, startWeight }: { units: Units; startWei
               scaleTo={0.9}
               style={stepStyle}
             >
-              <Ionicons name="remove" size={22} color={colors.text} />
+              <Icon name="remove" size={22} color={colors.text} />
             </PressableScale>
             <View accessible accessibilityLabel={`Total ${fmt(total)} ${units}`} style={{ alignItems: "center" }}>
               <Text style={[s.large, { fontSize: 28, lineHeight: 34 }]}>{fmt(total)}</Text>
@@ -73,7 +73,7 @@ export function PlateCalculator({ units, startWeight }: { units: Units; startWei
               scaleTo={0.9}
               style={stepStyle}
             >
-              <Ionicons name="add" size={22} color={colors.text} />
+              <Icon name="add" size={22} color={colors.text} />
             </PressableScale>
           </View>
           <Segmented

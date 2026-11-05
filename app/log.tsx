@@ -5,7 +5,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { AccessibilityInfo, Alert, Keyboard, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { Text, TextInput } from "../src/components/Text";
 import { Image } from "expo-image";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "../src/components/Icon";
 import * as Haptics from "expo-haptics";
 import Animated, { FadeIn, FadeInDown, FadeOut, LayoutAnimationConfig, LinearTransition } from "react-native-reanimated";
 import { motion } from "../src/components/motion";
@@ -48,7 +48,7 @@ function StepButton({ label, icon, onStep }: { label: string; icon: "add" | "rem
       onPressOut={stop}
       style={({ pressed }) => [styles.step, pressed && { opacity: 0.6 }]}
     >
-      <Ionicons name={icon} size={20} color={colors.text} />
+      <Icon name={icon} size={20} color={colors.text} />
     </Pressable>
   );
 }
@@ -245,7 +245,7 @@ export default function LogSheet() {
               onAccessibilityAction={(e) => moveDay(e.nativeEvent.actionName === "increment" ? 1 : -1)}
               style={[s.row, { flex: 1, justifyContent: "center", gap: 8 }]}
             >
-              <Ionicons name="calendar-outline" size={18} color={isToday ? colors.secondary : colors.accent} />
+              <Icon name="calendar-outline" size={18} color={isToday ? colors.secondary : colors.accent} />
               <Text testID="log-day" style={[s.headline, !isToday && { color: colors.accent }]}>
                 {dayLabel(day)}
               </Text>
@@ -264,7 +264,7 @@ export default function LogSheet() {
             onPress={() => setExpanded(!expanded)}
             style={[s.row, { minHeight: 48, justifyContent: "center", gap: 6 }]}
           >
-            <Ionicons name={expanded ? "remove-circle-outline" : "add-circle-outline"} size={20} color={colors.accent} />
+            <Icon name={expanded ? "remove-circle-outline" : "add-circle-outline"} size={20} color={colors.accent} />
             <Text style={{ color: colors.accent, fontSize: 16, fontWeight: "500" }}>
               {expanded ? "Log without sets" : "Add sets"}
             </Text>
@@ -306,7 +306,7 @@ export default function LogSheet() {
                       hitSlop={8}
                       style={{ opacity: sets.length === 1 ? 0.25 : 1, paddingTop: 18 }}
                     >
-                      <Ionicons name="trash-outline" size={20} color={colors.secondary} />
+                      <Icon name="trash-outline" size={20} color={colors.secondary} />
                     </Pressable>
                   </Animated.View>
                 ))}

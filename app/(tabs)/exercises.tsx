@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import {
   Alert,
+  Keyboard,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -10,7 +11,7 @@ import {
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Image } from "expo-image";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "../../src/components/Icon";
 import * as Haptics from "expo-haptics";
 import Animated, {
   FadeIn,
@@ -63,7 +64,7 @@ function QuickLogButton({ name, onLog }: { name: string; onLog: () => boolean })
       style={styles.add}
     >
       <Animated.View style={icon}>
-        <Ionicons name={justLogged ? "checkmark" : "add"} size={22} color={colors.onAccent} />
+        <Icon name={justLogged ? "checkmark" : "add"} size={22} color={colors.onAccent} />
       </Animated.View>
     </PressableScale>
   );
@@ -107,7 +108,7 @@ function ExerciseCard({
         />
         {done && (
           <View style={styles.today}>
-            <Ionicons name="checkmark" size={13} color={colors.accent} />
+            <Icon name="checkmark" size={13} color={colors.accent} />
             <Text style={[s.caption, { color: colors.text }]}>Today</Text>
           </View>
         )}
@@ -116,7 +117,7 @@ function ExerciseCard({
             {item.name}
           </Text>
           <View style={[s.row, { gap: 4 }]}>
-            {favorite && <Ionicons name="star" size={12} color={colors.accent} />}
+            {favorite && <Icon name="star" size={12} color={colors.accent} />}
             <Text numberOfLines={1} style={[s.footnote, { flexShrink: 1 }]}>
               {equipmentSummary(item)}
             </Text>
@@ -133,7 +134,8 @@ export default function Library() {
   const { fontScale } = useWindowDimensions();
   const columns = fontScale > 1.15 ? 1 : 2;
   const toast = useToast();
-  const params = useLocalSearchParams<{ muscle?: string }>();
+  // `at` is a fresh token on links from other screens (Home, an exercise's muscle chips).
+  const params = useLocalSearchParams<{ muscle?: string; at?: string }>();
   const [muscle, setMuscle] = useState(params.muscle ?? "");
   const [equipment, setEquipment] = useState("");
   const [query, setQuery] = useState("");
@@ -154,9 +156,18 @@ export default function Library() {
     setFavoritesOnly(false);
     chooseMuscle("");
   }
+  const lastLink = useRef(params.at);
   useEffect(() => {
     setMuscle(params.muscle ?? "");
-  }, [params.muscle]);
+    // A link from elsewhere shows that muscle's whole list, not one narrowed by an
+    // earlier search or chip. Choosing a muscle here keeps the other filters.
+    if (params.at && params.at !== lastLink.current) {
+      lastLink.current = params.at;
+      setQuery("");
+      setEquipment("");
+      setFavoritesOnly(false);
+    }
+  }, [params.muscle, params.at]);
   const filtered = useMemo(
     () => filterCatalog({ muscle, equipment, query }).filter((e) => !favoritesOnly || favoriteSet.has(e.id)),
     [muscle, equipment, query, favoritesOnly, favoriteSet],
@@ -176,6 +187,8 @@ export default function Library() {
   function quickLog(exercise: Exercise) {
     try {
       const entry = logExercise(exercise);
+      // The toast and its Undo sit where the keyboard is while searching.
+      Keyboard.dismiss();
       toast({ text: `Logged ${exercise.name}`, undo: () => deleteEntry(entry.id) });
       void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       return true;
@@ -202,7 +215,7 @@ export default function Library() {
         }
       />
       <View style={styles.search}>
-        <Ionicons name="search" size={20} color={colors.secondary} />
+        <Icon name="search" size={20} color={colors.secondary} />
         <TextInput
           accessibilityLabel="Search exercises"
           placeholder="Search name, muscle, equipment"
@@ -222,7 +235,7 @@ export default function Library() {
             hitSlop={12}
             onPress={() => setQuery("")}
           >
-            <Ionicons name="close-circle" size={18} color={colors.secondary} />
+            <Icon name="close-circle" size={18} color={colors.secondary} />
           </Pressable>
         )}
       </View>

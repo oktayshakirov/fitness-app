@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { Alert, BackHandler, Pressable, ScrollView, View } from "react-native";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { Image } from "expo-image";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "../../src/components/Icon";
 import * as Haptics from "expo-haptics";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -137,7 +137,7 @@ export default function RoutineEditor() {
             { backgroundColor: colors.surface, borderRadius: 26, paddingHorizontal: 18, borderWidth: 1, borderColor: colors.separator },
           ]}
         >
-          <Ionicons name="search" size={20} color={colors.secondary} />
+          <Icon name="search" size={20} color={colors.secondary} />
           <TextInput
             accessibilityLabel="Search exercises to add"
             placeholder="Search name, muscle, equipment"
@@ -180,7 +180,7 @@ export default function RoutineEditor() {
                   {equipmentSummary(e)}
                 </Text>
               </View>
-              <Ionicons
+              <Icon
                 name={on ? "checkmark-circle" : "add-circle-outline"}
                 size={26}
                 color={on ? colors.accent : colors.secondary}

@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { Alert, Pressable, ScrollView, View } from "react-native";
 import { Text } from "../../src/components/Text";
 import { Image } from "expo-image";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "../../src/components/Icon";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import * as Haptics from "expo-haptics";
 import Animated, { FadeIn, FadeInLeft, FadeInRight, LinearTransition } from "react-native-reanimated";
@@ -61,7 +61,7 @@ function EntryRow({ entry }: { entry: LogEntry }) {
               borderRadius: 24,
             }}
           >
-            <Ionicons name="trash-outline" size={22} color={colors.text} />
+            <Icon name="trash-outline" size={22} color={colors.text} />
           </Pressable>
         )}
       >
@@ -88,7 +88,7 @@ function EntryRow({ entry }: { entry: LogEntry }) {
             <View style={{ flex: 1, gap: 6, alignItems: "flex-start" }}>
               <Text style={s.headline}>{entry.exerciseName}</Text>
               <View style={[s.row, { gap: 4, paddingHorizontal: 10, paddingVertical: 3, borderRadius: 12, backgroundColor: colors.accent }]}>
-                <Ionicons name={entry.sets.length ? "barbell" : "checkmark"} size={12} color={colors.onAccent} />
+                <Icon name={entry.sets.length ? "barbell" : "checkmark"} size={12} color={colors.onAccent} />
                 <Text style={[s.caption, { color: colors.onAccent }]}>
                   {entry.sets.length ? `${entry.sets.length} ${entry.sets.length === 1 ? "set" : "sets"}` : "Done"}
                 </Text>
@@ -100,7 +100,7 @@ function EntryRow({ entry }: { entry: LogEntry }) {
               )}
               {!!entry.note.trim() && (
                 <View style={[s.row, { gap: 5, alignItems: "flex-start" }]}>
-                  <Ionicons name="document-text-outline" size={13} color={colors.secondary} style={{ marginTop: 2 }} />
+                  <Icon name="document-text-outline" size={13} color={colors.secondary} style={{ marginTop: 2 }} />
                   <Text style={[s.footnote, { flex: 1 }]} numberOfLines={2}>
                     {entry.note.trim()}
                   </Text>

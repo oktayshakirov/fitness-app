@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "./Icon";
 import { Image } from "expo-image";
 import * as Haptics from "expo-haptics";
 import Animated, {
@@ -108,7 +109,7 @@ export function IconCircle({
         backgroundColor: color ?? (dim ? colors.accentDim : colors.accent),
       }}
     >
-      <Ionicons
+      <Icon
         name={name}
         size={size * 0.5}
         color={color ? colors.onAccent : dim ? colors.accent : colors.onAccent}
@@ -201,7 +202,7 @@ export function IconButton({
       scaleTo={0.88}
       style={[s.icon, plain && { backgroundColor: "transparent" }, { opacity: disabled ? 0.3 : 1 }]}
     >
-      <Ionicons name={name} size={22} color={color} />
+      <Icon name={name} size={22} color={color} />
     </PressableScale>
   );
 }
@@ -242,11 +243,11 @@ export function Button({
         },
       ]}
     >
-      {icon && <Ionicons name={icon} size={20} color={color} />}
+      {icon && <Icon name={icon} size={20} color={color} />}
       <Text style={[s.buttonText, { color }]}>{title}</Text>
       {arrow && (
         <View style={s.arrow}>
-          <Ionicons name="arrow-forward" size={20} color={colors.accent} />
+          <Icon name="arrow-forward" size={20} color={colors.accent} />
         </View>
       )}
     </PressableScale>
@@ -323,7 +324,7 @@ export function Chip({
           <Image source={icon} contentFit="contain" style={{ width: 28, height: 28 }} />
         </View>
       )}
-      {ionicon && <Ionicons name={ionicon} size={16} color={selected ? colors.onAccent : colors.accent} />}
+      {ionicon && <Icon name={ionicon} size={16} color={selected ? colors.onAccent : colors.accent} />}
       {dot && (
         <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: dot }} />
       )}
@@ -377,7 +378,8 @@ export function Segmented<T extends string>({
   onChange,
   label,
 }: {
-  options: { value: T; title: string }[];
+  /** `accessibilityLabel` is read instead of a short `title` (e.g. "3" → "3 days"). */
+  options: { value: T; title: string; accessibilityLabel?: string }[];
   value: T;
   onChange: (value: T) => void;
   label: string;
@@ -409,6 +411,7 @@ export function Segmented<T extends string>({
           <Pressable
             key={option.value}
             accessibilityRole="tab"
+            accessibilityLabel={option.accessibilityLabel}
             accessibilityState={{ selected }}
             onPress={() => {
               if (selected) return;
@@ -467,7 +470,7 @@ export function Row({
       </View>
       {!!value && <Text style={[s.subhead, { flexShrink: 1 }]}>{value}</Text>}
       {children}
-      {chevron && <Ionicons name="chevron-forward" size={18} color={colors.tertiary} />}
+      {chevron && <Icon name="chevron-forward" size={18} color={colors.tertiary} />}
     </View>
   );
   return onPress ? (

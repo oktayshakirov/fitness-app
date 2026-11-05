@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AppState, Alert, Pressable, ScrollView, View, useWindowDimensions } from "react-native";
 import { router, useFocusEffect } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "../../src/components/Icon";
 import * as Haptics from "expo-haptics";
 import { Text } from "../../src/components/Text";
 import {
@@ -123,7 +123,7 @@ export default function Home() {
     setFocused(muscle === focused ? undefined : muscle);
   }
   const open = (muscle?: Muscle) =>
-    router.push({ pathname: "/(tabs)/exercises", params: { muscle: muscle ?? "" } });
+    router.push({ pathname: "/(tabs)/exercises", params: { muscle: muscle ?? "", at: String(Date.now()) } });
   return (
     <Screen>
       <ScrollView contentContainerStyle={{ paddingBottom: tabBarSpace, gap: 14 }}>
@@ -172,12 +172,12 @@ export default function Home() {
                   justifyContent: "center",
                 }}
               >
-                <Ionicons name="pulse" size={17} color={colors.onAccent} />
+                <Icon name="pulse" size={17} color={colors.onAccent} />
               </View>
               <Text style={[s.subhead, { color: colors.onAccent, fontWeight: "500", flex: 1 }]}>
                 Muscle recovery
               </Text>
-              <Ionicons name="arrow-forward" size={20} color={colors.onAccent} />
+              <Icon name="arrow-forward" size={20} color={colors.onAccent} />
             </View>
             <View style={[s.row, { alignItems: "flex-end", justifyContent: "space-between" }]}>
               <Text style={{ color: colors.onAccent, fontSize: 18, fontWeight: "600", lineHeight: 24, flex: 1 }}>
@@ -248,7 +248,7 @@ export default function Home() {
                           {done ? ` · ${done} done today` : ""}
                         </Text>
                       </View>
-                      <Ionicons name="chevron-forward" size={18} color={colors.tertiary} />
+                      <Icon name="chevron-forward" size={18} color={colors.tertiary} />
                     </View>
                   </Pressable>
                 );
@@ -295,7 +295,7 @@ export default function Home() {
                             {label(muscle)} · {rested}
                           </Text>
                         </View>
-                        <Ionicons name="chevron-forward" size={18} color={colors.tertiary} />
+                        <Icon name="chevron-forward" size={18} color={colors.tertiary} />
                       </View>
                     </Pressable>
                   );
@@ -367,7 +367,7 @@ export default function Home() {
                         </Text>
                       </View>
                       <Text style={[s.subhead, { color: colors.accent }]}>{counts[focused]} exercises</Text>
-                      <Ionicons name="chevron-forward" size={18} color={colors.accent} />
+                      <Icon name="chevron-forward" size={18} color={colors.accent} />
                     </Pressable>
                   </Animated.View>
                 ) : (
@@ -412,7 +412,7 @@ export default function Home() {
                         <Text style={s.caption}>{counts[item]}</Text>
                       </View>
                     )}
-                    <Ionicons name="chevron-forward" size={18} color={colors.tertiary} />
+                    <Icon name="chevron-forward" size={18} color={colors.tertiary} />
                   </View>
                 </Pressable>
               );
