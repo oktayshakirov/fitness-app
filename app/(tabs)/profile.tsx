@@ -158,7 +158,7 @@ export default function Profile() {
               </Text>
             </View>
           </View>
-          <View style={[s.row, { gap: 8 }]}>
+          <View style={[s.row, { gap: 8, alignItems: "stretch" }]}>
             {(
               [
                 [entries.length, entries.length === 1 ? "Log" : "Logs"],

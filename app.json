@@ -14,7 +14,17 @@
       }
     },
     "android": {
-      "package": "com.oktayshakirov.fitness"
+      "package": "com.oktayshakirov.fitness",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/brand/adaptive-foreground.png",
+        "monochromeImage": "./assets/brand/adaptive-monochrome.png",
+        "backgroundColor": "#0B0B0C"
+      },
+      "blockedPermissions": [
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "plugins": [
       "expo-router",
@@ -24,14 +34,26 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#000000"
+          "image": "./assets/brand/splash.png",
+          "imageWidth": 160,
+          "resizeMode": "contain",
+          "backgroundColor": "#0B0B0C"
         }
       ],
       "expo-asset",
-      "expo-font"
+      "expo-font",
+      "expo-image",
+      "expo-sharing"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "icon": "./assets/brand/icon.png",
+    "backgroundColor": "#0B0B0C",
+    "web": {
+      "favicon": "./assets/brand/favicon.png",
+      "name": "Fitness",
+      "backgroundColor": "#0B0B0C"
     }
   }
 }
