@@ -221,7 +221,7 @@ export default function Onboarding() {
                       <Icon
                         name={selected ? "checkmark-circle" : "ellipse-outline"}
                         size={24}
-                        color={selected ? colors.accent : colors.tertiary}
+                        color={selected ? colors.accent : colors.secondary}
                       />
                     </Pressable>
                   );

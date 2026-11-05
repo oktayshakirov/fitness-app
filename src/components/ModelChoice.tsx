@@ -72,7 +72,7 @@ export function ModelChoice({
               <Icon
                 name={selected ? "checkmark-circle" : "ellipse-outline"}
                 size={20}
-                color={selected ? colors.accent : colors.tertiary}
+                color={selected ? colors.accent : colors.secondary}
               />
               <Text style={s.headline}>{label(model)}</Text>
             </View>

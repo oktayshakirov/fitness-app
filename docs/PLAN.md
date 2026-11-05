@@ -594,3 +594,36 @@ exercises no other flow logs, a wait for set rows). README lists the platform qu
 privacy page, accessibility and performance passes on a mid-range Android phone). M7 still
 waits on the accounts decision. Rest-over notification (`expo-notifications`, native build)
 and tapping a Home week bar to open that day remain open.
+
+## 2026-11-05 — M8 release prep, part 1
+
+**Release builds crashed at launch; fixed.** The first iOS Release build died in dyld:
+`ExpoFont` (prebuilt xcframework from npm, 58.0.11) needs a symbol that the installed
+`expo-modules-core` 58.0.26 lacks. Debug builds were fine, so it never showed during QA.
+Updated Expo to 58.0.23 and ran `npx expo install --fix` (13 SDK 58 patch updates, core now
+58.0.30; it also added the expo-image and expo-sharing config plugins). After switching, Xcode
+needed this app's DerivedData removed (stale precompiled module maps).
+
+**Done**
+- Icon, Android adaptive + themed (monochrome) icon, splash mark and web favicon in
+  `assets/brand`, drawn by `swift scripts/make_brand_assets.swift` from the design tokens.
+  Checked on the iOS home screen, the iOS launch splash and the Android launcher.
+- `public/privacy-policy.html` (hostable; matches the in-app Privacy screen) and
+  `docs/STORE.md` (listing copy, App Store / Play privacy answers, screenshot plan, checklist).
+- Android release permissions cut to INTERNET, VIBRATE, ACCESS_NETWORK_STATE, WAKE_LOCK
+  (`android.blockedPermissions` for overlay and legacy storage).
+- Contrast: `tests/contrast.test.ts` holds every text colour to WCAG AA on bg/surface/surface2
+  (secondary is 5.9-6.7:1). Unselected radio rings moved from tertiary (2.5:1) to secondary.
+- Release builds (no Metro) start offline from bundled JS and content on the iPhone 17 Pro
+  simulator and the Android emulator; onboarding, Home, Exercises and video playback checked.
+- Large text: iOS XXXL and Android 1.3× look right (grid goes to one column, angle cards
+  stack). Profile's stat tiles were uneven when "Active days" wrapped; they now stretch.
+
+**State of the test devices:** both have the release build installed, not the development
+build; run `npm run ios` / `npm run android` before the Maestro flows. The iOS simulator's text
+size is back at the default (large).
+
+**Open for M8:** store name (Apple's built-in "Fitness" sits beside it on the home screen),
+contact email and privacy URL (Oktay); screenshots from a release build with clean demo data;
+web export of the library; VoiceOver/TalkBack by ear and AX text sizes; 60 fps on a physical
+mid-range Android phone. Small: at XXXL the Exercises search placeholder truncates ("equi").
