@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { AccessibilityInfo, StyleSheet, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "./Icon";
 import * as Haptics from "expo-haptics";
 import Animated, {
   Easing,
@@ -83,7 +83,7 @@ function RestPillView({
           accessibilityLabel={`Rest timer, ${spokenDuration(left)} left`}
           style={[s.row, { gap: 8 }, inline && { flex: 1 }]}
         >
-          <Ionicons name="timer-outline" size={18} color={colors.accent} />
+          <Icon name="timer-outline" size={18} color={colors.accent} />
           <Text style={styles.time}>{clock(left)}</Text>
           <Text style={s.footnote}>rest</Text>
         </View>
@@ -101,7 +101,7 @@ function RestPillView({
         style={[shell, { backgroundColor: colors.accent, borderColor: colors.accent }]}
       >
         <View accessible accessibilityLabel="Rest over" style={[s.row, { gap: 8 }, inline && { flex: 1 }]}>
-          <Ionicons name="checkmark-circle" size={20} color={colors.onAccent} />
+          <Icon name="checkmark-circle" size={20} color={colors.onAccent} />
           <Text style={[styles.time, { color: colors.onAccent, fontSize: 17, minWidth: 0 }]}>Rest over</Text>
         </View>
         <PillAction dark title="OK" label="Dismiss" onPress={() => restTimer.dismiss()} />
@@ -149,7 +149,7 @@ export function RestStartButton({ seconds }: { seconds: number }) {
       scaleTo={0.9}
       style={styles.start}
     >
-      <Ionicons name="timer-outline" size={24} color={timer ? colors.accent : colors.text} />
+      <Icon name="timer-outline" size={24} color={timer ? colors.accent : colors.text} />
     </PressableScale>
   );
 }

@@ -4,7 +4,7 @@ import { Tabs } from "expo-router/js-tabs";
 import { Platform, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "../../src/components/Icon";
 import { SymbolView } from "expo-symbols";
 import Animated, { useAnimatedStyle, useReducedMotion, withSpring } from "react-native-reanimated";
 import { colors, fonts } from "../../src/theme";
@@ -39,7 +39,7 @@ function TabIcon({ tab, focused, active }: { tab: (typeof tabs)[number]; focused
           style={{ width: 22, height: 22 }}
         />
       ) : (
-        <Ionicons name={focused ? tab.icon : `${tab.icon}-outline`} size={21} color={color} />
+        <Icon name={focused ? tab.icon : `${tab.icon}-outline`} size={21} color={color} />
       )}
     </View>
   );

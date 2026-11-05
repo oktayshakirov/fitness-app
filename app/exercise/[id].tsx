@@ -4,7 +4,7 @@ import { Pressable, ScrollView, View, useWindowDimensions } from "react-native";
 import { Text } from "../../src/components/Text";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "../../src/components/Icon";
 import { Asset } from "expo-asset";
 import Animated, {
   FadeIn,
@@ -73,7 +73,7 @@ function Section({
       >
         <Text style={[s.headline, { flex: 1 }]}>{title}</Text>
         <Animated.View style={chevron}>
-          <Ionicons name="chevron-down" size={18} color={colors.secondary} />
+          <Icon name="chevron-down" size={18} color={colors.secondary} />
         </Animated.View>
       </Pressable>
       {open && (
@@ -121,7 +121,7 @@ function MuscleLine({ muscles, color, title }: { muscles: Muscle[]; color: strin
             key={m}
             accessibilityRole="button"
             accessibilityLabel={`${label(m)} exercises`}
-            onPress={() => router.navigate({ pathname: "/(tabs)/exercises", params: { muscle: m } })}
+            onPress={() => router.navigate({ pathname: "/(tabs)/exercises", params: { muscle: m, at: String(Date.now()) } })}
             style={[
               s.row,
               { gap: 6, paddingHorizontal: 10, minHeight: 32, borderRadius: 16, backgroundColor: colors.surface2 },
@@ -325,7 +325,7 @@ export default function ExerciseDetail() {
                       },
                     ]}
                   >
-                    <Ionicons name={icon} size={14} color={lime ? colors.onAccent : colors.secondary} />
+                    <Icon name={icon} size={14} color={lime ? colors.onAccent : colors.secondary} />
                     <Text style={[s.caption, { color: lime ? colors.onAccent : colors.text }]}>{text}</Text>
                   </View>
                 ))}
@@ -353,14 +353,14 @@ export default function ExerciseDetail() {
             {last && (
               <View style={{ gap: 6, paddingHorizontal: 4 }}>
                 <View style={[s.row, { gap: 8 }]}>
-                  <Ionicons name="time-outline" size={16} color={colors.secondary} />
+                  <Icon name="time-outline" size={16} color={colors.secondary} />
                   <Text style={[s.footnote, { flex: 1 }]}>
                     Last: {last.sets.length ? setsSummary(last.sets, units) : "Done"} · {shortDate(last.timestamp)}
                   </Text>
                 </View>
                 {best && (
                   <View style={[s.row, { gap: 8 }]}>
-                    <Ionicons name="trophy-outline" size={16} color={colors.accent} />
+                    <Icon name="trophy-outline" size={16} color={colors.accent} />
                     <Text style={[s.footnote, { flex: 1 }]}>
                       Best set: <Text style={[s.footnote, { color: colors.text }]}>{setText(best.set, units)}</Text> ·{" "}
                       {shortDate(best.timestamp)}

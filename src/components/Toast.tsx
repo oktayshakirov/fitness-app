@@ -7,7 +7,7 @@ import {
   type PropsWithChildren,
 } from "react";
 import { AccessibilityInfo, Alert, Pressable } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "./Icon";
 import Animated, {
   Easing,
   FadeInDown,
@@ -95,7 +95,7 @@ export function ToastProvider({ children }: PropsWithChildren) {
             justifyContent: "space-between",
           }}
         >
-          {message.icon && <Ionicons name={message.icon} size={20} color={colors.accent} style={{ marginRight: 8 }} />}
+          {message.icon && <Icon name={message.icon} size={20} color={colors.accent} style={{ marginRight: 8 }} />}
           <Text style={[s.text, { flex: 1 }]}>{message.text}</Text>
           <Pressable
             accessibilityRole="button"

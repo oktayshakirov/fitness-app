@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { Alert, BackHandler, Pressable, ScrollView, View } from "react-native";
 import { router, useFocusEffect } from "expo-router";
 import { Image } from "expo-image";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "../src/components/Icon";
 import Animated, {
   FadeIn,
   FadeInDown,
@@ -81,7 +81,7 @@ export default function Onboarding() {
       <Screen>
         <View style={{ flex: 1, padding: 20, paddingBottom: 28 }}>
           <View style={[s.row, { justifyContent: "center", gap: 6, marginTop: 8 }]}>
-            <Ionicons name="pulse" size={18} color={colors.accent} />
+            <Icon name="pulse" size={18} color={colors.accent} />
             <Text style={{ color: colors.accent, fontSize: 15, fontWeight: "700", letterSpacing: 2 }}>
               FITNESS
             </Text>
@@ -141,7 +141,7 @@ export default function Onboarding() {
             backgroundColor: colors.surface,
           }}
         >
-          <Ionicons name="arrow-back" size={20} color={colors.text} />
+          <Icon name="arrow-back" size={20} color={colors.text} />
         </Pressable>
         <View style={{ flex: 1 }} />
         <Dots step={step} />
@@ -218,7 +218,7 @@ export default function Onboarding() {
                         <Text style={s.title}>{title}</Text>
                         <Text style={s.footnote}>{detail}</Text>
                       </View>
-                      <Ionicons
+                      <Icon
                         name={selected ? "checkmark-circle" : "ellipse-outline"}
                         size={24}
                         color={selected ? colors.accent : colors.tertiary}
@@ -248,7 +248,7 @@ export default function Onboarding() {
                     backgroundColor: colors.accent,
                   }}
                 >
-                  <Ionicons name="checkmark" size={56} color={colors.onAccent} />
+                  <Icon name="checkmark" size={56} color={colors.onAccent} />
                 </Animated.View>
               </View>
               <View style={{ gap: 6, alignItems: "center", marginTop: 8 }}>

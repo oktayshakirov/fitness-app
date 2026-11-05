@@ -236,9 +236,14 @@ export default function Profile() {
               label="Weekly goal, training days"
               value={String(settings.weeklyGoal)}
               onChange={(value) => save({ weeklyGoal: Number(value) })}
-              options={goalChoices.map((days) => ({ value: String(days), title: `${days} days` }))}
+              // "3 days" does not fit five segments on a 360–410 pt phone; the caption says days.
+              options={goalChoices.map((days) => ({
+                value: String(days),
+                title: String(days),
+                accessibilityLabel: `${days} days`,
+              }))}
             />
-            <Text style={s.footnote}>Home shows this week's training days against your goal.</Text>
+            <Text style={s.footnote}>Training days per week. Home shows this week against your goal.</Text>
           </View>
         </Group>
         <SectionTitle title="Your data" />

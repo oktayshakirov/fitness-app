@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { Text } from "./Text";
 import { Image } from "expo-image";
-import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "./Icon";
 import * as Haptics from "expo-haptics";
 import { content, label } from "../content";
 import type { Model } from "../content/types";
@@ -56,7 +56,7 @@ export function ModelChoice({
               />
             ) : (
               <View style={{ height: 160, alignItems: "center", justifyContent: "center" }}>
-                <Ionicons
+                <Icon
                   name={model}
                   size={64}
                   color={selected ? colors.accent : colors.secondary}
@@ -69,7 +69,7 @@ export function ModelChoice({
                 { justifyContent: "center", gap: 6, paddingVertical: compact ? 10 : 14 },
               ]}
             >
-              <Ionicons
+              <Icon
                 name={selected ? "checkmark-circle" : "ellipse-outline"}
                 size={20}
                 color={selected ? colors.accent : colors.tertiary}
