@@ -12,11 +12,21 @@ name: M5 onboarding and profile
       - tapOn: Pounds
       - tapOn: Continue
       - tapOn: Start training
-- assertVisible: About recovery
-- tapOn: Profile
+- scrollUntilVisible:
+    element: About recovery
+    direction: UP
+- tapOn: "Profile.*"
+# Profile keeps its scroll position between runs.
+- scrollUntilVisible:
+    element: Female model
+    direction: UP
 - assertVisible: Weight units
 - tapOn: Female model
 - tapOn: lb
+- scrollUntilVisible:
+    element: Slow
+    direction: DOWN
+    centerElement: true
 - tapOn: Slow
 - takeScreenshot: settings-preferences
 - scrollUntilVisible:
