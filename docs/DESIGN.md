@@ -29,6 +29,18 @@ Floating pill tab bar (blur on iOS, solid surface on Android), 4 tabs: **Home** 
 `tabBarSpace` at the bottom.
 Exercise detail and Log sheet are presented above tabs.
 
+## Muscle icons
+
+One icon per muscle (`src/components/MuscleIcon.tsx`): charcoal body, grey outline, the muscle in
+lime. They sit directly on dark surfaces, never on lime (the highlight disappears; use a dark
+circle behind them). A corner badge adds meaning: recovery state on Home, primary or secondary
+on the exercise screen, using the same red and orange as the video highlights.
+
+## Model pictures
+
+Onboarding, the model choice and avatars use `src/components/modelImages.ts` (generated people in
+charcoal and lime kit). Exercise videos and the body map keep the 3D models.
+
 ## Screens
 
 **Onboarding (4 steps, one decision per screen).** Welcome: both hero renders on a soft lime

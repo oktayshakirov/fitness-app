@@ -5,17 +5,17 @@ accounts or listings exist yet (MVP rule: no accounts or submissions without Okt
 
 ## Decisions Oktay still has to make
 
-- **Store name.** "Fitness" is the working name. It cannot be registered as-is on either store,
-  and on iPhone it sits next to Apple's built-in Fitness app with the same label. Pick a
-  distinct name (≤ 30 characters; the home-screen label is `expo.name`, about 12 characters
-  before it truncates). The subtitle below works with any name.
+- **Store name: Muscle Pal** (chosen 2026-11-09). On 2026-11-07 no app with this name was on the
+  App Store (US, DE) or Google Play. Risk: musclepal.app was registered in March 2026 and shows
+  "Launching Soon", and musclepal.com is parked, so someone may launch under this name first.
+  Neither store reserves a name until an app record exists. No trademark search has been done.
+- **Bundle ID** is still `com.oktayshakirov.fitness` and cannot change after the first
+  submission. Changing it now means a fresh install on test devices.
 - **Contact email** for the listing and the privacy page (`public/privacy-policy.html` has a TODO).
 - **Privacy page host.** The page is a single static file; it ships in the web export at
   `/privacy-policy.html`, or can go on any existing site. Stores need its public URL.
-- **Icon.** `assets/brand/` holds a drawn icon (lime dumbbell on the app background), made by
-  `swift scripts/make_brand_assets.swift`. It can be replaced by a generated icon later: keep
-  1024×1024, no transparency for `icon.png`, and keep the mark inside the centre 61% for
-  `adaptive-foreground.png`.
+- **Icon:** the chest logo in `assets/brand/chest-identity`. `swift scripts/make_brand_assets.swift`
+  builds the app icon, Android layers, splash and favicon from it.
 - **Pricing** follows M7 (free with optional Pro, or paid). Until then the listing says free.
 
 ## Listing copy (draft)
@@ -71,7 +71,8 @@ Planned set, captured from a release build with clean demo data:
 - [x] Icon, Android adaptive + themed icon, splash, favicon (`assets/brand`)
 - [x] Privacy policy page (`public/privacy-policy.html`), in-app Privacy screen
 - [x] Unneeded Android permissions removed
-- [ ] Store name, contact email, privacy URL (Oktay)
+- [x] Store name: Muscle Pal
+- [ ] Contact email, privacy URL (Oktay)
 - [ ] Screenshots from a release build
 - [x] Contrast: every text token passes WCAG AA on every surface (`tests/contrast.test.ts`)
 - [x] Release builds start offline on the iOS simulator and Android emulator (bundled JS + content)

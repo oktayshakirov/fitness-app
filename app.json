@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Fitness",
+    "name": "Muscle Pal",
     "slug": "fitness-app",
     "version": "0.1.0",
     "scheme": "fitness",
@@ -52,7 +52,7 @@
     "backgroundColor": "#0B0B0C",
     "web": {
       "favicon": "./assets/brand/favicon.png",
-      "name": "Fitness",
+      "name": "Muscle Pal",
       "backgroundColor": "#0B0B0C"
     }
   }

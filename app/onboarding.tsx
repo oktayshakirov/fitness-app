@@ -3,6 +3,7 @@ import { Alert, BackHandler, Pressable, ScrollView, View } from "react-native";
 import { router, useFocusEffect } from "expo-router";
 import { Image } from "expo-image";
 import { Icon } from "../src/components/Icon";
+import { modelImages } from "../src/components/modelImages";
 import Animated, {
   FadeIn,
   FadeInDown,
@@ -16,7 +17,6 @@ import { motion } from "../src/components/motion";
 import { Text } from "../src/components/Text";
 import { Screen, Button, IconCircle, s } from "../src/components/ui";
 import { ModelChoice } from "../src/components/ModelChoice";
-import { content } from "../src/content";
 import { updateSettings, useSettings } from "../src/storage/store";
 import type { Model } from "../src/content/types";
 import type { Units } from "../src/storage/preferences";
@@ -46,7 +46,6 @@ export default function Onboarding() {
   const [step, setStep] = useState<Step>("welcome");
   const [model, setModel] = useState<Model>(settings.model);
   const [units, setUnits] = useState<Units>(settings.units);
-  const { male, female } = content.release.heroes;
   // Forward steps slide in from the right, going back slides in from the left.
   const [direction, setDirection] = useState(1);
   const go = (next: Step) => {
@@ -80,11 +79,14 @@ export default function Onboarding() {
     return (
       <Screen>
         <View style={{ flex: 1, padding: 20, paddingBottom: 28 }}>
-          <View style={[s.row, { justifyContent: "center", gap: 6, marginTop: 8 }]}>
-            <Icon name="pulse" size={18} color={colors.accent} />
-            <Text style={{ color: colors.accent, fontSize: 15, fontWeight: "700", letterSpacing: 2 }}>
-              FITNESS
-            </Text>
+          <View style={[s.row, { justifyContent: "center", gap: 8, marginTop: 8 }]}>
+            <Image
+              source={require("../assets/brand/logo.png")}
+              contentFit="contain"
+              accessible={false}
+              style={{ width: 34, height: 34 }}
+            />
+            <Text style={{ color: colors.text, fontSize: 20, fontWeight: "700" }}>Muscle Pal</Text>
           </View>
           <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
             <Image
@@ -95,17 +97,15 @@ export default function Onboarding() {
               entering={FadeIn.duration(500)}
               style={{ flexDirection: "row", width: "100%", height: "92%" }}
             >
-              {[male, female].map(
-                (hero, i) =>
-                  hero && (
-                    <Image
-                      key={i}
-                      source={content.resolve(hero)}
-                      contentFit="contain"
-                      style={{ flex: 1, marginHorizontal: -28 }}
-                    />
-                  ),
-              )}
+              {(["male", "female"] as const).map((m) => (
+                <Image
+                  key={m}
+                  source={modelImages[m].body}
+                  contentFit="contain"
+                  accessible={false}
+                  style={{ flex: 1, marginHorizontal: -28 }}
+                />
+              ))}
             </Animated.View>
           </View>
           <Animated.View entering={FadeInDown.delay(120).duration(400)} style={{ gap: 10, alignItems: "center" }}>
@@ -158,7 +158,7 @@ export default function Onboarding() {
                 <Text accessibilityRole="header" style={s.large}>
                   Choose your model
                 </Text>
-                <Text style={s.subhead}>Every exercise is shown on this body. You can change it anytime.</Text>
+                <Text style={s.subhead}>Exercises are shown on a matching 3D model. You can change it anytime.</Text>
               </View>
               <ModelChoice value={model} onChange={setModel} />
               <View style={{ flex: 1 }} />

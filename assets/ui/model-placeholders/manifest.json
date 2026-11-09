@@ -1,0 +1,49 @@
+{
+  "created": "2026-11-09",
+  "generator": "Built-in image_gen",
+  "brand": "Muscle Pal",
+  "status": "Assets only; not integrated",
+  "palette": {
+    "accent": "#C8FA3C",
+    "sportswear": "Charcoal",
+    "previewBackground": "#1A1A1C"
+  },
+  "assets": [
+    {
+      "id": "male-full-body",
+      "file": "male-full-body.png",
+      "label": "Male",
+      "prompt": "Use case: stylized-concept. Asset: premium full-body character cutout for Muscle Pal fitness app model-selection buttons in a dark UI. Create exactly ONE adult athletic person, head to toe completely visible, centered in portrait 2:3 composition, figure occupies 84% canvas height, generous clear margins above head and below shoes, no cropping. High-end semi-realistic 3D character illustration, modern editorial sports campaign quality; natural human proportions, refined believable face, subtle skin texture, soft lifelike eyes, relaxed reassuring tiny smile. Fit healthy athletic build, approachable everyday trainer rather than exaggerated bodybuilder. Neutral relaxed symmetrical standing pose, front with only slight three-quarter turn toward viewer, arms gently separated from torso, hands naturally relaxed with anatomically correct fingers, feet hip-width apart. Clean flattering soft studio key light from upper left and subtle neutral rim light, crisp silhouette that reads on dark charcoal cards. Natural warm medium skin tone, dark hair, charcoal matte technical sportswear with restrained electric lime #C8FA3C details only (small shoulder or waistband piping), clean minimalist unbranded sports shoes. Materials feel premium and realistic; not shiny plastic, not waxy, not a toy or cartoon. Genuinely TRANSPARENT BACKGROUND with clean alpha around hair/body; no backdrop, no floor, no ground shadow, no environment, no gradients outside the subject, no props, no equipment, no text, no letters, no logos, no icon border or selection ring. Keep training clothes fully opaque and modest. Subject: Adult male around age 28, naturally athletic broad shoulders, short neatly textured dark brown hair with a gentle taper, clean-shaven friendly face. Fitted charcoal sleeveless training tank with tiny lime shoulder seam details, charcoal above-knee training shorts, neutral charcoal low-cut trainers with small lime heel detail. Complete full-length body with both hands and feet.",
+      "width": 1024,
+      "height": 1536,
+      "transparent": true
+    },
+    {
+      "id": "female-full-body",
+      "file": "female-full-body.png",
+      "label": "Female",
+      "prompt": "Use case: stylized-concept. Asset: premium full-body character cutout for Muscle Pal fitness app model-selection buttons in a dark UI. Create exactly ONE adult athletic person, head to toe completely visible, centered in portrait 2:3 composition, figure occupies 84% canvas height, generous clear margins above head and below shoes, no cropping. High-end semi-realistic 3D character illustration, modern editorial sports campaign quality; natural human proportions, refined believable face, subtle skin texture, soft lifelike eyes, relaxed reassuring tiny smile. Fit healthy athletic build, approachable everyday trainer rather than exaggerated bodybuilder. Neutral relaxed symmetrical standing pose, front with only slight three-quarter turn toward viewer, arms gently separated from torso, hands naturally relaxed with anatomically correct fingers, feet hip-width apart. Clean flattering soft studio key light from upper left and subtle neutral rim light, crisp silhouette that reads on dark charcoal cards. Natural warm medium skin tone, dark hair, charcoal matte technical sportswear with restrained electric lime #C8FA3C details only (small shoulder or waistband piping), clean minimalist unbranded sports shoes. Materials feel premium and realistic; not shiny plastic, not waxy, not a toy or cartoon. Genuinely TRANSPARENT BACKGROUND with clean alpha around hair/body; no backdrop, no floor, no ground shadow, no environment, no gradients outside the subject, no props, no equipment, no text, no letters, no logos, no icon border or selection ring. Keep training clothes fully opaque and modest. Subject: Adult female around age 28, naturally athletic physique with balanced shoulders and legs, dark brown hair in a neat practical ponytail, friendly confident face. Fitted charcoal sleeveless high-neck athletic crop top covering chest and ribs with subtle lime shoulder seams, high-waisted full-length charcoal training leggings with small lime waistband detail, neutral charcoal low-cut trainers with small lime heel detail. Complete full-length body with both hands and feet.",
+      "width": 1024,
+      "height": 1536,
+      "transparent": true
+    },
+    {
+      "id": "male-profile",
+      "file": "male-profile.png",
+      "label": "Male profile",
+      "prompt": "Use case: identity-preserve. Create ONE square premium head-and-shoulders profile avatar of the SAME generated adult person in the attached full-body reference. Preserve exact facial identity, skin tone, hairline, hairstyle, age, eyes, eyebrows, nose, jaw and subtle friendly smile, same charcoal sleeveless sportswear with tiny electric lime #C8FA3C shoulder seam accents. Recompose as a dedicated close-up rather than a full-body image. Front-facing head with slight natural three-quarter turn and eye contact, relaxed friendly expression. Head centered horizontally, entire hair silhouette fully visible with generous 15% headroom, chin about 65% canvas height, neck and both shoulders across bottom quarter; leave comfortable room for a future circular UI crop. Match the reference's premium semi-realistic 3D/editorial quality, natural believable skin and hair detail, soft flattering studio key light and subtle rim separation. Genuinely TRANSPARENT background, clean alpha edges around hair and shoulders, no halo or backdrop, no ground, no cast shadow, no circle or border, no text, no logos, no props, no extra people. Do not change identity, do not beautify into a different face, no plastic skin or exaggerated features. Square high resolution. Subject is the male character from the attached reference.",
+      "width": 1254,
+      "height": 1254,
+      "transparent": true
+    },
+    {
+      "id": "female-profile",
+      "file": "female-profile.png",
+      "label": "Female profile",
+      "prompt": "Use case: identity-preserve. Create ONE square premium head-and-shoulders profile avatar of the SAME generated adult person in the attached full-body reference. Preserve exact facial identity, skin tone, hairline, hairstyle, age, eyes, eyebrows, nose, jaw and subtle friendly smile, same charcoal sleeveless sportswear with tiny electric lime #C8FA3C shoulder seam accents. Recompose as a dedicated close-up rather than a full-body image. Front-facing head with slight natural three-quarter turn and eye contact, relaxed friendly expression. Head centered horizontally, entire hair silhouette fully visible with generous 15% headroom, chin about 65% canvas height, neck and both shoulders across bottom quarter; leave comfortable room for a future circular UI crop. Match the reference's premium semi-realistic 3D/editorial quality, natural believable skin and hair detail, soft flattering studio key light and subtle rim separation. Genuinely TRANSPARENT background, clean alpha edges around hair and shoulders, no halo or backdrop, no ground, no cast shadow, no circle or border, no text, no logos, no props, no extra people. Do not change identity, do not beautify into a different face, no plastic skin or exaggerated features. Square high resolution. Subject is the female character from the attached reference.",
+      "width": 1254,
+      "height": 1254,
+      "transparent": true
+    }
+  ]
+}

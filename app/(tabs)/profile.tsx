@@ -71,7 +71,7 @@ export default function Profile() {
         await Sharing.shareAsync(file.uri, {
           mimeType: "application/json",
           UTI: "public.json",
-          dialogTitle: "Export fitness data",
+          dialogTitle: "Export Muscle Pal data",
         });
       } else {
         const result = await DocumentPicker.getDocumentAsync({

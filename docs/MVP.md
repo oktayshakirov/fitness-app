@@ -156,7 +156,7 @@ Contract = the content envelope + body view assets. Changes go into this file fi
 - Nothing unapproved ships; credits visible in Settings.
 - No accounts, payments, ad networks, hosting projects or store submissions without Oktay's go-ahead.
 - Images: our own renders for bodies and equipment; ChatGPT-generated images only for
-  app icon, marketing and abstract illustrations (no fake people next to our models).
+  app icon, marketing and abstract illustrations (no fake people next to our models). Exception, Oktay 2026-11-09: the generated model pictures in `assets/ui/model-placeholders` are used for the model choice and avatars.
 - Commits: plain messages, no AI attribution lines.
 
 ## Requests

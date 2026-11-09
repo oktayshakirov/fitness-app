@@ -33,6 +33,7 @@ import {
   viewOrder,
 } from "../../src/content";
 import type { CameraView, Muscle } from "../../src/content/types";
+import { MuscleIcon } from "../../src/components/MuscleIcon";
 import { getRoutines, updateSettings, useEntries, useSettings } from "../../src/storage/store";
 import { oneRepMax } from "../../src/storage/progress";
 import { toDisplayWeight } from "../../src/storage/units";
@@ -124,10 +125,10 @@ function MuscleLine({ muscles, color, title }: { muscles: Muscle[]; color: strin
             onPress={() => router.navigate({ pathname: "/(tabs)/exercises", params: { muscle: m, at: String(Date.now()) } })}
             style={[
               s.row,
-              { gap: 6, paddingHorizontal: 10, minHeight: 32, borderRadius: 16, backgroundColor: colors.surface2 },
+              { gap: 8, paddingLeft: 6, paddingRight: 14, minHeight: 48, borderRadius: 24, backgroundColor: colors.surface2 },
             ]}
           >
-            <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: color }} />
+            <MuscleIcon muscle={m} size={38} ring={colors.surface2} badge={{ color }} />
             <Text style={{ color: colors.text, fontSize: 14 }}>{label(m)}</Text>
           </Pressable>
         ))}
@@ -325,7 +326,13 @@ export default function ExerciseDetail() {
                       },
                     ]}
                   >
-                    <Icon name={icon} size={14} color={lime ? colors.onAccent : colors.secondary} />
+                    {lime && exercise.primary[0] ? (
+                      <View style={{ marginLeft: -8, padding: 2, borderRadius: 14, backgroundColor: colors.onAccent }}>
+                        <MuscleIcon muscle={exercise.primary[0]} size={22} />
+                      </View>
+                    ) : (
+                      <Icon name={icon} size={14} color={lime ? colors.onAccent : colors.secondary} />
+                    )}
                     <Text style={[s.caption, { color: lime ? colors.onAccent : colors.text }]}>{text}</Text>
                   </View>
                 ))}

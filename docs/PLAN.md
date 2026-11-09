@@ -627,3 +627,18 @@ size is back at the default (large).
 contact email and privacy URL (Oktay); screenshots from a release build with clean demo data;
 web export of the library; VoiceOver/TalkBack by ear and AX text sizes; 60 fps on a physical
 mid-range Android phone. Small: at XXXL the Exercises search placeholder truncates ("equi").
+
+## 2026-11-09 — Named Muscle Pal; muscle icons in the UI
+
+- App name is now **Muscle Pal** (`expo.name`, onboarding wordmark, privacy page, messages). The
+  bundle ID, slug, database file and backup filenames stay `fitness`; the bundle ID is still free
+  to change until the first submission. Risks are in `docs/STORE.md`.
+- App icon, Android layers, splash and favicon now come from the chest logo.
+- 17 muscle icons (256 px, 1 MB total; the 1254 px sources are not bundled): Home muscle list with
+  a recovery badge, the selected-muscle row under the body map, Exercises muscle filter as tiles,
+  the active filter chip, and the exercise screen's primary chip and Primary/Secondary rows.
+- Exercises: the muscle tiles are always visible, "All muscles" is a tile like the others and the
+  collapse button is gone. A link to a muscle scrolls its tile into view.
+- Onboarding, the model choice and the avatars (Home and Profile) use the generated pictures in
+  `assets/ui/model-placeholders`, resized into `assets/ui/models`. Videos and the body map stay on
+  the 3D models. Maestro flows were not rerun after these screen changes.
