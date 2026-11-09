@@ -9,11 +9,10 @@ accounts or listings exist yet (MVP rule: no accounts or submissions without Okt
   App Store (US, DE) or Google Play. Risk: musclepal.app was registered in March 2026 and shows
   "Launching Soon", and musclepal.com is parked, so someone may launch under this name first.
   Neither store reserves a name until an app record exists. No trademark search has been done.
-- **Bundle ID** is still `com.oktayshakirov.fitness` and cannot change after the first
-  submission. Changing it now means a fresh install on test devices.
-- **Contact email** for the listing and the privacy page (`public/privacy-policy.html` has a TODO).
-- **Privacy page host.** The page is a single static file; it ships in the web export at
-  `/privacy-policy.html`, or can go on any existing site. Stores need its public URL.
+- **Bundle ID:** `com.shadev.musclepal`, on iOS and Android. It cannot change after the first submission.
+- **Contact email:** muscle-pal@oktayshakirov.com.
+- **Privacy page:** https://oktayshakirov.com/privacy-policy/muscle-pal.html, in the portfolio repo
+  with the other apps. Update it before any version with ads or purchases ships.
 - **Icon:** the chest logo in `assets/brand/chest-identity`. `swift scripts/make_brand_assets.swift`
   builds the app icon, Android layers, splash and favicon from it.
 - **Pricing** follows M7 (free with optional Pro, or paid). Until then the listing says free.
@@ -47,9 +46,10 @@ Correct for the current build (no analytics, ads or purchases). Revisit for M7.
   transit: yes (HTTPS content host required). Users can request deletion: data is local;
   in-app erase and uninstall delete it.
 - **Export compliance:** `ITSAppUsesNonExemptEncryption = false` (only HTTPS via the OS).
-- **Android permissions in the release build** (checked on the emulator 2026-11-05): INTERNET,
-  VIBRATE, ACCESS_NETWORK_STATE and WAKE_LOCK (normal, install-time, added by libraries).
-  `app.json` blocks SYSTEM_ALERT_WINDOW and the legacy storage permissions prebuild adds.
+- **Android permissions:** INTERNET, VIBRATE, POST_NOTIFICATIONS and SCHEDULE_EXACT_ALARM (rest
+  alert, both asked from the user), plus normal ones added by libraries (network state, wake lock,
+  boot completed). `app.json` blocks SYSTEM_ALERT_WINDOW and legacy storage. `expo-notifications`
+  bundles the Firebase messaging library, but no Firebase project is configured and it stays unused.
 
 ## Screenshots
 
@@ -69,10 +69,10 @@ Planned set, captured from a release build with clean demo data:
 ## Release checklist
 
 - [x] Icon, Android adaptive + themed icon, splash, favicon (`assets/brand`)
-- [x] Privacy policy page (`public/privacy-policy.html`), in-app Privacy screen
+- [x] Privacy policy page (portfolio repo), in-app Privacy screen
 - [x] Unneeded Android permissions removed
 - [x] Store name: Muscle Pal
-- [ ] Contact email, privacy URL (Oktay)
+- [x] Contact email, privacy URL
 - [ ] Screenshots from a release build
 - [x] Contrast: every text token passes WCAG AA on every surface (`tests/contrast.test.ts`)
 - [x] Release builds start offline on the iOS simulator and Android emulator (bundled JS + content)

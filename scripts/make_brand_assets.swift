@@ -117,6 +117,8 @@ for i in stride(from: 0, to: source.count, by: 4) where source[i + 3] > 0 {
 let monoContext = canvas(adaptiveSize, adaptiveSize)
 monoContext.data!.copyMemory(from: mono, byteCount: mono.count)
 write(monoContext.makeImage()!, "\(brand)/adaptive-monochrome.png")
+// Android status-bar icon: white on transparent, as large as the 96 px canvas allows.
+write(fitted(monoContext.makeImage()!, size: 96, padding: 0.02), "\(brand)/notification-icon.png")
 
 // Muscle icons: the artwork is 1254 px with wide margins; the UI shows it at 28-64 pt.
 let muscles = [

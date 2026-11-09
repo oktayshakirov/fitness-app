@@ -37,7 +37,7 @@ logo in `assets/brand/chest-identity`, and builds the small muscle icons in `ass
 (used through `src/components/MuscleIcon.tsx`) from the artwork in `assets/ui/muscle-groups`.
 Native projects pick up icon changes on the next prebuild. Store copy, privacy answers,
 screenshot plan and the release checklist are in [docs/STORE.md](docs/STORE.md); the public
-privacy policy is `public/privacy-policy.html`.
+privacy policy lives in the portfolio repo (`privacy-policy/muscle-pal.html`).
 
 A release build on a simulator or emulator (bundled JavaScript, no Metro) replaces the
 installed development build, which `npm run ios` / `npm run android` restores:
@@ -133,7 +133,7 @@ On iOS:
 
 - Hide the dev build's floating Tools button first; it sits over the exercise screen's
   Next button and Maestro opens the dev menu instead:
-  `xcrun simctl spawn <udid> defaults write com.oktayshakirov.fitness EXDevMenuShowFloatingActionButton -bool false`,
+  `xcrun simctl spawn <udid> defaults write com.shadev.musclepal EXDevMenuShowFloatingActionButton -bool false`,
   then relaunch the app. A relaunch (`launchApp`, a crash) lands on the dev launcher, not the app.
 - Maestro waits for the screen to settle after a tap, and the toast's 10 s countdown line
   keeps it moving, so taps that raise a toast use `waitToSettleTimeoutMs: 500`.

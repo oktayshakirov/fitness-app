@@ -1,4 +1,4 @@
-appId: com.oktayshakirov.fitness
+appId: com.shadev.musclepal
 name: M6 remote content (after a staged v0.3.1 fixture and a JS restart)
 ---
 # Setup: python3 scripts/make_test_release.py, serve work/remote-fixture on :8790,
