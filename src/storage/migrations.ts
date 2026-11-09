@@ -24,7 +24,7 @@ export function migrate(
     db.getFirstSync<{ user_version: number }>("PRAGMA user_version")
       ?.user_version ?? 0;
   if (version > steps.length)
-    throw new Error("This data needs a newer version of Fitness.");
+    throw new Error("This data needs a newer version of Muscle Pal.");
   for (let i = version; i < steps.length; i++) {
     db.execSync("BEGIN IMMEDIATE");
     try {

@@ -1,4 +1,4 @@
-# Fitness
+# Muscle Pal
 
 Offline-first Expo / TypeScript app for iOS and Android. Product scope: [MVP](docs/MVP.md),
 visual system: [Design](docs/DESIGN.md), progress: [Plan](docs/PLAN.md).
@@ -31,10 +31,11 @@ EAS project, account, hosting, ad service or purchase service has been created.
 
 ## Icon, splash and release prep (M8)
 
-`assets/brand/` holds the app icon, Android adaptive and themed-icon layers, the splash mark
-and the web favicon, all drawn from the design tokens by
-`swift scripts/make_brand_assets.swift` (no image tools needed). Replace the PNGs to change the
-icon; native projects pick them up on the next prebuild. Store copy, privacy answers,
+`assets/brand/` holds the app icon, Android adaptive and themed-icon layers, the splash mark, the
+in-app logo and the web favicon. `swift scripts/make_brand_assets.swift` builds them from the chest
+logo in `assets/brand/chest-identity`, and builds the small muscle icons in `assets/ui/muscles`
+(used through `src/components/MuscleIcon.tsx`) from the artwork in `assets/ui/muscle-groups`.
+Native projects pick up icon changes on the next prebuild. Store copy, privacy answers,
 screenshot plan and the release checklist are in [docs/STORE.md](docs/STORE.md); the public
 privacy policy is `public/privacy-policy.html`.
 

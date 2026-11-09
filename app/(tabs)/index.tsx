@@ -21,6 +21,7 @@ import { PressableScale, ProgressBar, motion } from "../../src/components/motion
 import { Avatar } from "../../src/components/Avatar";
 import { bodyFor, content, coverFor, exercises, label, mediaBackground } from "../../src/content";
 import { muscleIds, type Muscle } from "../../src/content/types";
+import { MuscleIcon } from "../../src/components/MuscleIcon";
 import { useEntries, useRoutines, useSettings } from "../../src/storage/store";
 import { doneOn } from "../../src/storage/routines";
 import { suggestExercises } from "../../src/recovery/suggest";
@@ -356,8 +357,11 @@ export default function Home() {
                         },
                       ]}
                     >
-                      <View
-                        style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: stateColors[status[focused].state] }}
+                      <MuscleIcon
+                        muscle={focused}
+                        size={44}
+                        ring={colors.surface2}
+                        badge={{ color: stateColors[status[focused].state] }}
                       />
                       <View style={{ flex: 1 }}>
                         <Text style={s.headline}>{label(focused)}</Text>
@@ -392,13 +396,15 @@ export default function Home() {
                   onPress={() => open(item)}
                   style={({ pressed }) => ({ backgroundColor: pressed ? colors.surface2 : "transparent" })}
                 >
-                  {index > 0 && <View style={{ height: 1, backgroundColor: colors.separator, marginLeft: 66 }} />}
-                  <View style={[s.row, { minHeight: 64, paddingHorizontal: 16, gap: 14 }]}>
-                    <IconCircle
-                      name={state === "ready" ? "checkmark" : state === "trained" ? "flame" : "hourglass-outline"}
-                      size={36}
-                      dim={state === "ready"}
-                      color={state === "ready" ? undefined : stateColors[state]}
+                  {index > 0 && <View style={{ height: 1, backgroundColor: colors.separator, marginLeft: 82 }} />}
+                  <View style={[s.row, { minHeight: 76, paddingHorizontal: 16, gap: 14 }]}>
+                    <MuscleIcon
+                      muscle={item}
+                      size={52}
+                      badge={{
+                        color: stateColors[state],
+                        icon: state === "ready" ? "checkmark" : state === "trained" ? "flame" : "hourglass-outline",
+                      }}
                     />
                     <View style={{ flex: 1 }}>
                       <Text style={s.headline}>{label(item)}</Text>

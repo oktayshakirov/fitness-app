@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <Screen>
       <View style={{ flex: 1, justifyContent: "center", padding: 24, gap: 12 }}>
-        <Empty icon="compass-outline" title="Page not found" description="This link doesn't open anything in Fitness." />
+        <Empty icon="compass-outline" title="Page not found" description="This link doesn't open anything in Muscle Pal." />
         <Button title="Go to Home" arrow onPress={() => router.replace("/")} />
       </View>
     </Screen>

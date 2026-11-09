@@ -1,0 +1,38 @@
+{
+  "created": "2026-11-09",
+  "generator": "Built-in image_gen",
+  "name": "Muscle Pal",
+  "palette": {
+    "accent": "#C8FA3C",
+    "body": "#323236",
+    "background": [
+      "#0B0B0C",
+      "#252528"
+    ],
+    "contour": "#A1A1A6"
+  },
+  "assets": [
+    {
+      "id": "logo-mark",
+      "file": "logo-mark.png",
+      "prompt": "Use case: logo-brand. Create ONE original polished logo mark for a premium dark-mode fitness app. Input image is the approved chest muscle icon and is the subject/design reference. Evolve that icon into a stronger cleaner compact logo: retain the bilateral electric lime #C8FA3C pectoral forms, central charcoal seam, strong recognizable neck/shoulder/torso silhouette. Simplify and shorten the arms, eliminate forearms and tiny internal anatomy strokes; use only essential graceful collarbone and side contours. Athletic proportions with sculpted shoulders, elegant slightly tapered torso and softly angular lower edge. Charcoal #323236 body, restrained fine light-gray #A1A1A6 exterior contour so the mark works on dark backgrounds. Lime pectoral shapes should be bold flat and symmetric, very crisp. Minimal flat vector-like identity, professional sports technology brand, powerful and quiet. Single centered mark fills 76% of square canvas with balanced clearspace. TRUE transparent background. No words, no letters, no border, no badge, no gradient in the mark, no glow, no shadow, no photographic texture, no mockup, no ornaments, no extra symbols. Perfectly clean transparent gaps, no speckles. Square high resolution.",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "logo-gradient",
+      "file": "logo-gradient.png",
+      "prompt": "Use case: logo-brand. Asset: premium fitness app icon, square full-bleed 1536x1536 brand artwork. Use the attached approved chest logo mark as the exact brand identity reference. Preserve its neck/shoulder/short upper-arm silhouette, central seam, paired lime pectoral shapes and gray contours; do not redesign the mark. Center it at 62% canvas height with generous safe margins. Set on an elegant very dark graphite gradient (#0B0B0C lower right to #252528 upper left), subtly lifted charcoal center behind the mark. Creative polish: extremely restrained broad soft olive-lime ambient light behind the upper shoulders, so faint it is felt rather than a visible halo. Clean sophisticated performance-app aesthetic, crisp foreground, no busy effects. Solid electric lime #C8FA3C pectorals, charcoal #323236 body, fine silver-gray contours. Background fills the entire square to all edges; no drawn rounded rectangle or outer frame. No words, no mockup, no extra symbols, no stars, no particles, no rays, no neon outline, no heavy glow, no drop-shadow. One logo only.",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "logo-wordmark",
+      "file": "logo-wordmark.png",
+      "prompt": "Use case: logo-brand. Update this logo lockup with the newly confirmed app name. Use attached image as EDIT TARGET. Preserve the chest logo on the left exactly, including silhouette, lime pectorals and gray outlines; preserve the dark graphite gradient with faint olive-lime atmospheric light and the professional clean styling. Replace only the FITNESS text with exact text \"Muscle Pal\". Use the exact capitalization Muscle Pal. Beautiful bold contemporary geometric sans-serif similar to Poppins SemiBold, off-white #FFFFFF, refined kerning, clean flat letters. Adapt the wordmark width and spacing to fit comfortably to the right of the chest mark with generous safe margins. A polished horizontal logo lockup, landscape canvas. No other text, no slogan, no added symbols. No change to chest identity.",
+      "width": 1672,
+      "height": 941
+    }
+  ],
+  "status": "Chosen chest-only identity; assets only, not integrated"
+}

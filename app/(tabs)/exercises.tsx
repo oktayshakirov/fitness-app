@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { type ComponentRef, useEffect, useMemo, useRef, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import {
   Alert,
@@ -23,7 +23,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { PressableScale, motion, settle, usePressScale } from "../../src/components/motion";
-import { Screen, Heading, Chip, Empty, IconButton, PillButton, s } from "../../src/components/ui";
+import { Screen, Heading, Chip, Empty, PillButton, s } from "../../src/components/ui";
 import { Text, TextInput } from "../../src/components/Text";
 import { useToast } from "../../src/components/Toast";
 import {
@@ -35,7 +35,8 @@ import {
   label,
   mediaBackground,
 } from "../../src/content";
-import { muscleIds, type Exercise, type Model } from "../../src/content/types";
+import { muscleIds, type Exercise, type Model, type Muscle } from "../../src/content/types";
+import { MuscleIcon } from "../../src/components/MuscleIcon";
 import { deleteEntry, logExercise, useEntries, useSettings } from "../../src/storage/store";
 import { dayKey } from "../../src/storage/calendar";
 import { colors, tabBarSpace } from "../../src/theme";
@@ -131,7 +132,7 @@ function ExerciseCard({
 }
 export default function Library() {
   const { model, favorites } = useSettings();
-  const { fontScale } = useWindowDimensions();
+  const { fontScale, width } = useWindowDimensions();
   const columns = fontScale > 1.15 ? 1 : 2;
   const toast = useToast();
   // `at` is a fresh token on links from other screens (Home, an exercise's muscle chips).
@@ -139,7 +140,7 @@ export default function Library() {
   const [muscle, setMuscle] = useState(params.muscle ?? "");
   const [equipment, setEquipment] = useState("");
   const [query, setQuery] = useState("");
-  const [showMuscles, setShowMuscles] = useState(false);
+  const muscleStrip = useRef<ComponentRef<typeof ScrollView>>(null);
   const [favoritesOnly, setFavoritesOnly] = useState(false);
   const favoriteSet = useMemo(() => new Set(favorites), [favorites]);
   const entries = useEntries();
@@ -149,6 +150,14 @@ export default function Library() {
     () => new Set(entries.filter((e) => dayKey(e.timestamp) === today).map((e) => e.exerciseId)),
     [entries, today],
   );
+  // A link from Home or an exercise can pick a muscle far along the strip: bring it into view.
+  useEffect(() => {
+    const index = muscleIds.indexOf(muscle as Muscle) + 1; // 0 is the All tile
+    const step = TILE_WIDTH + TILE_GAP;
+    const end = STRIP_PADDING * 2 + step * (muscleIds.length + 1) - TILE_GAP - width;
+    const centred = STRIP_PADDING + step * index - (width - TILE_WIDTH) / 2;
+    muscleStrip.current?.scrollTo({ x: Math.max(0, Math.min(end, centred)), animated: true });
+  }, [muscle, width]);
   const filtering = !!(muscle || equipment || query || favoritesOnly);
   function clearFilters() {
     setQuery("");
@@ -203,16 +212,7 @@ export default function Library() {
         eyebrow="Library"
         title={muscle ? label(muscle) : "Exercises"}
         subtitle={`${filtered.length} ${filtered.length === 1 ? "exercise" : "exercises"}`}
-        action={
-          <View style={[s.row, { gap: 8 }]}>
-            {filtering && <PillButton title="Clear" label="Clear filters" onPress={clearFilters} />}
-            <IconButton
-              name={muscle || showMuscles ? "body" : "body-outline"}
-              label="Filter by muscle"
-              onPress={() => setShowMuscles(!showMuscles)}
-            />
-          </View>
-        }
+        action={filtering ? <PillButton title="Clear" label="Clear filters" onPress={clearFilters} /> : undefined}
       />
       <View style={styles.search}>
         <Icon name="search" size={20} color={colors.secondary} />
@@ -239,32 +239,19 @@ export default function Library() {
           </Pressable>
         )}
       </View>
-      {(showMuscles || !!muscle) && (
-        <Animated.View entering={FadeIn.duration(motion.fast)}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={styles.filters}
-            contentContainerStyle={styles.chips}
-          >
-            {showMuscles ? (
-              <>
-                <Chip title="All muscles" selected={!muscle} onPress={() => chooseMuscle("")} />
-                {muscleIds.map((m) => (
-                  <Chip
-                    key={m}
-                    title={label(m)}
-                    selected={muscle === m}
-                    onPress={() => chooseMuscle(m)}
-                  />
-                ))}
-              </>
-            ) : (
-              <Chip title={`${label(muscle)}  ✕`} selected onPress={() => chooseMuscle("")} />
-            )}
-          </ScrollView>
-        </Animated.View>
-      )}
+      <ScrollView
+        ref={muscleStrip}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        style={styles.filters}
+        contentContainerStyle={styles.chips}
+      >
+        <MuscleTile selected={!muscle} onPress={() => chooseMuscle("")} />
+        {muscleIds.map((m) => (
+          <MuscleTile key={m} muscle={m} selected={muscle === m} onPress={() => chooseMuscle(m)} />
+        ))}
+      </ScrollView>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -326,6 +313,41 @@ export default function Library() {
     </Screen>
   );
 }
+const TILE_WIDTH = 92;
+const TILE_ICON = 60;
+const TILE_GAP = 8;
+const STRIP_PADDING = 20;
+/** A muscle in the filter strip: big enough to tell the body parts apart at a glance. */
+function MuscleTile({ muscle, selected, onPress }: { muscle?: Muscle; selected: boolean; onPress: () => void }) {
+  const name = muscle ? label(muscle) : "All muscles";
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={name}
+      accessibilityState={{ selected }}
+      onPress={() => {
+        void Haptics.selectionAsync();
+        onPress();
+      }}
+      style={({ pressed }) => [
+        styles.tile,
+        pressed && { backgroundColor: colors.surface2 },
+        selected && { borderColor: colors.accent, backgroundColor: colors.accentDim },
+      ]}
+    >
+      {muscle ? (
+        <MuscleIcon muscle={muscle} size={TILE_ICON} />
+      ) : (
+        <View style={{ width: TILE_ICON, height: TILE_ICON, alignItems: "center", justifyContent: "center" }}>
+          <Icon name="body" size={48} color={colors.accent} />
+        </View>
+      )}
+      <Text numberOfLines={1} style={[s.caption, { color: selected ? colors.accent : colors.text }]}>
+        {name}
+      </Text>
+    </Pressable>
+  );
+}
 const styles = StyleSheet.create({
   search: {
     flexDirection: "row",
@@ -339,7 +361,19 @@ const styles = StyleSheet.create({
     borderColor: colors.separator,
   },
   filters: { flexGrow: 0, marginTop: 12 },
-  chips: { paddingHorizontal: 20, gap: 8 },
+  chips: { paddingHorizontal: STRIP_PADDING, gap: TILE_GAP },
+  tile: {
+    width: TILE_WIDTH,
+    minHeight: 104,
+    paddingVertical: 10,
+    paddingHorizontal: 4,
+    gap: 6,
+    alignItems: "center",
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderColor: "transparent",
+    backgroundColor: colors.surface,
+  },
   card: {
     flex: 1,
     margin: 6,
