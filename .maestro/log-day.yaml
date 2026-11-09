@@ -1,4 +1,4 @@
-appId: com.oktayshakirov.fitness
+appId: com.shadev.musclepal
 name: Polish — log an exercise for yesterday, then undo it
 ---
 # Taps that raise a toast skip the settle wait: its 10 s countdown line keeps

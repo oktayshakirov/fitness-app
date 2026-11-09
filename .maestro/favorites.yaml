@@ -1,4 +1,4 @@
-appId: com.oktayshakirov.fitness
+appId: com.shadev.musclepal
 name: Favorites (star an exercise, filter the grid, unstar)
 ---
 - openLink: fitness://exercise/push_up

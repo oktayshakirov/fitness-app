@@ -1,4 +1,4 @@
-appId: com.oktayshakirov.fitness
+appId: com.shadev.musclepal
 name: M5 saved preferences after process restart
 ---
 - openLink: fitness:///

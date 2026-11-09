@@ -1,4 +1,4 @@
-appId: com.oktayshakirov.fitness
+appId: com.shadev.musclepal
 name: Routines (create, start, walk through, delete)
 ---
 # Taps that raise a toast skip the settle wait: its 10 s countdown line keeps

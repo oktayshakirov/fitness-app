@@ -642,3 +642,17 @@ mid-range Android phone. Small: at XXXL the Exercises search placeholder truncat
 - Onboarding, the model choice and the avatars (Home and Profile) use the generated pictures in
   `assets/ui/model-placeholders`, resized into `assets/ui/models`. Videos and the body map stay on
   the 3D models. Maestro flows were not rerun after these screen changes.
+
+## 2026-11-10 — Bundle ID, privacy page, rest-over notification
+
+- Bundle ID and Android package are `com.shadev.musclepal`. Slug, URL scheme, database file and
+  backup filenames keep "fitness" (internal only).
+- Privacy page: `privacy-policy/muscle-pal.html` in the portfolio repo, same template as the other
+  apps, contact muscle-pal@oktayshakirov.com. It describes a build with no ads or analytics, so it
+  must gain the AdMob, purchases and consent sections before M7 ships.
+- Rest over notification: local only (`src/workout/restNotification.ts`, `expo-notifications` with
+  `enableRemoteNotifications: false`, so no APNs entitlement, Firebase project or server).
+  Permission is asked the first time a rest starts. In the foreground the pill and haptic do the job.
+  Android 14+ delays it (a 90 s rest arrived at 149 s) unless exact alarms are on, so the app declares
+  SCHEDULE_EXACT_ALARM and Profile shows an "On-time rest alerts" row while it is off.
+- Home week strip stays as it is: tapping it opens History. No per-day link planned.

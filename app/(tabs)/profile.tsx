@@ -30,6 +30,7 @@ import {
 } from "../../src/storage/store";
 import { goalChoices, restChoices, type Settings as Preferences } from "../../src/storage/preferences";
 import { clock } from "../../src/workout/rest";
+import { useExactRestAlerts } from "../../src/workout/restNotification";
 import { maxBackupBytes, parseBackup } from "../../src/storage/backup";
 import { plural } from "../../src/storage/format";
 import { colors, tabBarSpace } from "../../src/theme";
@@ -49,6 +50,7 @@ export default function Profile() {
   const lock = useRef(false);
   const [busy, setBusy] = useState(false);
   const [credits, setCredits] = useState(false);
+  const exactAlerts = useExactRestAlerts();
   const staged = useStagedContent();
   const toast = useToast();
   function save(patch: Partial<Preferences>) {
@@ -227,6 +229,15 @@ export default function Profile() {
               Start it with the timer button on an exercise, or between sets in the log sheet.
             </Text>
           </View>
+          {!exactAlerts.allowed && (
+            <Row
+              title="On-time rest alerts"
+              detail="Android can delay alerts by up to a minute until you allow this"
+              icon="alarm-outline"
+              value="Allow"
+              onPress={exactAlerts.allow}
+            />
+          )}
           <View style={{ padding: 16, gap: 12 }}>
             <View style={s.row}>
               <IconCircle name="flag-outline" size={36} dim />

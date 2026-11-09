@@ -36,6 +36,10 @@ export default function Privacy() {
             : "Exercises are built into the app; this version does not download content."}
         </Text>
         <Text style={s.text}>
+          If you allow notifications, your phone alerts you when a rest ends.
+          The alert is scheduled on your device and nothing is sent to a server.
+        </Text>
+        <Text style={s.text}>
           Export creates a plain JSON backup containing your logs, notes and
           preferences. You choose whether and where to share it. Keep backups
           somewhere you trust.

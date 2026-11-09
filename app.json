@@ -8,13 +8,13 @@
     "userInterfaceStyle": "dark",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.oktayshakirov.fitness",
+      "bundleIdentifier": "com.shadev.musclepal",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "package": "com.oktayshakirov.fitness",
+      "package": "com.shadev.musclepal",
       "adaptiveIcon": {
         "foregroundImage": "./assets/brand/adaptive-foreground.png",
         "monochromeImage": "./assets/brand/adaptive-monochrome.png",
@@ -24,6 +24,9 @@
         "android.permission.SYSTEM_ALERT_WINDOW",
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
+      "permissions": [
+        "android.permission.SCHEDULE_EXACT_ALARM"
       ]
     },
     "plugins": [
@@ -43,7 +46,15 @@
       "expo-asset",
       "expo-font",
       "expo-image",
-      "expo-sharing"
+      "expo-sharing",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/brand/notification-icon.png",
+          "color": "#C8FA3C",
+          "enableRemoteNotifications": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

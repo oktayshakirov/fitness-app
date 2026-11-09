@@ -1,4 +1,4 @@
-appId: com.oktayshakirov.fitness
+appId: com.shadev.musclepal
 name: Rest timer from an exercise (start, +15 s, skip)
 ---
 # iOS only. On Android the countdown changes every second, so UiAutomator never sees
