@@ -32,7 +32,6 @@ import { goalChoices, restChoices, type Settings as Preferences } from "../../sr
 import { clock } from "../../src/workout/rest";
 import { askForRestAlerts, useExactRestAlerts } from "../../src/workout/restNotification";
 import { ContactSection } from "../../src/components/ContactSection";
-import { ProSection } from "../../src/components/ProSection";
 import { maxBackupBytes, parseBackup } from "../../src/storage/backup";
 import { plural } from "../../src/storage/format";
 import { colors, tabBarSpace } from "../../src/theme";
@@ -191,7 +190,6 @@ export default function Profile() {
             ))}
           </View>
         </View>
-        <ProSection />
         <SectionTitle title="Model" />
         <ModelChoice compact value={settings.model} onChange={(model) => save({ model })} />
         <Text style={[s.footnote, { marginHorizontal: 4 }]}>

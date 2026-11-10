@@ -15,7 +15,8 @@ accounts or listings exist yet (MVP rule: no accounts or submissions without Okt
   with the other apps. Update it before any version with ads or purchases ships.
 - **Icon:** the chest logo in `assets/brand/chest-identity`. `swift scripts/make_brand_assets.swift`
   builds the app icon, Android layers, splash and favicon from it.
-- **Pricing:** free with ads; Muscle Pal Pro at €2.99/month or €29.99 lifetime, matching Drone Pal. Set in App Store Connect and Play Console; the RevenueCat paywall reads them.
+- **Pricing:** version 1.0 is free with everything unlocked. The next version adds ads and Muscle Pal Pro at
+  €2.99/month or €29.99 lifetime (Drone Pal's prices), once the name is secured and the in-app purchases exist.
 
 ## Listing copy (draft)
 
@@ -39,10 +40,12 @@ Learn every exercise with correct form, then track what you did.
 
 ## Privacy answers
 
-Drafts for a build with AdMob and RevenueCat. Check them against each SDK's current data disclosure when filling in the forms.
+For version 1.0 (no ads, analytics or purchases). The ads and Pro version needs new answers; drafts are in
+`docs/monetization/` and in commit c6e2505.
 
-- **App Store, App Privacy:** Identifiers (Device ID) and Usage Data (Advertising Data) for third-party advertising; Purchases (Purchase History) for app functionality. Tracking: Yes, behind the App Tracking Transparency prompt.
-- **Google Play, Data safety:** Device or other IDs collected and shared for advertising; purchase history collected for app functionality. Data is encrypted in transit. Contains ads: Yes. Training data stays local; in-app erase and uninstall delete it.
+- **App Store, App Privacy:** Data Not Collected. Tracking: No.
+- **Google Play, Data safety:** no data collected, no data shared. Data is encrypted in transit: yes.
+  Training data stays local; in-app erase and uninstall delete it.
 - **Export compliance:** `ITSAppUsesNonExemptEncryption = false` (only HTTPS via the OS).
 - **Android permissions:** INTERNET, VIBRATE, POST_NOTIFICATIONS and SCHEDULE_EXACT_ALARM (rest
   alert, both asked from the user), plus normal ones added by libraries (network state, wake lock,

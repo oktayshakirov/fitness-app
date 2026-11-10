@@ -47,12 +47,13 @@ npx expo prebuild --clean --platform ios && LANG=en_US.UTF-8 npx expo run:ios --
 npx expo run:android --variant release --no-bundler
 ```
 
-## Ads and Pro (M7)
+## Ads and Pro (M7, held back)
 
-Development builds use Google's test ads. Release builds need the real IDs: AdMob app IDs in `app.json`,
-banner units in `src/ads/ads.ts`, and RevenueCat keys in `EXPO_PUBLIC_REVENUECAT_IOS_KEY` and
-`EXPO_PUBLIC_REVENUECAT_ANDROID_KEY`. Development builds have a "Pro plan (dev)" switch in Profile. TikTok,
-YouTube and App Store links are constants in `src/contact/contact.ts`.
+Version 1.0 ships without ads or purchases; every Pro feature is unlocked (`src/pro/pro.ts` is a stub).
+The full AdMob + RevenueCat version is commit c6e2505. To bring it back: `git revert` the commit that
+removed it ("Ship 1.0 without ads and purchases"), `npm install`, then set the AdMob IDs in `app.json` and
+`src/ads/ads.ts` and the RevenueCat keys in `EXPO_PUBLIC_REVENUECAT_IOS_KEY` /
+`EXPO_PUBLIC_REVENUECAT_ANDROID_KEY`. TikTok, YouTube and App Store links are in `src/contact/contact.ts`.
 
 ## Approved offline content
 
