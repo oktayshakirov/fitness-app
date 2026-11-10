@@ -62,5 +62,7 @@ export const type = {
   footnote: { fontSize: 13, fontWeight: "400" as const, lineHeight: 18 },
   caption: { fontSize: 12, fontWeight: "500" as const, lineHeight: 16 },
 };
+/** Widest a screen's content gets (iPad); wider windows centre it. */
+export const contentWidth = 720;
 /** Bottom space screens leave for the floating tab bar. */
 export const tabBarSpace = 110;

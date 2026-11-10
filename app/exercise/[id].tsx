@@ -41,7 +41,7 @@ import { ProgressChart } from "../../src/components/ProgressChart";
 import { PlateCalculator } from "../../src/components/PlateCalculator";
 import * as Haptics from "expo-haptics";
 import { bestSet, setText, setsSummary } from "../../src/storage/format";
-import { colors, useScheme } from "../../src/theme";
+import { colors, contentWidth, useScheme } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 function Section({
   title,
@@ -184,7 +184,10 @@ export default function ExerciseDetail() {
   };
   const [visible, setVisible] = useState(true);
   const scroll = useRef<ComponentRef<typeof ScrollView>>(null);
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
+  // The 4:5 video fills the column on phones; on a wide iPad window it stays short enough to
+  // leave the angle cards and details in view.
+  const videoWidth = Math.min(Math.min(width, contentWidth) - 32, height * 0.4);
   useEffect(() => {
     const next = list[index + 1];
     if (!next) return;
@@ -248,7 +251,7 @@ export default function ExerciseDetail() {
   ]);
   return (
     <Screen>
-      <View style={[s.row, { paddingHorizontal: 16, paddingVertical: 6, justifyContent: "space-between" }]}>
+      <View style={[s.row, s.column, { paddingHorizontal: 16, paddingVertical: 6, justifyContent: "space-between" }]}>
         <IconButton name="close" label="Close exercise" onPress={() => router.back()} />
         <Text numberOfLines={1} style={[s.footnote, { flexShrink: 1, textAlign: "center" }]}>
           {routine ? `${routine.name} · ` : ""}
@@ -279,12 +282,12 @@ export default function ExerciseDetail() {
       <GestureDetector gesture={nativeScroll}>
         <ScrollView
           ref={scroll}
-          onScroll={(e) => setVisible(e.nativeEvent.contentOffset.y < (width - 32) * 1.25 - 40)}
+          onScroll={(e) => setVisible(e.nativeEvent.contentOffset.y < videoWidth * 1.25 - 40)}
           scrollEventThrottle={32}
-          contentContainerStyle={{ padding: 16, paddingTop: 4, gap: 16, paddingBottom: 32 }}
+          contentContainerStyle={[{ padding: 16, paddingTop: 4, gap: 16, paddingBottom: 32 }, s.column]}
         >
           <GestureDetector gesture={gesture}>
-            <View collapsable={false}>
+            <View collapsable={false} style={{ width: videoWidth, alignSelf: "center" }}>
               <ExerciseVideo media={current} visible={visible} />
             </View>
           </GestureDetector>
@@ -406,6 +409,7 @@ export default function ExerciseDetail() {
       <View
         style={[
           s.row,
+          s.column,
           {
             gap: 10,
             paddingHorizontal: 16,

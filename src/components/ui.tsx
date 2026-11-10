@@ -20,7 +20,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Text } from "./Text";
 import { PressableScale, settle } from "./motion";
-import { colors, fonts, radius, type, themed } from "../theme";
+import { colors, contentWidth, fonts, radius, type, themed } from "../theme";
 import type { MediaSource } from "../content/types";
 export type IconName = React.ComponentProps<typeof Ionicons>["name"];
 export function Screen({ children }: PropsWithChildren) {
@@ -42,7 +42,7 @@ export function Heading({
   action?: React.ReactNode;
 }) {
   return (
-    <View style={s.heading}>
+    <View style={[s.heading, s.column]}>
       <View style={{ flexShrink: 1 }}>
         {!!eyebrow && <Text style={s.subhead}>{eyebrow}</Text>}
         <Text accessibilityRole="header" style={s.large}>
@@ -517,6 +517,8 @@ export function Empty({
 }
 export const s = themed(() => ({
   screen: { flex: 1, backgroundColor: colors.bg },
+  /** Centres content on wide windows (iPad); a no-op on phones. */
+  column: { width: "100%", maxWidth: contentWidth, alignSelf: "center" },
   heading: {
     paddingHorizontal: 20,
     paddingTop: 12,

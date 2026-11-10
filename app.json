@@ -7,7 +7,7 @@
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": false,
+      "supportsTablet": true,
       "bundleIdentifier": "com.shadev.musclepal",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,

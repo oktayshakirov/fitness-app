@@ -145,7 +145,7 @@ export default function Home() {
     router.push({ pathname: "/(tabs)/exercises", params: { muscle: muscle ?? "", at: String(Date.now()) } });
   return (
     <Screen>
-      <ScrollView contentContainerStyle={{ paddingBottom: tabBarSpace, gap: 14 }}>
+      <ScrollView contentContainerStyle={[{ paddingBottom: tabBarSpace, gap: 14 }, s.column]}>
         <Heading
           eyebrow={greeting(new Date(now).getHours())}
           title="Ready to train?"

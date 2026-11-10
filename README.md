@@ -5,7 +5,9 @@ visual system: [Design](docs/DESIGN.md), progress: [Plan](docs/PLAN.md).
 
 ## Local development
 
-Node 22.13+; Xcode and an iOS simulator; Android SDK + Java 17 and an emulator.
+Node 22.13+; Xcode with the iOS and watchOS platforms (Xcode > Settings > Components; the iOS app embeds
+the Apple Watch app, so Xcode will not build it without watchOS) and an iOS simulator; Android SDK + Java 17
+and an emulator.
 
 ```sh
 npm ci
@@ -46,6 +48,22 @@ installed development build, which `npm run ios` / `npm run android` restores:
 npx expo prebuild --clean --platform ios && LANG=en_US.UTF-8 npx expo run:ios --configuration Release --no-bundler
 npx expo run:android --variant release --no-bundler
 ```
+
+## iPad and Apple Watch
+
+The app runs on iPad (`supportsTablet: true`, every orientation, resizable windows). Screens keep a phone-
+like column: `contentWidth` in `src/theme.ts` caps content at 720 pt and centres it (`s.column` in
+`src/components/ui.tsx`); the Exercises grid gets a third column, the tab bar stays phone-sized.
+
+The Apple Watch app (`targets/watch`, SwiftUI, watchOS 10+) shows the recovered percentage, the streak and
+the muscles still resting, with "ready in" times; `targets/watch-complication` puts the same on watch faces
+(circular, corner, inline, rectangular). Both read the summary the widgets use (`buildWidgetData`): the
+iPhone app sends it through WatchConnectivity (`modules/watch-connectivity`, called from
+`src/widget/sync.tsx`) and the watch keeps the newest copy in its App Group. The watch counts down by
+itself, so it stays right while the phone is away. It is read-only: logging still happens on the phone.
+Like the widgets it shows a Pro message when `isPro` is false. Running it needs the watchOS platform
+(Xcode > Settings > Components) and a paired iPhone + Apple Watch simulator. The phone side is a local Expo module,
+`modules/watch-connectivity` (pod `MusclePalWatchLink`: a pod named WatchConnectivity would shadow Apple's framework).
 
 ## Ads and Pro (M7, held back)
 

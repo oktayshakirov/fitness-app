@@ -39,7 +39,7 @@ import { muscleIds, type Exercise, type Model, type Muscle } from "../../src/con
 import { MuscleIcon } from "../../src/components/MuscleIcon";
 import { deleteEntry, logExercise, useEntries, useSettings } from "../../src/storage/store";
 import { dayKey } from "../../src/storage/calendar";
-import { colors, tabBarSpace, themed, useScheme } from "../../src/theme";
+import { colors, contentWidth, tabBarSpace, themed, useScheme } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 /** Quick-log "+": shrinks while held; after a log the icon pops into a check for a moment. */
 function QuickLogButton({ name, onLog }: { name: string; onLog: () => boolean }) {
@@ -135,7 +135,10 @@ export default function Library() {
   const scheme = useScheme();
   const { model, favorites } = useSettings();
   const { fontScale, width } = useWindowDimensions();
-  const columns = fontScale > 1.15 ? 1 : 2;
+  // The grid, search and strips share the centred column; an iPad-wide column fits a third card.
+  const listWidth = Math.min(width, contentWidth);
+  const gutter = (width - listWidth) / 2;
+  const columns = (fontScale > 1.15 ? 1 : 2) + (listWidth >= 600 ? 1 : 0);
   const toast = useToast();
   // `at` is a fresh token on links from other screens (Home, an exercise's muscle chips).
   const params = useLocalSearchParams<{ muscle?: string; at?: string }>();
@@ -156,10 +159,10 @@ export default function Library() {
   useEffect(() => {
     const index = muscleIds.indexOf(muscle as Muscle) + 1; // 0 is the All tile
     const step = TILE_WIDTH + TILE_GAP;
-    const end = STRIP_PADDING * 2 + step * (muscleIds.length + 1) - TILE_GAP - width;
-    const centred = STRIP_PADDING + step * index - (width - TILE_WIDTH) / 2;
+    const end = STRIP_PADDING * 2 + step * (muscleIds.length + 1) - TILE_GAP - listWidth;
+    const centred = STRIP_PADDING + step * index - (listWidth - TILE_WIDTH) / 2;
     muscleStrip.current?.scrollTo({ x: Math.max(0, Math.min(end, centred)), animated: true });
-  }, [muscle, width]);
+  }, [muscle, listWidth]);
   const filtering = !!(muscle || equipment || query || favoritesOnly);
   function clearFilters() {
     setQuery("");
@@ -216,69 +219,71 @@ export default function Library() {
         subtitle={`${filtered.length} ${filtered.length === 1 ? "exercise" : "exercises"}`}
         action={filtering ? <PillButton title="Clear" label="Clear filters" onPress={clearFilters} /> : undefined}
       />
-      <View style={styles.search}>
-        <Icon name="search" size={20} color={colors.secondary} />
-        <TextInput
-          accessibilityLabel="Search exercises"
-          placeholder="Search name, muscle, equipment"
-          placeholderTextColor={colors.secondary}
-          value={query}
-          onChangeText={setQuery}
-          autoCorrect={false}
-          autoCapitalize="none"
-          submitBehavior="blurAndSubmit"
-          returnKeyType="search"
-          style={[s.text, { flex: 1, minHeight: 52 }]}
-        />
-        {!!query && (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Clear search"
-            hitSlop={12}
-            onPress={() => setQuery("")}
-          >
-            <Icon name="close-circle" size={18} color={colors.secondary} />
-          </Pressable>
-        )}
+      <View style={s.column}>
+        <View style={styles.search}>
+          <Icon name="search" size={20} color={colors.secondary} />
+          <TextInput
+            accessibilityLabel="Search exercises"
+            placeholder="Search name, muscle, equipment"
+            placeholderTextColor={colors.secondary}
+            value={query}
+            onChangeText={setQuery}
+            autoCorrect={false}
+            autoCapitalize="none"
+            submitBehavior="blurAndSubmit"
+            returnKeyType="search"
+            style={[s.text, { flex: 1, minHeight: 52 }]}
+          />
+          {!!query && (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Clear search"
+              hitSlop={12}
+              onPress={() => setQuery("")}
+            >
+              <Icon name="close-circle" size={18} color={colors.secondary} />
+            </Pressable>
+          )}
+        </View>
+        <ScrollView
+          ref={muscleStrip}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          style={styles.filters}
+          contentContainerStyle={styles.chips}
+        >
+          <MuscleTile selected={!muscle} onPress={() => chooseMuscle("")} />
+          {muscleIds.map((m) => (
+            <MuscleTile key={m} muscle={m} selected={muscle === m} onPress={() => chooseMuscle(m)} />
+          ))}
+        </ScrollView>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.filters}
+          contentContainerStyle={styles.chips}
+        >
+          {(favorites.length > 0 || favoritesOnly) && (
+            <Chip
+              title="Favorites"
+              ionicon="star"
+              selected={favoritesOnly}
+              onPress={() => setFavoritesOnly(!favoritesOnly)}
+            />
+          )}
+          <Chip title="All" selected={!equipment} onPress={() => setEquipment("")} />
+          {equipmentFilters.map((f) => (
+            <Chip
+              key={f.id}
+              title={f.title}
+              icon={f.icon && content.resolve(f.icon)}
+              selected={f.id === equipment}
+              onPress={() => setEquipment(f.id === equipment ? "" : f.id)}
+            />
+          ))}
+        </ScrollView>
       </View>
-      <ScrollView
-        ref={muscleStrip}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-        style={styles.filters}
-        contentContainerStyle={styles.chips}
-      >
-        <MuscleTile selected={!muscle} onPress={() => chooseMuscle("")} />
-        {muscleIds.map((m) => (
-          <MuscleTile key={m} muscle={m} selected={muscle === m} onPress={() => chooseMuscle(m)} />
-        ))}
-      </ScrollView>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.filters}
-        contentContainerStyle={styles.chips}
-      >
-        {(favorites.length > 0 || favoritesOnly) && (
-          <Chip
-            title="Favorites"
-            ionicon="star"
-            selected={favoritesOnly}
-            onPress={() => setFavoritesOnly(!favoritesOnly)}
-          />
-        )}
-        <Chip title="All" selected={!equipment} onPress={() => setEquipment("")} />
-        {equipmentFilters.map((f) => (
-          <Chip
-            key={f.id}
-            title={f.title}
-            icon={f.icon && content.resolve(f.icon)}
-            selected={f.id === equipment}
-            onPress={() => setEquipment(f.id === equipment ? "" : f.id)}
-          />
-        ))}
-      </ScrollView>
       <FlashList
         data={filtered}
         key={columns}
@@ -287,7 +292,7 @@ export default function Library() {
         extraData={cellState}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
-        contentContainerStyle={{ paddingHorizontal: 14, paddingTop: 12, paddingBottom: tabBarSpace }}
+        contentContainerStyle={{ paddingHorizontal: 14 + gutter, paddingTop: 12, paddingBottom: tabBarSpace }}
         ListEmptyComponent={
           <Empty
             icon={favoritesOnly && !favorites.length ? "star-outline" : "search"}

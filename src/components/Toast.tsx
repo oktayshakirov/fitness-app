@@ -6,7 +6,7 @@ import {
   useState,
   type PropsWithChildren,
 } from "react";
-import { AccessibilityInfo, Alert, Pressable } from "react-native";
+import { AccessibilityInfo, Alert, Pressable, useWindowDimensions } from "react-native";
 import { Icon } from "./Icon";
 import Animated, {
   Easing,
@@ -62,6 +62,9 @@ export function ToastProvider({ children }: PropsWithChildren) {
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const count = useRef(0);
   const insets = useSafeAreaInsets();
+  // Phone width at most, centred on iPad like the tab bar.
+  const { width } = useWindowDimensions();
+  const side = Math.max(20, (width - 480) / 2);
   useEffect(() => () => clearTimeout(timer.current), []);
   function show(next: Message) {
     clearTimeout(timer.current);
@@ -83,8 +86,8 @@ export function ToastProvider({ children }: PropsWithChildren) {
           accessibilityLiveRegion="polite"
           style={{
             position: "absolute",
-            left: 20,
-            right: 20,
+            left: side,
+            right: side,
             bottom: Math.max(insets.bottom, 12) + 82,
             backgroundColor: colors.surface3,
             borderRadius: 28,

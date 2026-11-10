@@ -62,7 +62,7 @@ export default function Profile() {
     const result = await askForRestAlerts();
     if (result === "allowed") save({ restAlerts: true });
     else if (result === "blocked")
-      Alert.alert("Notifications are off", "Turn on notifications for Muscle Pal in your phone's settings.", [
+      Alert.alert("Notifications are off", "Turn on notifications for Muscle Pal in your device's settings.", [
         { text: "Cancel", style: "cancel" },
         { text: "Open settings", onPress: () => void Linking.openSettings() },
       ]);
@@ -165,7 +165,7 @@ export default function Profile() {
   return (
     <Screen>
       <Heading eyebrow="You" title="Profile" />
-      <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 0, gap: 12, paddingBottom: tabBarSpace }}>
+      <ScrollView contentContainerStyle={[{ padding: 20, paddingTop: 0, gap: 12, paddingBottom: tabBarSpace }, s.column]}>
         <View style={[s.card, { gap: 18 }]}>
           <View style={[s.row, { gap: 14 }]}>
             <Avatar model={settings.model} size={64} />

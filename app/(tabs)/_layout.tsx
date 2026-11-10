@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useSegments } from "expo-router";
 import { Tabs } from "expo-router/js-tabs";
-import { Platform, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import { Icon } from "../../src/components/Icon";
@@ -48,6 +48,8 @@ function TabIcon({ tab, focused, active }: { tab: (typeof tabs)[number]; focused
 export default function TabsLayout() {
   const scheme = useScheme();
   const insets = useSafeAreaInsets();
+  // A phone-sized pill, centred on wide windows (iPad).
+  const { width } = useWindowDimensions();
   const reduced = useReducedMotion();
   // Current tab from the route ("index" is omitted from segments); kept while a stacked
   // screen such as an exercise is open, so returning does not replay the pill.
@@ -63,10 +65,12 @@ export default function TabsLayout() {
         animation: reduced ? "none" : "fade",
         tabBarActiveTintColor: colors.text,
         tabBarInactiveTintColor: colors.secondary,
+        // Tablets default to labels beside the icons; keep the phone layout.
+        tabBarLabelPosition: "below-icon",
         tabBarLabelStyle: { fontFamily: fonts["500"], fontSize: 11, marginTop: 4 },
         tabBarStyle: {
           position: "absolute",
-          marginHorizontal: 16,
+          marginHorizontal: Math.max(16, (width - 480) / 2),
           bottom: Math.max(insets.bottom, 12),
           height: 70,
           paddingTop: 9,

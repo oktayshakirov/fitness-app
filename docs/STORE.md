@@ -55,8 +55,9 @@ For version 1.0 (no ads, analytics or purchases). The ads and Pro version needs 
 ## Screenshots
 
 Required sizes: iOS 6.9" (1320×2868, iPhone 17 Pro Max simulator) is enough for all
-iPhones; Play needs 2-8 phone shots (1080×1920 or larger, 9:16). The app is iPhone-only
-(`supportsTablet: false`), so no iPad shots are needed.
+iPhones; iPad 13" (2064×2752, iPad Pro 13-inch simulator) covers every iPad; the Apple Watch app
+needs its own set (one size is enough, e.g. 416×496 from an Apple Watch Series 11 46mm simulator,
+or the Ultra size). Play needs 2-8 phone shots (1080×1920 or larger, 9:16).
 
 Planned set, captured from a release build with clean demo data:
 1. Home: recovery card, week strip and body map
@@ -74,7 +75,11 @@ Planned set, captured from a release build with clean demo data:
 - [x] Unneeded Android permissions removed
 - [x] Store name: Muscle Pal
 - [x] Contact email, privacy URL
-- [ ] Screenshots from a release build
+- [ ] Screenshots from a release build: iPhone, iPad, Apple Watch, Android phone
+- [x] iPad: layouts capped to a centred 720 pt column, all orientations (resizable windows)
+- [x] Apple Watch app on a paired iPhone 17 Pro + Apple Watch Series 11 simulator: the summary arrives on launch
+  and after each log (100% -> 53%, streak, resting list)
+- [ ] Apple Watch: complications on a watch face, and a real paired watch
 - [x] Contrast: every text token passes WCAG AA on every surface (`tests/contrast.test.ts`)
 - [x] Release builds start offline on the iOS simulator and Android emulator (bundled JS + content)
 - [x] iOS largest standard text size (XXXL): onboarding, Home, Exercises, exercise detail, Profile

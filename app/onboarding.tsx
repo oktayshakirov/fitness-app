@@ -25,7 +25,7 @@ export { ScreenError as ErrorBoundary } from "../src/components/ErrorScreen";
 const steps = ["welcome", "model", "units", "appearance", "ready"] as const;
 type Step = (typeof steps)[number];
 const appearanceChoices: { value: Appearance; title: string; detail: string; icon: IconName }[] = [
-  { value: "system", title: "Automatic", detail: "Match your phone's setting", icon: "phone-portrait-outline" },
+  { value: "system", title: "Automatic", detail: "Match your device's setting", icon: "phone-portrait-outline" },
   { value: "light", title: "Light", detail: "Bright screens for daytime", icon: "sunny-outline" },
   { value: "dark", title: "Dark", detail: "Easy on the eyes in the gym", icon: "moon-outline" },
 ];
@@ -86,7 +86,7 @@ export default function Onboarding() {
   if (step === "welcome")
     return (
       <Screen>
-        <View style={{ flex: 1, padding: 20, paddingBottom: 28 }}>
+        <View style={[s.column, { flex: 1, padding: 20, paddingBottom: 28 }]}>
           <View style={[s.row, { justifyContent: "center", gap: 8, marginTop: 8 }]}>
             <Image
               source={require("../assets/brand/logo.png")}
@@ -134,7 +134,7 @@ export default function Onboarding() {
     );
   return (
     <Screen>
-      <View style={[s.row, { paddingHorizontal: 16, minHeight: 48 }]}>
+      <View style={[s.row, s.column, { paddingHorizontal: 16, minHeight: 48 }]}>
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Back"
@@ -154,7 +154,7 @@ export default function Onboarding() {
         <View style={{ flex: 1 }} />
         <Dots step={step} />
       </View>
-      <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 12, gap: 20, flexGrow: 1, paddingBottom: 28 }}>
+      <ScrollView contentContainerStyle={[{ padding: 20, paddingTop: 12, gap: 20, flexGrow: 1, paddingBottom: 28 }, s.column]}>
         <Animated.View
           key={step}
           entering={(direction > 0 ? FadeInRight : FadeInLeft).duration(motion.base)}
@@ -340,7 +340,7 @@ export default function Onboarding() {
                     ["body", "Recovery at a glance", "Your body map shows which muscles need rest"],
                     ["play", "Correct form", "Every exercise is a 3D loop from several angles"],
                     ["add", "One-tap logging", "Tap + on any exercise, add sets if you like"],
-                    ["lock-closed", "Private by default", "No account. Your data stays on this phone"],
+                    ["lock-closed", "Private by default", "No account. Your data stays on this device"],
                   ] as const
                 ).map(([icon, title, detail], i) => (
                   <Animated.View
