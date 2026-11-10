@@ -64,19 +64,6 @@
           "enableRemoteNotifications": false
         }
       ],
-      [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-3940256099942544~3347511713",
-          "iosAppId": "ca-app-pub-3940256099942544~1458002511"
-        }
-      ],
-      [
-        "expo-tracking-transparency",
-        {
-          "userTrackingPermission": "Allow this to see ads that are more relevant to you. Your workout data is never used for ads."
-        }
-      ],
       "expo-mail-composer",
       [
         "@bacons/apple-targets",

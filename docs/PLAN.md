@@ -682,3 +682,12 @@ the fixed 320×50 size; adaptive banners came out over 100 dp tall on Android. C
 Android emulator with Google's test ads and a dev Pro switch: consent, banner, Pro state, both widgets, opt-in
 alerts, splash. Not checked: real purchases and ad fill, the iOS tracking prompt (the simulator reported
 "granted" without showing it), the 3-routine alert on screen (unit test only), release builds, Maestro flows.
+
+## 2026-11-10 — Version 1.0 without ads and purchases
+
+Oktay's call: submit 1.0 first; add ads and RevenueCat before a later submission, once the name is safe and
+the in-app purchases exist in the stores. Commit c6e2505 has the complete monetized app (banner now at the
+top of Exercises and History, in the page flow, because the floating tab bar left no room at the bottom).
+The next commit removes AdMob, RevenueCat and the tracking prompt; widget and unlimited routines are free in
+1.0. Reverting that commit restores everything. When Pro launches, decide whether 1.0 users keep the widget.
+
