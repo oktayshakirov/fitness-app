@@ -12,11 +12,12 @@ import { motion } from "../../src/components/motion";
 import { content, coverFor, equipmentSummary, exercises, filterCatalog, mediaBackground } from "../../src/content";
 import { getRoutines, saveRoutine, useSettings } from "../../src/storage/store";
 import { move, routineLimits } from "../../src/storage/routines";
-import { colors } from "../../src/theme";
+import { colors, useScheme } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 
 /** Create (no id) or edit a routine: a name, exercises in order, and a searchable catalog to add from. */
 export default function RoutineEditor() {
+  useScheme();
   const { id } = useLocalSearchParams<{ id?: string }>();
   const [existing] = useState(() => (id ? getRoutines().find((r) => r.id === id) : undefined));
   const { model } = useSettings();
@@ -108,7 +109,7 @@ export default function RoutineEditor() {
               layout={LinearTransition.duration(motion.base)}
               style={[s.card, s.row, { padding: 6, paddingLeft: 14, gap: 8 }]}
             >
-              <Text style={[s.headline, { width: 22, color: colors.accent }]}>{i + 1}</Text>
+              <Text style={[s.headline, { width: 22, color: colors.accentInk }]}>{i + 1}</Text>
               <Text numberOfLines={2} style={[s.headline, { flex: 1 }]}>
                 {e.name}
               </Text>
@@ -183,7 +184,7 @@ export default function RoutineEditor() {
               <Icon
                 name={on ? "checkmark-circle" : "add-circle-outline"}
                 size={26}
-                color={on ? colors.accent : colors.secondary}
+                color={on ? colors.accentInk : colors.secondary}
               />
             </Pressable>
           );

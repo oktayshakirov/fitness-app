@@ -15,20 +15,27 @@ import Animated, {
 } from "react-native-reanimated";
 import { motion } from "../src/components/motion";
 import { Text } from "../src/components/Text";
-import { Screen, Button, IconCircle, s } from "../src/components/ui";
+import { Screen, Button, IconCircle, s, type IconName } from "../src/components/ui";
 import { ModelChoice } from "../src/components/ModelChoice";
 import { updateSettings, useSettings } from "../src/storage/store";
 import type { Model } from "../src/content/types";
-import type { Units } from "../src/storage/preferences";
-import { colors } from "../src/theme";
+import type { Appearance, Units } from "../src/storage/preferences";
+import { colors, useScheme } from "../src/theme";
 export { ScreenError as ErrorBoundary } from "../src/components/ErrorScreen";
-const steps = ["welcome", "model", "units", "ready"] as const;
+const steps = ["welcome", "model", "units", "appearance", "ready"] as const;
 type Step = (typeof steps)[number];
+const appearanceChoices: { value: Appearance; title: string; detail: string; icon: IconName }[] = [
+  { value: "system", title: "Automatic", detail: "Match your phone's setting", icon: "phone-portrait-outline" },
+  { value: "light", title: "Light", detail: "Bright screens for daytime", icon: "sunny-outline" },
+  { value: "dark", title: "Dark", detail: "Easy on the eyes in the gym", icon: "moon-outline" },
+];
 /** Page dot that stretches into a lime bar for the current step. */
 function Dot({ active }: { active: boolean }) {
+  // Copy the colour out first: a worklet freezes the objects it captures, and `colors` changes with the theme.
+  const fill = active ? colors.accentInk : colors.surface3;
   const style = useAnimatedStyle(() => ({
     width: withTiming(active ? 22 : 6, { duration: motion.base }),
-    backgroundColor: withTiming(active ? colors.accent : colors.surface3, { duration: motion.base }),
+    backgroundColor: withTiming(fill, { duration: motion.base }),
   }));
   return <Animated.View style={[{ height: 6, borderRadius: 3 }, style]} />;
 }
@@ -42,6 +49,7 @@ function Dots({ step }: { step: Step }) {
   );
 }
 export default function Onboarding() {
+  useScheme();
   const settings = useSettings();
   const [step, setStep] = useState<Step>("welcome");
   const [model, setModel] = useState<Model>(settings.model);
@@ -194,7 +202,7 @@ export default function Onboarding() {
                           padding: 18,
                           borderRadius: 24,
                           borderWidth: 2,
-                          borderColor: selected ? colors.accent : colors.surface,
+                          borderColor: selected ? colors.accentInk : colors.surface,
                           backgroundColor: selected ? colors.accentDim : colors.surface,
                           opacity: pressed ? 0.85 : 1,
                         },
@@ -221,7 +229,67 @@ export default function Onboarding() {
                       <Icon
                         name={selected ? "checkmark-circle" : "ellipse-outline"}
                         size={24}
-                        color={selected ? colors.accent : colors.secondary}
+                        color={selected ? colors.accentInk : colors.secondary}
+                      />
+                    </Pressable>
+                  );
+                })}
+              </View>
+              <View style={{ flex: 1 }} />
+              <Button title="Continue" arrow onPress={() => go("appearance")} />
+            </>
+          ) : step === "appearance" ? (
+            <>
+              <View style={{ gap: 6 }}>
+                <Text accessibilityRole="header" style={s.large}>
+                  Appearance
+                </Text>
+                <Text style={s.subhead}>Light or dark. Change it anytime in Profile.</Text>
+              </View>
+              <View style={{ gap: 12 }}>
+                {appearanceChoices.map(({ value, title, detail, icon }) => {
+                  const selected = settings.appearance === value;
+                  return (
+                    <Pressable
+                      key={value}
+                      accessibilityRole="radio"
+                      accessibilityState={{ checked: selected }}
+                      accessibilityLabel={title}
+                      // Saved straight away so the screen switches while choosing.
+                      onPress={() => updateSettings({ appearance: value })}
+                      style={({ pressed }) => [
+                        s.row,
+                        {
+                          gap: 16,
+                          padding: 18,
+                          borderRadius: 24,
+                          borderWidth: 2,
+                          borderColor: selected ? colors.accentInk : colors.surface,
+                          backgroundColor: selected ? colors.accentDim : colors.surface,
+                          opacity: pressed ? 0.85 : 1,
+                        },
+                      ]}
+                    >
+                      <View
+                        style={{
+                          width: 56,
+                          height: 56,
+                          borderRadius: 28,
+                          alignItems: "center",
+                          justifyContent: "center",
+                          backgroundColor: selected ? colors.accent : colors.surface2,
+                        }}
+                      >
+                        <Icon name={icon} size={26} color={selected ? colors.onAccent : colors.text} />
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={s.title}>{title}</Text>
+                        <Text style={s.footnote}>{detail}</Text>
+                      </View>
+                      <Icon
+                        name={selected ? "checkmark-circle" : "ellipse-outline"}
+                        size={24}
+                        color={selected ? colors.accentInk : colors.secondary}
                       />
                     </Pressable>
                   );
@@ -296,7 +364,7 @@ export default function Onboarding() {
                 style={{ minHeight: 44, alignItems: "center", justifyContent: "center" }}
               >
                 <Text style={s.footnote}>
-                  How your data is handled: <Text style={{ color: colors.accent }}>Privacy</Text>
+                  How your data is handled: <Text style={{ color: colors.accentInk }}>Privacy</Text>
                 </Text>
               </Pressable>
             </>

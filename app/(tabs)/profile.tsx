@@ -34,7 +34,7 @@ import { askForRestAlerts, useExactRestAlerts } from "../../src/workout/restNoti
 import { ContactSection } from "../../src/components/ContactSection";
 import { maxBackupBytes, parseBackup } from "../../src/storage/backup";
 import { plural } from "../../src/storage/format";
-import { colors, tabBarSpace } from "../../src/theme";
+import { colors, tabBarSpace, useScheme } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 /** Removes backup copies that Export wrote to this app's cache. */
 function clearExportedBackups() {
@@ -46,6 +46,7 @@ function clearExportedBackups() {
   }
 }
 export default function Profile() {
+  useScheme();
   const settings = useSettings();
   const entries = useEntries();
   const lock = useRef(false);
@@ -195,6 +196,21 @@ export default function Profile() {
         <Text style={[s.footnote, { marginHorizontal: 4 }]}>
           Changes the exercise videos and your body map.
         </Text>
+        <SectionTitle title="Appearance" />
+        <Group>
+          <View style={{ padding: 16 }}>
+            <Segmented
+              label="Appearance"
+              value={settings.appearance}
+              onChange={(appearance) => save({ appearance })}
+              options={[
+                { value: "system", title: "Automatic" },
+                { value: "light", title: "Light" },
+                { value: "dark", title: "Dark" },
+              ]}
+            />
+          </View>
+        </Group>
         <SectionTitle title="Training" />
         <Group>
           <Row title="Weight units" icon="barbell-outline">

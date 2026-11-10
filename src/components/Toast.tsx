@@ -19,7 +19,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Text } from "./Text";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors } from "../theme";
+import { colors, useScheme } from "../theme";
 import { s, type IconName } from "./ui";
 import { motion } from "./motion";
 /** `icon` (e.g. a trophy for a new best) shows in lime before the text. */
@@ -47,7 +47,7 @@ function Countdown() {
           bottom: 5,
           height: 2,
           borderRadius: 1,
-          backgroundColor: colors.accent,
+          backgroundColor: colors.accentInk,
           opacity: 0.6,
           transformOrigin: "left",
         },
@@ -57,6 +57,7 @@ function Countdown() {
   );
 }
 export function ToastProvider({ children }: PropsWithChildren) {
+  useScheme();
   const [message, setMessage] = useState<(Message & { id: number }) | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const count = useRef(0);
@@ -95,7 +96,7 @@ export function ToastProvider({ children }: PropsWithChildren) {
             justifyContent: "space-between",
           }}
         >
-          {message.icon && <Icon name={message.icon} size={20} color={colors.accent} style={{ marginRight: 8 }} />}
+          {message.icon && <Icon name={message.icon} size={20} color={colors.accentInk} style={{ marginRight: 8 }} />}
           <Text style={[s.text, { flex: 1 }]}>{message.text}</Text>
           <Pressable
             accessibilityRole="button"
@@ -113,7 +114,7 @@ export function ToastProvider({ children }: PropsWithChildren) {
             }}
             style={{ minHeight: 48, padding: 16, flexShrink: 0 }}
           >
-            <Text style={{ color: colors.accent, fontSize: 16, fontWeight: "600" }}>Undo</Text>
+            <Text style={{ color: colors.accentInk, fontSize: 16, fontWeight: "600" }}>Undo</Text>
           </Pressable>
           <Countdown />
         </Animated.View>

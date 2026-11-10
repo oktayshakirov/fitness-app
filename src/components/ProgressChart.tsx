@@ -18,8 +18,6 @@ import { colors } from "../theme";
  * "Your sessions" list below is the table view.
  */
 const plotHeight = 96;
-const past = "#6E6E73";
-const pastSelected = "#A1A1A6";
 const shortDate = (t: number) => new Date(t).toLocaleDateString(undefined, { month: "short", day: "numeric" });
 
 function format(value: number, metric: Metric, units: Units) {
@@ -103,7 +101,7 @@ export function ProgressChart({ entries, units }: { entries: readonly LogEntry[]
                     height,
                     borderTopLeftRadius: 4,
                     borderTopRightRadius: 4,
-                    backgroundColor: isLast ? colors.accent : picked === i ? pastSelected : past,
+                    backgroundColor: isLast ? colors.accentInk : picked === i ? colors.chartPastSelected : colors.chartPast,
                   }}
                 />
               </Pressable>

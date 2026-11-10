@@ -1,4 +1,4 @@
-import { colors } from "../theme";
+import { colors } from "../palettes";
 import { plural } from "../storage/format";
 import type { RecoveryState } from "./engine";
 export const stateNames: Record<RecoveryState, string> = {
@@ -7,11 +7,20 @@ export const stateNames: Record<RecoveryState, string> = {
   almost: "Almost ready",
   ready: "Ready",
 };
+/** Getters, so the colours follow the light or dark palette. */
 export const stateColors: Record<RecoveryState, string> = {
-  trained: colors.trained,
-  recovering: colors.recovering,
-  almost: colors.almost,
-  ready: colors.accent,
+  get trained() {
+    return colors.trained;
+  },
+  get recovering() {
+    return colors.recovering;
+  },
+  get almost() {
+    return colors.almost;
+  },
+  get ready() {
+    return colors.ready;
+  },
 };
 /** "ready in ~5 h" under a day, then whole days ("ready in ~2 days"); "" when ready. */
 export function readyIn(hours: number) {

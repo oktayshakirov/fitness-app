@@ -7,7 +7,7 @@ import { BlurView } from "expo-blur";
 import { Icon } from "../../src/components/Icon";
 import { SymbolView } from "expo-symbols";
 import Animated, { useAnimatedStyle, useReducedMotion, withSpring } from "react-native-reanimated";
-import { colors, fonts } from "../../src/theme";
+import { colors, fonts, useScheme } from "../../src/theme";
 import { settle } from "../../src/components/motion";
 const tabs = [
   { name: "index", title: "Home", icon: "home", sf: "house", sfActive: "house.fill" },
@@ -46,6 +46,7 @@ function TabIcon({ tab, focused, active }: { tab: (typeof tabs)[number]; focused
 }
 /** Floating pill tab bar; screens reserve `tabBarSpace` at the bottom. */
 export default function TabsLayout() {
+  const scheme = useScheme();
   const insets = useSafeAreaInsets();
   const reduced = useReducedMotion();
   // Current tab from the route ("index" is omitted from segments); kept while a stacked
@@ -79,9 +80,18 @@ export default function TabsLayout() {
         tabBarBackground: () =>
           Platform.OS === "ios" ? (
             <BlurView
-              tint="systemChromeMaterialDark"
+              key={scheme}
+              tint={scheme === "dark" ? "systemChromeMaterialDark" : "systemChromeMaterialLight"}
               intensity={80}
-              style={[StyleSheet.absoluteFill, { backgroundColor: "rgba(26,26,28,0.7)" }]}
+              style={[
+                StyleSheet.absoluteFill,
+                {
+                  backgroundColor: scheme === "dark" ? "rgba(26,26,28,0.7)" : "rgba(255,255,255,0.72)",
+                  borderWidth: scheme === "dark" ? 0 : 1,
+                  borderColor: colors.separator,
+                  borderRadius: 35,
+                },
+              ]}
             />
           ) : (
             <View

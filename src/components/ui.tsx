@@ -20,7 +20,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Text } from "./Text";
 import { PressableScale, settle } from "./motion";
-import { colors, fonts, radius, type } from "../theme";
+import { colors, fonts, radius, type, themed } from "../theme";
 import type { MediaSource } from "../content/types";
 export type IconName = React.ComponentProps<typeof Ionicons>["name"];
 export function Screen({ children }: PropsWithChildren) {
@@ -71,7 +71,7 @@ export function SectionTitle({
       </Text>
       {!!action && (
         <Pressable accessibilityRole="button" hitSlop={10} onPress={onAction}>
-          <Text style={[s.subhead, { color: colors.accent }]}>{action}</Text>
+          <Text style={[s.subhead, { color: colors.accentInk }]}>{action}</Text>
         </Pressable>
       )}
     </View>
@@ -112,7 +112,7 @@ export function IconCircle({
       <Icon
         name={name}
         size={size * 0.5}
-        color={color ? colors.onAccent : dim ? colors.accent : colors.onAccent}
+        color={color ? colors.onAccent : dim ? colors.accentInk : colors.onAccent}
       />
     </View>
   );
@@ -279,7 +279,7 @@ export function PillButton({
         backgroundColor: colors.accentDim,
       }}
     >
-      <Text style={[s.subhead, { color: colors.accent, fontWeight: "600" }]}>{title}</Text>
+      <Text style={[s.subhead, { color: colors.accentInk, fontWeight: "600" }]}>{title}</Text>
     </PressableScale>
   );
 }
@@ -324,7 +324,7 @@ export function Chip({
           <Image source={icon} contentFit="contain" style={{ width: 28, height: 28 }} />
         </View>
       )}
-      {ionicon && <Icon name={ionicon} size={16} color={selected ? colors.onAccent : colors.accent} />}
+      {ionicon && <Icon name={ionicon} size={16} color={selected ? colors.onAccent : colors.accentInk} />}
       {dot && (
         <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: dot }} />
       )}
@@ -354,10 +354,13 @@ function SegmentLabel({
   x: SharedValue<number>;
   selected: boolean;
 }) {
+  // Plain strings, not `colors`: a worklet freezes the objects it captures.
+  const on = colors.onAccent;
+  const off = colors.secondary;
   const color = useAnimatedStyle(() => {
-    if (!segment) return { color: selected ? colors.onAccent : colors.secondary };
+    if (!segment) return { color: selected ? on : off };
     const distance = Math.min(1, Math.abs(x.value - index * segment) / segment);
-    return { color: interpolateColor(distance, [0, 1], [colors.onAccent, colors.secondary]) };
+    return { color: interpolateColor(distance, [0, 1], [on, off]) };
   });
   return (
     <Animated.Text
@@ -512,7 +515,7 @@ export function Empty({
     </View>
   );
 }
-export const s = StyleSheet.create({
+export const s = themed(() => ({
   screen: { flex: 1, backgroundColor: colors.bg },
   heading: {
     paddingHorizontal: 20,
@@ -619,4 +622,4 @@ export const s = StyleSheet.create({
   },
   empty: { padding: 28, gap: 10, alignItems: "center" },
   row: { flexDirection: "row", alignItems: "center", gap: 12 },
-});
+}));

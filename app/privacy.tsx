@@ -1,3 +1,4 @@
+import { useScheme } from "../src/theme";
 import { router } from "expo-router";
 import { ScrollView } from "react-native";
 import Constants from "expo-constants";
@@ -5,6 +6,7 @@ import { Text } from "../src/components/Text";
 import { Screen, Heading, IconButton, Card, s } from "../src/components/ui";
 import { contentUrl } from "../src/content/updates";
 export default function Privacy() {
+  useScheme();
   return (
     <Screen>
       <Heading

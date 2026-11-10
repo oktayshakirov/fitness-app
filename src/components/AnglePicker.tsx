@@ -51,7 +51,7 @@ export function AnglePicker({
             minHeight: 58,
             borderRadius: 18,
             borderWidth: 1.5,
-            borderColor: selected ? colors.accent : colors.surface,
+            borderColor: selected ? colors.accentInk : colors.surface,
             backgroundColor: selected ? colors.accentDim : colors.surface,
           },
           scrolls ? { width: 120 } : { flex: 1 },

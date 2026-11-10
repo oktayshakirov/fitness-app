@@ -41,7 +41,7 @@ import { ProgressChart } from "../../src/components/ProgressChart";
 import { PlateCalculator } from "../../src/components/PlateCalculator";
 import * as Haptics from "expo-haptics";
 import { bestSet, setText, setsSummary } from "../../src/storage/format";
-import { colors } from "../../src/theme";
+import { colors, useScheme } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 function Section({
   title,
@@ -92,7 +92,7 @@ function Section({
                     justifyContent: "center",
                   }}
                 >
-                  <Text style={{ color: colors.accent, fontSize: 13, fontWeight: "700" }}>
+                  <Text style={{ color: colors.accentInk, fontSize: 13, fontWeight: "700" }}>
                     {i + 1}
                   </Text>
                 </View>
@@ -137,6 +137,7 @@ function MuscleLine({ muscles, color, title }: { muscles: Muscle[]; color: strin
   );
 }
 export default function ExerciseDetail() {
+  useScheme();
   const { model, units, restSeconds, favorites } = useSettings();
   const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{
@@ -256,7 +257,7 @@ export default function ExerciseDetail() {
         <View style={[s.row, { gap: 8 }]}>
           <IconButton
             name={isFavorite ? "star" : "star-outline"}
-            color={isFavorite ? colors.accent : colors.text}
+            color={isFavorite ? colors.accentInk : colors.text}
             selected={isFavorite}
             label={isFavorite ? "Remove from favorites" : "Add to favorites"}
             onPress={toggleFavorite}
@@ -367,7 +368,7 @@ export default function ExerciseDetail() {
                 </View>
                 {best && (
                   <View style={[s.row, { gap: 8 }]}>
-                    <Icon name="trophy-outline" size={16} color={colors.accent} />
+                    <Icon name="trophy-outline" size={16} color={colors.accentInk} />
                     <Text style={[s.footnote, { flex: 1 }]}>
                       Best set: <Text style={[s.footnote, { color: colors.text }]}>{setText(best.set, units)}</Text> ·{" "}
                       {shortDate(best.timestamp)}

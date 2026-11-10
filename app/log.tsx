@@ -23,7 +23,7 @@ import type { TrainingSet } from "../src/storage/types";
 import { addDays, dayKey, dayLabel, onDay } from "../src/storage/calendar";
 import { setText, setsSummary } from "../src/storage/format";
 import { newBest } from "../src/storage/progress";
-import { colors } from "../src/theme";
+import { colors, themed, useScheme } from "../src/theme";
 export { ScreenError as ErrorBoundary } from "../src/components/ErrorScreen";
 /** Stepper button: one step per tap; holding repeats until released. */
 function StepButton({ label, icon, onStep }: { label: string; icon: "add" | "remove"; onStep: () => void }) {
@@ -53,6 +53,7 @@ function StepButton({ label, icon, onStep }: { label: string; icon: "add" | "rem
   );
 }
 export default function LogSheet() {
+  useScheme();
   const settings = useSettings();
   const [units] = useState(settings.units);
   const { exerciseId, entryId } = useLocalSearchParams<{
@@ -245,8 +246,8 @@ export default function LogSheet() {
               onAccessibilityAction={(e) => moveDay(e.nativeEvent.actionName === "increment" ? 1 : -1)}
               style={[s.row, { flex: 1, justifyContent: "center", gap: 8 }]}
             >
-              <Icon name="calendar-outline" size={18} color={isToday ? colors.secondary : colors.accent} />
-              <Text testID="log-day" style={[s.headline, !isToday && { color: colors.accent }]}>
+              <Icon name="calendar-outline" size={18} color={isToday ? colors.secondary : colors.accentInk} />
+              <Text testID="log-day" style={[s.headline, !isToday && { color: colors.accentInk }]}>
                 {dayLabel(day)}
               </Text>
             </View>
@@ -264,8 +265,8 @@ export default function LogSheet() {
             onPress={() => setExpanded(!expanded)}
             style={[s.row, { minHeight: 48, justifyContent: "center", gap: 6 }]}
           >
-            <Icon name={expanded ? "remove-circle-outline" : "add-circle-outline"} size={20} color={colors.accent} />
-            <Text style={{ color: colors.accent, fontSize: 16, fontWeight: "500" }}>
+            <Icon name={expanded ? "remove-circle-outline" : "add-circle-outline"} size={20} color={colors.accentInk} />
+            <Text style={{ color: colors.accentInk, fontSize: 16, fontWeight: "500" }}>
               {expanded ? "Log without sets" : "Add sets"}
             </Text>
           </Pressable>
@@ -362,7 +363,7 @@ export default function LogSheet() {
     </Screen>
   );
 }
-const styles = StyleSheet.create({
+const styles = themed(() => ({
   day: { backgroundColor: colors.surface, borderRadius: 24, minHeight: 52, paddingHorizontal: 4 },
   stepper: {
     flexDirection: "row",
@@ -382,4 +383,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 18,
   },
-});
+}));

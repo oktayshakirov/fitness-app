@@ -2,12 +2,12 @@
   "expo": {
     "name": "Muscle Pal",
     "slug": "fitness-app",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "scheme": "fitness",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.shadev.musclepal",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
@@ -20,7 +20,8 @@
         "com.apple.security.application-groups": [
           "group.com.shadev.musclepal"
         ]
-      }
+      },
+      "buildNumber": "1"
     },
     "android": {
       "package": "com.shadev.musclepal",
@@ -36,7 +37,9 @@
       ],
       "permissions": [
         "android.permission.SCHEDULE_EXACT_ALARM"
-      ]
+      ],
+      "versionCode": 1,
+      "icon": "./assets/brand/icon-android.png"
     },
     "plugins": [
       "expo-router",
@@ -46,10 +49,23 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/brand/splash.png",
+          "image": "./assets/brand/splash-light.png",
+          "backgroundColor": "#F2F2F7",
           "imageWidth": 240,
           "resizeMode": "contain",
-          "backgroundColor": "#0B0B0C"
+          "dark": {
+            "image": "./assets/brand/splash.png",
+            "backgroundColor": "#0B0B0C"
+          },
+          "android": {
+            "image": "./assets/brand/splash-android-light.png",
+            "backgroundColor": "#F2F2F7",
+            "imageWidth": 288,
+            "dark": {
+              "image": "./assets/brand/splash-android.png",
+              "backgroundColor": "#0B0B0C"
+            }
+          }
         }
       ],
       "expo-asset",
@@ -107,7 +123,6 @@
       "typedRoutes": true
     },
     "icon": "./assets/brand/icon.png",
-    "backgroundColor": "#0B0B0C",
     "web": {
       "favicon": "./assets/brand/favicon.png",
       "name": "Muscle Pal",

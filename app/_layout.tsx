@@ -6,9 +6,10 @@ import { ToastProvider } from "../src/components/Toast";
 import { RestTimerHost } from "../src/components/RestTimer";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { ThemeProvider, DarkTheme } from "expo-router";
+import { ThemeProvider, DarkTheme, DefaultTheme } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
+import { Appearance, useColorScheme } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import * as SystemUI from "expo-system-ui";
 import {
@@ -18,16 +19,30 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { colors } from "../src/theme";
+import { colors, notifyScheme, setScheme, type Scheme } from "../src/theme";
 import { useContentUpdates } from "../src/content/updates";
 void SplashScreen.preventAutoHideAsync();
-// Dark root view: no white flash behind sheets, the keyboard or screen transitions.
-void SystemUI.setBackgroundColorAsync(colors.bg).catch(() => {});
 export const unstable_settings = { anchor: "(tabs)" };
 export { RootError as ErrorBoundary } from "../src/components/ErrorScreen";
 
 export default function RootLayout() {
   const settings = useSettings();
+  // The phone's setting, unless the user picked light or dark in the app.
+  const system = useColorScheme();
+  const scheme: Scheme =
+    settings.appearance === "system" ? (system === "light" ? "light" : "dark") : settings.appearance;
+  // Swap the palette before this render so the tree below paints with it; screens that did not
+  // re-render with it are told after commit.
+  setScheme(scheme);
+  useLayoutEffect(() => {
+    notifyScheme();
+    // Root view behind sheets, the keyboard and transitions: no flash of the other colour.
+    void SystemUI.setBackgroundColorAsync(colors.bg).catch(() => {});
+  }, [scheme]);
+  useEffect(() => {
+    // Native parts (alerts, keyboard, switches, pickers) follow the in-app choice too.
+    Appearance.setColorScheme(settings.appearance === "system" ? "unspecified" : settings.appearance);
+  }, [settings.appearance]);
   useContentUpdates();
   useEffect(() => void startPro(), []);
   useWidgetSync();
@@ -46,18 +61,18 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider
         value={{
-          ...DarkTheme,
+          ...(scheme === "dark" ? DarkTheme : DefaultTheme),
           colors: {
-            ...DarkTheme.colors,
+            ...(scheme === "dark" ? DarkTheme : DefaultTheme).colors,
             background: colors.bg,
             card: colors.bg,
-            primary: colors.accent,
+            primary: colors.accentInk,
           },
         }}
       >
         <SafeAreaProvider>
           <ToastProvider>
-            <StatusBar style="light" />
+            <StatusBar style={scheme === "dark" ? "light" : "dark"} />
             <Stack
               screenOptions={{
                 headerShown: false,

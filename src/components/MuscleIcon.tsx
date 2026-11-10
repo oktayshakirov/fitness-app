@@ -73,7 +73,7 @@ export function MuscleIcon({
               justifyContent: "center",
             }}
           >
-            {badge.icon && <Icon name={badge.icon} size={Math.round(badgeSize * 0.68)} color={colors.onAccent} />}
+            {badge.icon && <Icon name={badge.icon} size={Math.round(badgeSize * 0.68)} color={colors.onState} />}
           </View>
         </View>
       )}

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { colors } from "../src/theme";
+import { palettes } from "../src/palettes";
 
 type RGB = [number, number, number];
 /** Parses #RRGGBB or rgba(r,g,b,a) into sRGB 0-1 and alpha. */
@@ -27,14 +27,26 @@ function ratio(fg: string, bg: string) {
   return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 }
 
-const backgrounds = { bg: colors.bg, surface: colors.surface, surface2: colors.surface2 };
+for (const [scheme, colors] of Object.entries(palettes)) {
+  // surface3 is only a pressed state.
+  const backgrounds = { bg: colors.bg, surface: colors.surface, surface2: colors.surface2 };
 
-test("text colours meet WCAG AA (4.5:1) on every background", () => {
-  for (const fg of ["text", "secondary", "accent", "trained", "recovering", "almost"] as const) {
-    for (const [name, bg] of Object.entries(backgrounds)) {
-      const r = ratio(colors[fg], bg);
-      assert.ok(r >= 4.5, `${fg} on ${name} is ${r.toFixed(2)}:1`);
+  test(`${scheme}: text colours meet WCAG AA (4.5:1) on every background`, () => {
+    for (const fg of ["text", "secondary", "accentInk", "trained", "recovering", "almost", "ready"] as const) {
+      for (const [name, bg] of Object.entries(backgrounds)) {
+        const r = ratio(colors[fg], bg);
+        assert.ok(r >= 4.5, `${fg} on ${name} is ${r.toFixed(2)}:1`);
+      }
     }
-  }
-  assert.ok(ratio(colors.onAccent, colors.accent) >= 4.5, "onAccent on accent");
-});
+    assert.ok(ratio(colors.onAccent, colors.accent) >= 4.5, "onAccent on accent");
+  });
+
+  test(`${scheme}: icons on recovery colours and chart bars stay visible (3:1)`, () => {
+    for (const state of ["trained", "recovering", "almost", "ready"] as const) {
+      const r = ratio(colors.onState, colors[state]);
+      assert.ok(r >= 3, `onState on ${state} is ${r.toFixed(2)}:1`);
+    }
+    assert.ok(ratio(colors.chartPast, colors.surface) >= 3, "past bars");
+    assert.ok(ratio(colors.chartPastSelected, colors.surface) >= 3, "selected past bar");
+  });
+}

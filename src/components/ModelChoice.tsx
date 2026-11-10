@@ -38,7 +38,7 @@ export function ModelChoice({
               flex: 1,
               borderRadius: 24,
               borderWidth: 2,
-              borderColor: selected ? colors.accent : colors.surface,
+              borderColor: selected ? colors.accentInk : colors.surface,
               backgroundColor: selected ? colors.accentDim : colors.surface,
               overflow: "hidden",
             }}
@@ -63,7 +63,7 @@ export function ModelChoice({
               <Icon
                 name={selected ? "checkmark-circle" : "ellipse-outline"}
                 size={20}
-                color={selected ? colors.accent : colors.secondary}
+                color={selected ? colors.accentInk : colors.secondary}
               />
               <Text style={s.headline}>{label(model)}</Text>
             </View>

@@ -13,11 +13,12 @@ import { deleteRoutine, restoreRoutine, useEntries, useRoutines, useSettings } f
 import { doneOn, nextExercise } from "../../src/storage/routines";
 import { dayKey } from "../../src/storage/calendar";
 import { plural } from "../../src/storage/format";
-import { colors } from "../../src/theme";
+import { colors, useScheme } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 
 /** A routine: today's progress, its exercises in order, and Start / Continue. */
 export default function RoutineScreen() {
+  useScheme();
   const { id } = useLocalSearchParams<{ id: string }>();
   const routines = useRoutines();
   const entries = useEntries();
@@ -84,7 +85,7 @@ export default function RoutineScreen() {
             {plural(items.length, "exercise")} · {doneCount} done today
           </Text>
         </View>
-        <ProgressBar value={items.length ? doneCount / items.length : 0} fill={colors.accent} track={colors.surface2} />
+        <ProgressBar value={items.length ? doneCount / items.length : 0} fill={colors.accentInk} track={colors.surface2} />
         {items.map((e, i) => {
           const isDone = done.has(e.id);
           const cover = coverFor(e, model);
@@ -113,7 +114,7 @@ export default function RoutineScreen() {
                 </Text>
               </View>
               {isDone ? (
-                <Icon name="checkmark-circle" size={26} color={colors.accent} />
+                <Icon name="checkmark-circle" size={26} color={colors.accentInk} />
               ) : (
                 <View
                   style={{
