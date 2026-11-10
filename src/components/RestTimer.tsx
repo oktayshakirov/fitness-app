@@ -19,6 +19,7 @@ import { PressableScale, motion } from "./motion";
 import { clock, restLeft, restProgress, spokenDuration, type RestTimer } from "../workout/rest";
 import { restTimer, useRestClock, useRestTimer } from "../workout/restTimer";
 import { syncRestNotification } from "../workout/restNotification";
+import { useSettings } from "../storage/store";
 import { colors } from "../theme";
 
 /** Lime line that runs down with the rest. Hidden with Reduce Motion. */
@@ -166,7 +167,8 @@ export function RestTimerHost() {
   const insets = useSafeAreaInsets();
   const ticked = useRef(0);
   const left = timer ? restLeft(timer, now) : 0;
-  const endsAt = timer?.endsAt ?? null;
+  const { restAlerts } = useSettings();
+  const endsAt = restAlerts ? (timer?.endsAt ?? null) : null;
   useEffect(() => syncRestNotification(endsAt), [endsAt]);
   useEffect(() => {
     if (!timer) return;

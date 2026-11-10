@@ -17,6 +17,8 @@ export interface Preferences {
   weeklyGoal: number;
   /** Starred exercise ids. */
   favorites: string[];
+  /** Notify when a rest ends while the app is in the background. Off until the user turns it on. */
+  restAlerts: boolean;
 }
 export interface Settings extends Preferences {
   onboarded: boolean;
@@ -28,6 +30,7 @@ export const defaults: Settings = {
   restSeconds: defaultRest,
   weeklyGoal: defaultGoal,
   favorites: [],
+  restAlerts: false,
   onboarded: false,
 };
 export function parsePreferences(value: unknown): Preferences {
@@ -53,5 +56,6 @@ export function parsePreferences(value: unknown): Preferences {
     restSeconds: (restChoices as readonly number[]).includes(rest) ? rest : defaultRest,
     weeklyGoal: (goalChoices as readonly number[]).includes(goal) ? goal : defaultGoal,
     favorites: [...new Set(favorites)].slice(0, 500),
+    restAlerts: v.restAlerts === true,
   };
 }

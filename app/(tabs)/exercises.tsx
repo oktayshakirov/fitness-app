@@ -37,6 +37,7 @@ import {
 } from "../../src/content";
 import { muscleIds, type Exercise, type Model, type Muscle } from "../../src/content/types";
 import { MuscleIcon } from "../../src/components/MuscleIcon";
+import { AdBanner } from "../../src/components/AdBanner";
 import { deleteEntry, logExercise, useEntries, useSettings } from "../../src/storage/store";
 import { dayKey } from "../../src/storage/calendar";
 import { colors, tabBarSpace } from "../../src/theme";
@@ -208,6 +209,7 @@ export default function Library() {
   }
   return (
     <Screen>
+      <AdBanner />
       <Heading
         eyebrow="Library"
         title={muscle ? label(muscle) : "Exercises"}

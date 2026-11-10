@@ -110,17 +110,13 @@ AI plan builder, widgets.
    cable, machine, bench, bodyweight, band) in one consistent style.
 7. `core/publish.py` producing the envelope above (H.264 only in the app bundle).
 
-## Monetization (decide details before M7; implement behind a flag)
+## Monetization (decided 2026-11-10, details in PLAN.md)
 
-- **Free with ads, nothing locked.** Placements that don't hurt the experience: one small
-  banner at the bottom of the Exercises grid and History list. **Never** ads on the exercise
-  video, the Log sheet or onboarding. Optional later: one interstitial at most once per
-  day, only after a logged session; optional rewarded "ad-free for 24 h".
-- **Pro** (no ads + later extras like routines, stats, backup): offer both a yearly
-  subscription and a one-time lifetime purchase; price after looking at competitors.
-- Tech: `react-native-google-mobile-ads` (AdMob) with Google UMP consent (required in the
-  EU/UK) and iOS App Tracking Transparency; RevenueCat (`react-native-purchases`) for IAP.
-  Accounts with AdMob/RevenueCat/stores are created only with Oktay's go-ahead.
+- **Free with ads.** One small banner above the tab bar on Exercises and History. **Never** ads on the
+  exercise video, the Log sheet or onboarding. No full-screen ads.
+- **Muscle Pal Pro:** no ads, home screen widget, unlimited routines (free plan: 3). Monthly and lifetime,
+  at Drone Pal's prices (€2.99 and €29.99).
+- Tech: AdMob with Google UMP consent and iOS App Tracking Transparency; RevenueCat with its paywall.
 
 ## Milestones (each ends with a check on iPhone + Android; screenshots in the PR note)
 

@@ -3,6 +3,7 @@
 //   assets/ui/muscle-groups/      -> assets/ui/muscles/<muscle>.png, trimmed and small for the UI
 // Run from the repo root: swift scripts/make_brand_assets.swift
 import CoreGraphics
+import CoreText
 import Foundation
 import ImageIO
 import UniformTypeIdentifiers
@@ -80,9 +81,34 @@ let gradient = load("\(identity)/logo-gradient.png")
 let mark = load("\(identity)/logo-mark.png")
 let brand = "assets/brand"
 
+/// The logo with the app name under it, in the app's lime and Poppins, kept inside the circle
+/// Android's launch screen can mask to.
+func splashImage() -> CGImage {
+  let size: CGFloat = 512
+  let c = canvas(Int(size), Int(size))
+  let font = URL(fileURLWithPath: "node_modules/@expo-google-fonts/poppins/700Bold/Poppins_700Bold.ttf")
+  CTFontManagerRegisterFontsForURL(font as CFURL, .process, nil)
+  let area = artBounds(mark)
+  let markHeight: CGFloat = 252
+  let scale = markHeight / max(area.width, area.height)
+  let (width, height) = (area.width * scale, area.height * scale)
+  let top: CGFloat = 92
+  c.draw(mark.cropping(to: area)!, in: CGRect(x: (size - width) / 2, y: size - top - height, width: width, height: height))
+  let attributes: [CFString: Any] = [
+    kCTFontAttributeName: CTFontCreateWithName("Poppins-Bold" as CFString, 60, nil),
+    kCTForegroundColorAttributeName: CGColor(srgbRed: 0xC8 / 255, green: 0xFA / 255, blue: 0x3C / 255, alpha: 1),
+  ]
+  let text = CFAttributedStringCreate(nil, "Muscle Pal" as CFString, attributes as CFDictionary)!
+  let line = CTLineCreateWithAttributedString(text)
+  let textWidth = CGFloat(CTLineGetTypographicBounds(line, nil, nil, nil))
+  c.textPosition = CGPoint(x: (size - textWidth) / 2, y: size - top - height - 72)
+  CTLineDraw(line, c)
+  return c.makeImage()!
+}
+
 write(resized(gradient, to: 1024), "\(brand)/icon.png")
 write(resized(gradient, to: 196), "\(brand)/favicon.png")
-write(fitted(mark, size: 512, padding: 0.04), "\(brand)/splash.png")
+write(splashImage(), "\(brand)/splash.png")
 write(fitted(mark, size: 256, padding: 0.02), "\(brand)/logo.png")
 
 // Android adaptive icon: the launcher can mask down to a circle of 66/108 of the canvas, so the

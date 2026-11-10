@@ -10,7 +10,16 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.shadev.musclepal",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "LSApplicationQueriesSchemes": [
+          "googlegmail",
+          "ms-outlook"
+        ]
+      },
+      "entitlements": {
+        "com.apple.security.application-groups": [
+          "group.com.shadev.musclepal"
+        ]
       }
     },
     "android": {
@@ -38,7 +47,7 @@
         "expo-splash-screen",
         {
           "image": "./assets/brand/splash.png",
-          "imageWidth": 160,
+          "imageWidth": 240,
           "resizeMode": "contain",
           "backgroundColor": "#0B0B0C"
         }
@@ -53,6 +62,57 @@
           "icon": "./assets/brand/notification-icon.png",
           "color": "#C8FA3C",
           "enableRemoteNotifications": false
+        }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-3940256099942544~3347511713",
+          "iosAppId": "ca-app-pub-3940256099942544~1458002511"
+        }
+      ],
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": "Allow this to see ads that are more relevant to you. Your workout data is never used for ads."
+        }
+      ],
+      "expo-mail-composer",
+      [
+        "@bacons/apple-targets",
+        {
+          "appleTeamId": "2UNNRK9L5Q"
+        }
+      ],
+      [
+        "react-native-android-widget",
+        {
+          "widgets": [
+            {
+              "targetCellHeight": 2,
+              "previewImage": "./assets/brand/icon.png",
+              "resizeMode": "horizontal|vertical",
+              "updatePeriodMillis": 1800000,
+              "minHeight": "110dp",
+              "name": "MusclePalRecovery",
+              "label": "Muscle recovery",
+              "minWidth": "110dp",
+              "targetCellWidth": 2,
+              "description": "How recovered you are and which muscles are resting."
+            },
+            {
+              "targetCellHeight": 2,
+              "previewImage": "./assets/brand/icon.png",
+              "resizeMode": "horizontal|vertical",
+              "updatePeriodMillis": 1800000,
+              "minHeight": "110dp",
+              "name": "MusclePalRecoveryWide",
+              "label": "Muscle recovery (wide)",
+              "minWidth": "250dp",
+              "targetCellWidth": 4,
+              "description": "How recovered you are and which muscles are resting."
+            }
+          ]
         }
       ]
     ],

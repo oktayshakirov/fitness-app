@@ -18,14 +18,26 @@ Notifications.setNotificationHandler({
   }),
 });
 
-/** Asks the first time a rest starts, when the reason is obvious. */
-async function allowed() {
+async function ensureChannel() {
+  // Android 13 only shows the permission prompt once a channel exists.
+  if (Platform.OS !== "android") return;
+  await Notifications.setNotificationChannelAsync(CHANNEL, {
+    name: "Rest timer",
+    importance: Notifications.AndroidImportance.HIGH,
+    vibrationPattern: [0, 250, 150, 250],
+  });
+}
+
+/** Only called when the user turns Rest alerts on in Profile. "blocked" means only system settings can change it. */
+export async function askForRestAlerts(): Promise<"allowed" | "denied" | "blocked"> {
+  await ensureChannel();
   const current = await Notifications.getPermissionsAsync();
-  if (current.granted || !current.canAskAgain) return current.granted;
+  if (current.granted) return "allowed";
+  if (!current.canAskAgain) return "blocked";
   const asked = await Notifications.requestPermissionsAsync({
     ios: { allowAlert: true, allowSound: true, allowBadge: false },
   });
-  return asked.granted;
+  return asked.granted ? "allowed" : "denied";
 }
 
 async function apply(endsAt: number | null) {
@@ -34,15 +46,9 @@ async function apply(endsAt: number | null) {
     await Notifications.dismissNotificationAsync(ID);
     return;
   }
-  // Android 13 only shows the permission prompt once a channel exists.
-  if (Platform.OS === "android") {
-    await Notifications.setNotificationChannelAsync(CHANNEL, {
-      name: "Rest timer",
-      importance: Notifications.AndroidImportance.HIGH,
-      vibrationPattern: [0, 250, 150, 250],
-    });
-  }
-  if (!(await allowed()) || endsAt <= Date.now() + 1000) return;
+  const { granted } = await Notifications.getPermissionsAsync();
+  if (!granted || endsAt <= Date.now() + 1000) return;
+  await ensureChannel();
   await Notifications.scheduleNotificationAsync({
     identifier: ID,
     content: { title: "Rest over", body: "Time for your next set.", sound: "default" },

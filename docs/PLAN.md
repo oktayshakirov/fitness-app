@@ -656,3 +656,29 @@ mid-range Android phone. Small: at XXXL the Exercises search placeholder truncat
   Android 14+ delays it (a 90 s rest arrived at 149 s) unless exact alarms are on, so the app declares
   SCHEDULE_EXACT_ALARM and Profile shows an "On-time rest alerts" row while it is off.
 - Home week strip stays as it is: tapping it opens History. No per-day link planned.
+
+## 2026-11-10 — M7: ads, Pro and widgets
+
+Built like Drone Pal and the Tinnitus and Crypto apps. Decisions from Oktay: Pro = no ads, widget and
+routines (free plan keeps 3 routines); charts and records stay free; monthly and lifetime at Drone Pal's
+prices (€2.99 and €29.99). Banner on Exercises and History only, above the tab bar.
+
+- Ads: `src/ads/ads.ts`, `src/components/AdBanner.tsx`. Consent is Google UMP, then Apple's tracking prompt,
+  started the first time a free user reaches a banner screen.
+- Pro: `src/pro/pro.ts`, `src/components/ProSection.tsx`; RevenueCat's paywall.
+- Widgets: `src/widget/`, `targets/widget/index.swift`. The app writes when each muscle recovers, so the
+  widget counts down by itself.
+- Rest alerts are now opt-in from Profile; the system prompt only appears after the user turns them on.
+- Contact rows and the store-related constants are in `src/contact/contact.ts`.
+
+Needed before release: AdMob app IDs (`app.json`, currently Google's sample IDs) and banner unit IDs
+(`src/ads/ads.ts`; release builds show no ads until set), a published GDPR message in AdMob,
+RevenueCat project with entitlement "Muscle Pal Pro", products `monthly` and `lifetime`, a paywall, and
+`EXPO_PUBLIC_REVENUECAT_IOS_KEY` / `EXPO_PUBLIC_REVENUECAT_ANDROID_KEY`.
+Purchases and real ad fill need a real device and those accounts, so they have not been tested.
+
+Notes: RevenueCat is pinned to 10.16.0 because the iOS library 11.x needs is not on CocoaPods yet. The banner is
+the fixed 320×50 size; adaptive banners came out over 100 dp tall on Android. Checked on the iOS simulator and
+Android emulator with Google's test ads and a dev Pro switch: consent, banner, Pro state, both widgets, opt-in
+alerts, splash. Not checked: real purchases and ad fill, the iOS tracking prompt (the simulator reported
+"granted" without showing it), the 3-routine alert on screen (unit test only), release builds, Maestro flows.

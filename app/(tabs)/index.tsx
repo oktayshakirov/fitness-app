@@ -22,6 +22,8 @@ import { Avatar } from "../../src/components/Avatar";
 import { bodyFor, content, coverFor, exercises, label, mediaBackground } from "../../src/content";
 import { muscleIds, type Muscle } from "../../src/content/types";
 import { MuscleIcon } from "../../src/components/MuscleIcon";
+import { showPaywall, useIsPro } from "../../src/pro/pro";
+import { canAddRoutine, routineLimits } from "../../src/storage/routines";
 import { useEntries, useRoutines, useSettings } from "../../src/storage/store";
 import { doneOn } from "../../src/storage/routines";
 import { suggestExercises } from "../../src/recovery/suggest";
@@ -64,6 +66,7 @@ function greeting(hour: number) {
 export default function Home() {
   const { model, recoverySpeed, weeklyGoal, favorites } = useSettings();
   const routines = useRoutines();
+  const isPro = useIsPro();
   const entries = useEntries();
   const [now, setNow] = useState(Date.now());
   const [side, setSide] = useState<"front" | "back">("front");
@@ -122,6 +125,20 @@ export default function Home() {
     void Haptics.selectionAsync();
     // Tapping the selected muscle again, or outside the body, clears the selection.
     setFocused(muscle === focused ? undefined : muscle);
+  }
+  function addRoutine() {
+    if (canAddRoutine(routines.length, isPro)) {
+      router.push("/routine/edit");
+      return;
+    }
+    Alert.alert(
+      "Unlimited routines with Pro",
+      `The free plan includes ${routineLimits.freeRoutines} routines. Pro removes the limit and ads, and adds the home screen widget.`,
+      [
+        { text: "Not now", style: "cancel" },
+        { text: "See Pro", onPress: () => void showPaywall() },
+      ],
+    );
   }
   const open = (muscle?: Muscle) =>
     router.push({ pathname: "/(tabs)/exercises", params: { muscle: muscle ?? "", at: String(Date.now()) } });
@@ -223,7 +240,7 @@ export default function Home() {
           <SectionTitle
             title="Routines"
             action={routines.length ? "New" : undefined}
-            onAction={() => router.push("/routine/edit")}
+            onAction={addRoutine}
           />
           {routines.length ? (
             <View style={[s.card, { padding: 0, overflow: "hidden" }]}>
@@ -264,7 +281,7 @@ export default function Home() {
                   <Text style={s.footnote}>Save the exercises you train together and start them in one tap.</Text>
                 </View>
               </View>
-              <Button secondary icon="add" title="Create a routine" onPress={() => router.push("/routine/edit")} />
+              <Button secondary icon="add" title="Create a routine" onPress={addRoutine} />
             </View>
           )}
           {suggestions.length > 0 && (
