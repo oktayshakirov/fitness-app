@@ -26,7 +26,7 @@ import { deleteEntry, saveEntry, useEntries, useSettings } from "../../src/stora
 import { dayKey, dayLabel, monthDays, streaks } from "../../src/storage/calendar";
 import { plural, setsSummary } from "../../src/storage/format";
 import type { LogEntry } from "../../src/storage/types";
-import { colors, tabBarSpace } from "../../src/theme";
+import { colors, tabBarSpace, useScheme } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 function EntryRow({ entry }: { entry: LogEntry }) {
   const { model, units } = useSettings();
@@ -115,6 +115,7 @@ function EntryRow({ entry }: { entry: LogEntry }) {
   );
 }
 export default function History() {
+  useScheme();
   const entries = useEntries();
   const [month, setMonth] = useState(new Date());
   // Which way the calendar last paged, so the new month slides in from that side.
@@ -250,7 +251,7 @@ export default function History() {
                         borderRadius: 20,
                         backgroundColor: active ? colors.accent : isSelected ? colors.surface3 : "transparent",
                         borderWidth: isSelected && active ? 2 : key === today ? 1.5 : 0,
-                        borderColor: isSelected && active ? colors.text : colors.accent,
+                        borderColor: isSelected && active ? colors.text : colors.accentInk,
                       }}
                     >
                       <Text

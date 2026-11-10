@@ -6,6 +6,20 @@ icon circles, Poppins type, a floating pill tab bar. Our 3D renders (heroes, bod
 exercise loops) are the only imagery: no stock photos, no fake metrics (no calories,
 heart rate or steps; we only show what the app really tracks).
 
+## Light and dark
+
+Both schemes live in `src/palettes.ts`; the user picks Automatic (follows the phone), Light or Dark in
+onboarding and in Profile. Lime stays the fill colour in both (buttons, selection, the recovery card,
+always with black text on it). As text or an icon on a plain surface, light mode uses `accentInk`, a dark
+lime green, because lime on white is unreadable. Recovery colours are darker in light mode and their badge
+icons turn white (`onState`). Video posters and the dark chips over them (Today badge, video controls) look
+the same in both. `tests/contrast.test.ts` holds both palettes to WCAG AA.
+
+How it works: `colors` is one object whose values switch with the scheme; every screen calls
+`useScheme()` so it repaints, and style sheets that use colours are built with `themed()` (one sheet per
+scheme). Inside Reanimated worklets copy colours into local strings first: a worklet freezes the objects it
+captures, which would stop `colors` from switching.
+
 ## Tokens (`src/theme.ts`)
 
 | Token | Value | Use |

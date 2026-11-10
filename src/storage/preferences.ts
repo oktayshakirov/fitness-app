@@ -1,6 +1,7 @@
 import type { Model } from "../content/types";
 import type { RecoverySpeed } from "../recovery/engine";
 export type Units = "kg" | "lb";
+export type Appearance = "system" | "light" | "dark";
 /** Rest timer lengths offered in Profile, in seconds. */
 export const restChoices = [30, 60, 90, 120, 180] as const;
 export const defaultRest = 90;
@@ -19,6 +20,8 @@ export interface Preferences {
   favorites: string[];
   /** Notify when a rest ends while the app is in the background. Off until the user turns it on. */
   restAlerts: boolean;
+  /** "system" follows the phone's light or dark setting. */
+  appearance: Appearance;
 }
 export interface Settings extends Preferences {
   onboarded: boolean;
@@ -31,6 +34,7 @@ export const defaults: Settings = {
   weeklyGoal: defaultGoal,
   favorites: [],
   restAlerts: false,
+  appearance: "system",
   onboarded: false,
 };
 export function parsePreferences(value: unknown): Preferences {
@@ -57,5 +61,6 @@ export function parsePreferences(value: unknown): Preferences {
     weeklyGoal: (goalChoices as readonly number[]).includes(goal) ? goal : defaultGoal,
     favorites: [...new Set(favorites)].slice(0, 500),
     restAlerts: v.restAlerts === true,
+    appearance: v.appearance === "light" || v.appearance === "dark" ? v.appearance : "system",
   };
 }

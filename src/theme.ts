@@ -1,20 +1,41 @@
-export const colors = {
-  bg: "#0B0B0C",
-  surface: "#1A1A1C",
-  surface2: "#252528",
-  surface3: "#323236",
-  separator: "rgba(255,255,255,0.08)",
-  text: "#FFFFFF",
-  secondary: "rgba(235,235,245,0.62)",
-  tertiary: "rgba(235,235,245,0.32)",
-  accent: "#C8FA3C",
-  onAccent: "#0B0B0C",
-  accentDim: "rgba(200,250,60,0.14)",
-  trained: "#FF4D3D",
-  recovering: "#FF9F0A",
-  almost: "#FFD60A",
-  ready: "#C8FA3C",
-} as const;
+import { useSyncExternalStore } from "react";
+import { StyleSheet } from "react-native";
+
+import { colors, palettes, type Palette, type Scheme } from "./palettes";
+
+export { colors, palettes, type Palette, type Scheme };
+
+let current: Scheme = "dark";
+const listeners = new Set<() => void>();
+
+/** Switches the palette. Call `notifyScheme()` after render so mounted screens repaint. */
+export function setScheme(next: Scheme) {
+  if (next === current) return false;
+  current = next;
+  Object.assign(colors, palettes[next]);
+  return true;
+}
+export function notifyScheme() {
+  listeners.forEach((l) => l());
+}
+export function useScheme() {
+  return useSyncExternalStore(
+    (l) => (listeners.add(l), () => void listeners.delete(l)),
+    () => current,
+  );
+}
+
+type Styles = Parameters<typeof StyleSheet.create>[0];
+/** StyleSheet.create for styles that use `colors`: built once per scheme, read through a proxy. */
+export function themed<S extends Styles>(make: () => S & Styles): Readonly<S> {
+  const sheets: Partial<Record<Scheme, Readonly<S>>> = {};
+  return new Proxy({} as Readonly<S>, {
+    get(_, key) {
+      const sheet = (sheets[current] ??= StyleSheet.create(make()));
+      return sheet[key as keyof S];
+    },
+  });
+}
 export const space = {
   xs: 4,
   sm: 8,

@@ -7,7 +7,7 @@ import { Text } from "./Text";
 import { Button, IconCircle, Screen, s } from "./ui";
 import { content, contentOrigin } from "../content";
 import { rejectRunningRelease } from "../content/device";
-import { tabBarSpace } from "../theme";
+import { tabBarSpace, useScheme } from "../theme";
 
 /**
  * Shown instead of a screen that threw while rendering. A downloaded exercise
@@ -70,5 +70,6 @@ export function RootError(props: ErrorBoundaryProps) {
 }
 /** ErrorBoundary for a single screen: tabs and the stack stay usable. */
 export function ScreenError(props: ErrorBoundaryProps) {
+  useScheme();
   return <ErrorScreen {...props} root={false} />;
 }

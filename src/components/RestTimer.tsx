@@ -20,7 +20,7 @@ import { clock, restLeft, restProgress, spokenDuration, type RestTimer } from ".
 import { restTimer, useRestClock, useRestTimer } from "../workout/restTimer";
 import { syncRestNotification } from "../workout/restNotification";
 import { useSettings } from "../storage/store";
-import { colors } from "../theme";
+import { colors, themed, useScheme } from "../theme";
 
 /** Lime line that runs down with the rest. Hidden with Reduce Motion. */
 function RestLine({ timer }: { timer: RestTimer }) {
@@ -85,7 +85,7 @@ function RestPillView({
           accessibilityLabel={`Rest timer, ${spokenDuration(left)} left`}
           style={[s.row, { gap: 8 }, inline && { flex: 1 }]}
         >
-          <Icon name="timer-outline" size={18} color={colors.accent} />
+          <Icon name="timer-outline" size={18} color={colors.accentInk} />
           <Text style={styles.time}>{clock(left)}</Text>
           <Text style={s.footnote}>rest</Text>
         </View>
@@ -151,7 +151,7 @@ export function RestStartButton({ seconds }: { seconds: number }) {
       scaleTo={0.9}
       style={styles.start}
     >
-      <Icon name="timer-outline" size={24} color={timer ? colors.accent : colors.text} />
+      <Icon name="timer-outline" size={24} color={timer ? colors.accentInk : colors.text} />
     </PressableScale>
   );
 }
@@ -162,6 +162,7 @@ export function RestStartButton({ seconds }: { seconds: number }) {
  * pill above the toast lane on every screen.
  */
 export function RestTimerHost() {
+  useScheme();
   const { timer, finishedAt } = useRestTimer();
   const now = useRestClock(timer);
   const insets = useSafeAreaInsets();
@@ -206,7 +207,7 @@ export function RestTimerHost() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = themed(() => ({
   lane: { position: "absolute", left: 20, right: 20, alignItems: "center" },
   pill: {
     flexDirection: "row",
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
     bottom: 4,
     height: 2,
     borderRadius: 1,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.accentInk,
     opacity: 0.6,
     transformOrigin: "left",
   },
@@ -252,4 +253,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: colors.surface2,
   },
-});
+}));

@@ -55,8 +55,8 @@ For version 1.0 (no ads, analytics or purchases). The ads and Pro version needs 
 ## Screenshots
 
 Required sizes: iOS 6.9" (1320×2868, iPhone 17 Pro Max simulator) is enough for all
-iPhones; Play needs 2-8 phone shots (1080×1920 or larger, 9:16). iPad is enabled
-(`supportsTablet`); either add 13" iPad shots or turn tablet support off before submitting.
+iPhones; Play needs 2-8 phone shots (1080×1920 or larger, 9:16). The app is iPhone-only
+(`supportsTablet: false`), so no iPad shots are needed.
 
 Planned set, captured from a release build with clean demo data:
 1. Home: recovery card, week strip and body map

@@ -691,3 +691,13 @@ top of Exercises and History, in the page flow, because the floating tab bar lef
 The next commit removes AdMob, RevenueCat and the tracking prompt; widget and unlimited routines are free in
 1.0. Reverting that commit restores everything. When Pro launches, decide whether 1.0 users keep the widget.
 
+## 2026-11-11 — Light mode, store-ready 1.0
+
+- Light mode: onboarding step "Appearance" (Automatic / Light / Dark, Automatic by default) and the same
+  choice in Profile; switching repaints in place. Design notes in DESIGN.md "Light and dark".
+- Splash follows the phone's scheme (light: dark-green name on #F2F2F7). Android 12+ masks the splash icon
+  to a circle, so Android gets a smaller logo-and-name image that fits inside it.
+- Android launcher icon: smaller mark inside the adaptive circle (Pixel on Android 16 crops tighter than the
+  guideline) and a flat legacy/round icon without the glow ring.
+- Version 1.0.0 (iOS build 1, Android versionCode 1); iPhone only (`supportsTablet: false`), so no iPad
+  screenshots or iPad review.

@@ -14,7 +14,7 @@ export function Avatar({ model, size }: { model: Model; size: number }) {
         overflow: "hidden",
         backgroundColor: colors.surface2,
         borderWidth: 2,
-        borderColor: colors.accent,
+        borderColor: colors.accentInk,
       }}
     >
       <Image source={modelImages[model].profile} contentFit="cover" accessible={false} style={{ flex: 1 }} />

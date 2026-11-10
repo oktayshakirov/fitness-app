@@ -81,9 +81,8 @@ let gradient = load("\(identity)/logo-gradient.png")
 let mark = load("\(identity)/logo-mark.png")
 let brand = "assets/brand"
 
-/// The logo with the app name under it, in the app's lime and Poppins, kept inside the circle
-/// Android's launch screen can mask to.
-func splashImage() -> CGImage {
+/// The logo with the app name under it in Poppins, the name in `nameColor`.
+func splashImage(nameColor: CGColor) -> CGImage {
   let size: CGFloat = 512
   let c = canvas(Int(size), Int(size))
   let font = URL(fileURLWithPath: "node_modules/@expo-google-fonts/poppins/700Bold/Poppins_700Bold.ttf")
@@ -96,7 +95,7 @@ func splashImage() -> CGImage {
   c.draw(mark.cropping(to: area)!, in: CGRect(x: (size - width) / 2, y: size - top - height, width: width, height: height))
   let attributes: [CFString: Any] = [
     kCTFontAttributeName: CTFontCreateWithName("Poppins-Bold" as CFString, 60, nil),
-    kCTForegroundColorAttributeName: CGColor(srgbRed: 0xC8 / 255, green: 0xFA / 255, blue: 0x3C / 255, alpha: 1),
+    kCTForegroundColorAttributeName: nameColor,
   ]
   let text = CFAttributedStringCreate(nil, "Muscle Pal" as CFString, attributes as CFDictionary)!
   let line = CTLineCreateWithAttributedString(text)
@@ -106,9 +105,35 @@ func splashImage() -> CGImage {
   return c.makeImage()!
 }
 
+/// Android 12+ shows the splash icon through a circle two thirds of its size: shrink the whole
+/// logo-and-name block until its farthest pixel sits inside that circle.
+func fitInCircle(_ img: CGImage) -> CGImage {
+  let size = img.width
+  let box = artBounds(img)
+  let data = pixels(img)
+  var reach: CGFloat = 1
+  for y in Int(box.minY)..<Int(box.maxY) {
+    for x in Int(box.minX)..<Int(box.maxX) where data[(y * size + x) * 4 + 3] > 40 {
+      reach = max(reach, hypot(CGFloat(x) - box.midX, CGFloat(y) - box.midY))
+    }
+  }
+  let radius = CGFloat(size) / 3 * 0.94
+  let c = canvas(size, size)
+  centred(img, box: box, scale: radius / reach, in: c, size: size)
+  return c.makeImage()!
+}
+
 write(resized(gradient, to: 1024), "\(brand)/icon.png")
 write(resized(gradient, to: 196), "\(brand)/favicon.png")
-write(splashImage(), "\(brand)/splash.png")
+let lime = CGColor(srgbRed: 0xC8 / 255, green: 0xFA / 255, blue: 0x3C / 255, alpha: 1)
+// The lime is unreadable on a light background; light mode uses the darker accent ink (src/palettes.ts).
+let ink = CGColor(srgbRed: 0x40 / 255, green: 0x63 / 255, blue: 0x00 / 255, alpha: 1)
+let darkSplash = splashImage(nameColor: lime)
+let lightSplash = splashImage(nameColor: ink)
+write(darkSplash, "\(brand)/splash.png")
+write(lightSplash, "\(brand)/splash-light.png")
+write(fitInCircle(darkSplash), "\(brand)/splash-android.png")
+write(fitInCircle(lightSplash), "\(brand)/splash-android-light.png")
 write(fitted(mark, size: 256, padding: 0.02), "\(brand)/logo.png")
 
 // Android adaptive icon: the launcher can mask down to a circle of 66/108 of the canvas, so the
@@ -122,11 +147,19 @@ for y in Int(box.minY)...Int(box.maxY - 1) {
   }
 }
 let adaptiveSize = 1024
-let safeRadius = CGFloat(adaptiveSize) * (66.0 / 108.0) / 2 * 0.96
+// Some launchers (Pixel on Android 16) crop tighter than the 66 dp guideline, so stay well inside it.
+let safeRadius = CGFloat(adaptiveSize) * (44.0 / 108.0) / 2
 let foreground = canvas(adaptiveSize, adaptiveSize)
 centred(mark, box: box, scale: safeRadius / reach, in: foreground, size: adaptiveSize)
 let foregroundImage = foreground.makeImage()!
 write(foregroundImage, "\(brand)/adaptive-foreground.png")
+
+// Legacy and round Android icons (older launchers): flat background, no glow ring at the edge.
+let flat = canvas(adaptiveSize, adaptiveSize, opaque: true)
+flat.setFillColor(CGColor(srgbRed: 0x0B / 255, green: 0x0B / 255, blue: 0x0C / 255, alpha: 1))
+flat.fill(CGRect(x: 0, y: 0, width: adaptiveSize, height: adaptiveSize))
+centred(mark, box: box, scale: CGFloat(adaptiveSize) * 0.36 / reach, in: flat, size: adaptiveSize)
+write(flat.makeImage()!, "\(brand)/icon-android.png")
 
 // Android themed icon: one colour, tinted by the launcher. The charcoal body drops out so the
 // outline and the chest stay readable.

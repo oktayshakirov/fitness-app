@@ -39,7 +39,7 @@ import { muscleIds, type Exercise, type Model, type Muscle } from "../../src/con
 import { MuscleIcon } from "../../src/components/MuscleIcon";
 import { deleteEntry, logExercise, useEntries, useSettings } from "../../src/storage/store";
 import { dayKey } from "../../src/storage/calendar";
-import { colors, tabBarSpace } from "../../src/theme";
+import { colors, tabBarSpace, themed, useScheme } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 /** Quick-log "+": shrinks while held; after a log the icon pops into a check for a moment. */
 function QuickLogButton({ name, onLog }: { name: string; onLog: () => boolean }) {
@@ -110,7 +110,8 @@ function ExerciseCard({
         {done && (
           <View style={styles.today}>
             <Icon name="checkmark" size={13} color={colors.accent} />
-            <Text style={[s.caption, { color: colors.text }]}>Today</Text>
+            {/* Always light: the badge is a dark chip on the white poster in both themes. */}
+            <Text style={[s.caption, { color: "#FFFFFF" }]}>Today</Text>
           </View>
         )}
         <View style={{ paddingHorizontal: 8, paddingTop: 10, paddingBottom: 6, gap: 2 }}>
@@ -118,7 +119,7 @@ function ExerciseCard({
             {item.name}
           </Text>
           <View style={[s.row, { gap: 4 }]}>
-            {favorite && <Icon name="star" size={12} color={colors.accent} />}
+            {favorite && <Icon name="star" size={12} color={colors.accentInk} />}
             <Text numberOfLines={1} style={[s.footnote, { flexShrink: 1 }]}>
               {equipmentSummary(item)}
             </Text>
@@ -131,6 +132,7 @@ function ExerciseCard({
   );
 }
 export default function Library() {
+  const scheme = useScheme();
   const { model, favorites } = useSettings();
   const { fontScale, width } = useWindowDimensions();
   const columns = fontScale > 1.15 ? 1 : 2;
@@ -182,7 +184,7 @@ export default function Library() {
     [muscle, equipment, query, favoritesOnly, favoriteSet],
   );
   // FlashList re-renders cells only when this changes.
-  const cellState = useMemo(() => ({ doneToday, favoriteSet }), [doneToday, favoriteSet]);
+  const cellState = useMemo(() => ({ doneToday, favoriteSet, scheme }), [doneToday, favoriteSet, scheme]);
   function chooseMuscle(m: string) {
     setMuscle(m);
     router.setParams({ muscle: m });
@@ -332,23 +334,23 @@ function MuscleTile({ muscle, selected, onPress }: { muscle?: Muscle; selected: 
       style={({ pressed }) => [
         styles.tile,
         pressed && { backgroundColor: colors.surface2 },
-        selected && { borderColor: colors.accent, backgroundColor: colors.accentDim },
+        selected && { borderColor: colors.accentInk, backgroundColor: colors.accentDim },
       ]}
     >
       {muscle ? (
         <MuscleIcon muscle={muscle} size={TILE_ICON} />
       ) : (
         <View style={{ width: TILE_ICON, height: TILE_ICON, alignItems: "center", justifyContent: "center" }}>
-          <Icon name="body" size={48} color={colors.accent} />
+          <Icon name="body" size={48} color={colors.accentInk} />
         </View>
       )}
-      <Text numberOfLines={1} style={[s.caption, { color: selected ? colors.accent : colors.text }]}>
+      <Text numberOfLines={1} style={[s.caption, { color: selected ? colors.accentInk : colors.text }]}>
         {name}
       </Text>
     </Pressable>
   );
 }
-const styles = StyleSheet.create({
+const styles = themed(() => ({
   search: {
     flexDirection: "row",
     alignItems: "center",
@@ -410,4 +412,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: colors.accent,
   },
-});
+}));

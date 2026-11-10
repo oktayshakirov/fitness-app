@@ -6,7 +6,7 @@ import { Image } from "expo-image";
 import { useIsFocused } from "expo-router";
 import { content, mediaBackground } from "../content";
 import type { ExerciseView } from "../content/types";
-import { colors } from "../theme";
+import { colors, themed } from "../theme";
 import { IconButton, s } from "./ui";
 /** Slow motion stays on for the next exercise opened in this session. */
 let slowMotion = false;
@@ -116,7 +116,7 @@ export function ExerciseVideo({
               { opacity: pressed ? 0.7 : 1 },
             ]}
           >
-            <Text style={{ color: slow ? colors.onAccent : colors.text, fontSize: 14, fontWeight: "600" }}>0.5×</Text>
+            <Text style={{ color: slow ? colors.onAccent : "#FFFFFF", fontSize: 14, fontWeight: "600" }}>0.5×</Text>
           </Pressable>
         )}
         <View style={styles.pill}>
@@ -136,7 +136,7 @@ export function ExerciseVideo({
     </View>
   );
 }
-const styles = StyleSheet.create({
+const styles = themed(() => ({
   container: {
     width: "100%",
     aspectRatio: 4 / 5,
@@ -170,4 +170,4 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: colors.surface,
   },
-});
+}));

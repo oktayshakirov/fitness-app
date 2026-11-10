@@ -32,7 +32,7 @@ import { dayKey, streaks, weekDays } from "../../src/storage/calendar";
 import { plural } from "../../src/storage/format";
 import { recovery } from "../../src/recovery/engine";
 import { readyIn, stateColors, stateNames } from "../../src/recovery/labels";
-import { colors, tabBarSpace } from "../../src/theme";
+import { colors, tabBarSpace, useScheme } from "../../src/theme";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 const counts = Object.fromEntries(
   muscleIds.map((m) => [
@@ -51,9 +51,9 @@ function WeekStrip({ days, today }: { days: { key: string; active: boolean }[]; 
             flex: 1,
             height: 6,
             borderRadius: 3,
-            backgroundColor: active ? colors.accent : key > today ? colors.surface2 : colors.surface3,
+            backgroundColor: active ? colors.accentInk : key > today ? colors.surface2 : colors.surface3,
             borderWidth: key === today && !active ? 1 : 0,
-            borderColor: colors.accent,
+            borderColor: colors.accentInk,
           }}
         />
       ))}
@@ -64,6 +64,7 @@ function greeting(hour: number) {
   return hour < 5 ? "Good night" : hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 }
 export default function Home() {
+  useScheme();
   const { model, recoverySpeed, weeklyGoal, favorites } = useSettings();
   const routines = useRoutines();
   const isPro = useIsPro();
@@ -387,8 +388,8 @@ export default function Home() {
                           {status[focused].readyInHours ? ` · ${readyIn(status[focused].readyInHours)}` : ""}
                         </Text>
                       </View>
-                      <Text style={[s.subhead, { color: colors.accent }]}>{counts[focused]} exercises</Text>
-                      <Icon name="chevron-forward" size={18} color={colors.accent} />
+                      <Text style={[s.subhead, { color: colors.accentInk }]}>{counts[focused]} exercises</Text>
+                      <Icon name="chevron-forward" size={18} color={colors.accentInk} />
                     </Pressable>
                   </Animated.View>
                 ) : (
