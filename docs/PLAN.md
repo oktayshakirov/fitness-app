@@ -715,3 +715,27 @@ The next commit removes AdMob, RevenueCat and the tracking prompt; widget and un
   then `xcrun simctl install <watch> MusclePal.app/Watch/MusclePalWatch.app`): the summary arrives when the
   phone app starts and after each log. Not checked: complications on a face, a real watch, Profile and the log
   sheet on iPad.
+
+## 2026-11-10 — Session end: Oktay submits 1.0 (handoff)
+
+State: `main` at c8095a2 (iPad + Apple Watch), everything pushed. Version 1.0.0 (iOS build 1, Android
+versionCode 1), no ads, no purchases, widget and routines free. Oktay is uploading to Google Play and the App
+Store himself; the next session starts after that.
+
+Before or during the upload:
+- The App Store build now contains the Watch app, so App Store Connect asks for Apple Watch screenshots
+  as well as iPhone and iPad ones (sizes in STORE.md "Screenshots").
+- Building iOS locally needs Xcode's watchOS platform (`xcodebuild -downloadPlatform watchOS`, installed
+  on this Mac).
+- The portfolio privacy page (`privacy-policy/muscle-pal.html`) does not mention the Apple Watch yet; the
+  in-app Privacy screen does. The App Store privacy answers stay "Data not collected" (phone-to-watch
+  transfer is on-device, no server).
+- Untracked `assets/brand/muscle-pal-exploration/` is Oktay's and was never committed.
+
+Next steps, in the order to discuss:
+1. Whatever the store reviews send back (rejections, metadata questions).
+2. Remaining checks: complications on a watch face and a real paired watch, Profile and the log sheet on iPad,
+   VoiceOver/TalkBack, a mid-range Android phone (STORE.md checklist).
+3. The monetized version: revert 313ba42 to bring back ads and Pro (c6e2505), then the AdMob, RevenueCat and
+   privacy-page work listed under "M7: ads, Pro and widgets". Decide whether 1.0 users keep the widget.
+4. Ideas not started: logging from the watch (needs two-way sync), localization.
