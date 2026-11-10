@@ -86,4 +86,5 @@ Planned set, captured from a release build with clean demo data:
 - [ ] Accessibility by ear: VoiceOver/TalkBack walk-through; accessibility text sizes (AX1-AX5)
 - [ ] Performance: 60 fps grid scroll and video start on a mid-range Android phone (physical)
 - [ ] Web export of the library
-- [ ] `version` / build numbers set for the first submission; EAS project (needs account)
+- [x] Version 1.0.0, iOS build 1, Android versionCode 1
+- [ ] Uploaded to Google Play and App Store Connect (Oktay, from 2026-11-10)
