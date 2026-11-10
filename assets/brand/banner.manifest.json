@@ -1,0 +1,13 @@
+{
+  "created": "2026-11-10",
+  "brand": "Muscle Pal",
+  "generator": "Built-in image_gen",
+  "prompt": "Use case: ads-marketing. Redesign the supplied Muscle Pal logo banner into a polished premium fitness app brand banner featuring the TWO supplied new athletic models. Reference image 1 = male character identity/outfit. Reference image 2 = female character identity/outfit. Reference image 3 = existing banner, exact brand logo and correct typography/name reference. Preserve both people's recognizable facial identities, natural skin tones, hairstyles and charcoal sportswear with tiny lime trim. Create a professional wide 2:1 landscape composition, target 2560x1280, full bleed. LEFT 46%: strong clear brand lockup with approved chest logo modest-sized above or to left of the exact name \"Muscle Pal\". Name in beautifully kerned bold white geometric sans-serif similar to Poppins SemiBold, title case exactly, absolutely readable, plenty of breathing space. Small understated lime horizontal rule beneath the lockup as a finishing accent; no other words. RIGHT 50%: both models standing naturally side-by-side as a cohesive editorial duo, male slightly behind and left of female with only subtle overlap; neither face or torso obscured, both looking toward viewer, warm confident subtle smiles. Frame them from head to upper thigh at lower canvas edge, full heads with ample top margin; careful anatomy, preserve clothing and proportions, relaxed arms/hands. Match the quality and lighting of both figures with soft neutral studio key light and tasteful narrow lime-tinted rim light, not neon outlines. Background: sophisticated near-black graphite gradient #0B0B0C to #252528 with very subtle broad olive-lime illumination behind duo and one restrained large dark diagonal tonal plane for depth, no hard split between halves. Seamlessly blend lower edges into a dark vignette at bottom. Color accent #C8FA3C. Focus hierarchy is name then faces then chest emblem. High-end clean editorial sports campaign, balanced whitespace, cohesive art direction, natural humans, polished deliberate layout. No slogans, no calls to action, no pills, no fake UI, no extra logos, no dumbbells, no gym scene, no harsh glow, no floating particles, no clutter, no device mockup, no rounded outer border. Only text is \"Muscle Pal\". Do not use the faceless full-body mascot. Use the two real-faced models in the first two references.",
+  "references": [
+    "assets/ui/model-placeholders/male-full-body.png",
+    "assets/ui/model-placeholders/female-full-body.png",
+    "assets/brand/chest-identity/logo-wordmark.png"
+  ],
+  "width": 1774,
+  "height": 887
+}

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { router } from "expo-router";
-import { Alert, ScrollView, View } from "react-native";
+import { Alert, Linking, ScrollView, Switch, View } from "react-native";
 import { Text } from "../../src/components/Text";
 import * as DocumentPicker from "expo-document-picker";
 import * as Sharing from "expo-sharing";
@@ -30,7 +30,9 @@ import {
 } from "../../src/storage/store";
 import { goalChoices, restChoices, type Settings as Preferences } from "../../src/storage/preferences";
 import { clock } from "../../src/workout/rest";
-import { useExactRestAlerts } from "../../src/workout/restNotification";
+import { askForRestAlerts, useExactRestAlerts } from "../../src/workout/restNotification";
+import { ContactSection } from "../../src/components/ContactSection";
+import { ProSection } from "../../src/components/ProSection";
 import { maxBackupBytes, parseBackup } from "../../src/storage/backup";
 import { plural } from "../../src/storage/format";
 import { colors, tabBarSpace } from "../../src/theme";
@@ -51,6 +53,20 @@ export default function Profile() {
   const [busy, setBusy] = useState(false);
   const [credits, setCredits] = useState(false);
   const exactAlerts = useExactRestAlerts();
+  /** The system prompt only appears here, after the user asks for alerts. */
+  async function toggleRestAlerts(on: boolean) {
+    if (!on) {
+      save({ restAlerts: false });
+      return;
+    }
+    const result = await askForRestAlerts();
+    if (result === "allowed") save({ restAlerts: true });
+    else if (result === "blocked")
+      Alert.alert("Notifications are off", "Turn on notifications for Muscle Pal in your phone's settings.", [
+        { text: "Cancel", style: "cancel" },
+        { text: "Open settings", onPress: () => void Linking.openSettings() },
+      ]);
+  }
   const staged = useStagedContent();
   const toast = useToast();
   function save(patch: Partial<Preferences>) {
@@ -175,6 +191,7 @@ export default function Profile() {
             ))}
           </View>
         </View>
+        <ProSection />
         <SectionTitle title="Model" />
         <ModelChoice compact value={settings.model} onChange={(model) => save({ model })} />
         <Text style={[s.footnote, { marginHorizontal: 4 }]}>
@@ -229,7 +246,21 @@ export default function Profile() {
               Start it with the timer button on an exercise, or between sets in the log sheet.
             </Text>
           </View>
-          {!exactAlerts.allowed && (
+          <Row
+            title="Rest alerts"
+            detail="Notify me when a rest ends while the app is closed"
+            icon="notifications-outline"
+          >
+            <Switch
+              accessibilityLabel="Rest alerts"
+              value={settings.restAlerts}
+              onValueChange={(on) => void toggleRestAlerts(on)}
+              trackColor={{ true: colors.accent, false: colors.surface3 }}
+              thumbColor={colors.text}
+              ios_backgroundColor={colors.surface3}
+            />
+          </Row>
+          {settings.restAlerts && !exactAlerts.allowed && (
             <Row
               title="On-time rest alerts"
               detail="Android can delay alerts by up to a minute until you allow this"
@@ -279,6 +310,7 @@ export default function Profile() {
             onPress={entries.length && !busy ? erase : undefined}
           />
         </Group>
+        <ContactSection />
         <SectionTitle title="About" />
         <Group>
           <Row

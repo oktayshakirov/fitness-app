@@ -47,6 +47,13 @@ npx expo prebuild --clean --platform ios && LANG=en_US.UTF-8 npx expo run:ios --
 npx expo run:android --variant release --no-bundler
 ```
 
+## Ads and Pro (M7)
+
+Development builds use Google's test ads. Release builds need the real IDs: AdMob app IDs in `app.json`,
+banner units in `src/ads/ads.ts`, and RevenueCat keys in `EXPO_PUBLIC_REVENUECAT_IOS_KEY` and
+`EXPO_PUBLIC_REVENUECAT_ANDROID_KEY`. Development builds have a "Pro plan (dev)" switch in Profile. TikTok,
+YouTube and App Store links are constants in `src/contact/contact.ts`.
+
 ## Approved offline content
 
 The current published release from `fitness-automation/releases` is bundled (v0.3.0: 30

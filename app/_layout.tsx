@@ -1,3 +1,5 @@
+import { useWidgetSync } from "../src/widget/sync";
+import { startPro } from "../src/pro/pro";
 import { useSettings } from "../src/storage/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ToastProvider } from "../src/components/Toast";
@@ -27,6 +29,8 @@ export { RootError as ErrorBoundary } from "../src/components/ErrorScreen";
 export default function RootLayout() {
   const settings = useSettings();
   useContentUpdates();
+  useEffect(() => void startPro(), []);
+  useWidgetSync();
   const [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,

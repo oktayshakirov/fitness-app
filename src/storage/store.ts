@@ -182,6 +182,14 @@ export function updateSettings(patch: Partial<Settings>) {
   }
   refresh();
 }
+/** App state that is not a preference, so it stays out of backups. */
+export function getMeta(key: string): unknown {
+  const row = database().getFirstSync<{ value: string }>("SELECT value FROM settings WHERE key = ?", key);
+  return row ? JSON.parse(row.value) : undefined;
+}
+export function setMeta(key: string, value: unknown) {
+  database().runSync("INSERT OR REPLACE INTO settings (key,value) VALUES (?,?)", key, JSON.stringify(value));
+}
 export function useRoutines() {
   database();
   return useSyncExternalStore(
