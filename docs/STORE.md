@@ -10,6 +10,9 @@ accounts or listings exist yet (MVP rule: no accounts or submissions without Okt
   "Launching Soon", and musclepal.com is parked, so someone may launch under this name first.
   Neither store reserves a name until an app record exists. No trademark search has been done.
 - **Bundle ID:** `com.shadev.musclepal`, on iOS and Android. It cannot change after the first submission.
+  iOS extensions: `.widget`, `.watch` and `.watch.widget` (the complication). Apple refused
+  `.watch.complication` as "not available", so don't go back to it. Apple has no public lookup for IDs:
+  registering is the only check, and Xcode does that when it signs with automatic signing.
 - **Contact email:** muscle-pal@oktayshakirov.com.
 - **Privacy page:** https://oktayshakirov.com/privacy-policy/muscle-pal.html, in the portfolio repo
   with the other apps. Update it before any version with ads or purchases ships.
