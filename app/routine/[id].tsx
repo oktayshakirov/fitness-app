@@ -64,7 +64,7 @@ export default function RoutineScreen() {
   }
   return (
     <Screen>
-      <View style={[s.row, { paddingHorizontal: 16, paddingVertical: 6, justifyContent: "space-between" }]}>
+      <View style={[s.row, s.column, { paddingHorizontal: 16, paddingVertical: 6, justifyContent: "space-between" }]}>
         <IconButton name="chevron-back" label="Back" onPress={() => router.back()} />
         <View style={[s.row, { gap: 8 }]}>
           <IconButton
@@ -75,7 +75,7 @@ export default function RoutineScreen() {
           <IconButton name="trash-outline" label="Delete routine" onPress={remove} />
         </View>
       </View>
-      <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 4, gap: 12, paddingBottom: 24 }}>
+      <ScrollView contentContainerStyle={[{ padding: 20, paddingTop: 4, gap: 12, paddingBottom: 24 }, s.column]}>
         <View style={{ gap: 4, marginBottom: 4 }}>
           <Text style={s.subhead}>Routine</Text>
           <Text accessibilityRole="header" style={s.large}>
@@ -142,12 +142,15 @@ export default function RoutineScreen() {
         </Text>
       </ScrollView>
       <View
-        style={{
-          paddingHorizontal: 16,
-          paddingTop: 12,
-          paddingBottom: Math.max(insets.bottom, 16),
-          backgroundColor: colors.bg,
-        }}
+        style={[
+          s.column,
+          {
+            paddingHorizontal: 16,
+            paddingTop: 12,
+            paddingBottom: Math.max(insets.bottom, 16),
+            backgroundColor: colors.bg,
+          },
+        ]}
       >
         <Button
           title={doneCount === 0 ? "Start workout" : allDone ? "All done · Start again" : "Continue"}

@@ -72,7 +72,7 @@ export default function RoutineEditor() {
   );
   return (
     <Screen>
-      <View style={[s.row, { paddingHorizontal: 16, paddingVertical: 6 }]}>
+      <View style={[s.row, s.column, { paddingHorizontal: 16, paddingVertical: 6 }]}>
         <IconButton name="close" label="Close" onPress={close} />
         <Text accessibilityRole="header" style={[s.title, { flex: 1, textAlign: "center", marginRight: 44 }]}>
           {existing ? "Edit routine" : "New routine"}
@@ -82,7 +82,7 @@ export default function RoutineEditor() {
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
         automaticallyAdjustKeyboardInsets
-        contentContainerStyle={{ padding: 20, paddingTop: 8, gap: 10, paddingBottom: 24 }}
+        contentContainerStyle={[{ padding: 20, paddingTop: 8, gap: 10, paddingBottom: 24 }, s.column]}
       >
         <TextInput
           testID="routine-name"
@@ -191,12 +191,15 @@ export default function RoutineEditor() {
         })}
       </ScrollView>
       <View
-        style={{
-          paddingHorizontal: 16,
-          paddingTop: 12,
-          paddingBottom: Math.max(insets.bottom, 16),
-          backgroundColor: colors.bg,
-        }}
+        style={[
+          s.column,
+          {
+            paddingHorizontal: 16,
+            paddingTop: 12,
+            paddingBottom: Math.max(insets.bottom, 16),
+            backgroundColor: colors.bg,
+          },
+        ]}
       >
         <Button title={existing ? "Save changes" : "Save routine"} disabled={!valid} onPress={save} />
       </View>

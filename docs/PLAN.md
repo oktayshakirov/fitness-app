@@ -699,5 +699,19 @@ The next commit removes AdMob, RevenueCat and the tracking prompt; widget and un
   to a circle, so Android gets a smaller logo-and-name image that fits inside it.
 - Android launcher icon: smaller mark inside the adaptive circle (Pixel on Android 16 crops tighter than the
   guideline) and a flat legacy/round icon without the glow ring.
-- Version 1.0.0 (iOS build 1, Android versionCode 1); iPhone only (`supportsTablet: false`), so no iPad
-  screenshots or iPad review.
+- Version 1.0.0 (iOS build 1, Android versionCode 1).
+
+## 2026-11-10 — iPad and Apple Watch
+
+- iPad: `supportsTablet: true`, all four orientations on iPad (iPadOS windows are resizable, and App Store
+  validation wants them), iPhone stays portrait. Content is capped to a centred 720 pt column
+  (`contentWidth`, `s.column`); the Exercises grid shows three columns on a wide column; the exercise video
+  stays under about half the window height; the floating tab bar keeps a phone width and labels below icons.
+- Apple Watch: read-only companion app plus complications, fed by the widget summary over WatchConnectivity.
+  See README "iPad and Apple Watch". Logging from the watch is not built (it would need two-way sync).
+- Store: iPad and Apple Watch screenshots are now required (STORE.md).
+- Checked: iPad Pro 13" simulator, portrait and landscape (onboarding, Home, Exercises, exercise detail,
+  History, Privacy). Apple Watch on a paired iPhone 17 Pro + Series 11 simulator pair (`xcrun simctl pair`,
+  then `xcrun simctl install <watch> MusclePal.app/Watch/MusclePalWatch.app`): the summary arrives when the
+  phone app starts and after each log. Not checked: complications on a face, a real watch, Profile and the log
+  sheet on iPad.

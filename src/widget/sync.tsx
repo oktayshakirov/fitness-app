@@ -9,6 +9,7 @@ import { useIsPro } from "../pro/pro";
 import { buildWidgetData, widgetView } from "./data";
 import { writeWidgetFile } from "./widgetFile";
 import { RecoveryWidget } from "./RecoveryWidget";
+import { sendToWatch } from "../../modules/watch-connectivity";
 
 const APP_GROUP = "group.com.shadev.musclepal";
 const ANDROID_WIDGETS = ["MusclePalRecovery", "MusclePalRecoveryWide"];
@@ -17,8 +18,11 @@ function pushToWidgets(speed: RecoverySpeed, isPro: boolean) {
   const data = buildWidgetData(getEntries(), speed, Date.now(), isPro, label);
   try {
     if (Platform.OS === "ios") {
-      new ExtensionStorage(APP_GROUP).set("data", JSON.stringify(data));
+      const json = JSON.stringify(data);
+      new ExtensionStorage(APP_GROUP).set("data", json);
       ExtensionStorage.reloadWidget();
+      // The Apple Watch app and its complications show the same summary.
+      sendToWatch(json);
     } else if (Platform.OS === "android") {
       writeWidgetFile(data);
       const view = isPro ? widgetView(data, Date.now()) : null;
@@ -34,7 +38,7 @@ function pushToWidgets(speed: RecoverySpeed, isPro: boolean) {
   }
 }
 
-/** Mounted once at the root: keeps the widgets current with logs, settings and the Pro plan. */
+/** Mounted once at the root: keeps the widgets and the watch current with logs, settings and the Pro plan. */
 export function useWidgetSync() {
   const entries = useEntries();
   const { recoverySpeed } = useSettings();

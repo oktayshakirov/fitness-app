@@ -209,7 +209,7 @@ export default function LogSheet() {
   }
   return (
     <Screen>
-      <View style={[s.row, { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 8 }]}>
+      <View style={[s.row, s.column, { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 8 }]}>
         {cover && (
           <Image
             source={content.resolve(cover.poster)}
@@ -233,7 +233,7 @@ export default function LogSheet() {
           automaticallyAdjustKeyboardInsets
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
-          contentContainerStyle={{ padding: 20, gap: 12, paddingBottom: 40 }}
+          contentContainerStyle={[{ padding: 20, gap: 12, paddingBottom: 40 }, s.column]}
         >
           <View style={[s.row, styles.day]}>
             <IconButton plain name="chevron-back" label="Previous day" onPress={() => moveDay(-1)} />

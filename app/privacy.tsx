@@ -20,7 +20,7 @@ export default function Privacy() {
         }
       />
       <ScrollView
-        contentContainerStyle={{ padding: 20, gap: 20, paddingBottom: 40 }}
+        contentContainerStyle={[{ padding: 20, gap: 20, paddingBottom: 40 }, s.column]}
       >
         <Card>
           <Text style={s.title}>Your training stays on your device</Text>
@@ -33,7 +33,9 @@ export default function Privacy() {
           This version has no ads, analytics or purchases.
         </Text>
         <Text style={s.text}>
-          The home screen widget uses your recovery data on this device only.
+          The home screen widget uses your recovery data on this device only. If you use the Apple Watch app, your
+          iPhone sends it a short recovery summary (which muscles are resting and until when, and your streak)
+          directly, not through a server.
         </Text>
         <Text style={s.text}>
           {contentUrl
@@ -41,7 +43,7 @@ export default function Privacy() {
             : "Exercises are built into the app; this version does not download content."}
         </Text>
         <Text style={s.text}>
-          If you allow notifications, your phone alerts you when a rest ends.
+          If you allow notifications, your device alerts you when a rest ends.
           The alert is scheduled on your device and nothing is sent to a server.
         </Text>
         <Text style={s.text}>

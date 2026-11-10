@@ -166,7 +166,7 @@ export default function History() {
       />
       <ScrollView
         ref={scroll}
-        contentContainerStyle={{ padding: 20, paddingTop: 0, gap: 12, paddingBottom: tabBarSpace }}
+        contentContainerStyle={[{ padding: 20, paddingTop: 0, gap: 12, paddingBottom: tabBarSpace }, s.column]}
       >
         <View style={[s.row, { gap: 10 }]}>
           {(
