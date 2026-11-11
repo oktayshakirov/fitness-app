@@ -52,7 +52,8 @@ For version 1.0 (no ads, analytics or purchases). The ads and Pro version needs 
 - **Export compliance:** `ITSAppUsesNonExemptEncryption = false` (only HTTPS via the OS).
 - **Android permissions:** INTERNET, VIBRATE, POST_NOTIFICATIONS and SCHEDULE_EXACT_ALARM (rest
   alert, both asked from the user), plus normal ones added by libraries (network state, wake lock,
-  boot completed). `app.json` blocks SYSTEM_ALERT_WINDOW and legacy storage. `expo-notifications`
+  boot completed). Since 1.0.1 also `com.android.vending.BILLING`, which Play Console requires before
+  it lets you create in-app products (no billing code ships yet). `app.json` blocks SYSTEM_ALERT_WINDOW and legacy storage. `expo-notifications`
   bundles the Firebase messaging library, but no Firebase project is configured and it stays unused.
 
 ## Screenshots
@@ -90,4 +91,6 @@ Planned set, captured from a release build with clean demo data:
 - [ ] Performance: 60 fps grid scroll and video start on a mid-range Android phone (physical)
 - [ ] Web export of the library
 - [x] Version 1.0.0, iOS build 1, Android versionCode 1
+- [x] Version 1.0.1, iOS build 2, Android versionCode 2: adds the BILLING permission so Play Console
+  allows in-app products
 - [ ] Uploaded to Google Play and App Store Connect (Oktay, from 2026-11-10)
