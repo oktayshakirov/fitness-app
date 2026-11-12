@@ -24,7 +24,14 @@ accounts or listings exist yet (MVP rule: no accounts or submissions without Okt
 
 - **Subtitle (iOS, 30):** Exercise form & muscle recovery
 - **Short description (Play, 80):** See every exercise from every angle, log sets and know which muscles are ready.
-- **Category:** Health & Fitness. **Age rating:** 4+ / Everyone (no user content, no web views, no purchases yet).
+- **Category:** Health & Fitness. **Age rating:** 4+ / Everyone (no user content, no web views). From 1.1 the questionnaires
+  must say "contains ads" and "in-app purchases"; Play also asks for the ads declaration (Contains ads: Yes).
+- **Developer website** in both stores: https://oktayshakirov.com, where `app-ads.txt` lists
+  `pub-5852582960793521` (AdMob checks it there).
+- **Subscription rules (App Store 3.1.2):** the paywall and the App Store description need working links to
+  the Privacy Policy (https://oktayshakirov.com/privacy-policy/muscle-pal.html) and Terms of Use (Apple's
+  standard EULA, https://www.apple.com/legal/internet-services/itunes/dev/stdeula/, unless a custom one is
+  written). The paywall is edited in RevenueCat's dashboard.
 - **Keywords (iOS, 100):** workout,gym,exercise,form,technique,muscle,recovery,log,tracker,strength,training,routine
 
 **Description**

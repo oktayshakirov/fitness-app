@@ -14,6 +14,8 @@ const raw =
 export const contentUrl = raw ? (raw.endsWith("/") ? raw : raw + "/") : null;
 /** Network checks at most this often; every launch/foreground in development. */
 const interval = __DEV__ ? 0 : 6 * 60 * 60 * 1000;
+/** A failed check (no signal at the gym, host down) is tried again sooner. */
+const retry = __DEV__ ? 0 : 30 * 60 * 1000;
 
 /** A downloaded version waiting for the next start (null = back to the bundle). */
 let staged: { version: string | null } | null = null;
@@ -24,6 +26,7 @@ async function check() {
   const result = await checkDeviceUpdate(bundled, {
     baseUrl: contentUrl,
     interval,
+    retry,
   });
   if (__DEV__ && result.status !== "throttled")
     console.log("[content]", JSON.stringify(result));

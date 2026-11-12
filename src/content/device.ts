@@ -75,7 +75,7 @@ let running: Promise<UpdateResult> | null = null;
 /** One check at a time; skipped where there is no file system or no host. */
 export function checkDeviceUpdate(
   bundled: Bundled,
-  config: { baseUrl: string; interval: number; force?: boolean },
+  config: { baseUrl: string; interval: number; retry?: number; force?: boolean },
 ): Promise<UpdateResult> {
   if (!supported) return Promise.resolve({ status: "current" });
   running ??= checkForUpdate(io, bundled, {

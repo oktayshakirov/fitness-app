@@ -778,3 +778,23 @@ M6 was built and tested on 2026-10-30 but never switched on (no hosting, URL uns
   Cloudflare's bot check answers 403 to Python's user agent; okhttp and CFNetwork user agents get 200.
 - Not checked on a phone yet: the M6 Maestro flow ran against a local server, not Cloudflare.
 - Builds made before this commit (1.0.x, and any 1.1.x built earlier) never check; build from this commit.
+
+## 2026-11-12 — Pre-release review of 1.1.x
+
+- Content updates: a failed check (offline at the gym, host down) now retries after 30 minutes instead of
+  waiting the full 6 hours; files already verified stay, so the retry resumes. Test added (80 pass).
+  Reviewed and fine as is: unknown muscles/equipment/views are dropped, not fatal; removed exercises show
+  without a clip in History and as "no longer in the library" in routines; a release switches atomically.
+- iOS: Google's 50 SKAdNetwork IDs via the AdMob plugin (`skAdNetworkItems` in app.json); Info.plist had none.
+- App version shown in Profile, Privacy and bug reports is the platform's own (`src/version.ts`), so Android
+  shows 1.1.1, not the shared 1.1.0.
+- Release builds: iOS Release on the iPhone 17 Pro simulator and Android release on the Dev_Phone emulator
+  (Android 16): onboarding, Exercises with a banner from the real ad units (shown as test ads on
+  simulators), Profile Pro section, Restore purchases, Content v0.3.0, App version. Pixel_9_Pro_oktayshakirov_
+  has a screen lock and stays RUNNING_LOCKED after boot, so use Dev_Phone for scripted checks.
+- `app-ads.txt` is live on oktayshakirov.com with pub-5852582960793521.
+- Found, Oktay to fix in RevenueCat's paywall editor: the paywall was copied from Drone Pal. Its feature list
+  is Drone Pal's (forecast, camera tutorials, locations, map), it shows "40% OFF" (lifetime is about 16% under
+  a year of monthly) and "3-Day Trial", and Privacy and Terms both open Drone Pal's privacy policy.
+- Open: APP_STORE_ID in `src/contact/contact.ts` (App Store Connect "Apple ID") so "Rate Muscle Pal" can
+  fall back to the review page; TikTok and YouTube rows show "Soon" until the accounts exist.

@@ -1,10 +1,10 @@
 import { useScheme } from "../src/theme";
 import { router } from "expo-router";
 import { ScrollView } from "react-native";
-import Constants from "expo-constants";
 import { Text } from "../src/components/Text";
 import { Screen, Heading, IconButton, Card, s } from "../src/components/ui";
 import { contentUrl } from "../src/content/updates";
+import { appVersion } from "../src/version";
 export default function Privacy() {
   useScheme();
   return (
@@ -74,7 +74,7 @@ export default function Privacy() {
           export first if you want to keep it.
         </Text>
         <Text style={s.footnote}>
-          Applies to app version {Constants.expoConfig?.version ?? "0.1.0"}.
+          Applies to app version {appVersion}.
           {__DEV__ ? " Development builds also connect to the developer's local server." : ""}
         </Text>
       </ScrollView>

@@ -251,6 +251,21 @@ test("checks are throttled, and the same version is not downloaded twice", async
   assert.deepEqual(fetched, ["current.json"]);
 });
 
+test("a failed check is retried after the retry window, not the full interval", async () => {
+  const bundled = makeBundled();
+  const { io, publish, url } = setup();
+  const next = withNewExercise(bundled);
+  const cfg = (now: number) => ({ ...config(url, now), retry: 5_000 });
+  // Host not reachable yet: nothing published.
+  assert.equal((await checkForUpdate(io, bundled, cfg(1_000))).status, "failed");
+  assert.equal((await checkForUpdate(io, bundled, cfg(5_000))).status, "throttled");
+  publish(next.release, next.files);
+  const result = await checkForUpdate(io, bundled, cfg(6_000));
+  assert.equal(result.status, "staged");
+  // A success keeps the normal interval.
+  assert.equal((await checkForUpdate(io, bundled, cfg(20_000))).status, "throttled");
+});
+
 test("a corrupted file rejects the whole release and keeps what was running", async () => {
   const bundled = makeBundled();
   const { io, publish, url } = setup();

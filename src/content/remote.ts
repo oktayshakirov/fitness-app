@@ -81,6 +81,8 @@ export interface UpdateConfig {
   baseUrl: string;
   /** Minimum time between network checks, in milliseconds. */
   interval: number;
+  /** After a failed check (offline, host down), the next one may run this soon. Defaults to interval. */
+  retry?: number;
   now: number;
   force?: boolean;
 }
@@ -560,6 +562,9 @@ export async function checkForUpdate(
     return { status: "staged", version: target, downloaded };
   } catch (e) {
     clearTmp(io);
+    // Verified files stay in files/, so the retry only fetches what is still missing.
+    const retry = Math.min(config.retry ?? config.interval, config.interval);
+    writeState(io, { ...readState(io), lastCheck: config.now - config.interval + retry });
     return {
       status: "failed",
       error: e instanceof Error ? e.message : String(e),
