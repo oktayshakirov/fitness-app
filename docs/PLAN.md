@@ -763,3 +763,18 @@ billing. The 1.1.x builds ship Play Billing 8.3.0 through RevenueCat (react-nati
 purchases-hybrid-common 19.17.0 -> purchases 10.30.0 -> billingclient 8.3.0, checked with
 `./gradlew :app:dependencies`). Android moved to 1.1.1 / versionCode 4 with `android.version` in app.json;
 iOS stays 1.1.0 build 3.
+
+## 2026-11-12 — Remote content is live on Cloudflare
+
+M6 was built and tested on 2026-10-30 but never switched on (no hosting, URL unset). Now:
+- Hosting: `muscle-pal-content`, an assets-only Cloudflare Worker on Oktay's account (the one with the Drone
+  Pal weather proxy), serving `fitness-automation/releases` at https://muscle-pal-content.oktayshakirov.workers.dev/.
+  Config `fitness-automation/hosting/wrangler.jsonc`; deploy and rollback in that repo's README "Hosting".
+  Workers instead of Pages: Cloudflare's current recommendation, same free static-asset terms.
+- App: `src/content/updates.ts` defaults to that URL, so builds from now on check for content.
+- Checked: every hosted file of a 40-file sample is byte-identical; the app's own `checkForUpdate` run from
+  Node against the live Worker says `current` (hosted v0.3.0 = bundled), and against a temporary Worker
+  with the v0.3.1 fixture it staged v0.3.1 and downloaded only the 8 new files (Worker deleted afterwards).
+  Cloudflare's bot check answers 403 to Python's user agent; okhttp and CFNetwork user agents get 200.
+- Not checked on a phone yet: the M6 Maestro flow ran against a local server, not Cloudflare.
+- Builds made before this commit (1.0.x, and any 1.1.x built earlier) never check; build from this commit.

@@ -4,10 +4,13 @@ import { bundled } from "./index";
 import { checkDeviceUpdate } from "./device";
 
 /**
- * Hosting base URL (directory holding current.json). Unset means no remote
- * checks: the app runs on the bundled release, as before M6.
+ * Hosting base URL (directory holding current.json): the muscle-pal-content Worker on Cloudflare,
+ * deployed from fitness-automation/hosting. EXPO_PUBLIC_CONTENT_URL overrides it (a local fixture);
+ * set it to an empty string to run on the bundled release only.
  */
-const raw = process.env.EXPO_PUBLIC_CONTENT_URL;
+const raw =
+  process.env.EXPO_PUBLIC_CONTENT_URL ??
+  "https://muscle-pal-content.oktayshakirov.workers.dev/";
 export const contentUrl = raw ? (raw.endsWith("/") ? raw : raw + "/") : null;
 /** Network checks at most this often; every launch/foreground in development. */
 const interval = __DEV__ ? 0 : 6 * 60 * 60 * 1000;

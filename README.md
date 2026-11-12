@@ -95,14 +95,16 @@ workspace.
 
 ## Remote content (M6)
 
-With `EXPO_PUBLIC_CONTENT_URL` set to a directory holding `current.json` (the layout
-`fitness-automation/releases` already has), the app checks it on launch and on foreground
+Content is hosted at `https://muscle-pal-content.oktayshakirov.workers.dev/`, a Cloudflare Worker that
+serves `fitness-automation/releases` (deploy and rollback: that repo's README "Hosting"). The address is in
+`src/content/updates.ts`; `EXPO_PUBLIC_CONTENT_URL` overrides it (a local fixture), and an empty value turns
+remote content off. The app checks it on launch and on foreground
 (every time in development, at most every 6 hours in release builds). A newer release is
 downloaded, checked against `current.json` and every file's size and sha256, and staged.
 It takes effect at the next app start, never mid-session; Profile offers a restart. Files the
 bundle or an earlier download already has (same sha256) are not fetched again. Startup uses
 the active release, then the previous one, then the bundle; a host that points back at the
-bundled version returns the app to its bundle. Unset URL = bundled content only. Logic and
+bundled version returns the app to its bundle. Logic and
 tests: `src/content/remote.ts`, `tests/remote.test.ts`; device IO: `src/content/device.ts`.
 
 Local end-to-end check (no hosting):
