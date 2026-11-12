@@ -7,7 +7,7 @@ import { openAdPrivacyOptions, useAds } from "../ads/ads";
 import { routineLimits } from "../storage/routines";
 import { colors } from "../theme";
 
-const perks = ["No ads", "Home screen widget", "Unlimited routines"];
+const perks = ["No ads", "Common mistakes on every exercise", "Home screen widget", "Unlimited routines"];
 
 export function ProSection() {
   const { purchased, plan, devPro } = usePro();
