@@ -1,9 +1,9 @@
 import { ActionSheetIOS, Alert, Linking, Platform } from "react-native";
 import * as Clipboard from "expo-clipboard";
-import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as MailComposer from "expo-mail-composer";
 import * as StoreReview from "expo-store-review";
+import { appVersion } from "../version";
 
 const APP_NAME = "Muscle Pal";
 const CONTACT_EMAIL = "muscle-pal@oktayshakirov.com";
@@ -13,7 +13,6 @@ const APP_STORE_ID = "";
 export const TIKTOK_URL = "";
 export const YOUTUBE_URL = "";
 
-const appVersion = Constants.expoConfig?.version ?? "unknown";
 
 function openMailto(subject: string, body: string) {
   return Linking.openURL(

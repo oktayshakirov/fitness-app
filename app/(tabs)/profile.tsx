@@ -6,7 +6,6 @@ import * as DocumentPicker from "expo-document-picker";
 import * as Sharing from "expo-sharing";
 import { Directory, File, Paths } from "expo-file-system";
 import * as Haptics from "expo-haptics";
-import Constants from "expo-constants";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { motion } from "../../src/components/motion";
 import { reloadAppAsync } from "expo";
@@ -36,6 +35,7 @@ import { ProSection } from "../../src/components/ProSection";
 import { maxBackupBytes, parseBackup } from "../../src/storage/backup";
 import { plural } from "../../src/storage/format";
 import { colors, tabBarSpace, useScheme } from "../../src/theme";
+import { appVersion } from "../../src/version";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 /** Removes backup copies that Export wrote to this app's cache. */
 function clearExportedBackups() {
@@ -357,7 +357,7 @@ export default function Profile() {
           )}
           <Row
             title="App version"
-            value={Constants.expoConfig?.version ?? "0.1.0"}
+            value={appVersion}
             icon="information-circle-outline"
           />
         </Group>
