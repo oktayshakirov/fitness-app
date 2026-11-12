@@ -65,13 +65,15 @@ Like the widgets it shows a Pro message when `isPro` is false. Running it needs 
 (Xcode > Settings > Components) and a paired iPhone + Apple Watch simulator. The phone side is a local Expo module,
 `modules/watch-connectivity` (pod `MusclePalWatchLink`: a pod named WatchConnectivity would shadow Apple's framework).
 
-## Ads and Pro (M7, held back)
+## Ads and Pro (M7)
 
-Version 1.0 ships without ads or purchases; every Pro feature is unlocked (`src/pro/pro.ts` is a stub).
-The full AdMob + RevenueCat version is commit c6e2505. To bring it back: `git revert` the commit that
-removed it ("Ship 1.0 without ads and purchases"), `npm install`, then set the AdMob IDs in `app.json` and
-`src/ads/ads.ts` and the RevenueCat keys in `EXPO_PUBLIC_REVENUECAT_IOS_KEY` /
-`EXPO_PUBLIC_REVENUECAT_ANDROID_KEY`. TikTok, YouTube and App Store links are in `src/contact/contact.ts`.
+Development builds use Google's test ads; release builds use the real units. AdMob app IDs are in `app.json`,
+banner units in `src/ads/ads.ts`. RevenueCat's public SDK keys are in `src/pro/pro.ts` (an
+`EXPO_PUBLIC_REVENUECAT_IOS_KEY` / `EXPO_PUBLIC_REVENUECAT_ANDROID_KEY` overrides them); the `default`
+offering sells `musclepal_monthly` and `musclepal_lifetime` through RevenueCat's paywall. A key that does not
+match the platform (`appl_` on iOS, `goog_` on Android) turns purchases off instead of failing at launch.
+Development builds have a "Pro plan (dev)" switch in Profile. TikTok,
+YouTube and App Store links are constants in `src/contact/contact.ts`.
 
 ## Approved offline content
 

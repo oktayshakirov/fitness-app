@@ -30,7 +30,15 @@ export default function Privacy() {
           </Text>
         </Card>
         <Text style={s.text}>
-          This version has no ads, analytics or purchases.
+          The free plan shows banner ads from Google AdMob. To serve them,
+          Google may use your advertising ID and IP address. In the EU and UK
+          you choose whether ads are personalized, and on iPhone you choose
+          whether tracking is allowed. Your workouts are never shared with ad
+          networks. Muscle Pal Pro has no ads.
+        </Text>
+        <Text style={s.text}>
+          Purchases go through Apple or Google, and RevenueCat records which
+          plan is active using an anonymous ID. We never see your card details.
         </Text>
         <Text style={s.text}>
           The home screen widget uses your recovery data on this device only. If you use the Apple Watch app, your

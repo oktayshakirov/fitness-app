@@ -27,6 +27,7 @@ import { dayKey, dayLabel, monthDays, streaks } from "../../src/storage/calendar
 import { plural, setsSummary } from "../../src/storage/format";
 import type { LogEntry } from "../../src/storage/types";
 import { colors, tabBarSpace, useScheme } from "../../src/theme";
+import { AdBanner } from "../../src/components/AdBanner";
 export { ScreenError as ErrorBoundary } from "../../src/components/ErrorScreen";
 function EntryRow({ entry }: { entry: LogEntry }) {
   const { model, units } = useSettings();
@@ -148,6 +149,7 @@ export default function History() {
   const dayExercises = new Set(dayEntries.map((e) => e.exerciseId)).size;
   return (
     <Screen>
+      <AdBanner />
       <Heading
         eyebrow="Your training"
         title="History"
