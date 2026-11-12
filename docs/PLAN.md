@@ -754,3 +754,12 @@ Reverted 313ba42, so the c6e2505 ads + Pro code is live again on top of light mo
 - Version 1.1.0, iOS build 3, Android versionCode 3. Native folders regenerated with prebuild.
 - Checked: typecheck, 79 unit tests, prebuild + pod install. Not checked: a device build, real purchases,
   real ad fill (needs a published AdMob GDPR message and approved units).
+
+## 2026-11-12 — Android 1.1.1 (versionCode 4): Play Billing warning
+
+Play Console flagged versionCode 2 (1.0.1): "Play Billing Library version AIDL, update to at least 8.0.0".
+That build declared the BILLING permission with no billing library in it, so Play read it as the old AIDL
+billing. The 1.1.x builds ship Play Billing 8.3.0 through RevenueCat (react-native-purchases 10.16.0 ->
+purchases-hybrid-common 19.17.0 -> purchases 10.30.0 -> billingclient 8.3.0, checked with
+`./gradlew :app:dependencies`). Android moved to 1.1.1 / versionCode 4 with `android.version` in app.json;
+iOS stays 1.1.0 build 3.
