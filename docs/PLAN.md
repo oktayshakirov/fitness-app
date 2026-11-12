@@ -739,3 +739,19 @@ Next steps, in the order to discuss:
 3. The monetized version: revert 313ba42 to bring back ads and Pro (c6e2505), then the AdMob, RevenueCat and
    privacy-page work listed under "M7: ads, Pro and widgets". Decide whether 1.0 users keep the widget.
 4. Ideas not started: logging from the watch (needs two-way sync), localization.
+
+## 2026-11-12 — Version 1.1.0: ads and Pro are back
+
+Reverted 313ba42, so the c6e2505 ads + Pro code is live again on top of light mode, iPad and the watch app.
+- AdMob: app IDs in `app.json` (iOS `~8420902067`, Android `~2576889307`), banner units in `src/ads/ads.ts`.
+- RevenueCat: keys in `src/pro/pro.ts`. Oktay set up the `default` offering like Drone Pal's, with
+  `musclepal_monthly` (`$rc_monthly`) and `musclepal_lifetime` (`$rc_lifetime`) and a paywall; checked against
+  RevenueCat's offerings API with the iOS key. Any active entitlement counts as Pro, and the paywall is
+  `presentPaywall` (current offering), so the code does not depend on the entitlement's name.
+- The Android key given was the `appl_` iOS key; Android needs its `goog_` key, and until it is set Android
+  purchases are off (banner ads still run).
+- 1.0 users lose the free widget and routines past 3 unless they buy Pro (the open question from 1.0;
+  defaulted to the planned gating).
+- Version 1.1.0, iOS build 3, Android versionCode 3. Native folders regenerated with prebuild.
+- Checked: typecheck, 79 unit tests, prebuild + pod install. Not checked: a device build, real purchases,
+  real ad fill (needs a published AdMob GDPR message and approved units).

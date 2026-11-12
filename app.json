@@ -2,7 +2,7 @@
   "expo": {
     "name": "Muscle Pal",
     "slug": "fitness-app",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "scheme": "fitness",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
@@ -22,7 +22,7 @@
           "group.com.shadev.musclepal"
         ]
       },
-      "buildNumber": "2"
+      "buildNumber": "3"
     },
     "android": {
       "package": "com.shadev.musclepal",
@@ -40,7 +40,7 @@
         "android.permission.SCHEDULE_EXACT_ALARM",
         "com.android.vending.BILLING"
       ],
-      "versionCode": 2,
+      "versionCode": 3,
       "icon": "./assets/brand/icon-android.png"
     },
     "plugins": [
@@ -80,6 +80,19 @@
           "icon": "./assets/brand/notification-icon.png",
           "color": "#C8FA3C",
           "enableRemoteNotifications": false
+        }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-5852582960793521~2576889307",
+          "iosAppId": "ca-app-pub-5852582960793521~8420902067"
+        }
+      ],
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": "Allow this to see ads that are more relevant to you. Your workout data is never used for ads."
         }
       ],
       "expo-mail-composer",
