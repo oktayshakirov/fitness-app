@@ -10,7 +10,7 @@ export interface Routine {
   created: number;
   updated: number;
 }
-export const routineLimits = { name: 60, exercises: 30, freeRoutines: 3 } as const;
+export const routineLimits = { name: 60, exercises: 30, freeRoutines: 2 } as const;
 /** Routines beyond the free allowance need Pro; ones already saved always keep working. */
 export function canAddRoutine(count: number, isPro: boolean) {
   return isPro || count < routineLimits.freeRoutines;

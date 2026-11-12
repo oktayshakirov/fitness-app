@@ -31,8 +31,8 @@ test("the widget's streak ends after a full day without a log", () => {
 });
 
 test("the free plan allows three routines and Pro has no limit", () => {
-  assert.equal(canAddRoutine(2, false), true);
-  assert.equal(canAddRoutine(3, false), false);
+  assert.equal(canAddRoutine(1, false), true);
+  assert.equal(canAddRoutine(2, false), false);
   assert.equal(canAddRoutine(40, true), true);
 });
 

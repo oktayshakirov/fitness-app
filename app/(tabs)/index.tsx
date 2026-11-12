@@ -134,7 +134,7 @@ export default function Home() {
     }
     Alert.alert(
       "Unlimited routines with Pro",
-      `The free plan includes ${routineLimits.freeRoutines} routines. Pro removes the limit and ads, and adds the home screen widget.`,
+      `The free plan includes ${routineLimits.freeRoutines} routines. Pro removes the limit and ads, and adds the home screen widget and common mistakes for every exercise.`,
       [
         { text: "Not now", style: "cancel" },
         { text: "See Pro", onPress: () => void showPaywall() },

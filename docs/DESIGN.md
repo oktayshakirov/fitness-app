@@ -97,8 +97,10 @@ selected for the next exercise opened in the session. A "0.5×" slow-motion togg
 play/pause on the video (lime when on; also kept for the session). Title, muscles worked as chips (red primary, orange
 secondary) + a mini body thumbnail with those muscles tinted. Sticky bottom bar: a round
 timer button (starts the rest timer; its icon is lime while resting) and the big accent
-**Log** button. Sections: How to (numbered steps), Cues, Common mistakes,
-Breathing — collapsible, first one open. Last-done line ("Last: 3 × 10 · 40 kg · Tue"), and
+**Log** button. Guide (`src/components/ExerciseGuide.tsx`), always open, one card per
+part with a lime icon badge: How to (numbered steps), Cues (lime checks), Common mistakes (red crosses),
+Breathing. Common mistakes is a Pro perk: free users see a PRO badge, grey bars shaped like the hidden
+lines (the text is not rendered), and "Unlock with Pro". "Your sessions" stays collapsible. Last-done line ("Last: 3 × 10 · 40 kg · Tue"), and
 once there are two or more sessions with sets, a best-set line ("Best set: 8 reps · 60 kg").
 Close is an X (the header's chevrons are previous/next exercise); a star beside them saves
 the exercise to favourites (lime when on). The best-set line adds an Epley one-rep-max estimate
@@ -173,7 +175,7 @@ cross-fade and the toast countdown are off then too.
 - Toast: slides up, fades down; a thin lime line counts down the 10 s Undo window.
 - Home: the recovery bar eases to its value; Front/Back cross-fades; the muscle row fades in.
 - Exercise detail: the info block slides in from the direction of the previous/next move;
-  section chevrons rotate, content fades in, cards below glide.
+  the sessions chevron rotates, content fades in, cards below glide.
 - Exercises: the quick-log "+" pops into a check for a moment after logging.
 - Log sheet: added sets slide in, removed ones fade out, the note and buttons glide.
 - History: months slide in from the side you paged to; the day list fades in; rows glide into

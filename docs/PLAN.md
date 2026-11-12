@@ -798,3 +798,15 @@ M6 was built and tested on 2026-10-30 but never switched on (no hosting, URL uns
   a year of monthly) and "3-Day Trial", and Privacy and Terms both open Drone Pal's privacy policy.
 - Open: APP_STORE_ID in `src/contact/contact.ts` (App Store Connect "Apple ID") so "Rate Muscle Pal" can
   fall back to the review page; TikTok and YouTube rows show "Soon" until the accounts exist.
+
+## 2026-11-12 — Pro perk: common mistakes; free plan keeps 2 routines
+
+Oktay's calls: free plan 2 routines (was 3); the paywall's "40% OFF" stays (lifetime is priced as a discount
+on its usual price); the RevenueCat paywall copy and links are fixed on his side.
+- Exercise detail: How to, Cues, Common mistakes and Breathing are always open, as cards with icon badges
+  (`src/components/ExerciseGuide.tsx`). Common mistakes is Pro-only: free users get redacted bars, a PRO
+  badge and "Unlock with Pro" (the paywall). Pro perks list and the routine-limit alert mention it.
+- Existing free users with more than 2 routines keep them; they only cannot add another.
+- "Rate Muscle Pal" falls back to the App Store review page (Apple ID 6833173152). TikTok and YouTube rows
+  link to @muscle_pal (accounts to be created by Oktay).
+

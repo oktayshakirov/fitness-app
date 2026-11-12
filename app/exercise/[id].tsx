@@ -34,6 +34,7 @@ import {
 } from "../../src/content";
 import type { CameraView, Muscle } from "../../src/content/types";
 import { MuscleIcon } from "../../src/components/MuscleIcon";
+import { ExerciseGuide } from "../../src/components/ExerciseGuide";
 import { getRoutines, updateSettings, useEntries, useSettings } from "../../src/storage/store";
 import { oneRepMax } from "../../src/storage/progress";
 import { toDisplayWeight } from "../../src/storage/units";
@@ -388,10 +389,7 @@ export default function ExerciseDetail() {
                 startWeight={heaviestLogged ? toDisplayWeight(heaviestLogged, units) : undefined}
               />
             )}
-            <Section title="How to" lines={exercise.steps} numbered initial />
-            <Section title="Cues" lines={exercise.cues} />
-            <Section title="Common mistakes" lines={exercise.mistakes} />
-            <Section title="Breathing" lines={[exercise.breathing]} />
+            <ExerciseGuide exercise={exercise} />
             {history.length > 1 && (
               <Section
                 title={`Your sessions (${history.length})`}

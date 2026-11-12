@@ -114,7 +114,7 @@ AI plan builder, widgets.
 
 - **Free with ads.** One small banner above the tab bar on Exercises and History. **Never** ads on the
   exercise video, the Log sheet or onboarding. No full-screen ads.
-- **Muscle Pal Pro:** no ads, home screen widget, unlimited routines (free plan: 3). Monthly and lifetime,
+- **Muscle Pal Pro:** no ads, home screen widget, unlimited routines (free plan: 2), common mistakes on every exercise. Monthly and lifetime,
   at Drone Pal's prices (€2.99 and €29.99).
 - Tech: AdMob with Google UMP consent and iOS App Tracking Transparency; RevenueCat with its paywall.
 
