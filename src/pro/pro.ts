@@ -14,7 +14,7 @@ const CACHE_KEY = "pro_cached";
 /** Public SDK keys (they ship inside the app). Apple keys start with appl_, Google keys with goog_. */
 const keys = {
   ios: process.env.EXPO_PUBLIC_REVENUECAT_IOS_KEY || "appl_lpisreVJnuXpjLGQZCZYGvuzHvE",
-  android: process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_KEY || "",
+  android: process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_KEY || "goog_qSLBwMEdMFTUxYDijpWIzzCgMIh",
 };
 const prefix = { ios: "appl_", android: "goog_" };
 const apiKey = Platform.OS === "ios" || Platform.OS === "android" ? keys[Platform.OS] : "";
