@@ -748,8 +748,7 @@ Reverted 313ba42, so the c6e2505 ads + Pro code is live again on top of light mo
   `musclepal_monthly` (`$rc_monthly`) and `musclepal_lifetime` (`$rc_lifetime`) and a paywall; checked against
   RevenueCat's offerings API with the iOS key. Any active entitlement counts as Pro, and the paywall is
   `presentPaywall` (current offering), so the code does not depend on the entitlement's name.
-- The Android key given was the `appl_` iOS key; Android needs its `goog_` key, and until it is set Android
-  purchases are off (banner ads still run).
+- Android key (`goog_`) added the same day and checked against the offerings API: same `default` offering.
 - 1.0 users lose the free widget and routines past 3 unless they buy Pro (the open question from 1.0;
   defaulted to the planned gating).
 - Version 1.1.0, iOS build 3, Android versionCode 3. Native folders regenerated with prebuild.
