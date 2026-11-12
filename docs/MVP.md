@@ -222,7 +222,7 @@ Contract = the content envelope + body view assets. Changes go into this file fi
   (white + alpha, app muscle ids, identical framing) and `hits_<view>.svg` (viewBox
   `0 0 800 1000`, one `<path id="<muscle>" data-muscle="<muscle>">` per region, no
   embedded image). Body views ship only after a human approval of the exact files.
-  Hosting upload is not done yet; it needs the user's go-ahead.
+  Hosting is live since 2026-11-12: Cloudflare Worker `muscle-pal-content` (see PLAN.md).
   **App change needed:** the approved leg press ships a `top` camera view (male and female);
   please add `"top"` to `CameraView` in `src/content/types.ts`. Kept as-is, not relabelled.
 
