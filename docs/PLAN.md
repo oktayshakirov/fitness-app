@@ -810,3 +810,34 @@ on its usual price); the RevenueCat paywall copy and links are fixed on his side
 - "Rate Muscle Pal" falls back to the App Store review page (Apple ID 6833173152). TikTok and YouTube rows
   link to @muscle_pal (accounts to be created by Oktay).
 
+
+## 2026-11-12 — Session end: 1.1 ready to build (handoff)
+
+State: `main` at b15dca8, everything pushed (fitness-automation at f380a02). iOS 1.1.0 build 3, Android 1.1.1
+versionCode 4 (`android.version` in app.json). This session: ads and Pro back (AdMob + RevenueCat, both keys
+checked against RevenueCat), Play Billing 8.3.0 confirmed, remote content live on Cloudflare, failed content
+checks retry after 30 min, SKAdNetwork IDs, platform version display, Common mistakes as a Pro perk in an
+always-open exercise guide, free plan 2 routines, App Store ID and @muscle_pal links. Release builds checked
+on the iOS simulator and the Dev_Phone emulator; 80 unit tests pass.
+
+Oktay, before or during the 1.1 upload:
+- Build both platforms from `main` (older builds never check for remote content). Native folders are
+  generated and up to date locally; after a `prebuild --clean`, rerun pod install with `LANG=en_US.UTF-8`.
+- RevenueCat paywall: copy and links fixed by Oktay; add "Common mistakes on every exercise" to its perks so
+  it matches Profile. "40% OFF" stays (his call).
+- AdMob: publish the GDPR consent message (no EU form appears until then); wait for the ad units' approval.
+- Stores: privacy answers (STORE.md "Privacy answers"), age-rating questionnaires (ads, in-app purchases),
+  Play ads declaration, developer website oktayshakirov.com (app-ads.txt is live), Terms of Use link in the
+  App Store description (STORE.md "Subscription rules").
+- Real-device check: sandbox purchase + restore on both platforms, the iOS tracking prompt, ad fill.
+- Create the TikTok and YouTube accounts @muscle_pal (the Profile rows already link there).
+
+Next steps, in the order to discuss:
+1. Whatever the 1.0/1.1 store reviews send back.
+2. Real-device results of the purchase/restore/consent check; fix anything found.
+3. M8 leftovers (STORE.md checklist): screenshots from a release build (iPhone, iPad, Watch, Android; free
+   plan now shows the banner), complications on a watch face and a real watch, VoiceOver/TalkBack and AX
+   text sizes, 60 fps on a mid-range Android phone. Web export of the library is optional.
+4. Content: new exercises go out with `core/publish.py` + `cd hosting && npx wrangler deploy` in
+   fitness-automation (README "Hosting"); prune old release folders well before 20,000 hosted files.
+5. Ideas not started: logging from the watch (needs two-way sync), localization.
