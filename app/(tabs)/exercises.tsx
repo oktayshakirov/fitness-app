@@ -15,6 +15,7 @@ import { Icon } from "../../src/components/Icon";
 import * as Haptics from "expo-haptics";
 import Animated, {
   FadeIn,
+  FadeOut,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
@@ -23,7 +24,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { PressableScale, motion, settle, usePressScale } from "../../src/components/motion";
-import { Screen, Heading, Chip, Empty, PillButton, s } from "../../src/components/ui";
+import { Screen, Heading, Chip, Empty, IconButton, PillButton, s } from "../../src/components/ui";
 import { Text, TextInput } from "../../src/components/Text";
 import { useToast } from "../../src/components/Toast";
 import {
@@ -146,6 +147,15 @@ export default function Library() {
   const [muscle, setMuscle] = useState(params.muscle ?? "");
   const [equipment, setEquipment] = useState("");
   const [query, setQuery] = useState("");
+  // Search hides behind the header icon. It opens focused, and closes from the icon or once it
+  // loses focus while empty; a typed query keeps it on screen so the filter stays visible.
+  const [searching, setSearching] = useState(false);
+  const searchOpen = searching || !!query;
+  function closeSearch() {
+    setQuery("");
+    setSearching(false);
+    Keyboard.dismiss();
+  }
   const muscleStrip = useRef<ComponentRef<typeof ScrollView>>(null);
   const [favoritesOnly, setFavoritesOnly] = useState(false);
   const favoriteSet = useMemo(() => new Set(favorites), [favorites]);
@@ -166,7 +176,7 @@ export default function Library() {
   }, [muscle, listWidth]);
   const filtering = !!(muscle || equipment || query || favoritesOnly);
   function clearFilters() {
-    setQuery("");
+    closeSearch();
     setEquipment("");
     setFavoritesOnly(false);
     chooseMuscle("");
@@ -179,6 +189,7 @@ export default function Library() {
     if (params.at && params.at !== lastLink.current) {
       lastLink.current = params.at;
       setQuery("");
+      setSearching(false);
       setEquipment("");
       setFavoritesOnly(false);
     }
@@ -219,34 +230,53 @@ export default function Library() {
         eyebrow="Library"
         title={muscle ? label(muscle) : "Exercises"}
         subtitle={`${filtered.length} ${filtered.length === 1 ? "exercise" : "exercises"}`}
-        action={filtering ? <PillButton title="Clear" label="Clear filters" onPress={clearFilters} /> : undefined}
+        action={
+          <View style={[s.row, { gap: 8 }]}>
+            {filtering && <PillButton title="Clear" label="Clear filters" onPress={clearFilters} />}
+            <IconButton
+              name={searchOpen ? "close" : "search"}
+              label={searchOpen ? "Close search" : "Search exercises"}
+              onPress={() => (searchOpen ? closeSearch() : setSearching(true))}
+            />
+          </View>
+        }
       />
       <View style={s.column}>
-        <View style={styles.search}>
-          <Icon name="search" size={20} color={colors.secondary} />
-          <TextInput
-            accessibilityLabel="Search exercises"
-            placeholder="Search name, muscle, equipment"
-            placeholderTextColor={colors.secondary}
-            value={query}
-            onChangeText={setQuery}
-            autoCorrect={false}
-            autoCapitalize="none"
-            submitBehavior="blurAndSubmit"
-            returnKeyType="search"
-            style={[s.text, { flex: 1, minHeight: 52 }]}
-          />
-          {!!query && (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Clear search"
-              hitSlop={12}
-              onPress={() => setQuery("")}
-            >
-              <Icon name="close-circle" size={18} color={colors.secondary} />
-            </Pressable>
-          )}
-        </View>
+        {searchOpen && (
+          <Animated.View
+            entering={FadeIn.duration(motion.fast)}
+            exiting={FadeOut.duration(motion.fast)}
+            style={styles.search}
+          >
+            <Icon name="search" size={20} color={colors.secondary} />
+            <TextInput
+              autoFocus={searching}
+              onBlur={() => {
+                if (!query) setSearching(false);
+              }}
+              accessibilityLabel="Search exercises"
+              placeholder="Search name, muscle, equipment"
+              placeholderTextColor={colors.secondary}
+              value={query}
+              onChangeText={setQuery}
+              autoCorrect={false}
+              autoCapitalize="none"
+              submitBehavior="blurAndSubmit"
+              returnKeyType="search"
+              style={[s.text, { flex: 1, minHeight: 52 }]}
+            />
+            {!!query && (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Clear search"
+                hitSlop={12}
+                onPress={() => setQuery("")}
+              >
+                <Icon name="close-circle" size={18} color={colors.secondary} />
+              </Pressable>
+            )}
+          </Animated.View>
+        )}
         <ScrollView
           ref={muscleStrip}
           horizontal

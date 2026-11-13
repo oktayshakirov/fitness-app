@@ -841,3 +841,21 @@ Next steps, in the order to discuss:
 4. Content: new exercises go out with `core/publish.py` + `cd hosting && npx wrangler deploy` in
    fitness-automation (README "Hosting"); prune old release folders well before 20,000 hosted files.
 5. Ideas not started: logging from the watch (needs two-way sync), localization.
+
+
+## 2026-11-13 — Banner gap, paywall timing, search behind an icon, body-map hint
+
+- Banner (`src/components/AdBanner.tsx`): no fixed 50 pt slot any more. The wrapper is as tall as the native
+  view, which stays 0x0 until an ad loads, so an unfilled request (new ad units awaiting approval, no fill,
+  offline) leaves no empty band above the heading. A first request that fails retries after 60 s. Test ads
+  stay `__DEV__`-only (`src/ads/ads.ts`); release builds use the real units and app IDs.
+- Paywall timing (`src/pro/nudge.ts`, `maybeShowPaywall` in `src/pro/pro.ts`): Home opens the paywall 1.5 s
+  after it comes into focus when due: free user on a device that can buy, at least 3 training days, then on
+  each new training-day milestone (3, 7, 14, 30, 60, 100) or every 14 days, never within 3 days of the last
+  one and at most once per launch. State in the `paywall_nudge` setting. Unit tests in `tests/nudge.test.ts`.
+- Exercises: the search field hides behind a search icon in the header. It opens focused; the icon (now a
+  close X) clears and hides it, and it hides itself when it loses focus while empty. A typed query keeps it
+  visible. Clear filters and links from other screens close it too.
+- Home body map: "Tap a muscle to see its exercises" sits under Front/Back, above the body, and fades out
+  (keeping its space, so the body does not move) once a muscle is selected.
+
