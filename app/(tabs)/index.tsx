@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AppState, Alert, Pressable, ScrollView, View, useWindowDimensions } from "react-native";
 import { router, useFocusEffect } from "expo-router";
 import { Icon } from "../../src/components/Icon";
@@ -15,14 +15,14 @@ import {
   Button,
   s,
 } from "../../src/components/ui";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import Animated, { FadeIn, FadeOut, useAnimatedStyle, withTiming } from "react-native-reanimated";
 import { BodyFigure } from "../../src/components/BodyFigure";
 import { PressableScale, ProgressBar, motion } from "../../src/components/motion";
 import { Avatar } from "../../src/components/Avatar";
 import { bodyFor, content, coverFor, exercises, label, mediaBackground } from "../../src/content";
 import { muscleIds, type Muscle } from "../../src/content/types";
 import { MuscleIcon } from "../../src/components/MuscleIcon";
-import { showPaywall, useIsPro } from "../../src/pro/pro";
+import { maybeShowPaywall, showPaywall, useIsPro } from "../../src/pro/pro";
 import { canAddRoutine, routineLimits } from "../../src/storage/routines";
 import { useEntries, useRoutines, useSettings } from "../../src/storage/store";
 import { doneOn } from "../../src/storage/routines";
@@ -110,6 +110,15 @@ export default function Home() {
     active: trained.has(dayKey(d)),
   }));
   const thisWeek = week.filter((d) => d.active);
+  // Now and then, after a few training days, Home offers Pro once the screen has settled.
+  const trainingDays = useRef(trained.size);
+  trainingDays.current = trained.size;
+  useFocusEffect(
+    useCallback(() => {
+      const timer = setTimeout(() => void maybeShowPaywall(trainingDays.current), 1500);
+      return () => clearTimeout(timer);
+    }, []),
+  );
   const goalMet = thisWeek.length >= weeklyGoal;
   // Exercises for fully recovered muscles, rested longest first.
   const suggestions = useMemo(
@@ -120,6 +129,11 @@ export default function Home() {
   const figure = body?.[side];
   const tints = Object.fromEntries(
     muscleIds.filter((m) => status[m].state !== "ready").map((m) => [m, stateColors[status[m].state]]),
+  );
+  // The body-map hint fades once a muscle is picked and comes back when the selection clears.
+  const hintStyle = useAnimatedStyle(
+    () => ({ opacity: withTiming(focused ? 0 : 1, { duration: motion.fast }) }),
+    [focused],
   );
   function select(muscle: Muscle | undefined) {
     if (!muscle && !focused) return;
@@ -337,6 +351,17 @@ export default function Home() {
                     ]}
                   />
                 </View>
+                {/* Keeps its space while hidden, so the body never shifts under the finger that tapped it. */}
+                <Animated.View
+                  style={hintStyle}
+                  pointerEvents="none"
+                  accessibilityElementsHidden={!!focused}
+                  importantForAccessibility={focused ? "no-hide-descendants" : "auto"}
+                >
+                  <Text style={[s.footnote, { textAlign: "center", marginTop: 10 }]}>
+                    Tap a muscle to see its exercises
+                  </Text>
+                </Animated.View>
                 {/* Front/Back cross-fade: the old view fades out on top while the new one fades in. */}
                 <Animated.View
                   key={side}
@@ -392,13 +417,7 @@ export default function Home() {
                       <Icon name="chevron-forward" size={18} color={colors.accentInk} />
                     </Pressable>
                   </Animated.View>
-                ) : (
-                  <Animated.View entering={FadeIn.duration(motion.fast)}>
-                    <Text style={[s.footnote, { textAlign: "center", marginTop: 12 }]}>
-                      Tap a muscle to see its exercises
-                    </Text>
-                  </Animated.View>
-                )}
+                ) : null}
               </View>
             </>
           )}

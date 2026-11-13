@@ -4,6 +4,7 @@ import * as Device from "expo-device";
 import Purchases, { type CustomerInfo } from "react-native-purchases";
 import RevenueCatUI from "react-native-purchases-ui";
 import { getMeta, setMeta } from "../storage/store";
+import { paywallDue, reachedMilestone, type NudgeState } from "./nudge";
 
 /**
  * RevenueCat: the "default" offering sells musclepal_monthly and musclepal_lifetime. The only thing on sale
@@ -89,6 +90,24 @@ export async function showPaywall() {
   } catch (error) {
     if (__DEV__) console.warn("[pro]", error);
   }
+}
+
+const NUDGE_KEY = "paywall_nudge";
+let nudgedThisLaunch = false;
+/**
+ * The paywall at a good moment instead of only behind a Pro feature (rules in `nudge.ts`). Home calls
+ * this when it comes into focus; nothing happens for Pro users, on devices that can't buy, or a
+ * second time in one launch.
+ */
+export async function maybeShowPaywall(trainingDays: number) {
+  if (nudgedThisLaunch || !available || state.purchased || state.devPro) return;
+  const saved = getMeta(NUDGE_KEY) as Partial<NudgeState> | undefined;
+  const nudge: NudgeState = { lastShown: saved?.lastShown ?? 0, milestone: saved?.milestone ?? 0 };
+  const now = Date.now();
+  if (!paywallDue(trainingDays, now, nudge)) return;
+  nudgedThisLaunch = true;
+  setMeta(NUDGE_KEY, { lastShown: now, milestone: Math.max(nudge.milestone, reachedMilestone(trainingDays)) });
+  await showPaywall();
 }
 
 export async function restorePurchases() {

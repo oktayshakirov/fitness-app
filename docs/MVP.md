@@ -11,7 +11,7 @@ recovering, find the right exercise with a correct-form 3D loop, and log it in o
 
 ## Principles
 
-- **Simple and fast.** One onboarding question, no account, no paywall. Every screen
+- **Simple and fast.** One onboarding question, no account, no paywall up front. Every screen
   reachable in ≤ 2 taps. Cold start to usable < 2 s; no spinners for local content.
 - **Clean dark UI** in the spirit of Apple Fitness / Health (see DESIGN.md).
 - **Correct form first.** Only approved exercises ship.
@@ -117,6 +117,10 @@ AI plan builder, widgets.
 - **Muscle Pal Pro:** no ads, home screen widget, unlimited routines (free plan: 2), common mistakes on every exercise. Monthly and lifetime,
   at Drone Pal's prices (€2.99 and €29.99).
 - Tech: AdMob with Google UMP consent and iOS App Tracking Transparency; RevenueCat with its paywall.
+- **When the paywall opens:** behind Pro features, and on its own from Home (`src/pro/nudge.ts`): only after
+  3 separate training days, right after a training-day milestone (3, 7, 14, 30, 60, 100) or every 14 days
+  otherwise, never twice within 3 days and at most once per launch.
+- **The banner takes no space until an ad loads**; an unfilled request leaves no gap and retries after a minute.
 
 ## Milestones (each ends with a check on iPhone + Android; screenshots in the PR note)
 
