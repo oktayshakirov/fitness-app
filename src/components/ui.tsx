@@ -181,6 +181,7 @@ export function IconButton({
   plain = false,
   color = colors.text,
   selected,
+  badge = false,
 }: {
   name: IconName;
   label: string;
@@ -190,6 +191,8 @@ export function IconButton({
   color?: string;
   /** For toggles such as a favourite star. */
   selected?: boolean;
+  /** A lime dot on the corner: something behind this button is active, e.g. a search. */
+  badge?: boolean;
 }) {
   return (
     <PressableScale
@@ -203,6 +206,21 @@ export function IconButton({
       style={[s.icon, plain && { backgroundColor: "transparent" }, { opacity: disabled ? 0.3 : 1 }]}
     >
       <Icon name={name} size={22} color={color} />
+      {badge && (
+        <View
+          style={{
+            position: "absolute",
+            top: 6,
+            right: 6,
+            width: 12,
+            height: 12,
+            borderRadius: 6,
+            borderWidth: 2,
+            borderColor: colors.surface,
+            backgroundColor: colors.accentInk,
+          }}
+        />
+      )}
     </PressableScale>
   );
 }
@@ -290,6 +308,9 @@ export function Chip({
   icon,
   ionicon,
   dot,
+  trailing,
+  expanded,
+  label,
 }: {
   title: string;
   selected: boolean;
@@ -298,11 +319,18 @@ export function Chip({
   /** A vector icon before the title, e.g. a star. */
   ionicon?: IconName;
   dot?: string;
+  /** A small icon after the title, e.g. a chevron on a chip that opens more filters. */
+  trailing?: IconName;
+  /** For chips that show and hide a panel. */
+  expanded?: boolean;
+  /** Spoken label when the visible title is not enough. */
+  label?: string;
 }) {
   return (
     <PressableScale
       accessibilityRole="button"
-      accessibilityState={{ selected }}
+      accessibilityLabel={label}
+      accessibilityState={{ selected, expanded }}
       onPress={() => {
         void Haptics.selectionAsync();
         onPress();
@@ -337,6 +365,7 @@ export function Chip({
       >
         {title}
       </Text>
+      {trailing && <Icon name={trailing} size={14} color={selected ? colors.onAccent : colors.secondary} />}
     </PressableScale>
   );
 }

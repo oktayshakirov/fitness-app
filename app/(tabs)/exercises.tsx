@@ -16,6 +16,7 @@ import * as Haptics from "expo-haptics";
 import Animated, {
   FadeIn,
   FadeOut,
+  LinearTransition,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
@@ -147,14 +148,24 @@ export default function Library() {
   const [muscle, setMuscle] = useState(params.muscle ?? "");
   const [equipment, setEquipment] = useState("");
   const [query, setQuery] = useState("");
-  // Search hides behind the header icon. It opens focused, and closes from the icon or once it
-  // loses focus while empty; a typed query keeps it on screen so the filter stays visible.
+  // Search hides behind the header icon. It opens focused; the X clears and closes it, and it also
+  // closes when it loses focus while empty. Scrolling the list tucks it away but keeps the query:
+  // a dot on the icon and the subtitle show it is still filtering, and the icon reopens it to edit.
   const [searching, setSearching] = useState(false);
-  const searchOpen = searching || !!query;
   function closeSearch() {
     setQuery("");
     setSearching(false);
     Keyboard.dismiss();
+  }
+  // The big muscle tiles fold into the "Muscles" chip once the list scrolls; the chip unfolds them.
+  // Any drag of the list counts, so this also works when a short result list cannot scroll.
+  const [musclesOpen, setMusclesOpen] = useState(true);
+  function onListDrag() {
+    if (searching) {
+      setSearching(false);
+      Keyboard.dismiss();
+    }
+    if (musclesOpen) setMusclesOpen(false);
   }
   const muscleStrip = useRef<ComponentRef<typeof ScrollView>>(null);
   const [favoritesOnly, setFavoritesOnly] = useState(false);
@@ -166,14 +177,15 @@ export default function Library() {
     () => new Set(entries.filter((e) => dayKey(e.timestamp) === today).map((e) => e.exerciseId)),
     [entries, today],
   );
-  // A link from Home or an exercise can pick a muscle far along the strip: bring it into view.
+  // A link from Home or an exercise can pick a muscle far along the strip: bring it into view, also
+  // when the strip unfolds again.
+  const index = muscleIds.indexOf(muscle as Muscle) + 1; // 0 is the All tile
+  const step = TILE_WIDTH + TILE_GAP;
+  const stripEnd = STRIP_PADDING * 2 + step * (muscleIds.length + 1) - TILE_GAP - listWidth;
+  const stripOffset = Math.max(0, Math.min(stripEnd, STRIP_PADDING + step * index - (listWidth - TILE_WIDTH) / 2));
   useEffect(() => {
-    const index = muscleIds.indexOf(muscle as Muscle) + 1; // 0 is the All tile
-    const step = TILE_WIDTH + TILE_GAP;
-    const end = STRIP_PADDING * 2 + step * (muscleIds.length + 1) - TILE_GAP - listWidth;
-    const centred = STRIP_PADDING + step * index - (listWidth - TILE_WIDTH) / 2;
-    muscleStrip.current?.scrollTo({ x: Math.max(0, Math.min(end, centred)), animated: true });
-  }, [muscle, listWidth]);
+    muscleStrip.current?.scrollTo({ x: stripOffset, animated: true });
+  }, [stripOffset]);
   const filtering = !!(muscle || equipment || query || favoritesOnly);
   function clearFilters() {
     closeSearch();
@@ -229,20 +241,21 @@ export default function Library() {
       <Heading
         eyebrow="Library"
         title={muscle ? label(muscle) : "Exercises"}
-        subtitle={`${filtered.length} ${filtered.length === 1 ? "exercise" : "exercises"}`}
+        subtitle={`${filtered.length} ${filtered.length === 1 ? "exercise" : "exercises"}${query && !searching ? ` for “${query}”` : ""}`}
         action={
           <View style={[s.row, { gap: 8 }]}>
             {filtering && <PillButton title="Clear" label="Clear filters" onPress={clearFilters} />}
             <IconButton
-              name={searchOpen ? "close" : "search"}
-              label={searchOpen ? "Close search" : "Search exercises"}
-              onPress={() => (searchOpen ? closeSearch() : setSearching(true))}
+              name={searching ? "close" : "search"}
+              label={searching ? "Close search" : query ? `Edit search, ${query}` : "Search exercises"}
+              badge={!searching && !!query}
+              onPress={() => (searching ? closeSearch() : setSearching(true))}
             />
           </View>
         }
       />
       <View style={s.column}>
-        {searchOpen && (
+        {searching && (
           <Animated.View
             entering={FadeIn.duration(motion.fast)}
             exiting={FadeOut.duration(motion.fast)}
@@ -250,7 +263,7 @@ export default function Library() {
           >
             <Icon name="search" size={20} color={colors.secondary} />
             <TextInput
-              autoFocus={searching}
+              autoFocus
               onBlur={() => {
                 if (!query) setSearching(false);
               }}
@@ -277,78 +290,102 @@ export default function Library() {
             )}
           </Animated.View>
         )}
-        <ScrollView
-          ref={muscleStrip}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-          style={styles.filters}
-          contentContainerStyle={styles.chips}
-        >
-          <MuscleTile selected={!muscle} onPress={() => chooseMuscle("")} />
-          {muscleIds.map((m) => (
-            <MuscleTile key={m} muscle={m} selected={muscle === m} onPress={() => chooseMuscle(m)} />
-          ))}
-        </ScrollView>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.filters}
-          contentContainerStyle={styles.chips}
-        >
-          {(favorites.length > 0 || favoritesOnly) && (
+        <Animated.View layout={LinearTransition.duration(motion.base)}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            style={styles.filters}
+            contentContainerStyle={styles.chips}
+          >
             <Chip
-              title="Favorites"
-              ionicon="star"
-              selected={favoritesOnly}
-              onPress={() => setFavoritesOnly(!favoritesOnly)}
+              title={muscle ? label(muscle) : "Muscles"}
+              label={`${muscle ? label(muscle) : "All muscles"}. ${musclesOpen ? "Hide" : "Show"} muscle groups`}
+              ionicon="body"
+              trailing={musclesOpen ? "chevron-up" : "chevron-down"}
+              selected={!!muscle}
+              expanded={musclesOpen}
+              onPress={() => setMusclesOpen(!musclesOpen)}
+            />
+            {(favorites.length > 0 || favoritesOnly) && (
+              <Chip
+                title="Favorites"
+                ionicon="star"
+                selected={favoritesOnly}
+                onPress={() => setFavoritesOnly(!favoritesOnly)}
+              />
+            )}
+            <Chip title="All" label="All equipment" selected={!equipment} onPress={() => setEquipment("")} />
+            {equipmentFilters.map((f) => (
+              <Chip
+                key={f.id}
+                title={f.title}
+                icon={f.icon && content.resolve(f.icon)}
+                selected={f.id === equipment}
+                onPress={() => setEquipment(f.id === equipment ? "" : f.id)}
+              />
+            ))}
+          </ScrollView>
+        </Animated.View>
+        {musclesOpen && (
+          <Animated.View
+            entering={FadeIn.duration(motion.base)}
+            exiting={FadeOut.duration(motion.fast)}
+            layout={LinearTransition.duration(motion.base)}
+          >
+            <ScrollView
+              ref={muscleStrip}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+              contentOffset={{ x: stripOffset, y: 0 }}
+              style={styles.filters}
+              contentContainerStyle={styles.chips}
+            >
+              <MuscleTile selected={!muscle} onPress={() => chooseMuscle("")} />
+              {muscleIds.map((m) => (
+                <MuscleTile key={m} muscle={m} selected={muscle === m} onPress={() => chooseMuscle(m)} />
+              ))}
+            </ScrollView>
+          </Animated.View>
+        )}
+      </View>
+      <Animated.View layout={LinearTransition.duration(motion.base)} style={{ flex: 1 }}>
+        <FlashList
+          data={filtered}
+          key={columns}
+          numColumns={columns}
+          keyExtractor={(e) => e.id}
+          extraData={cellState}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
+          onScrollBeginDrag={onListDrag}
+          contentContainerStyle={{ paddingHorizontal: 14 + gutter, paddingTop: 12, paddingBottom: tabBarSpace }}
+          ListEmptyComponent={
+            <Empty
+              icon={favoritesOnly && !favorites.length ? "star-outline" : "search"}
+              title={favoritesOnly && !favorites.length ? "No favorites yet" : "No exercises found"}
+              description={
+                favoritesOnly && !favorites.length
+                  ? "Tap the star on an exercise to keep it here."
+                  : "Try a different muscle, equipment or search."
+              }
+              action={filtering ? { title: "Clear filters", onPress: clearFilters } : undefined}
+            />
+          }
+          renderItem={({ item }) => (
+            <ExerciseCard
+              item={item}
+              model={model}
+              columns={columns}
+              done={doneToday.has(item.id)}
+              favorite={favoriteSet.has(item.id)}
+              onOpen={() => open(item)}
+              onLog={() => quickLog(item)}
             />
           )}
-          <Chip title="All" selected={!equipment} onPress={() => setEquipment("")} />
-          {equipmentFilters.map((f) => (
-            <Chip
-              key={f.id}
-              title={f.title}
-              icon={f.icon && content.resolve(f.icon)}
-              selected={f.id === equipment}
-              onPress={() => setEquipment(f.id === equipment ? "" : f.id)}
-            />
-          ))}
-        </ScrollView>
-      </View>
-      <FlashList
-        data={filtered}
-        key={columns}
-        numColumns={columns}
-        keyExtractor={(e) => e.id}
-        extraData={cellState}
-        keyboardShouldPersistTaps="handled"
-        keyboardDismissMode="on-drag"
-        contentContainerStyle={{ paddingHorizontal: 14 + gutter, paddingTop: 12, paddingBottom: tabBarSpace }}
-        ListEmptyComponent={
-          <Empty
-            icon={favoritesOnly && !favorites.length ? "star-outline" : "search"}
-            title={favoritesOnly && !favorites.length ? "No favorites yet" : "No exercises found"}
-            description={
-              favoritesOnly && !favorites.length
-                ? "Tap the star on an exercise to keep it here."
-                : "Try a different muscle, equipment or search."
-            }
-            action={filtering ? { title: "Clear filters", onPress: clearFilters } : undefined}
-          />
-        }
-        renderItem={({ item }) => (
-          <ExerciseCard
-            item={item}
-            model={model}
-            columns={columns}
-            done={doneToday.has(item.id)}
-            favorite={favoriteSet.has(item.id)}
-            onOpen={() => open(item)}
-            onLog={() => quickLog(item)}
-          />
-        )}
-      />
+        />
+      </Animated.View>
     </Screen>
   );
 }
