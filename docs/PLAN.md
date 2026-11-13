@@ -854,8 +854,14 @@ Next steps, in the order to discuss:
   each new training-day milestone (3, 7, 14, 30, 60, 100) or every 14 days, never within 3 days of the last
   one and at most once per launch. State in the `paywall_nudge` setting. Unit tests in `tests/nudge.test.ts`.
 - Exercises: the search field hides behind a search icon in the header. It opens focused; the icon (now a
-  close X) clears and hides it, and it hides itself when it loses focus while empty. A typed query keeps it
-  visible. Clear filters and links from other screens close it too.
+  close X) clears and hides it, and it hides itself when it loses focus while empty. Clear filters and links
+  from other screens close it too.
+- Exercises, space: dragging the list tucks away the search field (the query stays: a lime dot on the search
+  icon and "N exercises for “query”" in the subtitle; the icon reopens it to edit) and folds the muscle tiles
+  into a "Muscles" chip at the start of the equipment row (shows the chosen muscle, lime when one is picked,
+  chevron for open/closed); the chip unfolds the tiles below the row. Any drag counts, not a scroll offset,
+  so it also works when a short result list cannot scroll. New props: `IconButton` `badge`, `Chip`
+  `trailing`/`expanded`/`label`.
 - Home body map: "Tap a muscle to see its exercises" sits under Front/Back, above the body, and fades out
   (keeping its space, so the body does not move) once a muscle is selected.
 
