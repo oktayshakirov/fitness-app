@@ -10,8 +10,8 @@ const CONTACT_EMAIL = "muscle-pal@oktayshakirov.com";
 const ANDROID_PACKAGE = "com.shadev.musclepal";
 /** App Store Connect "Apple ID" of Muscle Pal; an empty social link shows as "Soon". */
 const APP_STORE_ID = "6833173152";
-export const TIKTOK_URL = "https://www.tiktok.com/@muscle_pal";
-export const YOUTUBE_URL = "https://www.youtube.com/@muscle_pal";
+export const TIKTOK_URL = "https://www.tiktok.com/@musclepal";
+export const YOUTUBE_URL = "https://www.youtube.com/@mymusclepal";
 
 
 function openMailto(subject: string, body: string) {
