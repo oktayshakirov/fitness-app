@@ -3,7 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "main": "index.js",
+  "expo": {
+    "autolinking": {
+      "android": {
+        "buildFromSource": ["expo-video"]
+      }
+    }
+  },
   "scripts": {
+    "postinstall": "node scripts/patch-expo-video.cjs",
     "start": "expo start --dev-client",
     "ios": "expo run:ios",
     "android": "expo run:android",

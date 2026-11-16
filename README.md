@@ -49,6 +49,17 @@ npx expo prebuild --clean --platform ios && LANG=en_US.UTF-8 npx expo run:ios --
 npx expo run:android --variant release --no-bundler
 ```
 
+### Android emulator video decoder
+
+`npm install` / `npm ci` applies `scripts/patch-expo-video.cjs`. It skips
+`c2.goldfish.h264.decoder` when another AVC decoder is available because this
+emulator decoder produced periodic black frames on Android 15. Other decoder
+names retain their default order; if no alternative exists the original list is
+preserved. Android autolinking builds `expo-video` from source so the patch is
+included. A native rebuild is required; an OTA JavaScript update cannot apply it.
+Review this patch when upgrading Expo Video. Verification is in the 2026-11-16
+entry of `docs/PLAN.md`.
+
 ## iPad and Apple Watch
 
 The app runs on iPad (`supportsTablet: true`, every orientation, resizable windows). Screens keep a phone-

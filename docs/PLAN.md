@@ -886,3 +886,31 @@ Next steps, in the order to discuss:
   Development overhead alone cannot explain that report. Awaiting comparison on
   this emulator; no video fixes applied yet.
 
+## 2026-11-16 — Android emulator black-frame fix
+
+- Reproduced periodic black frames in release playback on the Android 15
+  `Pixel_9_remixboy_` emulator using `c2.goldfish.h264.decoder`. Oktay has no
+  physical Android phone; physical-device reproduction remains unknown.
+- Switching TextureView to SurfaceView and attaching the video view before loading
+  did not fix it. Both experiments were reverted; the original videos and
+  ExerciseVideo component are unchanged. Upstream context:
+  https://github.com/androidx/media/issues/2059.
+- Added `scripts/patch-expo-video.cjs`, applied through npm postinstall, to skip
+  only `c2.goldfish.h264.decoder` when an alternative decoder exists. All other
+  codecs keep their default ordering, and the original list is retained if no
+  alternative exists. Android Expo autolinking explicitly builds expo-video from
+  source so the native patch is included instead of the prebuilt library.
+- Built and installed the release APK (local version 1.1.1) on the emulator;
+  logs confirm `c2.android.avc.decoder` is now selected. App data retained.
+  Google Play has not been updated: this native fix requires a new store build.
+- Verification: native release build, TypeScript, diff whitespace, patch syntax
+  and repeat-application checks passed. Recorded video-region analysis found
+  7 black frames in 122 baseline frames, versus 0 in 152 normal-speed frames,
+  0 in 73 half-speed frames, 0 in 54 side-angle frames, and 0 in 76 next-exercise
+  frames. Each fixed recording contains changing frames, confirming live playback.
+  Pause/resume was also exercised before switching exercises.
+- Recordings are at `/private/tmp/flicker-before.mp4` and
+  `/private/tmp/flicker-fixed-{normal,slow,side,next}.mp4`. Copying them into
+  work/qa was interrupted by the automatic approval review usage limit.
+  README documents the native rebuild and dependency-upgrade maintenance required.
+
