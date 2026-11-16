@@ -865,3 +865,14 @@ Next steps, in the order to discuss:
 - Home body map: "Tap a muscle to see its exercises" sits under Front/Back, above the body, and fades out
   (keeping its space, so the body does not move) once a muscle is selected.
 
+## 2026-11-16 — Android release playback baseline
+
+- Built the existing app with `NODE_ENV=production ./gradlew :app:assembleRelease
+  -PreactNativeArchitectures=arm64-v8a` and installed it with `adb install -r` on
+  emulator-5554. Version 1.1.1 launched successfully; installed package is not
+  debuggable and uses bundled JavaScript. Existing app data retained.
+- Oktay will test the reported workout-video flicker before any playback changes.
+  The current TextureView setting is unchanged. Its role in the flicker is only a
+  hypothesis; no root cause has been reproduced or confirmed. Earlier ADB access
+  failed because of sandbox restrictions, not because the emulator was absent.
+
