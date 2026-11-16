@@ -875,4 +875,14 @@ Next steps, in the order to discuss:
   The current TextureView setting is unchanged. Its role in the flicker is only a
   hypothesis; no root cause has been reproduced or confirmed. Earlier ADB access
   failed because of sandbox restrictions, not because the emulator was absent.
+- Follow-up: installed the same unchanged 1.1.1 release APK on the new
+  `Pixel_9_remixboy_` Android 15 emulator. It launched successfully with no
+  DEBUGGABLE flag. Installation initially failed for insufficient storage; backed
+  up `/data/local/tmp/app-debug.apk` to the Mac at
+  `/private/tmp/musclepal-emulator-previous-debug.apk` and removed only the old
+  temporary installer (206 MB), then installation succeeded. App data retained.
+- Oktay reports Google Play playback has black frames between video frames;
+  flicker frequency changes with playback speed and occurs in both themes.
+  Development overhead alone cannot explain that report. Awaiting comparison on
+  this emulator; no video fixes applied yet.
 
