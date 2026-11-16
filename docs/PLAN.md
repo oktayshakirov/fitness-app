@@ -914,3 +914,9 @@ Next steps, in the order to discuss:
   work/qa was interrupted by the automatic approval review usage limit.
   README documents the native rebuild and dependency-upgrade maintenance required.
 
+## 2026-11-16 — Android version bump
+
+- Bumped Android version to 1.1.2 and versionCode to 5 in app.json and the local
+  generated android/app/build.gradle for the next Google Play upload.
+- No new APK/AAB built or uploaded in this step; existing binaries remain 1.1.1 (4).
+

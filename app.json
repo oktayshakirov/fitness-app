@@ -40,8 +40,8 @@
         "android.permission.SCHEDULE_EXACT_ALARM",
         "com.android.vending.BILLING"
       ],
-      "version": "1.1.1",
-      "versionCode": 4,
+      "version": "1.1.2",
+      "versionCode": 5,
       "icon": "./assets/brand/icon-android.png"
     },
     "plugins": [
