@@ -98,3 +98,28 @@ Planned set, captured from a release build with clean demo data:
 - [x] Version 1.0.1, iOS build 2, Android versionCode 2: adds the BILLING permission so Play Console
   allows in-app products
 - [ ] Uploaded to Google Play and App Store Connect (Oktay, from 2026-11-10)
+
+## Wear OS release (Android 1.2.0)
+
+- [ ] Add the Wear OS form factor and release track in the existing Play app (Oktay, in progress 2026-11-18).
+- [ ] Capture actual Wear screenshots in `assets/screenshots/Android/Wear` after
+  checking app, Tile and complications on large and small round screens. Play
+  requires Wear screenshots for the Wear OS listing; use native emulator captures.
+- [ ] Pair phone + Wear emulators and verify Pro, non-Pro, fresh install, workout
+  sync, and recovery/streak updates with the phone disconnected. No physical Android
+  phone or watch is available; record emulator-only validation.
+- [ ] In Android Studio, generate a signed **wear** App Bundle with the same existing
+  upload key used for the phone. Do not generate another key. Confirm both installed
+  apps have matching certificates (including Play App Signing when testing via Play).
+- [ ] Upload the phone and watch AABs to their appropriate tracks; Oktay handles Play (in progress 2026-11-18).
+
+`targets/wear/build.gradle` reads `app.json`: versionName uses `expo.android.version`
+(or `expo.version`); watch versionCode is **1,000,000 + phone versionCode**. For this
+release: phone 6, watch 1000006, both versionName 1.2.0. Version codes must be unique
+and exceed any already uploaded for the corresponding delivery track.
+
+`./gradlew :wear:bundleRelease` verifies bundle generation but leaves it unsigned;
+Android Studio supplies release signing when generating the final upload bundle.
+Debug builds use the phone debug keystore. The watch summary does not add a developer
+backend; retain the existing ads/purchases privacy declarations and review current
+Play Data safety guidance rather than clearing the app's existing disclosures.

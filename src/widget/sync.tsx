@@ -24,6 +24,7 @@ function pushToWidgets(speed: RecoverySpeed, isPro: boolean) {
       // The Apple Watch app and its complications show the same summary.
       sendToWatch(json);
     } else if (Platform.OS === "android") {
+      sendToWatch(JSON.stringify(data));
       writeWidgetFile(data);
       const view = isPro ? widgetView(data, Date.now()) : null;
       for (const widgetName of ANDROID_WIDGETS)

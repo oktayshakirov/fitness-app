@@ -76,6 +76,43 @@ Like the widgets it shows a Pro message when `isPro` is false. Running it needs 
 (Xcode > Settings > Components) and a paired iPhone + Apple Watch simulator. The phone side is a local Expo module,
 `modules/watch-connectivity` (pod `MusclePalWatchLink`: a pod named WatchConnectivity would shadow Apple's framework).
 
+## Wear OS
+
+Android 1.2.0 adds a read-only Muscle Pal Pro companion for Wear OS 3+ (API 30).
+`targets/wear` contains the Kotlin / Wear Compose Material 3 app, recovery Tile and
+RANGED_VALUE, SHORT_TEXT and LONG_TEXT watch-face complications. No workouts are
+logged or tracked on the watch. Recovery boundaries and local streak expiry are
+included in timelines so glances keep updating while the phone is disconnected.
+
+The Android implementation of `modules/watch-connectivity` sends the widget JSON
+through Google's Wear Data Layer (`/recovery`, `data`). The watch caches it locally.
+A missing watch or Play Services does not block the phone. Both apps must use
+`com.shadev.musclepal` and matching signing certificates for sync.
+
+`plugins/withWearApp.js` registers `:wear` on every Android prebuild; source stays
+outside the generated `android/` directory. The watch resolves the Compose compiler
+from the root Kotlin version. From the project root:
+
+```sh
+npx expo prebuild -p android
+cd android
+./gradlew :app:assembleDebug :wear:assembleDebug :wear:testDebugUnitTest
+```
+
+Use Android Studio's Device Manager to pair an existing Play-enabled phone emulator
+with a Wear OS 5 round emulator; install both debug APKs and run the phone with Metro.
+Debug builds share `android/app/debug.keystore`. Add the Muscle recovery Tile and
+watch-face complication separately. See `docs/WEAR_OS.md` for the device checklist.
+
+Release builds are local in Android Studio: **Build > Generate Signed Bundle / APK >
+Android App Bundle > wear**, then choose the same existing upload key as the phone.
+The watch release variant is deliberately unsigned by Gradle unless Studio supplies
+signing; `./gradlew :wear:bundleRelease` builds an unsigned verification bundle.
+No EAS profile or new keystore is needed. `app.json`'s `expo.android.version` and
+`versionCode` are shared sources: phone 1.2.0 (6), watch 1.2.0 (1000006).
+The plugin preserves Android's separate versionName when prebuilding without changing
+the iOS release version. Confirm version codes exceed all previous Play uploads.
+
 ## Ads and Pro (M7)
 
 Development builds use Google's test ads; release builds use the real units. AdMob app IDs are in `app.json`,

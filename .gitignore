@@ -9,8 +9,8 @@ media/
 *.zip
 docs/references/
 
-ios/
-android/
+/ios/
+/android/
 work/
 *.tsbuildinfo
 

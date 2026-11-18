@@ -1,6 +1,5 @@
 {
-  "platforms": ["apple"],
-  "apple": {
-    "modules": ["WatchConnectivityModule"]
-  }
+  "platforms": ["apple", "android"],
+  "apple": { "modules": ["WatchConnectivityModule"] },
+  "android": { "modules": ["com.shadev.watchlink.WatchConnectivityModule"] }
 }

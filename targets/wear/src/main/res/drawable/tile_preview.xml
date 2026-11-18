@@ -1,0 +1,6 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item><shape android:shape="oval"><solid android:color="#000000" /></shape></item>
+    <item android:insetLeft="24dp" android:insetRight="24dp" android:insetTop="24dp" android:insetBottom="24dp">
+        <shape android:shape="oval"><stroke android:width="6dp" android:color="#C8FA3C" /><solid android:color="#000000" /></shape>
+    </item>
+</layer-list>

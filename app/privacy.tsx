@@ -41,9 +41,9 @@ export default function Privacy() {
           plan is active using an anonymous ID. We never see your card details.
         </Text>
         <Text style={s.text}>
-          The home screen widget uses your recovery data on this device only. If you use the Apple Watch app, your
-          iPhone sends it a short recovery summary (which muscles are resting and until when, and your streak)
-          directly, not through a server.
+          The home screen widget uses your recovery data on this device only. If you use the Apple Watch or Wear OS app, your
+          phone sends it a short recovery summary (which muscles are resting and until when, and your streak)
+          through the platform’s paired-watch connection. We do not receive this summary.
         </Text>
         <Text style={s.text}>
           {contentUrl

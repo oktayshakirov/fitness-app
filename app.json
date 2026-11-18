@@ -40,8 +40,8 @@
         "android.permission.SCHEDULE_EXACT_ALARM",
         "com.android.vending.BILLING"
       ],
-      "version": "1.1.2",
-      "versionCode": 5,
+      "version": "1.2.0",
+      "versionCode": 6,
       "icon": "./assets/brand/icon-android.png"
     },
     "plugins": [
@@ -185,7 +185,8 @@
             }
           ]
         }
-      ]
+      ],
+      "./plugins/withWearApp"
     ],
     "experiments": {
       "typedRoutes": true

@@ -920,3 +920,74 @@ Next steps, in the order to discuss:
   generated android/app/build.gradle for the next Google Play upload.
 - No new APK/AAB built or uploaded in this step; existing binaries remain 1.1.1 (4).
 
+
+## 2026-11-18 — Wear OS companion implementation
+
+- Reviewed Claude's `docs/WEAR_OS.md` brief. Oktay confirmed local Android Studio
+  builds and manual release signing; no EAS profile or new keystore was created.
+- Added Android `MusclePalWatchLink` to the local Expo module. It sends the latest
+  widget summary on `/recovery` using urgent DataItems; errors are best effort and
+  do not block the phone. Android widget sync also sends to the paired watch.
+- Added `targets/wear`: Kotlin / Wear Compose Material 3 read-only recovery app,
+  persistent summary cache, Data Layer listener, initial DataItem lookup, minute
+  refresh only while visible, recovery Tile and ranged/short/long complications.
+  Tile/complication timelines include each recovery boundary plus local streak
+  expiry, so they can advance without the phone. Both empty states gate Pro data.
+- Anchored generated native-project ignores to `/android/` and `/ios/` so local
+  module Android sources are included in version control.
+- Added prebuild plugin for the source-backed `:wear` module and Android-specific
+  versionName. Compose compiler uses Expo's resolved root Kotlin version (2.2.10
+  locally), not a hardcoded version. Debug signing uses the phone debug keystore;
+  certificate SHA-256 matched across both APKs. Wear release remains unsigned for
+  Android Studio's Generate Signed Bundle flow using the existing phone upload key.
+- Android version is 1.2.0 (6); watch is 1.2.0 (1000006), derived from app.json.
+  Updated the generated local phone Gradle version too. iOS version unchanged.
+- Updated README, STORE, the in-app Privacy copy, and the portfolio privacy-policy
+  source with paired Apple Watch / Wear OS summary wording; removed a duplicate
+  widget paragraph in that policy. No website deploy or store upload performed.
+- Verified: TypeScript, all 84 JS tests, six JVM recovery/timeline tests, phone and
+  watch debug APKs, watch release AAB generation, and watch Android lint (no errors).
+  Clean Android Expo prebuild and both debug builds also passed in an isolated copy
+  using the installed node_modules and SDK, with local Android module sources present.
+  This was not a fresh dependency install. Root Android Studio project was not cleaned.
+- Runtime: installed and launched on new `MusclePal_Wear_OS_5` large-round AVD
+  (Wear OS 5 / API 34 ARM64). Inspected no-data, non-Pro, Pro recovery, all-ready,
+  scrolling and a 384x384 round viewport override. These checks used explicit debug
+  SharedPreferences fixtures, not phone sync; screenshots are QA evidence, not Play
+  listing assets. No physical Android phone/watch is available.
+- Pairing blocked: existing `Pixel_9_remixboy_` phone AVD has ~318 MB free. Play
+  refused the official Pixel Watch companion installation for insufficient storage;
+  Android cache trimming recovered ~4 MB. No apps/data were erased. Finish pairing
+  after freeing emulator space (or using another suitably configured phone AVD).
+- Still unverified: actual Data Layer delivery and initial catch-up, live Pro changes,
+  Tile rendering/refresh, complication selection on a watch face, phone-off timeline
+  transitions, and a separate small-round AVD. Capture genuine Wear listing screenshots
+  after these pass. The watch AAB built unsigned; Oktay still needs to sign it locally
+  with the existing upload key and upload the release himself.
+
+## 2026-11-18 — Session end: Wear OS upload in progress (handoff)
+
+State: `main` has the Wear OS companion committed and pushed (the commit after 2b89033). Android 1.2.0
+versionCode 6, watch 1.2.0 versionCode 1000006 (derived from app.json). iOS unchanged (1.1.0 build 3).
+The portfolio privacy policy now covers the paired-watch summary (Apple Watch and Wear OS); pushed with this
+handoff. The brief Codex worked from is `docs/WEAR_OS.md`; what was built and verified is the entry above.
+
+Oktay, in progress now:
+- Google Play: Wear OS form factor and release track on the existing app, signed watch AAB (same upload key,
+  Android Studio "Generate Signed Bundle"), phone 1.2.0 (6) AAB alongside it. Wear OS screenshots are
+  required for the Wear listing; none are in `assets/screenshots/Android/Wear` yet (the Codex captures were
+  debug fixtures, not listing shots).
+
+Not verified yet (STORE.md "Wear OS release"):
+- Real phone-to-watch Data Layer sync. Emulator pairing was blocked by the phone AVD's storage (~318 MB
+  free); give the phone AVD more space or use a fresh one, then check sync, live Pro changes, Tile,
+  complications on a face, phone-off countdown and a small-round AVD.
+
+Next steps, in the order to discuss:
+1. Whatever Wear OS review sends back (clipped text on small round screens is the usual rejection).
+2. Finish the paired-emulator checks above; fix anything found.
+3. The 2026-11-12 handoff list still stands: store review feedback, real-device purchase/restore/consent,
+   M8 leftovers (screenshots, Apple Watch complications on a face, TalkBack/VoiceOver, 60 fps on Android).
+
+Left untracked on purpose: `assets/brand/muscle-pal-exploration/` (Oktay's) and `assets/screenshots/`
+(store assets, never committed).
