@@ -1,0 +1,36 @@
+{
+  "created": "2026-11-09",
+  "brand": "Muscle Pal",
+  "generator": "Built-in image_gen",
+  "status": "Alternative exploration; not integrated",
+  "assets": [
+    {
+      "id": "muscle-pal-full-body-mark",
+      "file": "muscle-pal-full-body-mark.png",
+      "prompt": "Use case: logo-brand. Create ONE full-body logo mascot/mark for the fitness app Muscle Pal. Input reference is the approved chest logo; extend that identity into a complete friendly athletic human figure with a HEAD, complete ARMS and hands, TORSO, pelvis, two LEGS and feet. Preserve the key paired bright electric lime #C8FA3C pectoral shapes and central dark seam from the reference. Figure feels like a supportive training partner: athletic balanced proportions, broad but natural shoulders, calm confident upright posture, arms gently away from torso, relaxed simplified hands, feet shoulder-width apart. Smooth featureless rounded head with softly squared jaw, no eyes/mouth/hair, no scary helmet, no superhero ears. Abstract charcoal #323236 seamless sports-suit silhouette, elegant fine silver-gray #A1A1A6 outer contours and only a handful of tapered internal anatomical landmarks. Minimal torso detail; no segmented armor or busy muscle drawing. Strong geometric elegance suitable as a premium app logo. No explicit anatomy, no genitals, no realistic nudity. Lime chest is the only colored region. Clean flat vector-like illustration, exactly bilateral symmetry, centered fully visible head to feet at 80% square-canvas height with generous clearspace. TRUE transparent background. No words, no letters, no enclosing badge, no scenery, no background, no shadows, no glow, no texture. Keep the whole silhouette legible at small scale and avoid any thin detached body parts.",
+      "width": 1199,
+      "height": 1312
+    },
+    {
+      "id": "muscle-pal-chest-wordmark",
+      "file": "muscle-pal-chest-wordmark.png",
+      "prompt": "Use case: logo-brand. Update this logo lockup with the newly confirmed app name. Use attached image as EDIT TARGET. Preserve the chest logo on the left exactly, including silhouette, lime pectorals and gray outlines; preserve the dark graphite gradient with faint olive-lime atmospheric light and the professional clean styling. Replace only the FITNESS text with exact text \"Muscle Pal\". Use the exact capitalization Muscle Pal. Beautiful bold contemporary geometric sans-serif similar to Poppins SemiBold, off-white #FFFFFF, refined kerning, clean flat letters. Adapt the wordmark width and spacing to fit comfortably to the right of the chest mark with generous safe margins. A polished horizontal logo lockup, landscape canvas. No other text, no slogan, no added symbols. No change to chest identity.",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "muscle-pal-full-body-gradient",
+      "file": "muscle-pal-full-body-gradient.png",
+      "prompt": "Use case: logo-brand. Create a square logo artwork for Muscle Pal using attached full-body mark as EXACT foreground identity reference. Preserve the complete athletic human figure, featureless head, arms/hands, torso, legs/feet, charcoal body, thin gray contour, paired electric lime #C8FA3C chest panels. Do not redesign the figure. Center the complete head-to-feet figure at 78% square-canvas height, generous balanced margins, every body part in frame. Place on a full-bleed premium dark graphite gradient (#252528 upper left to #0B0B0C lower right) with restrained soft olive-lime atmospheric light behind the chest. Flat crisp figure, elegant fitness-app branding. No text, no extra symbols, no border, no badge, no scenery, no particles, no heavy glow, no shadows, no mockup.",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "muscle-pal-full-body-wordmark",
+      "file": "muscle-pal-full-body-wordmark.png",
+      "prompt": "Use case: logo-brand. Create one polished horizontal logo lockup for the fitness app named Muscle Pal. The attached FULL-BODY mark is exact identity reference: retain the entire figure head-to-feet, featureless head, complete arms, legs, charcoal silhouette and bright lime chest highlights, gray contours, do not crop or alter its design. Composition: complete figure on LEFT at 64% canvas height, exact words \"Muscle Pal\" on RIGHT, large bold refined geometric sans-serif similar to Poppins SemiBold, title case as written, solid off-white #FFFFFF, careful kerning. The text should occupy about 45% canvas width, vertically centered to figure. Make wordmark and full figure optically balanced with generous gap and wide safe margins. Landscape canvas about 16:9. Full-bleed dark graphite gradient (#252528 upper left to #0B0B0C lower right), very subtle soft olive-lime ambient lift around the chest. Single cohesive clean premium fitness identity. No slogan, no extra text, no symbols, no border, no mockup, no added scenery, no particles, no neon effects. Render exact text Muscle Pal, not FITNESS.",
+      "width": 1672,
+      "height": 941
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "screenshots": 43,
+  "groups": {
+    "Apple/iPhone": 8,
+    "Apple/iPad": 8,
+    "Google-Play/Phone": 8,
+    "Google-Play/Tablet-7-inch": 8,
+    "Google-Play/Tablet-10-inch": 8,
+    "Apple/Apple-Watch": 3
+  },
+  "dimensions": {
+    "Apple/iPhone": [
+      1206,
+      2622
+    ],
+    "Apple/iPad": [
+      2064,
+      2752
+    ],
+    "Google-Play/Phone": [
+      1080,
+      1920
+    ],
+    "Google-Play/Tablet-7-inch": [
+      1200,
+      1600
+    ],
+    "Google-Play/Tablet-10-inch": [
+      1800,
+      2400
+    ],
+    "Apple/Apple-Watch": [
+      416,
+      496
+    ]
+  },
+  "checks": [
+    "RGB PNG decode",
+    "exact dimensions",
+    "eight matching phone/tablet pages",
+    "widget third, logging fourth",
+    "no stale upload files",
+    "breadcrumb footer removed from all 40 composed screenshots",
+    "pixels above footer preserved in primary layouts",
+    "Watch inspected: no breadcrumb footer present"
+  ]
+}

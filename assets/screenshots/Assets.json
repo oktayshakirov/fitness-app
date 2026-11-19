@@ -1,0 +1,57 @@
+{
+  "Apple/iPhone": [
+    "Apple/iPhone/01-recovery.png",
+    "Apple/iPhone/02-male-form.png",
+    "Apple/iPhone/03-widget.png",
+    "Apple/iPhone/04-log.png",
+    "Apple/iPhone/05-library.png",
+    "Apple/iPhone/06-home.png",
+    "Apple/iPhone/07-history.png",
+    "Apple/iPhone/08-models.png"
+  ],
+  "Apple/iPad": [
+    "Apple/iPad/01-recovery.png",
+    "Apple/iPad/02-male-form.png",
+    "Apple/iPad/03-widget.png",
+    "Apple/iPad/04-log.png",
+    "Apple/iPad/05-library.png",
+    "Apple/iPad/06-home.png",
+    "Apple/iPad/07-history.png",
+    "Apple/iPad/08-models.png"
+  ],
+  "Google-Play/Phone": [
+    "Google-Play/Phone/01-recovery.png",
+    "Google-Play/Phone/02-male-form.png",
+    "Google-Play/Phone/03-widget.png",
+    "Google-Play/Phone/04-log.png",
+    "Google-Play/Phone/05-library.png",
+    "Google-Play/Phone/06-home.png",
+    "Google-Play/Phone/07-history.png",
+    "Google-Play/Phone/08-models.png"
+  ],
+  "Google-Play/Tablet-7-inch": [
+    "Google-Play/Tablet-7-inch/01-recovery.png",
+    "Google-Play/Tablet-7-inch/02-male-form.png",
+    "Google-Play/Tablet-7-inch/03-widget.png",
+    "Google-Play/Tablet-7-inch/04-log.png",
+    "Google-Play/Tablet-7-inch/05-library.png",
+    "Google-Play/Tablet-7-inch/06-home.png",
+    "Google-Play/Tablet-7-inch/07-history.png",
+    "Google-Play/Tablet-7-inch/08-models.png"
+  ],
+  "Google-Play/Tablet-10-inch": [
+    "Google-Play/Tablet-10-inch/01-recovery.png",
+    "Google-Play/Tablet-10-inch/02-male-form.png",
+    "Google-Play/Tablet-10-inch/03-widget.png",
+    "Google-Play/Tablet-10-inch/04-log.png",
+    "Google-Play/Tablet-10-inch/05-library.png",
+    "Google-Play/Tablet-10-inch/06-home.png",
+    "Google-Play/Tablet-10-inch/07-history.png",
+    "Google-Play/Tablet-10-inch/08-models.png"
+  ],
+  "Apple/Apple-Watch": [
+    "Apple/Apple-Watch/01-recovery.png",
+    "Apple/Apple-Watch/02-ready-to-train.png",
+    "Apple/Apple-Watch/03-recovery-and-streak.png"
+  ]
+}
