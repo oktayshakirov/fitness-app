@@ -3,7 +3,7 @@ module.exports = {
   type: "watch",
   name: "MusclePalWatch",
   displayName: "Muscle Pal",
-  icon: "../../assets/brand/icon.png",
+  icon: "../../assets/brand/watch-icon.png",
   deploymentTarget: "10.0",
   colors: {
     $accent: "#C8FA3C",
